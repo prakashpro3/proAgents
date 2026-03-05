@@ -1,0 +1,33 @@
+# ProAgents Rules for Cursor
+
+This project uses ProAgents workflow framework.
+
+## Command Recognition
+
+Recognize commands starting with `pa:` prefix:
+
+- `pa:help` - Show all commands
+- `pa:feature "name"` - Start feature workflow (see ./proagents/WORKFLOW.md)
+- `pa:fix "bug"` - Bug fix mode (see ./proagents/workflow-modes/entry-modes.md)
+- `pa:status` - Show progress
+- `pa:doc` - Documentation options
+- `pa:doc-full` - Generate full documentation (see ./proagents/prompts/07-documentation.md)
+- `pa:doc-moderate` - Balanced documentation
+- `pa:doc-lite` - Quick reference
+- `pa:qa` - Quality checks (see ./proagents/checklists/code-quality.md)
+- `pa:test` - Test workflow (see ./proagents/prompts/06-testing.md)
+- `pa:deploy` - Deployment workflow (see ./proagents/prompts/08-deployment.md)
+- `pa:release` - Generate release notes
+
+## Workflow
+
+When user types `pa:` command:
+1. Read corresponding prompt from ./proagents/prompts/
+2. Follow the defined workflow
+3. Respect settings in ./proagents/proagents.config.yaml
+
+## Key References
+
+- Workflow: ./proagents/WORKFLOW.md
+- Commands: ./proagents/PROAGENTS.md
+- Prompts: ./proagents/prompts/
