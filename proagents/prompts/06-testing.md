@@ -606,7 +606,7 @@ QUALITY:
 
 ---
 
-## Slash Commands Reference
+## Commands Reference
 
 | Command | Description |
 |---------|-------------|

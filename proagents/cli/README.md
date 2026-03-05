@@ -268,7 +268,7 @@ proagents completion powershell | Out-String | Invoke-Expression
 | [commands-reference.md](./commands-reference.md) | Complete command reference |
 | [shortcuts.md](./shortcuts.md) | Shell shortcuts and aliases |
 | [ide-integration.md](./ide-integration.md) | IDE integrations |
-| [slash-commands.md](./slash-commands.md) | AI slash commands |
+| [slash-commands.md](./slash-commands.md) | AI commands |
 
 ---
 

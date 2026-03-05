@@ -39,7 +39,7 @@ Review your `.cursorrules` content and identify:
 1. **Coding Standards** - Style, naming, formatting rules
 2. **Project Patterns** - Architecture, state management, etc.
 3. **Instructions** - How AI should behave
-4. **Custom Commands** - Slash commands or workflows
+4. **Custom Commands** - Commands or workflows
 
 ### Step 2: Create Standards Files
 

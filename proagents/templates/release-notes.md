@@ -204,7 +204,7 @@ docs/
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Action |
 |---------|--------|

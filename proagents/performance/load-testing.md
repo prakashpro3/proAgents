@@ -551,7 +551,7 @@ performance:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

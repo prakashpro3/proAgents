@@ -272,7 +272,7 @@ results:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

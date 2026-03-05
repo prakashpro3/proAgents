@@ -436,7 +436,7 @@ database:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

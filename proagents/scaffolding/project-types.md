@@ -390,7 +390,7 @@ Each type includes:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

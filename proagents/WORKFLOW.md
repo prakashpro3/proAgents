@@ -104,7 +104,7 @@ The system continuously improves by learning:
 
 ### Phase 0: Initialization & Context Gathering
 
-**Slash Command:** `pa:init` or `pa:feature "Feature name"`
+**Command:** `pa:init` or `pa:feature "Feature name"`
 
 **Purpose:** Set up the context for a new feature or task.
 
@@ -158,7 +158,7 @@ phase_0:
 
 ### Phase 1: Deep Analysis (Existing Projects)
 
-**Slash Command:** `pa:analyze` or `pa:analyze-full`
+**Command:** `pa:analyze` or `pa:analyze-full`
 
 **Purpose:** Thoroughly understand the existing codebase before making changes.
 
@@ -234,7 +234,7 @@ Detected patterns:
 
 ### Phase 2: Requirements Engineering
 
-**Slash Command:** `pa:requirements`
+**Command:** `pa:requirements`
 
 **Purpose:** Gather and document complete feature requirements.
 
@@ -291,7 +291,7 @@ Detected patterns:
 
 ### Phase 3: UI/UX Design Integration
 
-**Slash Command:** `pa:design`
+**Command:** `pa:design`
 
 **Purpose:** Integrate UI designs into implementation specifications.
 
@@ -341,7 +341,7 @@ Navigation              →    <Nav> with routes
 
 ### Phase 4: Implementation Planning
 
-**Slash Command:** `pa:plan`
+**Command:** `pa:plan`
 
 **Purpose:** Create a detailed implementation plan before coding.
 
@@ -390,7 +390,7 @@ Files to modify:
 
 ### Phase 5: Code Implementation
 
-**Slash Command:** `pa:implement`
+**Command:** `pa:implement`
 
 **Purpose:** Write the actual code following the plan.
 
@@ -434,7 +434,7 @@ pa:implement --continue         # Continue from last point
 
 ### Phase 6: Comprehensive Testing
 
-**Slash Command:** `pa:test` or `pa:test-all`
+**Command:** `pa:test` or `pa:test-all`
 
 **Purpose:** Ensure code quality through thorough testing.
 
@@ -493,7 +493,7 @@ describe('AuthService', () => {
 
 ### Phase 6.5: Code Review
 
-**Slash Command:** `pa:review`
+**Command:** `pa:review`
 
 **Purpose:** Ensure code quality before deployment.
 
@@ -547,7 +547,7 @@ pa:review --pr
 
 ### Phase 7: Documentation
 
-**Slash Command:** `pa:doc` or `pa:doc-full`
+**Command:** `pa:doc` or `pa:doc-full`
 
 **Purpose:** Create comprehensive documentation.
 
@@ -582,7 +582,7 @@ pa:doc-component Button         # Component documentation
 
 ### Phase 8: Deployment Preparation
 
-**Slash Command:** `pa:deploy` or `pa:deploy-staging`
+**Command:** `pa:deploy` or `pa:deploy-staging`
 
 **Purpose:** Prepare for deployment.
 
@@ -620,7 +620,7 @@ pa:deploy-status                # Check deployment status
 
 ### Phase 9: Rollback Strategy
 
-**Slash Command:** `pa:rollback-plan`
+**Command:** `pa:rollback-plan`
 
 **Purpose:** Prepare for potential rollbacks.
 

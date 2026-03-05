@@ -329,7 +329,7 @@ emergency_protocol:
 
 ---
 
-## Slash Commands for AI
+## Commands for AI
 
 | Command | Description |
 |---------|-------------|

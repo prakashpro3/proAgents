@@ -169,7 +169,7 @@ configuration:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

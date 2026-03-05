@@ -386,7 +386,7 @@ entry_modes:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Mode | Description |
 |---------|------|-------------|

@@ -349,7 +349,7 @@ mode_detection:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

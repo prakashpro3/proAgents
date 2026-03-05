@@ -124,7 +124,7 @@ workflow_modes:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

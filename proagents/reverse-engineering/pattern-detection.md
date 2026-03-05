@@ -556,7 +556,7 @@ reverse_engineering:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

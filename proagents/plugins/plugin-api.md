@@ -310,10 +310,10 @@ context.commands.register({
   },
 });
 
-// Slash command
+// Command
 context.commands.registerSlash({
   name: '/my-command',
-  description: 'My slash command',
+  description: 'My command',
   handler: async (input) => {
     return { response: 'Command executed' };
   },

@@ -572,7 +572,7 @@ Clicking a node in the diagram navigates to:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

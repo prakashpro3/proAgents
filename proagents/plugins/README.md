@@ -10,7 +10,7 @@ ProAgents supports a plugin architecture that allows you to:
 
 - Add custom workflow phases
 - Integrate with external tools
-- Create custom slash commands
+- Create custom commands
 - Add new code generators
 - Implement custom validators
 - Extend reporting capabilities

@@ -530,7 +530,7 @@ adoption:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

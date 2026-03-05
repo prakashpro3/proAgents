@@ -184,7 +184,7 @@ export default class CustomGeneratorPlugin implements Plugin<GeneratorPluginConf
       generator: new MyComponentGenerator(config.templatesDir),
     });
 
-    // Register slash command
+    // Register command
     context.commands.registerSlash({
       name: '/generate-component',
       description: 'Generate a custom component',

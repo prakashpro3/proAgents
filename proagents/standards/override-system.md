@@ -705,7 +705,7 @@ override_system:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

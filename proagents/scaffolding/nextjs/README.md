@@ -563,7 +563,7 @@ export async function POST(request: NextRequest) {
 
 ---
 
-## Slash Commands (Next.js-specific)
+## Commands (Next.js-specific)
 
 | Command | Description |
 |---------|-------------|

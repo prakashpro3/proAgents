@@ -388,7 +388,7 @@ describe('MyComponent', () => {
 
 ---
 
-## Slash Commands (React-specific)
+## Commands (React-specific)
 
 | Command | Description |
 |---------|-------------|

@@ -480,7 +480,7 @@ Accessibility:
 
 ---
 
-## Slash Commands Reference
+## Commands Reference
 
 | Command | Description |
 |---------|-------------|

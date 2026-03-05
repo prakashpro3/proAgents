@@ -333,7 +333,7 @@ For rapid assessments:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -393,7 +393,7 @@ deferred_tracking:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

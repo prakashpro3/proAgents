@@ -423,7 +423,7 @@ Let's wrap up. Please:
 
 ## ProAgents-Specific Tips
 
-### Use Slash Commands
+### Use Commands
 
 ```bash
 pa:feature "Add user authentication"

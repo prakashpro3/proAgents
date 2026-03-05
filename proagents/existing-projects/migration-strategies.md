@@ -776,7 +776,7 @@ migrations:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

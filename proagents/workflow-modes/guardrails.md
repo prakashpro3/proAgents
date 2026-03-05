@@ -395,7 +395,7 @@ guardrails:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

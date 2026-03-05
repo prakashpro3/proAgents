@@ -382,7 +382,7 @@ app.get('/fetch', async (req, res) => {
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

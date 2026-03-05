@@ -371,7 +371,7 @@ handoff:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

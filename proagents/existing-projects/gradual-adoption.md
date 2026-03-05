@@ -503,7 +503,7 @@ rollback:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

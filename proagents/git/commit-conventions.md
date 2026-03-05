@@ -231,7 +231,7 @@ npx husky add .husky/commit-msg 'npx commitlint --edit $1'
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

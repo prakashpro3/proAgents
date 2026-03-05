@@ -297,7 +297,7 @@ ownership:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -79,7 +79,7 @@ git pull origin develop
 git checkout -b feature/my-feature
 ```
 
-Or use slash command:
+Or use command:
 ```
 pa:branch-feature "my-feature"
 ```
@@ -126,7 +126,7 @@ git merge hotfix/critical-fix
 
 ---
 
-## Slash Commands for Git
+## Commands for Git
 
 | Command | Action |
 |---------|--------|

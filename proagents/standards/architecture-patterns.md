@@ -716,7 +716,7 @@ architecture:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

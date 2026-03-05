@@ -430,7 +430,7 @@ cc: @team-lead
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

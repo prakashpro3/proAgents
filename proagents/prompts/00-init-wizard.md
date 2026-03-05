@@ -414,7 +414,7 @@ Recommended workflow:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

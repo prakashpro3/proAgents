@@ -277,7 +277,7 @@ monitoring:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

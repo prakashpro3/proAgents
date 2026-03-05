@@ -540,7 +540,7 @@ AFTER ROLLBACK:
 
 ---
 
-## Slash Commands Reference
+## Commands Reference
 
 | Command | Description |
 |---------|-------------|

@@ -478,7 +478,7 @@ pattern_reconciliation:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

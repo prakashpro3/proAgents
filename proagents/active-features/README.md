@@ -165,7 +165,7 @@ proagents/active-features/*/files-modified.json
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

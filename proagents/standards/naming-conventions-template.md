@@ -517,7 +517,7 @@ naming_conventions:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -472,7 +472,7 @@ coexistence_metrics:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -224,7 +224,7 @@ reports:
 ### On-Demand Reports
 
 ```bash
-# Generate reports via slash commands
+# Generate reports via commands
 pa:report-learning weekly
 pa:report-learning monthly
 pa:report-learning patterns
@@ -294,7 +294,7 @@ Reports include actionable insights:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

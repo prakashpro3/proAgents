@@ -387,7 +387,7 @@ As a [user type], I want to [action] so that [benefit].
 
 ---
 
-## Slash Commands Reference
+## Commands Reference
 
 | Command | Description |
 |---------|-------------|

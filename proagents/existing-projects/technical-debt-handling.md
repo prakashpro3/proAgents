@@ -631,7 +631,7 @@ technical_debt:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

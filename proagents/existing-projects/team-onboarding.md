@@ -308,7 +308,7 @@ advanced_training:
     duration: "30 min"
     content:
       - "CI/CD integration"
-      - "Custom slash commands"
+      - "Custom commands"
       - "PM tool integration"
 
   session_4:
@@ -415,7 +415,7 @@ video_library:
 developer_onboarding:
   focus:
     - "Day-to-day workflow"
-    - "Slash commands"
+    - "Commands"
     - "Writing code with ProAgents"
 
   skip:
@@ -606,7 +606,7 @@ onboarding:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -741,7 +741,7 @@ proagents rules-check --staged-only --fail-on-error
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -48,7 +48,7 @@ The AI will guide you through:
 | **IDE Agnostic** | VS Code, JetBrains, Vim, any editor |
 | **Self-Learning** | Learns from your usage and adapts |
 | **Flexible Entry** | Full workflow, Bug Fix, or Quick Change modes |
-| **Slash Commands** | `pa:doc`, `pa:qa`, `pa:test`, `pa:deploy` with hints |
+| **Commands** | `pa:doc`, `pa:qa`, `pa:test`, `pa:deploy` with hints |
 
 ## Commands
 
@@ -85,7 +85,7 @@ git:
 
 - [Complete Workflow Guide](./WORKFLOW.md)
 - [Configuration Reference](./proagents.config.yaml)
-- [Slash Commands](./prompts/00-init.md)
+- [Commands](./prompts/00-init.md)
 - [UI Integration](./ui-integration/)
 - [Examples](./examples/)
 

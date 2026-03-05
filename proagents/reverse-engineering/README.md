@@ -138,7 +138,7 @@ pa:reverse-engineer --path ./src/modules/auth
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

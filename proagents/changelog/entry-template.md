@@ -274,7 +274,7 @@ All notable changes to this project.
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

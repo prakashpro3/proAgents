@@ -461,7 +461,7 @@ src/components/Button/
 
 ---
 
-## Slash Commands (React Native-specific)
+## Commands (React Native-specific)
 
 | Command | Description |
 |---------|-------------|

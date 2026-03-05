@@ -404,7 +404,7 @@ tracking:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -216,7 +216,7 @@ If breaking change, describe:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

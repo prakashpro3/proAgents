@@ -217,7 +217,7 @@ parallel_features:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

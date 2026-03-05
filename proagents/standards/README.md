@@ -111,7 +111,7 @@ overrides:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

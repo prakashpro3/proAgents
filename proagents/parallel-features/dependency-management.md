@@ -380,7 +380,7 @@ dependencies:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

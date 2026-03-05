@@ -366,7 +366,7 @@ jobs:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

@@ -314,7 +314,7 @@ changelog:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

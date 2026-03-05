@@ -281,7 +281,7 @@ api_versioning:
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

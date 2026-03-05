@@ -297,7 +297,7 @@ proagents export --format claude-project > claude-instructions.md
 - [ ] Migrate coding standards
 - [ ] Migrate architecture patterns
 - [ ] Set up workflow prompts
-- [ ] Configure slash commands
+- [ ] Configure commands
 - [ ] Test with a small feature
 - [ ] Set up MCP integration (optional)
 

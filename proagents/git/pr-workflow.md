@@ -276,7 +276,7 @@ git push --force-with-lease
 
 ---
 
-## Slash Commands
+## Commands
 
 | Command | Description |
 |---------|-------------|

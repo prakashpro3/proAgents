@@ -543,7 +543,7 @@ export { router as resourceRoutes };
 
 ---
 
-## Slash Commands (Node.js-specific)
+## Commands (Node.js-specific)
 
 | Command | Description |
 |---------|-------------|

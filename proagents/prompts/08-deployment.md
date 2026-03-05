@@ -526,7 +526,7 @@ AFTER:
 
 ---
 
-## Slash Commands Reference
+## Commands Reference
 
 | Command | Description |
 |---------|-------------|
