@@ -1,6 +1,6 @@
 {
   "name": "proagents",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "AI-agnostic development workflow framework that automates the full software development lifecycle",
   "type": "module",
   "main": "lib/index.js",
