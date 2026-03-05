@@ -7,16 +7,16 @@ Universal prompts for creating comprehensive documentation.
 ## Quick Start
 
 ```
-/doc
+pa:doc
 ```
 
 Related commands:
-- `/doc-full` - Full in-depth documentation
-- `/doc-moderate` - Balanced documentation
-- `/doc-lite` - Quick reference docs
-- `/doc-module [name]` - Document specific module
-- `/doc-file [path]` - Document specific file
-- `/doc-api` - API documentation
+- `pa:doc-full` - Full in-depth documentation
+- `pa:doc-moderate` - Balanced documentation
+- `pa:doc-lite` - Quick reference docs
+- `pa:doc-module [name]` - Document specific module
+- `pa:doc-file [path]` - Document specific file
+- `pa:doc-api` - API documentation
 
 ---
 
@@ -778,18 +778,18 @@ MAINTENANCE:
 
 ---
 
-## Slash Commands Reference
+## Commands Reference
 
 | Command | Description | Output Location |
 |---------|-------------|-----------------|
-| `/doc` | Show documentation options | - |
-| `/doc-full` | Full documentation | `./docs/` |
-| `/doc-moderate` | Balanced documentation | `./docs/` |
-| `/doc-lite` | Quick reference | `./docs/` |
-| `/doc-module [name]` | Document module | `./docs/modules/` |
-| `/doc-file [path]` | Document file | `./docs/` |
-| `/doc-api` | API documentation | `./docs/api/` |
-| `/doc-readme` | Generate README | `./README.md` |
-| `/doc-changelog` | Update changelog | `./CHANGELOG.md` |
-| `/doc-release` | Generate release notes | `./RELEASE_NOTES.md` |
-| `/doc-release [version]` | Version-specific notes | `./docs/releases/v*.md` |
+| `pa:doc` | Show documentation options | - |
+| `pa:doc-full` | Full documentation | `./docs/` |
+| `pa:doc-moderate` | Balanced documentation | `./docs/` |
+| `pa:doc-lite` | Quick reference | `./docs/` |
+| `pa:doc-module [name]` | Document module | `./docs/modules/` |
+| `pa:doc-file [path]` | Document file | `./docs/` |
+| `pa:doc-api` | API documentation | `./docs/api/` |
+| `pa:readme` | Generate README | `./README.md` |
+| `pa:changelog` | Update changelog | `./CHANGELOG.md` |
+| `pa:release` | Generate release notes | `./RELEASE_NOTES.md` |
+| `pa:release [version]` | Version-specific notes | `./docs/releases/v*.md` |
