@@ -49,11 +49,34 @@ parallel_features:
 documentation:
   default_mode: "moderate"  # full | moderate | lite
   default_scope: "project"
+
+  # Output locations for different document types
   output:
     format: "markdown"
-    directory: "./docs"
     include_diagrams: true
+
+    # Client-facing docs (at project root for easy sharing)
+    client_facing:
+      changelog: "./CHANGELOG.md"           # Project changelog
+      release_notes: "./RELEASE_NOTES.md"   # Current release summary
+      readme: "./README.md"                 # Project README
+      releases_dir: "./docs/releases/"      # Version-specific release notes
+      api_docs: "./docs/api/"               # Public API documentation
+
+    # Internal development docs (inside proagents/)
+    internal:
+      feature_docs: "./proagents/active-features/"  # Feature-specific docs
+      dev_changelog: "./proagents/changelog/"       # Detailed dev notes
+      analysis: "./proagents/cache/"                # Codebase analysis
+      learning: "./proagents/.learning/"            # AI learning data
+
   required_for_all_modes: true
+
+  # Auto-generate settings
+  auto_generate:
+    release_notes_on_deploy: true
+    changelog_on_feature_complete: true
+    update_readme_on_major_changes: false
 
 # AI Model Configuration
 ai:

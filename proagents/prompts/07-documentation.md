@@ -431,6 +431,8 @@ Generate changelog entry for: [VERSION]
 Changes made:
 [LIST OF CHANGES]
 
+OUTPUT LOCATION: ./CHANGELOG.md (project root - client-facing)
+
 Format:
 ```markdown
 ## [Version] - [Date]
@@ -455,6 +457,110 @@ Format:
 
 ### Security
 - [Security fix]
+```
+```
+
+---
+
+## Release Notes (Client-Facing)
+
+### Generate Release Notes
+
+```
+Generate release notes for: [VERSION]
+
+OUTPUT LOCATION: ./RELEASE_NOTES.md (project root - for client sharing)
+ALSO SAVE TO: ./docs/releases/v[VERSION].md (version archive)
+
+```markdown
+# Release Notes - v[VERSION]
+
+**Release Date:** [DATE]
+
+## Overview
+
+[2-3 sentence summary of this release for clients/stakeholders]
+
+## What's New
+
+### [Feature 1 Name]
+[Client-friendly description of the feature and its benefits]
+
+### [Feature 2 Name]
+[Client-friendly description]
+
+## Improvements
+
+- [Improvement 1 - user-facing benefit]
+- [Improvement 2 - user-facing benefit]
+
+## Bug Fixes
+
+- Fixed [issue description in user terms]
+- Resolved [issue description in user terms]
+
+## Breaking Changes
+
+⚠️ [Any breaking changes that affect users - if none, omit section]
+
+## Upgrade Instructions
+
+[Steps to upgrade from previous version - if needed]
+
+## Known Issues
+
+[Any known issues in this release - if none, omit section]
+
+---
+
+For technical details, see [CHANGELOG.md](./CHANGELOG.md)
+For support, contact [support email/link]
+```
+```
+
+### Generate Version-Specific Release Notes
+
+```
+Generate detailed release notes for version [VERSION]
+
+Save to: ./docs/releases/v[VERSION].md
+
+Include:
+1. Executive summary (for stakeholders)
+2. New features with screenshots/examples
+3. Performance improvements with metrics
+4. Security updates
+5. Migration guide (if breaking changes)
+6. Known issues and workarounds
+7. Upcoming features preview
+```
+
+### Generate Release Announcement
+
+```
+Generate release announcement for: [VERSION]
+
+Use for: Email, Slack, Social media
+
+Format:
+```markdown
+# 🚀 [Product Name] v[VERSION] Released!
+
+[One compelling sentence about the release]
+
+## Highlights
+
+✨ [Feature 1] - [One line benefit]
+✨ [Feature 2] - [One line benefit]
+🐛 [Key fix] - [One line description]
+
+## Quick Links
+
+- 📖 [Full Release Notes](./RELEASE_NOTES.md)
+- 📦 [Download/Install](#)
+- 📚 [Documentation](#)
+
+[Call to action]
 ```
 ```
 
@@ -658,16 +764,32 @@ MAINTENANCE:
 
 ---
 
+## Output Locations Summary
+
+| Document Type | Location | Audience |
+|---------------|----------|----------|
+| Release Notes | `./RELEASE_NOTES.md` | Clients/Stakeholders |
+| Changelog | `./CHANGELOG.md` | Clients/Public |
+| Version Archive | `./docs/releases/v*.md` | Clients |
+| API Docs | `./docs/api/` | Developers/Clients |
+| README | `./README.md` | Public |
+| Dev Changelog | `proagents/changelog/` | Internal Team |
+| Feature Docs | `proagents/active-features/` | Internal Team |
+
+---
+
 ## Slash Commands Reference
 
-| Command | Description |
-|---------|-------------|
-| `/doc` | Show documentation options |
-| `/doc-full` | Full documentation |
-| `/doc-moderate` | Balanced documentation |
-| `/doc-lite` | Quick reference |
-| `/doc-module [name]` | Document module |
-| `/doc-file [path]` | Document file |
-| `/doc-api` | API documentation |
-| `/doc-readme` | Generate README |
-| `/doc-changelog` | Update changelog |
+| Command | Description | Output Location |
+|---------|-------------|-----------------|
+| `/doc` | Show documentation options | - |
+| `/doc-full` | Full documentation | `./docs/` |
+| `/doc-moderate` | Balanced documentation | `./docs/` |
+| `/doc-lite` | Quick reference | `./docs/` |
+| `/doc-module [name]` | Document module | `./docs/modules/` |
+| `/doc-file [path]` | Document file | `./docs/` |
+| `/doc-api` | API documentation | `./docs/api/` |
+| `/doc-readme` | Generate README | `./README.md` |
+| `/doc-changelog` | Update changelog | `./CHANGELOG.md` |
+| `/doc-release` | Generate release notes | `./RELEASE_NOTES.md` |
+| `/doc-release [version]` | Version-specific notes | `./docs/releases/v*.md` |
