@@ -386,5 +386,5 @@ app.get('/fetch', async (req, res) => {
 
 | Command | Description |
 |---------|-------------|
-| `/owasp-check` | Run OWASP checklist |
-| `/security-review` | Full security review |
+| `pa:owasp-check` | Run OWASP checklist |
+| `pa:security-review` | Full security review |

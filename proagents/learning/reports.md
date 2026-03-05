@@ -298,9 +298,9 @@ Reports include actionable insights:
 
 | Command | Description |
 |---------|-------------|
-| `/report-learning` | Show learning summary |
-| `/report-learning weekly` | Generate weekly report |
-| `/report-learning monthly` | Generate monthly report |
-| `/report-patterns` | Pattern confidence report |
-| `/report-decisions` | Decision accuracy report |
-| `/report-export [format]` | Export reports |
+| `pa:report-learning` | Show learning summary |
+| `pa:report-learning weekly` | Generate weekly report |
+| `pa:report-learning monthly` | Generate monthly report |
+| `pa:report-patterns` | Pattern confidence report |
+| `pa:report-decisions` | Decision accuracy report |
+| `pa:report-export [format]` | Export reports |

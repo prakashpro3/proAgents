@@ -9,8 +9,8 @@ A portable, AI-agnostic development workflow framework that automates the full s
 ### 1. Initialize in Your Project
 
 ```bash
-# Using slash command (any AI)
-/init
+# Using pa: command (any AI)
+pa:init
 
 # Or CLI
 npx proagents init
@@ -19,8 +19,8 @@ npx proagents init
 ### 2. Start Your First Feature
 
 ```bash
-# Using slash command
-/feature-start "Add user authentication"
+# Using pa: command
+pa:feature "Add user authentication"
 
 # Or CLI
 proagents feature start "Add user authentication"
@@ -48,23 +48,23 @@ The AI will guide you through:
 | **IDE Agnostic** | VS Code, JetBrains, Vim, any editor |
 | **Self-Learning** | Learns from your usage and adapts |
 | **Flexible Entry** | Full workflow, Bug Fix, or Quick Change modes |
-| **Slash Commands** | `/doc`, `/qa`, `/test`, `/deploy` with hints |
+| **Slash Commands** | `pa:doc`, `pa:qa`, `pa:test`, `pa:deploy` with hints |
 
-## Slash Commands
+## Commands
 
-Type `/` to see available commands:
+Type `pa:` followed by a command:
 
 | Command | Description |
 |---------|-------------|
-| `/init` | Initialize ProAgents |
-| `/feature-start` | Start new feature |
-| `/fix-quick` | Quick bug fix |
-| `/doc` | Generate documentation |
-| `/qa` | Quality assurance |
-| `/test` | Run tests |
-| `/deploy` | Deploy workflow |
-| `/status` | Check status |
-| `/help` | Show all commands |
+| `pa:init` | Initialize ProAgents |
+| `pa:feature` | Start new feature |
+| `pa:fix-quick` | Quick bug fix |
+| `pa:doc` | Generate documentation |
+| `pa:qa` | Quality assurance |
+| `pa:test` | Run tests |
+| `pa:deploy` | Deploy workflow |
+| `pa:status` | Check status |
+| `pa:help` | Show all commands |
 
 ## Configuration
 

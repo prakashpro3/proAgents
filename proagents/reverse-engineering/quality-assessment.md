@@ -722,12 +722,12 @@ reverse_engineering:
 
 | Command | Description |
 |---------|-------------|
-| `/re-quality` | Full quality assessment |
-| `/re-quality --complexity` | Complexity analysis only |
-| `/re-quality --debt` | Technical debt analysis |
-| `/re-quality --smells` | Code smell detection |
-| `/re-quality --security` | Security assessment |
-| `/re-quality --tests` | Test quality analysis |
-| `/re-quality --module [name]` | Analyze specific module |
-| `/re-quality --trends` | Show quality trends |
-| `/re-quality --report` | Generate full report |
+| `pa:re-quality` | Full quality assessment |
+| `pa:re-quality --complexity` | Complexity analysis only |
+| `pa:re-quality --debt` | Technical debt analysis |
+| `pa:re-quality --smells` | Code smell detection |
+| `pa:re-quality --security` | Security assessment |
+| `pa:re-quality --tests` | Test quality analysis |
+| `pa:re-quality --module [name]` | Analyze specific module |
+| `pa:re-quality --trends` | Show quality trends |
+| `pa:re-quality --report` | Generate full report |

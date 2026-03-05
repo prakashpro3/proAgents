@@ -121,7 +121,7 @@ ideal_pilot_feature:
 
 ```bash
 # 1. Start pilot feature with ProAgents
-/feature start "User Preferences" --pilot
+pa:feature start "User Preferences" --pilot
 
 # 2. Follow full workflow
 # ... (all phases)
@@ -507,9 +507,9 @@ rollback:
 
 | Command | Description |
 |---------|-------------|
-| `/adoption-plan` | Generate adoption plan |
-| `/adoption-status` | View adoption phase |
-| `/adoption-advance` | Move to next phase |
-| `/adoption-rollback` | Move to previous phase |
-| `/pilot-start [feature]` | Start pilot feature |
-| `/pilot-feedback` | Submit pilot feedback |
+| `pa:adoption-plan` | Generate adoption plan |
+| `pa:adoption-status` | View adoption phase |
+| `pa:adoption-advance` | Move to next phase |
+| `pa:adoption-rollback` | Move to previous phase |
+| `pa:pilot-start [feature]` | Start pilot feature |
+| `pa:pilot-feedback` | Submit pilot feedback |

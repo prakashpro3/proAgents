@@ -534,8 +534,8 @@ adoption:
 
 | Command | Description |
 |---------|-------------|
-| `/assess-compatibility` | Run full assessment |
-| `/assess-compatibility --quick` | Quick assessment |
-| `/assess-compatibility --report` | Generate report |
-| `/assess-compatibility --config` | Generate config |
-| `/assess-compatibility --focus [area]` | Focus on specific area |
+| `pa:assess-compatibility` | Run full assessment |
+| `pa:assess-compatibility --quick` | Quick assessment |
+| `pa:assess-compatibility --report` | Generate report |
+| `pa:assess-compatibility --config` | Generate config |
+| `pa:assess-compatibility --focus [area]` | Focus on specific area |

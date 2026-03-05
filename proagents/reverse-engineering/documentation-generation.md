@@ -460,9 +460,9 @@ reverse_engineering:
 
 | Command | Description |
 |---------|-------------|
-| `/re-docs` | Generate all documentation |
-| `/re-docs --api` | Generate API docs only |
-| `/re-docs --components` | Generate component docs |
-| `/re-docs --modules` | Generate module docs |
-| `/re-docs --database` | Generate database docs |
-| `/re-docs --readme` | Generate project README |
+| `pa:re-docs` | Generate all documentation |
+| `pa:re-docs --api` | Generate API docs only |
+| `pa:re-docs --components` | Generate component docs |
+| `pa:re-docs --modules` | Generate module docs |
+| `pa:re-docs --database` | Generate database docs |
+| `pa:re-docs --readme` | Generate project README |

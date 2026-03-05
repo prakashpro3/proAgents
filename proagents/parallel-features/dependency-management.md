@@ -384,9 +384,9 @@ dependencies:
 
 | Command | Description |
 |---------|-------------|
-| `/deps` | View dependency graph |
-| `/deps [feature]` | View feature dependencies |
-| `/deps --blocked` | List blocked features |
-| `/deps --add [from] [to]` | Add dependency |
-| `/deps --remove [from] [to]` | Remove dependency |
-| `/deps --check` | Check for issues |
+| `pa:deps` | View dependency graph |
+| `pa:deps [feature]` | View feature dependencies |
+| `pa:deps --blocked` | List blocked features |
+| `pa:deps --add [from] [to]` | Add dependency |
+| `pa:deps --remove [from] [to]` | Remove dependency |
+| `pa:deps --check` | Check for issues |

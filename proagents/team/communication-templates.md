@@ -434,8 +434,8 @@ cc: @team-lead
 
 | Command | Description |
 |---------|-------------|
-| `/notify-start` | Send feature start notification |
-| `/notify-update` | Send progress update |
-| `/notify-complete` | Send completion notification |
-| `/notify-deploy` | Send deployment notification |
-| `/handoff` | Generate handoff document |
+| `pa:notify-start` | Send feature start notification |
+| `pa:notify-update` | Send progress update |
+| `pa:notify-complete` | Send completion notification |
+| `pa:notify-deploy` | Send deployment notification |
+| `pa:handoff` | Generate handoff document |

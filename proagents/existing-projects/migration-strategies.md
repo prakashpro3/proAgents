@@ -780,9 +780,9 @@ migrations:
 
 | Command | Description |
 |---------|-------------|
-| `/migrate-status` | View migration progress |
-| `/migrate-plan [type]` | Create migration plan |
-| `/migrate-file [path]` | Migrate specific file |
-| `/migrate-module [name]` | Migrate entire module |
-| `/migrate-rollback [id]` | Rollback migration |
-| `/migrate-report` | Generate migration report |
+| `pa:migrate-status` | View migration progress |
+| `pa:migrate-plan [type]` | Create migration plan |
+| `pa:migrate-file [path]` | Migrate specific file |
+| `pa:migrate-module [name]` | Migrate entire module |
+| `pa:migrate-rollback [id]` | Rollback migration |
+| `pa:migrate-report` | Generate migration report |

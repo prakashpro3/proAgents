@@ -32,7 +32,7 @@ ProAgents is a 10-phase development workflow that guides you from idea to deploy
 │                     ProAgents Workflow Overview                      │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
-│  /init ──► Phase 0: Initialization                                  │
+│  pa:init ──► Phase 0: Initialization                                │
 │              │                                                       │
 │              ▼                                                       │
 │         Phase 1: Deep Analysis (existing projects)                  │
@@ -104,7 +104,7 @@ The system continuously improves by learning:
 
 ### Phase 0: Initialization & Context Gathering
 
-**Slash Command:** `/init` or `/feature-start "Feature name"`
+**Slash Command:** `pa:init` or `pa:feature "Feature name"`
 
 **Purpose:** Set up the context for a new feature or task.
 
@@ -128,7 +128,7 @@ The system continuously improves by learning:
 
 **Example:**
 ```bash
-/feature-start "Add user authentication with OAuth2"
+pa:feature "Add user authentication with OAuth2"
 
 # Output:
 # ✓ Project type: Next.js full-stack
@@ -141,7 +141,7 @@ The system continuously improves by learning:
 # - src/components/auth/
 # - src/lib/auth.ts
 #
-# Ready for Phase 1: Analysis (or skip with /skip-to requirements)
+# Ready for Phase 1: Analysis (or skip with pa:skip-to requirements)
 ```
 
 **Configuration:**
@@ -158,7 +158,7 @@ phase_0:
 
 ### Phase 1: Deep Analysis (Existing Projects)
 
-**Slash Command:** `/analyze` or `/analyze-full`
+**Slash Command:** `pa:analyze` or `pa:analyze-full`
 
 **Purpose:** Thoroughly understand the existing codebase before making changes.
 
@@ -217,14 +217,14 @@ Detected patterns:
 
 | Level | Command | Use Case | Duration |
 |-------|---------|----------|----------|
-| Lite | `/analyze-lite` | Quick overview | 1-2 min |
-| Moderate | `/analyze` | Standard analysis | 5-10 min |
-| Full | `/analyze-full` | Comprehensive | 15-30 min |
+| Lite | `pa:analyze-lite` | Quick overview | 1-2 min |
+| Moderate | `pa:analyze` | Standard analysis | 5-10 min |
+| Full | `pa:analyze-full` | Comprehensive | 15-30 min |
 
 **Caching:**
 - Analysis results are cached for performance
 - Cache invalidates on significant file changes
-- Manual refresh: `/analyze --refresh`
+- Manual refresh: `pa:analyze --refresh`
 
 **Output:** Codebase Analysis Report
 
@@ -234,7 +234,7 @@ Detected patterns:
 
 ### Phase 2: Requirements Engineering
 
-**Slash Command:** `/requirements`
+**Slash Command:** `pa:requirements`
 
 **Purpose:** Gather and document complete feature requirements.
 
@@ -291,7 +291,7 @@ Detected patterns:
 
 ### Phase 3: UI/UX Design Integration
 
-**Slash Command:** `/design`
+**Slash Command:** `pa:design`
 
 **Purpose:** Integrate UI designs into implementation specifications.
 
@@ -299,7 +299,7 @@ Detected patterns:
 
 #### Option A: Figma Integration
 ```bash
-/design-figma --url "https://figma.com/file/..."
+pa:design-figma --url "https://figma.com/file/..."
 ```
 - Extracts design tokens (colors, typography, spacing)
 - Identifies components and variants
@@ -308,7 +308,7 @@ Detected patterns:
 
 #### Option B: Manual Export
 ```bash
-/design-export --file "./designs/dashboard.png"
+pa:design-export --file "./designs/dashboard.png"
 ```
 - AI analyzes design images
 - Extracts layout structure
@@ -317,7 +317,7 @@ Detected patterns:
 
 #### Option C: Sketches/Wireframes
 ```bash
-/design-sketch --file "./sketches/login-flow.jpg"
+pa:design-sketch --file "./sketches/login-flow.jpg"
 ```
 - Interprets hand-drawn wireframes
 - Generates component structure
@@ -341,7 +341,7 @@ Navigation              →    <Nav> with routes
 
 ### Phase 4: Implementation Planning
 
-**Slash Command:** `/plan`
+**Slash Command:** `pa:plan`
 
 **Purpose:** Create a detailed implementation plan before coding.
 
@@ -390,7 +390,7 @@ Files to modify:
 
 ### Phase 5: Code Implementation
 
-**Slash Command:** `/implement`
+**Slash Command:** `pa:implement`
 
 **Purpose:** Write the actual code following the plan.
 
@@ -422,10 +422,10 @@ export const UserProfile: FC<UserProfileProps> = ({ user }) => {
 
 #### Implementation Commands
 ```bash
-/implement                    # Start implementing current plan
-/implement --step 1           # Implement specific step
-/implement --file auth.ts     # Implement specific file
-/implement --continue         # Continue from last point
+pa:implement                    # Start implementing current plan
+pa:implement --step 1           # Implement specific step
+pa:implement --file auth.ts     # Implement specific file
+pa:implement --continue         # Continue from last point
 ```
 
 **Output:** Implemented Feature Code
@@ -434,7 +434,7 @@ export const UserProfile: FC<UserProfileProps> = ({ user }) => {
 
 ### Phase 6: Comprehensive Testing
 
-**Slash Command:** `/test` or `/test-all`
+**Slash Command:** `pa:test` or `pa:test-all`
 
 **Purpose:** Ensure code quality through thorough testing.
 
@@ -442,7 +442,7 @@ export const UserProfile: FC<UserProfileProps> = ({ user }) => {
 
 #### 6.1 Unit Tests
 ```bash
-/test-unit
+pa:test-unit
 ```
 - Test individual functions/components
 - Mock external dependencies
@@ -451,7 +451,7 @@ export const UserProfile: FC<UserProfileProps> = ({ user }) => {
 
 #### 6.2 Integration Tests
 ```bash
-/test-integration
+pa:test-integration
 ```
 - Test component interactions
 - Test API integrations
@@ -460,7 +460,7 @@ export const UserProfile: FC<UserProfileProps> = ({ user }) => {
 
 #### 6.3 End-to-End Tests
 ```bash
-/test-e2e
+pa:test-e2e
 ```
 - Test complete user flows
 - Test critical paths
@@ -493,7 +493,7 @@ describe('AuthService', () => {
 
 ### Phase 6.5: Code Review
 
-**Slash Command:** `/review`
+**Slash Command:** `pa:review`
 
 **Purpose:** Ensure code quality before deployment.
 
@@ -501,7 +501,7 @@ describe('AuthService', () => {
 
 #### Automated Review
 ```bash
-/review --auto
+pa:review --auto
 ```
 - Linting checks
 - Static analysis
@@ -511,7 +511,7 @@ describe('AuthService', () => {
 
 #### AI-Assisted Review
 ```bash
-/review --ai
+pa:review --ai
 ```
 - Code quality assessment
 - Pattern consistency check
@@ -533,7 +533,7 @@ describe('AuthService', () => {
 
 #### Peer Review
 ```bash
-/review --pr
+pa:review --pr
 ```
 - Creates pull request
 - Assigns reviewers
@@ -547,7 +547,7 @@ describe('AuthService', () => {
 
 ### Phase 7: Documentation
 
-**Slash Command:** `/doc` or `/doc-full`
+**Slash Command:** `pa:doc` or `pa:doc-full`
 
 **Purpose:** Create comprehensive documentation.
 
@@ -555,18 +555,18 @@ describe('AuthService', () => {
 
 | Mode | Command | Content Level |
 |------|---------|---------------|
-| Full | `/doc-full` | Complete docs with examples |
-| Moderate | `/doc` | Balanced coverage |
-| Lite | `/doc-lite` | Quick reference |
+| Full | `pa:doc-full` | Complete docs with examples |
+| Moderate | `pa:doc` | Balanced coverage |
+| Lite | `pa:doc-lite` | Quick reference |
 
 **Documentation Scopes:**
 
 ```bash
-/doc                          # Full project documentation
-/doc-module auth              # Document auth module
-/doc-file src/utils/api.ts    # Document specific file
-/doc-api                      # API documentation only
-/doc-component Button         # Component documentation
+pa:doc                          # Full project documentation
+pa:doc-module auth              # Document auth module
+pa:doc-file src/utils/api.ts    # Document specific file
+pa:doc-api                      # API documentation only
+pa:doc-component Button         # Component documentation
 ```
 
 **Documentation Includes:**
@@ -582,7 +582,7 @@ describe('AuthService', () => {
 
 ### Phase 8: Deployment Preparation
 
-**Slash Command:** `/deploy` or `/deploy-staging`
+**Slash Command:** `pa:deploy` or `pa:deploy-staging`
 
 **Purpose:** Prepare for deployment.
 
@@ -608,10 +608,10 @@ describe('AuthService', () => {
 
 **Deployment Commands:**
 ```bash
-/deploy-staging               # Deploy to staging
-/deploy-prod                  # Deploy to production
-/deploy-check                 # Pre-deployment validation
-/deploy-status                # Check deployment status
+pa:deploy-staging               # Deploy to staging
+pa:deploy-prod                  # Deploy to production
+pa:deploy-check                 # Pre-deployment validation
+pa:deploy-status                # Check deployment status
 ```
 
 **Output:** Deployment-Ready Package
@@ -620,7 +620,7 @@ describe('AuthService', () => {
 
 ### Phase 9: Rollback Strategy
 
-**Slash Command:** `/rollback-plan`
+**Slash Command:** `pa:rollback-plan`
 
 **Purpose:** Prepare for potential rollbacks.
 
@@ -634,18 +634,18 @@ describe('AuthService', () => {
 
 #### Code Rollback
 ```bash
-/rollback --to previous       # Rollback to previous version
-/rollback --to v1.2.3         # Rollback to specific version
+pa:rollback --to previous       # Rollback to previous version
+pa:rollback --to v1.2.3         # Rollback to specific version
 ```
 
 #### Database Rollback
 ```bash
-/rollback-db --to migration-5 # Rollback database migrations
+pa:rollback-db --to migration-5 # Rollback database migrations
 ```
 
 #### Infrastructure Rollback
 ```bash
-/rollback-infra               # Revert infrastructure changes
+pa:rollback-infra               # Revert infrastructure changes
 ```
 
 **Rollback Time Targets:**
@@ -684,7 +684,7 @@ User: "Update the API endpoint URL"
 
 #### 1. Full Workflow Mode (Default)
 ```bash
-/feature-start "Feature name"
+pa:feature "Feature name"
 ```
 All 10 phases for new features:
 ```
@@ -694,8 +694,8 @@ Implement → Test → Review → Doc → Deploy
 
 #### 2. Bug Fix Mode (Fast Track)
 ```bash
-/fix "Bug description"
-/fix-quick "Bug description"
+pa:fix "Bug description"
+pa:fix-quick "Bug description"
 ```
 Streamlined workflow:
 ```
@@ -709,8 +709,8 @@ Context Scan → Root Cause → Fix → Test → Commit
 
 #### 3. Quick Change Mode (Hotfix)
 ```bash
-/hotfix "Change description"
-/quick "Change description"
+pa:hotfix "Change description"
+pa:quick "Change description"
 ```
 Minimal workflow:
 ```
@@ -725,8 +725,8 @@ Change → Verify → Commit
 
 #### 4. Resume Mode
 ```bash
-/resume
-/resume feature-auth
+pa:resume
+pa:resume feature-auth
 ```
 Continue work on a paused feature with full context.
 
@@ -736,10 +736,10 @@ You can switch modes mid-workflow:
 
 ```bash
 # Started in bug fix mode, realized it's bigger
-/upgrade-to-full
+pa:upgrade-to-full
 
 # Started full workflow, can simplify
-/downgrade-to-quick
+pa:downgrade-to-quick
 ```
 
 ### Mode Configuration
@@ -820,9 +820,9 @@ Features can declare dependencies:
 ### Merge Coordination
 
 ```bash
-/features status              # View all active features
-/features conflicts           # Check for conflicts
-/features merge-order         # Recommended merge order
+pa:feature-status              # View all active features
+pa:feature-conflicts           # Check for conflicts
+pa:feature-merge-order         # Recommended merge order
 ```
 
 **Recommended Merge Order:**
@@ -994,10 +994,10 @@ learning:
 ### Learning Reports
 
 ```bash
-/learning report             # View learning summary
-/learning patterns           # View learned patterns
-/learning corrections        # View auto-corrections
-/learning reset              # Reset learning data
+pa:learning report             # View learning summary
+pa:learning patterns           # View learned patterns
+pa:learning corrections        # View auto-corrections
+pa:learning reset              # Reset learning data
 ```
 
 ---
@@ -1087,62 +1087,62 @@ environments:
 
 | Command | Description |
 |---------|-------------|
-| `/init` | Initialize ProAgents in project |
-| `/feature-start "name"` | Start new feature |
-| `/fix "description"` | Start bug fix mode |
-| `/hotfix "description"` | Start quick change mode |
-| `/resume` | Resume paused feature |
+| `pa:init` | Initialize ProAgents in project |
+| `pa:feature "name"` | Start new feature |
+| `pa:fix "description"` | Start bug fix mode |
+| `pa:hotfix "description"` | Start quick change mode |
+| `pa:resume` | Resume paused feature |
 
 ### Phase Commands
 
 | Command | Description |
 |---------|-------------|
-| `/analyze` | Run codebase analysis |
-| `/requirements` | Gather requirements |
-| `/design` | Start design phase |
-| `/plan` | Create implementation plan |
-| `/implement` | Start implementation |
-| `/test` | Run tests |
-| `/review` | Code review |
-| `/doc` | Generate documentation |
-| `/deploy` | Deploy preparation |
-| `/rollback-plan` | Create rollback plan |
+| `pa:analyze` | Run codebase analysis |
+| `pa:requirements` | Gather requirements |
+| `pa:design` | Start design phase |
+| `pa:plan` | Create implementation plan |
+| `pa:implement` | Start implementation |
+| `pa:test` | Run tests |
+| `pa:review` | Code review |
+| `pa:doc` | Generate documentation |
+| `pa:deploy` | Deploy preparation |
+| `pa:rollback-plan` | Create rollback plan |
 
 ### Navigation Commands
 
 | Command | Description |
 |---------|-------------|
-| `/status` | View current status |
-| `/next` | Move to next phase |
-| `/back` | Go back to previous phase |
-| `/skip` | Skip current phase |
-| `/skip-to [phase]` | Skip to specific phase |
+| `pa:status` | View current status |
+| `pa:next` | Move to next phase |
+| `pa:back` | Go back to previous phase |
+| `pa:skip` | Skip current phase |
+| `pa:skip-to [phase]` | Skip to specific phase |
 
 ### Feature Management
 
 | Command | Description |
 |---------|-------------|
-| `/features` | List all features |
-| `/features status` | Feature status dashboard |
-| `/features conflicts` | Check for conflicts |
-| `/features pause` | Pause current feature |
-| `/features switch [name]` | Switch to another feature |
+| `pa:feature-list` | List all features |
+| `pa:feature-status` | Feature status dashboard |
+| `pa:feature-conflicts` | Check for conflicts |
+| `pa:feature-pause` | Pause current feature |
+| `pa:feature-switch [name]` | Switch to another feature |
 
 ### Configuration Commands
 
 | Command | Description |
 |---------|-------------|
-| `/config` | View configuration |
-| `/config set [key] [value]` | Set config value |
-| `/config reset` | Reset to defaults |
+| `pa:config` | View configuration |
+| `pa:config set [key] [value]` | Set config value |
+| `pa:config reset` | Reset to defaults |
 
 ### Help Commands
 
 | Command | Description |
 |---------|-------------|
-| `/help` | Show help |
-| `/help [command]` | Help for specific command |
-| `/commands` | List all commands |
+| `pa:help` | Show help |
+| `pa:help [command]` | Help for specific command |
+| `pa:commands` | List all commands |
 
 ---
 
@@ -1151,7 +1151,7 @@ environments:
 ### 1. Always Analyze First
 For existing projects, run analysis before making changes:
 ```bash
-/analyze
+pa:analyze
 ```
 
 ### 2. Use Appropriate Entry Mode
@@ -1171,18 +1171,18 @@ checkpoints:
 Let the AI learn and follow existing patterns rather than introducing new ones.
 
 ### 5. Document as You Go
-Use `/doc` after significant changes, not just at the end.
+Use `pa:doc` after significant changes, not just at the end.
 
 ### 6. Test Continuously
 Run tests frequently during implementation:
 ```bash
-/test --watch
+pa:test --watch
 ```
 
 ### 7. Review Before Commit
 Always run review before committing:
 ```bash
-/review
+pa:review
 ```
 
 ---
@@ -1193,25 +1193,25 @@ Always run review before committing:
 
 **Issue:** Analysis is too slow
 ```bash
-/analyze-lite    # Use lite analysis for quick overview
+pa:analyze-lite    # Use lite analysis for quick overview
 ```
 
 **Issue:** Conflicts with another feature
 ```bash
-/features conflicts     # Check conflicts
-/features merge-order   # Get recommended order
+pa:feature-conflicts     # Check conflicts
+pa:feature-merge-order   # Get recommended order
 ```
 
 **Issue:** Wrong mode detected
 ```bash
-/upgrade-to-full       # Switch to full workflow
-/downgrade-to-quick    # Switch to quick mode
+pa:upgrade-to-full       # Switch to full workflow
+pa:downgrade-to-quick    # Switch to quick mode
 ```
 
 **Issue:** Learning gave wrong suggestion
 ```bash
-/learning correct      # Provide correction
-/learning reset        # Reset learned patterns
+pa:learning correct      # Provide correction
+pa:learning reset        # Reset learned patterns
 ```
 
 ---
@@ -1219,8 +1219,8 @@ Always run review before committing:
 ## Next Steps
 
 1. **Configure:** Set up [proagents.config.yaml](./proagents.config.yaml)
-2. **Learn Commands:** Review [Slash Commands](./cli/slash-commands.md)
-3. **Start Building:** Run `/feature-start "Your first feature"`
+2. **Learn Commands:** Review [Commands Reference](./cli/slash-commands.md)
+3. **Start Building:** Run `pa:feature "Your first feature"`
 4. **Customize:** Set up [Standards](./standards/) for your project
 
 ---

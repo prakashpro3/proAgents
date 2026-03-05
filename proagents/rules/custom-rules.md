@@ -745,10 +745,10 @@ proagents rules-check --staged-only --fail-on-error
 
 | Command | Description |
 |---------|-------------|
-| `/rules-check` | Run all rule validations |
-| `/rules-check --fix` | Auto-fix violations |
-| `/rules-list` | List all active rules |
-| `/rules-add` | Interactive rule creation |
-| `/rules-disable [id]` | Disable a rule |
-| `/rules-explain [id]` | Explain what a rule does |
-| `/rules-report` | Generate violations report |
+| `pa:rules-check` | Run all rule validations |
+| `pa:rules-check --fix` | Auto-fix violations |
+| `pa:rules-list` | List all active rules |
+| `pa:rules-add` | Interactive rule creation |
+| `pa:rules-disable [id]` | Disable a rule |
+| `pa:rules-explain [id]` | Explain what a rule does |
+| `pa:rules-report` | Generate violations report |

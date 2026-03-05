@@ -57,7 +57,7 @@ ProAgents uses a 10-phase development workflow:
 /feature-start "Feature name"
 
 # Check status
-/status
+pa:status
 
 # Get help
 /help
@@ -220,7 +220,7 @@ entry_modes:
 - [Node.js Example](../examples/backend-nodejs/)
 
 ### Support
-- Check `/help` for command reference
+- Check `pa:help` for command reference
 - Review troubleshooting guides
 - Ask in team Slack channel
 

@@ -482,8 +482,8 @@ performance:
 
 | Command | Description |
 |---------|-------------|
-| `/perf-metrics` | View current metrics |
-| `/perf-metrics --endpoint [path]` | Metrics for specific endpoint |
-| `/perf-metrics --baseline` | Compare to baseline |
-| `/perf-metrics --slow` | List slow endpoints |
-| `/perf-metrics --alerts` | View active alerts |
+| `pa:perf-metrics` | View current metrics |
+| `pa:perf-metrics --endpoint [path]` | Metrics for specific endpoint |
+| `pa:perf-metrics --baseline` | Compare to baseline |
+| `pa:perf-metrics --slow` | List slow endpoints |
+| `pa:perf-metrics --alerts` | View active alerts |

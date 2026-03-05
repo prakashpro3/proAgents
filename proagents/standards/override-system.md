@@ -709,9 +709,9 @@ override_system:
 
 | Command | Description |
 |---------|-------------|
-| `/config view` | View current configuration |
-| `/config validate` | Validate configuration |
-| `/config overrides` | Show active overrides |
-| `/config diff` | Compare with defaults |
-| `/config export` | Export current config |
-| `/config reset [section]` | Reset to defaults |
+| `pa:config view` | View current configuration |
+| `pa:config validate` | Validate configuration |
+| `pa:config overrides` | Show active overrides |
+| `pa:config diff` | Compare with defaults |
+| `pa:config export` | Export current config |
+| `pa:config reset [section]` | Reset to defaults |

@@ -10,9 +10,9 @@ Complete reference of all webhook events.
 
 | Event | Description | Trigger |
 |-------|-------------|---------|
-| `feature.started` | New feature started | `/feature start` |
-| `feature.paused` | Feature paused | `/feature pause` |
-| `feature.resumed` | Feature resumed | `/feature resume` |
+| `feature.started` | New feature started | `pa:feature start` |
+| `feature.paused` | Feature paused | `pa:feature pause` |
+| `feature.resumed` | Feature resumed | `pa:feature resume` |
 | `feature.completed` | Feature completed | All phases done |
 | `feature.abandoned` | Feature abandoned | Manual cancellation |
 

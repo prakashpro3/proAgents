@@ -408,9 +408,9 @@ git:
 
 | Command | Description |
 |---------|-------------|
-| `/rollback` | Start rollback wizard |
-| `/rollback --last` | Revert last commit |
-| `/rollback --to [tag]` | Rollback to specific tag |
-| `/rollback --commits [n]` | Revert last n commits |
-| `/rollback --dry-run` | Preview rollback changes |
-| `/rollback --status` | Check current rollback status |
+| `pa:rollback` | Start rollback wizard |
+| `pa:rollback --last` | Revert last commit |
+| `pa:rollback --to [tag]` | Rollback to specific tag |
+| `pa:rollback --commits [n]` | Revert last n commits |
+| `pa:rollback --dry-run` | Preview rollback changes |
+| `pa:rollback --status` | Check current rollback status |

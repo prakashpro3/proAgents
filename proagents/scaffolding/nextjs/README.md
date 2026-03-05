@@ -567,12 +567,12 @@ export async function POST(request: NextRequest) {
 
 | Command | Description |
 |---------|-------------|
-| `/page [route]` | Generate new page |
-| `/api [route]` | Generate API route |
-| `/component [name]` | Generate component |
-| `/layout [route]` | Generate layout |
-| `/loading [route]` | Generate loading UI |
-| `/error [route]` | Generate error UI |
-| `/hook [name]` | Generate custom hook |
-| `/service [name]` | Generate service |
-| `/model [name]` | Generate Prisma model |
+| `pa:page [route]` | Generate new page |
+| `pa:api [route]` | Generate API route |
+| `pa:component [name]` | Generate component |
+| `pa:layout [route]` | Generate layout |
+| `pa:loading [route]` | Generate loading UI |
+| `pa:error [route]` | Generate error UI |
+| `pa:hook [name]` | Generate custom hook |
+| `pa:service [name]` | Generate service |
+| `pa:model [name]` | Generate Prisma model |

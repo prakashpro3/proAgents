@@ -18,13 +18,13 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/init` | Initialize ProAgents in this project |
-| `/setup` | Run interactive setup wizard |
-| `/config` | Show/edit configuration |
-| `/help` | Show all available commands |
-| `/status` | Show workflow status |
-| `/version` | Show ProAgents version |
-| `/doctor` | Run health check |
+| `pa:init` | Initialize ProAgents in this project |
+| `pa:setup` | Run interactive setup wizard |
+| `pa:config` | Show/edit configuration |
+| `pa:help` | Show all available commands |
+| `pa:status` | Show workflow status |
+| `pa:version` | Show ProAgents version |
+| `pa:doctor` | Run health check |
 
 ---
 
@@ -32,13 +32,13 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/feature` | Show feature commands |
-| `/feature-start "name"` | Start new feature |
-| `/feature-status` | Current feature status |
-| `/feature-pause` | Pause current feature |
-| `/feature-resume` | Resume paused feature |
-| `/feature-complete` | Mark feature complete |
-| `/feature-list` | List all features |
+| `pa:feature` | Show feature commands |
+| `pa:feature "name"` | Start new feature |
+| `pa:feature-status` | Current feature status |
+| `pa:feature-pause` | Pause current feature |
+| `pa:feature-resume` | Resume paused feature |
+| `pa:feature-complete` | Mark feature complete |
+| `pa:feature-list` | List all features |
 
 **Usage:**
 ```
@@ -51,10 +51,10 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/fix` | Show fix commands |
-| `/fix-quick "description"` | Quick bug fix mode |
-| `/hotfix "description"` | Emergency hotfix |
-| `/fix-upgrade` | Upgrade to full workflow |
+| `pa:fix` | Show fix commands |
+| `pa:fix-quick "description"` | Quick bug fix mode |
+| `pa:hotfix "description"` | Emergency hotfix |
+| `pa:fix-upgrade` | Upgrade to full workflow |
 
 **Usage:**
 ```
@@ -67,11 +67,11 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/qa` | Show QA commands |
-| `/qa-full` | Full quality check |
-| `/qa-quick` | Quick quality check |
-| `/qa-security` | Security focused QA |
-| `/qa-perf` | Performance focused QA |
+| `pa:qa` | Show QA commands |
+| `pa:qa-full` | Full quality check |
+| `pa:qa-quick` | Quick quality check |
+| `pa:qa-security` | Security focused QA |
+| `pa:qa-perf` | Performance focused QA |
 
 ---
 
@@ -79,12 +79,12 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/test` | Show test commands |
-| `/test-unit` | Run unit tests |
-| `/test-integration` | Run integration tests |
-| `/test-e2e` | Run end-to-end tests |
-| `/test-all` | Run all tests |
-| `/test-coverage` | Show coverage report |
+| `pa:test` | Show test commands |
+| `pa:test-unit` | Run unit tests |
+| `pa:test-integration` | Run integration tests |
+| `pa:test-e2e` | Run end-to-end tests |
+| `pa:test-all` | Run all tests |
+| `pa:test-coverage` | Show coverage report |
 
 ---
 
@@ -92,13 +92,13 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/doc` | Show documentation commands |
-| `/doc-full` | Full in-depth documentation |
-| `/doc-moderate` | Balanced documentation |
-| `/doc-lite` | Quick reference |
-| `/doc-module [name]` | Document specific module |
-| `/doc-file [path]` | Document specific file |
-| `/doc-api` | API documentation |
+| `pa:doc` | Show documentation commands |
+| `pa:doc-full` | Full in-depth documentation |
+| `pa:doc-moderate` | Balanced documentation |
+| `pa:doc-lite` | Quick reference |
+| `pa:doc-module [name]` | Document specific module |
+| `pa:doc-file [path]` | Document specific file |
+| `pa:doc-api` | API documentation |
 
 **Usage:**
 ```
@@ -113,12 +113,12 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/analyze` | Show analysis commands |
-| `/analyze-full` | Deep codebase analysis |
-| `/analyze-moderate` | Moderate analysis |
-| `/analyze-lite` | Quick overview |
-| `/analyze-module [name]` | Analyze specific module |
-| `/analyze-deps` | Dependency analysis |
+| `pa:analyze` | Show analysis commands |
+| `pa:analyze-full` | Deep codebase analysis |
+| `pa:analyze-moderate` | Moderate analysis |
+| `pa:analyze-lite` | Quick overview |
+| `pa:analyze-module [name]` | Analyze specific module |
+| `pa:analyze-deps` | Dependency analysis |
 
 ---
 
@@ -126,17 +126,17 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/commit` | Show commit commands |
-| `/commit-feat` | Feature commit |
-| `/commit-fix` | Fix commit |
-| `/commit-docs` | Documentation commit |
-| `/commit-refactor` | Refactoring commit |
-| `/branch` | Show branch commands |
-| `/branch-feature` | Create feature branch |
-| `/branch-hotfix` | Create hotfix branch |
-| `/pr` | Show PR commands |
-| `/pr-create` | Create pull request |
-| `/pr-update` | Update pull request |
+| `pa:commit` | Show commit commands |
+| `pa:commit-feat` | Feature commit |
+| `pa:commit-fix` | Fix commit |
+| `pa:commit-docs` | Documentation commit |
+| `pa:commit-refactor` | Refactoring commit |
+| `pa:branch` | Show branch commands |
+| `pa:branch-feature` | Create feature branch |
+| `pa:branch-hotfix` | Create hotfix branch |
+| `pa:pr` | Show PR commands |
+| `pa:pr-create` | Create pull request |
+| `pa:pr-update` | Update pull request |
 
 ---
 
@@ -144,13 +144,13 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/deploy` | Show deploy commands |
-| `/deploy-staging` | Deploy to staging |
-| `/deploy-prod` | Deploy to production |
-| `/deploy-check` | Pre-deployment check |
-| `/rollback` | Show rollback commands |
-| `/rollback-quick` | Quick rollback |
-| `/rollback-full` | Full rollback procedure |
+| `pa:deploy` | Show deploy commands |
+| `pa:deploy-staging` | Deploy to staging |
+| `pa:deploy-prod` | Deploy to production |
+| `pa:deploy-check` | Pre-deployment check |
+| `pa:rollback` | Show rollback commands |
+| `pa:rollback-quick` | Quick rollback |
+| `pa:rollback-full` | Full rollback procedure |
 
 ---
 
@@ -158,12 +158,12 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/report` | Show report commands |
-| `/report-velocity` | Development velocity |
-| `/report-quality` | Code quality metrics |
-| `/report-coverage` | Test coverage |
-| `/report-security` | Security report |
-| `/report-deps` | Dependency status |
+| `pa:report` | Show report commands |
+| `pa:report-velocity` | Development velocity |
+| `pa:report-quality` | Code quality metrics |
+| `pa:report-coverage` | Test coverage |
+| `pa:report-security` | Security report |
+| `pa:report-deps` | Dependency status |
 
 ---
 
@@ -171,10 +171,10 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 | Command | Description |
 |---------|-------------|
-| `/collab` | Show collaboration commands |
-| `/collab-start` | Start collaboration session |
-| `/collab-join [id]` | Join existing session |
-| `/collab-leave` | Leave current session |
+| `pa:collab` | Show collaboration commands |
+| `pa:collab-start` | Start collaboration session |
+| `pa:collab-join [id]` | Join existing session |
+| `pa:collab-leave` | Leave current session |
 
 ---
 
@@ -214,6 +214,6 @@ Run multiple commands:
 
 Hints change based on context:
 
-- **In feature development:** Prioritizes `/feature-status`, `/test`, `/commit`
-- **In bug fix mode:** Prioritizes `/fix-complete`, `/test`, `/commit-fix`
-- **After tests pass:** Suggests `/deploy`, `/pr-create`
+- **In feature development:** Prioritizes `pa:feature-status`, `pa:test`, `pa:commit`
+- **In bug fix mode:** Prioritizes `pa:fix-complete`, `pa:test`, `pa:commit-fix`
+- **After tests pass:** Suggests `pa:deploy`, `pa:pr-create`

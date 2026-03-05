@@ -298,8 +298,8 @@ learning:
 
 | Command | Description |
 |---------|-------------|
-| `/adaptation-status` | View current adaptations |
-| `/adaptation-disable [id]` | Disable specific adaptation |
-| `/adaptation-enable [id]` | Re-enable adaptation |
-| `/adaptation-reset` | Reset all adaptations |
-| `/adaptation-review` | Review pending adaptations |
+| `pa:adaptation-status` | View current adaptations |
+| `pa:adaptation-disable [id]` | Disable specific adaptation |
+| `pa:adaptation-enable [id]` | Re-enable adaptation |
+| `pa:adaptation-reset` | Reset all adaptations |
+| `pa:adaptation-review` | Review pending adaptations |

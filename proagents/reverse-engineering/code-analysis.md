@@ -370,8 +370,8 @@ reverse_engineering:
 
 | Command | Description |
 |---------|-------------|
-| `/re-analyze` | Full code analysis |
-| `/re-analyze --file [path]` | Analyze specific file |
-| `/re-analyze --complexity` | Complexity analysis |
-| `/re-analyze --types` | Type coverage analysis |
-| `/re-analyze --functions` | Function analysis |
+| `pa:re-analyze` | Full code analysis |
+| `pa:re-analyze --file [path]` | Analyze specific file |
+| `pa:re-analyze --complexity` | Complexity analysis |
+| `pa:re-analyze --types` | Type coverage analysis |
+| `pa:re-analyze --functions` | Function analysis |

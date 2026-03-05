@@ -11,8 +11,8 @@ Universal prompts for rollback planning and execution.
 ```
 
 Related commands:
-- `/rollback-quick` - Quick rollback to previous version
-- `/rollback-full` - Full rollback with database revert
+- `pa:rollback-quick` - Quick rollback to previous version
+- `pa:rollback-full` - Full rollback with database revert
 
 ---
 
@@ -544,11 +544,11 @@ AFTER ROLLBACK:
 
 | Command | Description |
 |---------|-------------|
-| `/rollback` | Show rollback options |
-| `/rollback-quick` | Quick code-only rollback |
-| `/rollback-full` | Full rollback with DB |
-| `/rollback-plan` | Create rollback plan |
-| `/rollback-verify` | Verify rollback success |
-| `/rollback-test` | Test rollback procedure |
-| `/incident-doc` | Document incident |
-| `/post-mortem` | Create post-mortem |
+| `pa:rollback` | Show rollback options |
+| `pa:rollback-quick` | Quick code-only rollback |
+| `pa:rollback-full` | Full rollback with DB |
+| `pa:rollback-plan` | Create rollback plan |
+| `pa:rollback-verify` | Verify rollback success |
+| `pa:rollback-test` | Test rollback procedure |
+| `pa:incident-doc` | Document incident |
+| `pa:post-mortem` | Create post-mortem |

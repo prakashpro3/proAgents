@@ -440,8 +440,8 @@ database:
 
 | Command | Description |
 |---------|-------------|
-| `/db-check` | Run safety checks on pending migrations |
-| `/db-check --migration [name]` | Check specific migration |
-| `/db-check --dry-run` | Preview changes without running |
-| `/db-diff` | Show schema diff |
-| `/db-locks` | Show active database locks |
+| `pa:db-check` | Run safety checks on pending migrations |
+| `pa:db-check --migration [name]` | Check specific migration |
+| `pa:db-check --dry-run` | Preview changes without running |
+| `pa:db-diff` | Show schema diff |
+| `pa:db-locks` | Show active database locks |

@@ -508,11 +508,11 @@ After coding:
 
 | Command | Description |
 |---------|-------------|
-| `/implement` | Start implementation |
-| `/generate-component` | Generate component code |
-| `/generate-hook` | Generate custom hook |
-| `/generate-api` | Generate API service |
-| `/review-code` | Review code quality |
-| `/add-types` | Add TypeScript types |
-| `/add-tests` | Add unit tests |
-| `/commit-prep` | Prepare commit message |
+| `pa:implement` | Start implementation |
+| `pa:generate-component` | Generate component code |
+| `pa:generate-hook` | Generate custom hook |
+| `pa:generate-api` | Generate API service |
+| `pa:review-code` | Review code quality |
+| `pa:add-types` | Add TypeScript types |
+| `pa:add-tests` | Add unit tests |
+| `pa:commit-prep` | Prepare commit message |

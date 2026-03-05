@@ -370,6 +370,6 @@ jobs:
 
 | Command | Description |
 |---------|-------------|
-| `/bundle-analyze` | Analyze bundle |
-| `/bundle-report` | Generate report |
-| `/bundle-optimize` | Optimization suggestions |
+| `pa:bundle-analyze` | Analyze bundle |
+| `pa:bundle-report` | Generate report |
+| `pa:bundle-optimize` | Optimization suggestions |

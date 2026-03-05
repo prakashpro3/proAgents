@@ -418,8 +418,8 @@ jobs:
 
 | Command | Description |
 |---------|-------------|
-| `/perf-vitals` | Check Web Vitals |
-| `/perf-lcp` | Analyze LCP |
-| `/perf-cls` | Analyze CLS |
-| `/perf-fid` | Analyze FID |
-| `/perf-report` | Generate performance report |
+| `pa:perf-vitals` | Check Web Vitals |
+| `pa:perf-lcp` | Analyze LCP |
+| `pa:perf-cls` | Analyze CLS |
+| `pa:perf-fid` | Analyze FID |
+| `pa:perf-report` | Generate performance report |

@@ -301,6 +301,6 @@ ownership:
 
 | Command | Description |
 |---------|-------------|
-| `/owner [path]` | Show owner for path |
-| `/ownership-report` | Generate ownership report |
-| `/assign-owner` | Assign ownership |
+| `pa:owner [path]` | Show owner for path |
+| `pa:ownership-report` | Generate ownership report |
+| `pa:assign-owner` | Assign ownership |

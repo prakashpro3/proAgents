@@ -466,8 +466,8 @@ security:
 
 | Command | Description |
 |---------|-------------|
-| `/security-scan` | Run full SAST scan |
-| `/security-scan --quick` | Run quick security lint |
-| `/security-scan --file [path]` | Scan specific file |
-| `/security-report` | Generate security report |
-| `/security-fix [issue-id]` | Get fix guidance |
+| `pa:security-scan` | Run full SAST scan |
+| `pa:security-scan --quick` | Run quick security lint |
+| `pa:security-scan --file [path]` | Scan specific file |
+| `pa:security-report` | Generate security report |
+| `pa:security-fix [issue-id]` | Get fix guidance |

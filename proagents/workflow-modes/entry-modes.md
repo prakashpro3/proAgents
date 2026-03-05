@@ -59,10 +59,10 @@ The complete 10-phase development workflow for new features.
 
 ```bash
 # Start new feature
-/feature start "User Profile Management"
+pa:feature start "User Profile Management"
 
 # With options
-/feature start "User Profile" --skip-ui --checkpoint=critical
+pa:feature start "User Profile" --skip-ui --checkpoint=critical
 ```
 
 ### Checkpoints
@@ -390,8 +390,8 @@ entry_modes:
 
 | Command | Mode | Description |
 |---------|------|-------------|
-| `/feature start` | Full | Start full workflow |
-| `/fix` | Bug Fix | Start bug fix mode |
-| `/quick` | Quick Change | Start quick change |
-| `/resume` | Resume | Continue previous work |
-| `/mode` | Any | Show/change current mode |
+| `pa:feature start` | Full | Start full workflow |
+| `pa:fix` | Bug Fix | Start bug fix mode |
+| `pa:quick` | Quick Change | Start quick change |
+| `pa:resume` | Resume | Continue previous work |
+| `pa:mode` | Any | Show/change current mode |

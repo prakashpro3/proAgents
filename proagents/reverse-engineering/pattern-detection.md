@@ -560,10 +560,10 @@ reverse_engineering:
 
 | Command | Description |
 |---------|-------------|
-| `/re-patterns` | Detect all patterns |
-| `/re-patterns --type architecture` | Architecture patterns only |
-| `/re-patterns --type components` | Component patterns only |
-| `/re-patterns --type state` | State management patterns |
-| `/re-patterns --type naming` | Naming conventions only |
-| `/re-patterns --report` | Generate full report |
-| `/re-patterns --inconsistencies` | Show inconsistencies only |
+| `pa:re-patterns` | Detect all patterns |
+| `pa:re-patterns --type architecture` | Architecture patterns only |
+| `pa:re-patterns --type components` | Component patterns only |
+| `pa:re-patterns --type state` | State management patterns |
+| `pa:re-patterns --type naming` | Naming conventions only |
+| `pa:re-patterns --report` | Generate full report |
+| `pa:re-patterns --inconsistencies` | Show inconsistencies only |

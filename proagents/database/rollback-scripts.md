@@ -480,8 +480,8 @@ database:
 
 | Command | Description |
 |---------|-------------|
-| `/db-rollback` | Interactive rollback wizard |
-| `/db-rollback --last` | Rollback last migration |
-| `/db-rollback --to [version]` | Rollback to specific version |
-| `/db-rollback --dry-run` | Preview rollback changes |
-| `/db-rollback --generate [migration]` | Generate rollback script |
+| `pa:db-rollback` | Interactive rollback wizard |
+| `pa:db-rollback --last` | Rollback last migration |
+| `pa:db-rollback --to [version]` | Rollback to specific version |
+| `pa:db-rollback --dry-run` | Preview rollback changes |
+| `pa:db-rollback --generate [migration]` | Generate rollback script |

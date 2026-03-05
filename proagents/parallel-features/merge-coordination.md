@@ -498,9 +498,9 @@ merge:
 
 | Command | Description |
 |---------|-------------|
-| `/merge-order` | View recommended merge order |
-| `/merge-check [feature]` | Pre-merge conflict check |
-| `/merge [feature]` | Start merge process |
-| `/merge-batch` | Merge all ready features |
-| `/merge-status` | View merge progress |
-| `/merge-schedule` | View/set merge schedule |
+| `pa:merge-order` | View recommended merge order |
+| `pa:merge-check [feature]` | Pre-merge conflict check |
+| `pa:merge [feature]` | Start merge process |
+| `pa:merge-batch` | Merge all ready features |
+| `pa:merge-status` | View merge progress |
+| `pa:merge-schedule` | View/set merge schedule |

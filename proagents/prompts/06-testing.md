@@ -7,14 +7,14 @@ Universal prompts for comprehensive testing phase.
 ## Quick Start
 
 ```
-/test
+pa:test
 ```
 
 Related commands:
-- `/test-unit` - Run unit tests
-- `/test-integration` - Run integration tests
-- `/test-e2e` - Run end-to-end tests
-- `/test-all` - Run all tests
+- `pa:test-unit` - Run unit tests
+- `pa:test-integration` - Run integration tests
+- `pa:test-e2e` - Run end-to-end tests
+- `pa:test-all` - Run all tests
 
 ---
 
@@ -610,11 +610,11 @@ QUALITY:
 
 | Command | Description |
 |---------|-------------|
-| `/test` | Show testing overview |
-| `/test-unit` | Generate/run unit tests |
-| `/test-integration` | Generate/run integration tests |
-| `/test-e2e` | Generate/run E2E tests |
-| `/test-all` | Run all tests |
-| `/test-coverage` | Check test coverage |
-| `/test-fixtures` | Generate test fixtures |
-| `/test-mocks` | Generate mock functions |
+| `pa:test` | Show testing overview |
+| `pa:test-unit` | Generate/run unit tests |
+| `pa:test-integration` | Generate/run integration tests |
+| `pa:test-e2e` | Generate/run E2E tests |
+| `pa:test-all` | Run all tests |
+| `pa:test-coverage` | Check test coverage |
+| `pa:test-fixtures` | Generate test fixtures |
+| `pa:test-mocks` | Generate mock functions |

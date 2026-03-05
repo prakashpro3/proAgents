@@ -337,7 +337,7 @@ For rapid assessments:
 
 | Command | Description |
 |---------|-------------|
-| `/security-report` | Generate full security report |
-| `/security-report --quick` | Generate quick check |
-| `/security-report --template` | Get blank template |
-| `/security-report --export pdf` | Export as PDF |
+| `pa:security-report` | Generate full security report |
+| `pa:security-report --quick` | Generate quick check |
+| `pa:security-report --template` | Get blank template |
+| `pa:security-report --export pdf` | Export as PDF |

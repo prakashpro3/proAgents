@@ -391,9 +391,9 @@ As a [user type], I want to [action] so that [benefit].
 
 | Command | Description |
 |---------|-------------|
-| `/feature-start "name"` | Start new feature requirements |
-| `/requirements` | Show requirements template |
-| `/user-story` | Generate user stories |
-| `/acceptance-criteria` | Define acceptance criteria |
-| `/edge-cases` | Identify edge cases |
-| `/technical-reqs` | Document technical requirements |
+| `pa:feature "name"` | Start new feature requirements |
+| `pa:requirements` | Show requirements template |
+| `pa:user-story` | Generate user stories |
+| `pa:acceptance-criteria` | Define acceptance criteria |
+| `pa:edge-cases` | Identify edge cases |
+| `pa:technical-reqs` | Document technical requirements |

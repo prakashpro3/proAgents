@@ -471,8 +471,8 @@ database:
 
 | Command | Description |
 |---------|-------------|
-| `/migration-create [name]` | Create new migration |
-| `/migration-run` | Run pending migrations |
-| `/migration-rollback` | Rollback last migration |
-| `/migration-status` | Show migration status |
-| `/migration-test` | Test migration |
+| `pa:migration-create [name]` | Create new migration |
+| `pa:migration-run` | Run pending migrations |
+| `pa:migration-rollback` | Rollback last migration |
+| `pa:migration-status` | Show migration status |
+| `pa:migration-test` | Test migration |

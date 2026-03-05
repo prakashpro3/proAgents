@@ -311,7 +311,7 @@ Users can always override:
 
 ```bash
 # Force full workflow
-/feature start "Fix login button" --mode full
+pa:feature start "Fix login button" --mode full
 
 # Force bug fix mode
 /fix "Add new validation" --mode bug-fix
@@ -353,6 +353,6 @@ mode_detection:
 
 | Command | Description |
 |---------|-------------|
-| `/detect [request]` | Test mode detection |
-| `/mode suggest` | Get mode suggestion for current context |
-| `/mode override [mode]` | Override detected mode |
+| `pa:detect [request]` | Test mode detection |
+| `pa:mode suggest` | Get mode suggestion for current context |
+| `pa:mode override [mode]` | Override detected mode |

@@ -318,8 +318,8 @@ reverse_engineering:
 
 | Command | Description |
 |---------|-------------|
-| `/re-architecture` | Full architecture extraction |
-| `/re-architecture --diagram` | Generate architecture diagrams |
-| `/re-architecture --modules` | Extract module structure |
-| `/re-architecture --layers` | Identify layers |
-| `/re-architecture --boundaries` | Analyze boundaries |
+| `pa:re-architecture` | Full architecture extraction |
+| `pa:re-architecture --diagram` | Generate architecture diagrams |
+| `pa:re-architecture --modules` | Extract module structure |
+| `pa:re-architecture --layers` | Identify layers |
+| `pa:re-architecture --boundaries` | Analyze boundaries |

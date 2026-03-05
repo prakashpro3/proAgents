@@ -281,7 +281,7 @@ monitoring:
 
 | Command | Description |
 |---------|-------------|
-| `/cost-estimate` | Generate cost estimate for feature |
-| `/cost-compare` | Compare costs across providers |
-| `/cost-report` | View current costs |
-| `/cost-optimize` | Get optimization suggestions |
+| `pa:cost-estimate` | Generate cost estimate for feature |
+| `pa:cost-compare` | Compare costs across providers |
+| `pa:cost-report` | View current costs |
+| `pa:cost-optimize` | Get optimization suggestions |

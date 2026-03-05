@@ -547,12 +547,12 @@ export { router as resourceRoutes };
 
 | Command | Description |
 |---------|-------------|
-| `/route [name]` | Generate new route + controller + service |
-| `/controller [name]` | Generate controller |
-| `/service [name]` | Generate service |
-| `/middleware [name]` | Generate middleware |
-| `/validator [name]` | Generate Zod validator |
-| `/model [name]` | Generate Prisma model |
-| `/migrate` | Run database migrations |
-| `/seed` | Run database seeding |
-| `/docs` | Generate OpenAPI docs |
+| `pa:route [name]` | Generate new route + controller + service |
+| `pa:controller [name]` | Generate controller |
+| `pa:service [name]` | Generate service |
+| `pa:middleware [name]` | Generate middleware |
+| `pa:validator [name]` | Generate Zod validator |
+| `pa:model [name]` | Generate Prisma model |
+| `pa:migrate` | Run database migrations |
+| `pa:seed` | Run database seeding |
+| `pa:docs` | Generate OpenAPI docs |

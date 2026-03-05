@@ -6,7 +6,7 @@ Interactive project setup with project type selection.
 
 ## Trigger
 
-User runs `/init` or starts a new project conversation.
+User runs `pa:init` or starts a new project conversation.
 
 ---
 
@@ -418,9 +418,9 @@ Recommended workflow:
 
 | Command | Description |
 |---------|-------------|
-| `/init` | Full initialization wizard |
-| `/init --type [type]` | Quick init with project type |
-| `/init --wizard` | Force full wizard |
-| `/init --quick` | Minimal setup |
-| `/init --config [file]` | Use existing config |
-| `/setup` | Re-run setup for existing project |
+| `pa:init` | Full initialization wizard |
+| `pa:init --type [type]` | Quick init with project type |
+| `pa:init --wizard` | Force full wizard |
+| `pa:init --quick` | Minimal setup |
+| `pa:init --config [file]` | Use existing config |
+| `pa:setup` | Re-run setup for existing project |

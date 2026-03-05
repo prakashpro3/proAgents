@@ -4,7 +4,7 @@ Use these prompts to analyze an existing codebase before implementing new featur
 
 ---
 
-## Quick Analysis (`/analyze-lite`)
+## Quick Analysis (`pa:analyze-lite`)
 
 ```
 Perform a quick overview of this codebase:
@@ -19,7 +19,7 @@ Output a brief summary (1 page max).
 
 ---
 
-## Moderate Analysis (`/analyze-moderate`)
+## Moderate Analysis (`pa:analyze-moderate`)
 
 ```
 Perform a moderate analysis of this codebase:
@@ -46,7 +46,7 @@ Output a structured report.
 
 ---
 
-## Full Analysis (`/analyze-full`)
+## Full Analysis (`pa:analyze-full`)
 
 ```
 Perform a comprehensive deep analysis of this codebase:
@@ -172,7 +172,7 @@ Generate a comprehensive Codebase Analysis Report with:
 
 ---
 
-## Module-Specific Analysis (`/analyze-module [name]`)
+## Module-Specific Analysis (`pa:analyze-module [name]`)
 
 ```
 Analyze the [MODULE_NAME] module in detail:
@@ -207,7 +207,7 @@ Analyze the [MODULE_NAME] module in detail:
 
 ---
 
-## Dependency Analysis (`/analyze-deps`)
+## Dependency Analysis (`pa:analyze-deps`)
 
 ```
 Analyze project dependencies:

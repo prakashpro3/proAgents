@@ -463,8 +463,8 @@ api:
 
 | Command | Description |
 |---------|-------------|
-| `/api-deprecate` | Start deprecation wizard |
-| `/api-deprecate --endpoint [path]` | Deprecate specific endpoint |
-| `/api-deprecate --list` | List all deprecated endpoints |
-| `/api-deprecate --usage [endpoint]` | Show usage statistics |
-| `/api-deprecate --notify` | Send migration reminders |
+| `pa:api-deprecate` | Start deprecation wizard |
+| `pa:api-deprecate --endpoint [path]` | Deprecate specific endpoint |
+| `pa:api-deprecate --list` | List all deprecated endpoints |
+| `pa:api-deprecate --usage [endpoint]` | Show usage statistics |
+| `pa:api-deprecate --notify` | Send migration reminders |

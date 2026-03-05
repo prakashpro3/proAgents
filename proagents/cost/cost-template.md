@@ -276,8 +276,8 @@ results:
 
 | Command | Description |
 |---------|-------------|
-| `/cost-estimate` | Start cost estimation wizard |
-| `/cost-estimate --template` | Get blank template |
-| `/cost-estimate --quick` | Quick estimate calculator |
-| `/cost-report` | Generate cost report |
-| `/cost-compare` | Compare actual vs estimated |
+| `pa:cost-estimate` | Start cost estimation wizard |
+| `pa:cost-estimate --template` | Get blank template |
+| `pa:cost-estimate --quick` | Quick estimate calculator |
+| `pa:cost-report` | Generate cost report |
+| `pa:cost-compare` | Compare actual vs estimated |

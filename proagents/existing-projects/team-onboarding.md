@@ -262,13 +262,13 @@ buddy_system:
 Solution: Use `/analyze --depth moderate` for faster analysis
 
 ### "Conflict detected with another feature"
-Solution: Check `/feature-list` and coordinate with the other developer
+Solution: Check `pa:feature-list` and coordinate with the other developer
 
 ### "Not sure which phase I'm in"
-Solution: Run `/status` to see current phase and progress
+Solution: Run `pa:status` to see current phase and progress
 
 ### "Want to skip a phase"
-Solution: Use Bug Fix Mode (`/fix`) or configure checkpoints
+Solution: Use Bug Fix Mode (`pa:fix`) or configure checkpoints
 
 ### "Generated code doesn't match our style"
 Solution: Check if standards are configured in `proagents.config.yaml`
@@ -353,12 +353,12 @@ champion_program:
 ## Essential Commands
 | Command | Description |
 |---------|-------------|
-| `/feature start [name]` | Start new feature |
-| `/status` | Check current status |
-| `/analyze` | Analyze codebase |
-| `/qa` | Run quality checks |
-| `/doc` | Generate docs |
-| `/feature-complete` | Complete feature |
+| `pa:feature start [name]` | Start new feature |
+| `pa:status` | Check current status |
+| `pa:analyze` | Analyze codebase |
+| `pa:qa` | Run quality checks |
+| `pa:doc` | Generate docs |
+| `pa:feature-complete` | Complete feature |
 
 ## Modes
 | Mode | Use For |
@@ -610,8 +610,8 @@ onboarding:
 
 | Command | Description |
 |---------|-------------|
-| `/help` | Show all available commands |
-| `/tutorial` | Start interactive tutorial |
-| `/tips` | Show contextual tips |
-| `/feedback` | Submit feedback |
-| `/support` | Get support resources |
+| `pa:help` | Show all available commands |
+| `pa:tutorial` | Start interactive tutorial |
+| `pa:tips` | Show contextual tips |
+| `pa:feedback` | Submit feedback |
+| `pa:support` | Get support resources |

@@ -11,9 +11,9 @@ Universal prompts for deployment preparation and execution.
 ```
 
 Related commands:
-- `/deploy-staging` - Deploy to staging
-- `/deploy-prod` - Deploy to production
-- `/deploy-check` - Pre-deployment checks
+- `pa:deploy-staging` - Deploy to staging
+- `pa:deploy-prod` - Deploy to production
+- `pa:deploy-check` - Pre-deployment checks
 
 ---
 
@@ -530,10 +530,10 @@ AFTER:
 
 | Command | Description |
 |---------|-------------|
-| `/deploy` | Show deployment options |
-| `/deploy-staging` | Deploy to staging |
-| `/deploy-prod` | Deploy to production |
-| `/deploy-check` | Pre-deployment checklist |
-| `/deploy-monitor` | Post-deploy monitoring |
-| `/deploy-runbook` | Generate deployment runbook |
-| `/release-notes` | Generate release notes |
+| `pa:deploy` | Show deployment options |
+| `pa:deploy-staging` | Deploy to staging |
+| `pa:deploy-prod` | Deploy to production |
+| `pa:deploy-check` | Pre-deployment checklist |
+| `pa:deploy-monitor` | Post-deploy monitoring |
+| `pa:deploy-runbook` | Generate deployment runbook |
+| `pa:release-notes` | Generate release notes |

@@ -1,6 +1,6 @@
 # Project Type Selection
 
-Interactive project type selection during `/init` command.
+Interactive project type selection during `pa:init` command.
 
 ---
 
@@ -394,8 +394,8 @@ Each type includes:
 
 | Command | Description |
 |---------|-------------|
-| `/init` | Start with project type selection |
-| `/init --type web` | Skip selection, use web frontend |
-| `/init --type mobile --framework react-native` | Full preset |
-| `/init --wizard` | Full interactive wizard |
-| `/init --quick` | Minimal setup |
+| `pa:init` | Start with project type selection |
+| `pa:init --type web` | Skip selection, use web frontend |
+| `pa:init --type mobile --framework react-native` | Full preset |
+| `pa:init --wizard` | Full interactive wizard |
+| `pa:init --quick` | Minimal setup |

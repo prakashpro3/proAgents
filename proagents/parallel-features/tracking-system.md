@@ -408,9 +408,9 @@ tracking:
 
 | Command | Description |
 |---------|-------------|
-| `/feature-status` | View all features status |
-| `/feature-status [id]` | View specific feature |
-| `/feature-update [id]` | Update feature status |
-| `/feature-block [id]` | Mark feature as blocked |
-| `/feature-unblock [id]` | Remove blocker |
-| `/feature-dashboard` | View dashboard |
+| `pa:feature-status` | View all features status |
+| `pa:feature-status [id]` | View specific feature |
+| `pa:feature-update [id]` | Update feature status |
+| `pa:feature-block [id]` | Mark feature as blocked |
+| `pa:feature-unblock [id]` | Remove blocker |
+| `pa:feature-dashboard` | View dashboard |

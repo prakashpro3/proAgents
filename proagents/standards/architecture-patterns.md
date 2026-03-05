@@ -720,9 +720,9 @@ architecture:
 
 | Command | Description |
 |---------|-------------|
-| `/architecture-check` | Validate architecture compliance |
-| `/architecture-view` | View current architecture |
-| `/architecture-diagram` | Generate architecture diagram |
-| `/scaffold [type] [name]` | Generate from patterns |
-| `/import-check` | Check import rules |
-| `/structure-check` | Check directory structure |
+| `pa:architecture-check` | Validate architecture compliance |
+| `pa:architecture-view` | View current architecture |
+| `pa:architecture-diagram` | Generate architecture diagram |
+| `pa:scaffold [type] [name]` | Generate from patterns |
+| `pa:import-check` | Check import rules |
+| `pa:structure-check` | Check directory structure |

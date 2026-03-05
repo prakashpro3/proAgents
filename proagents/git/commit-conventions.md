@@ -235,7 +235,7 @@ npx husky add .husky/commit-msg 'npx commitlint --edit $1'
 
 | Command | Description |
 |---------|-------------|
-| `/commit-feat` | Create feature commit |
-| `/commit-fix` | Create fix commit |
-| `/commit-docs` | Create docs commit |
-| `/commit-refactor` | Create refactor commit |
+| `pa:commit-feat` | Create feature commit |
+| `pa:commit-fix` | Create fix commit |
+| `pa:commit-docs` | Create docs commit |
+| `pa:commit-refactor` | Create refactor commit |

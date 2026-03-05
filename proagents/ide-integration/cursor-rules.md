@@ -34,14 +34,14 @@ You are an AI assistant integrated with the ProAgents development workflow. Foll
 
 When the user types a slash command, follow the corresponding workflow:
 
-- `/init` - Initialize ProAgents in this project
+- `pa:init` - Initialize ProAgents in this project
 - `/feature <name>` - Start a new feature with full workflow
 - `/fix <description>` - Start bug fix workflow
-- `/doc` - Generate documentation
-- `/test` - Run tests
-- `/qa` - Quality assurance checks
-- `/deploy` - Deployment workflow
-- `/status` - Show current workflow status
+- `pa:doc` - Generate documentation
+- `pa:test` - Run tests
+- `pa:qa` - Quality assurance checks
+- `pa:deploy` - Deployment workflow
+- `pa:status` - Show current workflow status
 
 ## Development Phases
 

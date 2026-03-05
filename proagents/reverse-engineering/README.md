@@ -142,10 +142,10 @@ Output:
 
 | Command | Description |
 |---------|-------------|
-| `/reverse-engineer` | Full reverse engineering |
-| `/re-architecture` | Extract architecture only |
-| `/re-docs` | Generate documentation |
-| `/re-diagrams` | Generate diagrams |
-| `/re-patterns` | Detect patterns |
-| `/re-deps` | Map dependencies |
-| `/re-quality` | Quality assessment |
+| `pa:reverse-engineer` | Full reverse engineering |
+| `pa:re-architecture` | Extract architecture only |
+| `pa:re-docs` | Generate documentation |
+| `pa:re-diagrams` | Generate diagrams |
+| `pa:re-patterns` | Detect patterns |
+| `pa:re-deps` | Map dependencies |
+| `pa:re-quality` | Quality assessment |

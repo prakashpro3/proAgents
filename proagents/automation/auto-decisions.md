@@ -528,8 +528,8 @@ automation:
 
 | Command | Description |
 |---------|-------------|
-| `/auto-config` | Configure automation settings |
-| `/auto-level [level]` | Set automation level |
-| `/decisions` | View/edit pre-configured decisions |
-| `/decision-log` | View decision log |
-| `/review-decisions` | Review flagged decisions |
+| `pa:auto-config` | Configure automation settings |
+| `pa:auto-level [level]` | Set automation level |
+| `pa:decisions` | View/edit pre-configured decisions |
+| `pa:decision-log` | View decision log |
+| `pa:review-decisions` | Review flagged decisions |

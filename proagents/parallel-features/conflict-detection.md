@@ -221,6 +221,6 @@ parallel_features:
 
 | Command | Description |
 |---------|-------------|
-| `/conflict-check` | Check for conflicts |
-| `/conflict-status` | Show conflict status |
-| `/conflict-resolve` | Help resolve conflicts |
+| `pa:conflict-check` | Check for conflicts |
+| `pa:conflict-status` | Show conflict status |
+| `pa:conflict-resolve` | Help resolve conflicts |

@@ -576,11 +576,11 @@ Clicking a node in the diagram navigates to:
 
 | Command | Description |
 |---------|-------------|
-| `/re-diagrams` | Generate all diagrams |
-| `/re-diagrams --type components` | Component hierarchy only |
-| `/re-diagrams --type dependencies` | Module dependencies only |
-| `/re-diagrams --type database` | Database schema only |
-| `/re-diagrams --type api` | API routes only |
-| `/re-diagrams --type flow` | Data flow diagrams |
-| `/re-diagrams --format svg` | Export as SVG |
-| `/re-diagrams --module auth` | Diagrams for specific module |
+| `pa:re-diagrams` | Generate all diagrams |
+| `pa:re-diagrams --type components` | Component hierarchy only |
+| `pa:re-diagrams --type dependencies` | Module dependencies only |
+| `pa:re-diagrams --type database` | Database schema only |
+| `pa:re-diagrams --type api` | API routes only |
+| `pa:re-diagrams --type flow` | Data flow diagrams |
+| `pa:re-diagrams --format svg` | Export as SVG |
+| `pa:re-diagrams --module auth` | Diagrams for specific module |

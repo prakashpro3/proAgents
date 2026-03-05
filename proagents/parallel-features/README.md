@@ -79,7 +79,7 @@ parallel_features:
 
 | Command | Description |
 |---------|-------------|
-| `/conflict-check` | Check for conflicts |
-| `/conflict-status` | View conflict dashboard |
-| `/feature-deps` | View feature dependencies |
-| `/merge-order` | Get recommended merge order |
+| `pa:conflict-check` | Check for conflicts |
+| `pa:conflict-status` | View conflict dashboard |
+| `pa:feature-deps` | View feature dependencies |
+| `pa:merge-order` | Get recommended merge order |

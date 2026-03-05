@@ -1,15 +1,15 @@
-# Slash Commands Reference
+# ProAgents Commands Reference
 
-AI-platform slash commands for ProAgents workflow operations.
+AI-platform commands for ProAgents workflow operations.
 
 ---
 
 ## Overview
 
-Slash commands (`/command`) provide quick access to workflow operations when working with any AI platform (Claude, ChatGPT, Gemini, Copilot, etc.).
+ProAgents commands (`pa:command`) provide quick access to workflow operations when working with any AI platform (Claude, ChatGPT, Gemini, Copilot, etc.).
 
 ```
-User types: /feature start "Add authentication"
+User types: pa:feature "Add authentication"
 
 AI responds: Starting feature "Add authentication"...
              Mode: Full Workflow
@@ -20,37 +20,37 @@ AI responds: Starting feature "Add authentication"...
 
 ---
 
-## How Slash Commands Work
+## How Commands Work
 
 ### Intelligent Hints
 
-When you type `/`, available commands are displayed:
+When you type `pa:`, available commands are displayed:
 
 ```
-/  ← User types slash
+pa:  ← User types prefix
 
 ┌─────────────────────────────────────┐
 │ Available Commands:                 │
 ├─────────────────────────────────────┤
-│ /init      - Initialize project    │
-│ /feature   - Feature commands      │
-│ /fix       - Bug fix commands      │
-│ /doc       - Documentation         │
-│ /qa        - Quality assurance     │
-│ /test      - Testing               │
-│ /deploy    - Deployment            │
-│ /analyze   - Analysis              │
-│ /commit    - Git commits           │
-│ Type more to filter...             │
+│ pa:init      - Initialize project   │
+│ pa:feature   - Feature commands     │
+│ pa:fix       - Bug fix commands     │
+│ pa:doc       - Documentation        │
+│ pa:qa        - Quality assurance    │
+│ pa:test      - Testing              │
+│ pa:deploy    - Deployment           │
+│ pa:analyze   - Analysis             │
+│ pa:commit    - Git commits          │
+│ Type more to filter...              │
 └─────────────────────────────────────┘
 ```
 
 ### Progressive Filtering
 
 ```
-/d    →  Shows: /doc, /deploy, /doctor
-/do   →  Shows: /doc, /doc-full, /doc-moderate, /doc-lite
-/doc  →  Shows only documentation commands
+pa:d    →  Shows: pa:doc, pa:deploy, pa:doctor
+pa:do   →  Shows: pa:doc, pa:doc-full, pa:doc-moderate, pa:doc-lite
+pa:doc  →  Shows only documentation commands
 ```
 
 ---
@@ -61,16 +61,16 @@ When you type `/`, available commands are displayed:
 
 | Command | Description |
 |---------|-------------|
-| `/init` | Initialize ProAgents in project |
-| `/setup` | Run setup wizard |
-| `/config` | Configuration settings |
-| `/help` | Show all commands |
+| `pa:init` | Initialize ProAgents in project |
+| `pa:setup` | Run setup wizard |
+| `pa:config` | Configuration settings |
+| `pa:help` | Show all commands |
 
 **Examples:**
 ```
-/init
-/init --type fullstack
-/config set checkpoints.before_deployment true
+pa:init
+pa:init --type fullstack
+pa:config set checkpoints.before_deployment true
 ```
 
 ---
@@ -79,21 +79,21 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/feature` | `/feature-start`, `/feature-status`, `/feature-pause`, `/feature-resume`, `/feature-complete`, `/feature-list` | Feature commands |
-| `/feature-start` | - | Start new feature |
-| `/feature-status` | - | Current feature status |
-| `/feature-pause` | - | Pause current feature |
-| `/feature-resume` | - | Resume paused feature |
-| `/feature-complete` | - | Mark feature done |
-| `/feature-list` | - | List all features |
+| `pa:feature` | `pa:feature-status`, `pa:feature-pause`, `pa:feature-resume`, `pa:feature-complete`, `pa:feature-list` | Feature commands |
+| `pa:feature` | - | Start new feature |
+| `pa:feature-status` | - | Current feature status |
+| `pa:feature-pause` | - | Pause current feature |
+| `pa:feature-resume` | - | Resume paused feature |
+| `pa:feature-complete` | - | Mark feature done |
+| `pa:feature-list` | - | List all features |
 
 **Examples:**
 ```
-/feature-start "User authentication"
-/feature-status
-/feature-pause --note "Waiting for design review"
-/feature-resume user-auth
-/feature-complete
+pa:feature "User authentication"
+pa:feature-status
+pa:feature-pause --note "Waiting for design review"
+pa:feature-resume user-auth
+pa:feature-complete
 ```
 
 ---
@@ -102,16 +102,16 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/fix` | `/fix-quick`, `/fix-hotfix`, `/fix-bug` | Fix commands |
-| `/fix-quick` | - | Quick bug fix mode |
-| `/hotfix` | - | Emergency hotfix |
-| `/fix-bug` | - | Standard bug fix |
+| `pa:fix` | `pa:fix-quick`, `pa:hotfix`, `pa:fix-bug` | Fix commands |
+| `pa:fix-quick` | - | Quick bug fix mode |
+| `pa:hotfix` | - | Emergency hotfix |
+| `pa:fix-bug` | - | Standard bug fix |
 
 **Examples:**
 ```
-/fix "Login button not responding"
-/fix-quick "Update config value"
-/hotfix "Critical security issue"
+pa:fix "Login button not responding"
+pa:fix-quick "Update config value"
+pa:hotfix "Critical security issue"
 ```
 
 ---
@@ -120,18 +120,18 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/qa` | `/qa-full`, `/qa-quick`, `/qa-security`, `/qa-perf` | QA commands |
-| `/qa-full` | - | Full quality check |
-| `/qa-quick` | - | Quick quality check |
-| `/qa-security` | - | Security focused QA |
-| `/qa-perf` | - | Performance focused QA |
+| `pa:qa` | `pa:qa-full`, `pa:qa-quick`, `pa:qa-security`, `pa:qa-perf` | QA commands |
+| `pa:qa-full` | - | Full quality check |
+| `pa:qa-quick` | - | Quick quality check |
+| `pa:qa-security` | - | Security focused QA |
+| `pa:qa-perf` | - | Performance focused QA |
 
 **Examples:**
 ```
-/qa
-/qa-full
-/qa-security
-/qa-perf
+pa:qa
+pa:qa-full
+pa:qa-security
+pa:qa-perf
 ```
 
 ---
@@ -140,20 +140,20 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/test` | `/test-unit`, `/test-integration`, `/test-e2e`, `/test-all` | Test commands |
-| `/test-unit` | - | Run unit tests |
-| `/test-integration` | - | Run integration tests |
-| `/test-e2e` | - | Run end-to-end tests |
-| `/test-all` | - | Run all tests |
-| `/test-affected` | - | Test affected files |
-| `/test-coverage` | - | Run with coverage |
+| `pa:test` | `pa:test-unit`, `pa:test-integration`, `pa:test-e2e`, `pa:test-all` | Test commands |
+| `pa:test-unit` | - | Run unit tests |
+| `pa:test-integration` | - | Run integration tests |
+| `pa:test-e2e` | - | Run end-to-end tests |
+| `pa:test-all` | - | Run all tests |
+| `pa:test-affected` | - | Test affected files |
+| `pa:test-coverage` | - | Run with coverage |
 
 **Examples:**
 ```
-/test
-/test-all
-/test-affected
-/test-coverage
+pa:test
+pa:test-all
+pa:test-affected
+pa:test-coverage
 ```
 
 ---
@@ -162,20 +162,20 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/doc` | `/doc-full`, `/doc-moderate`, `/doc-lite`, `/doc-module`, `/doc-file`, `/doc-api` | Doc commands |
-| `/doc-full` | - | Full in-depth docs |
-| `/doc-moderate` | - | Balanced docs |
-| `/doc-lite` | - | Quick reference |
-| `/doc-module` | - | Document specific module |
-| `/doc-file` | - | Document specific file |
-| `/doc-api` | - | API documentation |
+| `pa:doc` | `pa:doc-full`, `pa:doc-moderate`, `pa:doc-lite`, `pa:doc-module`, `pa:doc-file`, `pa:doc-api` | Doc commands |
+| `pa:doc-full` | - | Full in-depth docs |
+| `pa:doc-moderate` | - | Balanced docs |
+| `pa:doc-lite` | - | Quick reference |
+| `pa:doc-module` | - | Document specific module |
+| `pa:doc-file` | - | Document specific file |
+| `pa:doc-api` | - | API documentation |
 
 **Examples:**
 ```
-/doc
-/doc-full
-/doc-module auth
-/doc-file src/services/AuthService.ts
+pa:doc
+pa:doc-full
+pa:doc-module auth
+pa:doc-file src/services/AuthService.ts
 ```
 
 ---
@@ -184,19 +184,19 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/analyze` | `/analyze-full`, `/analyze-moderate`, `/analyze-lite`, `/analyze-module`, `/analyze-deps` | Analysis commands |
-| `/analyze-full` | - | Deep codebase analysis |
-| `/analyze-moderate` | - | Moderate analysis |
-| `/analyze-lite` | - | Quick overview |
-| `/analyze-deps` | - | Dependency analysis |
-| `/analyze-security` | - | Security analysis |
+| `pa:analyze` | `pa:analyze-full`, `pa:analyze-moderate`, `pa:analyze-lite`, `pa:analyze-module`, `pa:analyze-deps` | Analysis commands |
+| `pa:analyze-full` | - | Deep codebase analysis |
+| `pa:analyze-moderate` | - | Moderate analysis |
+| `pa:analyze-lite` | - | Quick overview |
+| `pa:analyze-deps` | - | Dependency analysis |
+| `pa:analyze-security` | - | Security analysis |
 
 **Examples:**
 ```
-/analyze
-/analyze-full
-/analyze-module auth
-/analyze-deps
+pa:analyze
+pa:analyze-full
+pa:analyze-module auth
+pa:analyze-deps
 ```
 
 ---
@@ -205,21 +205,21 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/commit` | `/commit-feat`, `/commit-fix`, `/commit-docs`, `/commit-refactor` | Commit commands |
-| `/commit-feat` | - | Feature commit |
-| `/commit-fix` | - | Fix commit |
-| `/commit-docs` | - | Documentation commit |
-| `/commit-refactor` | - | Refactor commit |
-| `/branch` | `/branch-feature`, `/branch-hotfix`, `/branch-release` | Branch commands |
-| `/pr` | `/pr-create`, `/pr-update`, `/pr-merge` | PR commands |
+| `pa:commit` | `pa:commit-feat`, `pa:commit-fix`, `pa:commit-docs`, `pa:commit-refactor` | Commit commands |
+| `pa:commit-feat` | - | Feature commit |
+| `pa:commit-fix` | - | Fix commit |
+| `pa:commit-docs` | - | Documentation commit |
+| `pa:commit-refactor` | - | Refactor commit |
+| `pa:branch` | `pa:branch-feature`, `pa:branch-hotfix`, `pa:branch-release` | Branch commands |
+| `pa:pr` | `pa:pr-create`, `pa:pr-update`, `pa:pr-merge` | PR commands |
 
 **Examples:**
 ```
-/commit "Add login validation"
-/commit-feat "Add user authentication"
-/commit-fix "Fix token expiration"
-/branch-feature user-dashboard
-/pr-create
+pa:commit "Add login validation"
+pa:commit-feat "Add user authentication"
+pa:commit-fix "Fix token expiration"
+pa:branch-feature user-dashboard
+pa:pr-create
 ```
 
 ---
@@ -228,19 +228,19 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/deploy` | `/deploy-staging`, `/deploy-prod`, `/deploy-check` | Deploy commands |
-| `/deploy-staging` | - | Deploy to staging |
-| `/deploy-prod` | - | Deploy to production |
-| `/deploy-check` | - | Pre-deployment check |
-| `/rollback` | `/rollback-quick`, `/rollback-full` | Rollback commands |
+| `pa:deploy` | `pa:deploy-staging`, `pa:deploy-prod`, `pa:deploy-check` | Deploy commands |
+| `pa:deploy-staging` | - | Deploy to staging |
+| `pa:deploy-prod` | - | Deploy to production |
+| `pa:deploy-check` | - | Pre-deployment check |
+| `pa:rollback` | `pa:rollback-quick`, `pa:rollback-full` | Rollback commands |
 
 **Examples:**
 ```
-/deploy-staging
-/deploy-prod
-/deploy-check
-/rollback production
-/rollback-quick
+pa:deploy-staging
+pa:deploy-prod
+pa:deploy-check
+pa:rollback production
+pa:rollback-quick
 ```
 
 ---
@@ -249,18 +249,18 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/report` | `/report-velocity`, `/report-quality`, `/report-coverage`, `/report-security` | Report commands |
-| `/report-velocity` | - | Development speed |
-| `/report-quality` | - | Code quality |
-| `/report-coverage` | - | Test coverage |
-| `/report-security` | - | Security status |
+| `pa:report` | `pa:report-velocity`, `pa:report-quality`, `pa:report-coverage`, `pa:report-security` | Report commands |
+| `pa:report-velocity` | - | Development speed |
+| `pa:report-quality` | - | Code quality |
+| `pa:report-coverage` | - | Test coverage |
+| `pa:report-security` | - | Security status |
 
 **Examples:**
 ```
-/report
-/report-velocity --period week
-/report-quality
-/report-coverage
+pa:report
+pa:report-velocity --period week
+pa:report-quality
+pa:report-coverage
 ```
 
 ---
@@ -269,17 +269,17 @@ When you type `/`, available commands are displayed:
 
 | Command | Hints | Description |
 |---------|-------|-------------|
-| `/collab` | `/collab-start`, `/collab-join`, `/collab-leave` | Collaboration |
-| `/collab-start` | - | Start session |
-| `/collab-join` | - | Join session |
-| `/collab-leave` | - | Leave session |
-| `/collab-invite` | - | Invite collaborator |
+| `pa:collab` | `pa:collab-start`, `pa:collab-join`, `pa:collab-leave` | Collaboration |
+| `pa:collab-start` | - | Start session |
+| `pa:collab-join` | - | Join session |
+| `pa:collab-leave` | - | Leave session |
+| `pa:collab-invite` | - | Invite collaborator |
 
 **Examples:**
 ```
-/collab-start --feature user-auth
-/collab-join session-123
-/collab-invite dev@email.com
+pa:collab-start --feature user-auth
+pa:collab-join session-123
+pa:collab-invite dev@email.com
 ```
 
 ---
@@ -288,20 +288,20 @@ When you type `/`, available commands are displayed:
 
 | Command | Description |
 |---------|-------------|
-| `/status` | Show workflow status |
-| `/mode` | Show/change workflow mode |
-| `/phase` | Show/change current phase |
-| `/doctor` | Health check |
-| `/clean` | Clean temporary files |
-| `/version` | Show version |
+| `pa:status` | Show workflow status |
+| `pa:mode` | Show/change workflow mode |
+| `pa:phase` | Show/change current phase |
+| `pa:doctor` | Health check |
+| `pa:clean` | Clean temporary files |
+| `pa:version` | Show version |
 
 **Examples:**
 ```
-/status
-/status --all
-/mode bug-fix
-/phase implementation
-/doctor
+pa:status
+pa:status --all
+pa:mode bug-fix
+pa:phase implementation
+pa:doctor
 ```
 
 ---
@@ -313,35 +313,35 @@ Commands adapt to your current context:
 ### During Feature Development
 
 ```
-/  →  Prioritizes: /feature-status, /test, /commit
+pa:  →  Prioritizes: pa:feature-status, pa:test, pa:commit
 
 Available:
-• /feature-status   - Check progress
-• /test-affected    - Test changes
-• /commit           - Commit changes
-• /phase-next       - Move to next phase
+• pa:feature-status   - Check progress
+• pa:test-affected    - Test changes
+• pa:commit           - Commit changes
+• pa:phase-next       - Move to next phase
 ```
 
 ### After Tests Pass
 
 ```
-/  →  Suggests: /deploy, /pr-create
+pa:  →  Suggests: pa:deploy, pa:pr-create
 
 Available:
-• /deploy-staging   - Deploy to staging
-• /pr-create        - Create pull request
-• /doc-update       - Update documentation
+• pa:deploy-staging   - Deploy to staging
+• pa:pr-create        - Create pull request
+• pa:doc-update       - Update documentation
 ```
 
 ### In Bug Fix Mode
 
 ```
-/  →  Prioritizes: /fix-complete, /test, /commit-fix
+pa:  →  Prioritizes: pa:fix-complete, pa:test, pa:commit-fix
 
 Available:
-• /test-affected    - Test fix
-• /commit-fix       - Commit fix
-• /fix-complete     - Complete bug fix
+• pa:test-affected    - Test fix
+• pa:commit-fix       - Commit fix
+• pa:fix-complete     - Complete bug fix
 ```
 
 ---
@@ -351,62 +351,62 @@ Available:
 ### Sequential Commands
 
 ```
-/test && /deploy
+pa:test && pa:deploy
 # Run tests, then deploy if tests pass
 
-/qa && /deploy || /rollback
+pa:qa && pa:deploy || pa:rollback
 # QA check, deploy if pass, rollback if fail
 ```
 
 ### Pipeline Commands
 
 ```
-/test → /doc → /commit → /pr-create
+pa:test → pa:doc → pa:commit → pa:pr-create
 # Full sequence from test to PR
 ```
 
 ---
 
-## Custom Slash Commands
+## Custom Commands
 
 Define your own commands in config:
 
 ```yaml
 # proagents.config.yaml
 custom_commands:
-  "/ship":
+  "pa:ship":
     description: "Full deployment workflow"
-    hints: ["/ship-staging", "/ship-prod"]
+    hints: ["pa:ship-staging", "pa:ship-prod"]
     steps:
-      - "/test-all"
-      - "/qa-full"
-      - "/deploy-prod"
+      - "pa:test-all"
+      - "pa:qa-full"
+      - "pa:deploy-prod"
 
-  "/morning":
+  "pa:morning":
     description: "Daily start routine"
     steps:
-      - "/status"
-      - "/feature-list"
+      - "pa:status"
+      - "pa:feature-list"
 
-  "/friday":
+  "pa:friday":
     description: "End of week"
     steps:
-      - "/doc-moderate"
-      - "/report-velocity"
+      - "pa:doc-moderate"
+      - "pa:report-velocity"
 
-  "/ci":
+  "pa:ci":
     description: "CI pipeline"
     steps:
-      - "/lint"
-      - "/test-all"
-      - "/qa-security"
+      - "pa:lint"
+      - "pa:test-all"
+      - "pa:qa-security"
 ```
 
 **Using Custom Commands:**
 ```
-/ship-staging
-/morning
-/ci
+pa:ship-staging
+pa:morning
+pa:ci
 ```
 
 ---
@@ -415,16 +415,16 @@ custom_commands:
 
 ### Claude (Claude Code)
 
-Native support for all slash commands:
+Native support for all pa: commands:
 ```
-/feature-start "Add authentication"
+pa:feature "Add authentication"
 ```
 
 ### ChatGPT
 
 Enable via Custom Instructions or GPTs:
 ```
-When user types /command, interpret as ProAgents workflow command
+When user types pa:command, interpret as ProAgents workflow command
 ```
 
 ### GitHub Copilot
@@ -433,7 +433,7 @@ Via Custom Commands configuration:
 ```json
 {
   "commands": {
-    "/pa": "proagents"
+    "pa:": "proagents"
   }
 }
 ```
@@ -449,25 +449,25 @@ Native command support in Cursor settings.
 ### Positional Arguments
 
 ```
-/feature-start "Feature Name"
-/doc-module auth
-/commit-fix "Fix login bug"
+pa:feature "Feature Name"
+pa:doc-module auth
+pa:commit-fix "Fix login bug"
 ```
 
 ### Named Arguments
 
 ```
-/feature-start "Auth" --mode full --branch custom-branch
-/deploy staging --skip-tests
-/test --coverage --verbose
+pa:feature "Auth" --mode full --branch custom-branch
+pa:deploy staging --skip-tests
+pa:test --coverage --verbose
 ```
 
 ### Flags
 
 ```
-/qa --full
-/test --watch
-/deploy --dry-run
+pa:qa --full
+pa:test --watch
+pa:deploy --dry-run
 ```
 
 ---
@@ -477,31 +477,31 @@ Native command support in Cursor settings.
 ### Most Used Commands
 
 ```
-/feature-start "name"  →  Start new feature
-/status               →  Check status
-/test                 →  Run tests
-/qa                   →  Quality check
-/commit               →  Create commit
-/pr-create            →  Create PR
-/deploy-staging       →  Deploy to staging
+pa:feature "name"     →  Start new feature
+pa:status             →  Check status
+pa:test               →  Run tests
+pa:qa                 →  Quality check
+pa:commit             →  Create commit
+pa:pr-create          →  Create PR
+pa:deploy-staging     →  Deploy to staging
 ```
 
 ### Feature Workflow
 
 ```
-/feature-start "name"  →  Begin
-/analyze              →  Analyze codebase
-/test                 →  Run tests
-/doc                  →  Generate docs
-/feature-complete     →  Finish
-/pr-create            →  Create PR
+pa:feature "name"     →  Begin
+pa:analyze            →  Analyze codebase
+pa:test               →  Run tests
+pa:doc                →  Generate docs
+pa:feature-complete   →  Finish
+pa:pr-create          →  Create PR
 ```
 
 ### Bug Fix Workflow
 
 ```
-/fix "description"    →  Start fix
-/test-affected        →  Test changes
-/commit-fix           →  Commit
-/pr-create --draft    →  Create draft PR
+pa:fix "description"  →  Start fix
+pa:test-affected      →  Test changes
+pa:commit-fix         →  Commit
+pa:pr-create --draft  →  Create draft PR
 ```

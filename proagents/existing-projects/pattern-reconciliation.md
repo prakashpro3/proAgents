@@ -482,8 +482,8 @@ pattern_reconciliation:
 
 | Command | Description |
 |---------|-------------|
-| `/detect-patterns` | Detect all patterns |
-| `/pattern-status` | View pattern usage |
-| `/pattern-reconcile` | Start reconciliation |
-| `/pattern-migrate [from] [to]` | Plan migration |
-| `/pattern-document` | Generate pattern docs |
+| `pa:detect-patterns` | Detect all patterns |
+| `pa:pattern-status` | View pattern usage |
+| `pa:pattern-reconcile` | Start reconciliation |
+| `pa:pattern-migrate [from] [to]` | Plan migration |
+| `pa:pattern-document` | Generate pattern docs |

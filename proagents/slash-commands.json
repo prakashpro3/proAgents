@@ -1,146 +1,122 @@
 {
   "version": "1.0.0",
+  "prefix": "pa:",
   "commands": [
     {
-      "name": "/init",
+      "name": "pa:init",
       "description": "Initialize ProAgents in this project",
       "hints": [],
       "category": "setup"
     },
     {
-      "name": "/feature",
-      "description": "Feature development commands",
-      "hints": ["/feature-start", "/feature-status", "/feature-pause", "/feature-resume", "/feature-complete", "/feature-list"],
-      "category": "feature"
-    },
-    {
-      "name": "/feature-start",
+      "name": "pa:feature",
       "description": "Start a new feature",
       "arguments": ["feature_name"],
+      "hints": ["pa:feature-status", "pa:feature-pause", "pa:feature-resume", "pa:feature-complete", "pa:feature-list"],
       "category": "feature"
     },
     {
-      "name": "/feature-status",
+      "name": "pa:feature-status",
       "description": "Check current feature status",
       "category": "feature"
     },
     {
-      "name": "/fix",
-      "description": "Bug fix commands",
-      "hints": ["/fix-quick", "/hotfix", "/fix-upgrade"],
+      "name": "pa:fix",
+      "description": "Quick bug fix mode",
+      "arguments": ["bug_description"],
+      "hints": ["pa:hotfix"],
       "category": "fix"
     },
     {
-      "name": "/fix-quick",
-      "description": "Quick bug fix mode",
+      "name": "pa:hotfix",
+      "description": "Emergency hotfix",
       "arguments": ["bug_description"],
       "category": "fix"
     },
     {
-      "name": "/qa",
-      "description": "Quality assurance commands",
-      "hints": ["/qa-full", "/qa-quick", "/qa-security", "/qa-perf"],
+      "name": "pa:qa",
+      "description": "Quality assurance check",
+      "hints": ["pa:qa-full", "pa:qa-quick", "pa:qa-security", "pa:qa-perf"],
       "category": "qa"
     },
     {
-      "name": "/test",
-      "description": "Testing commands",
-      "hints": ["/test-unit", "/test-integration", "/test-e2e", "/test-all"],
+      "name": "pa:test",
+      "description": "Run or create tests",
+      "hints": ["pa:test-unit", "pa:test-integration", "pa:test-e2e", "pa:test-all"],
       "category": "test"
     },
     {
-      "name": "/doc",
-      "description": "Documentation commands",
-      "hints": ["/doc-full", "/doc-moderate", "/doc-lite", "/doc-module", "/doc-file", "/doc-api"],
+      "name": "pa:doc",
+      "description": "Generate documentation",
+      "hints": ["pa:doc-full", "pa:doc-moderate", "pa:doc-lite", "pa:doc-module", "pa:doc-file", "pa:doc-api"],
       "category": "doc"
     },
     {
-      "name": "/doc-full",
-      "description": "Full in-depth documentation",
+      "name": "pa:release",
+      "description": "Generate release notes",
+      "arguments": ["version"],
       "category": "doc"
     },
     {
-      "name": "/doc-moderate",
-      "description": "Balanced documentation",
+      "name": "pa:changelog",
+      "description": "Update changelog",
       "category": "doc"
     },
     {
-      "name": "/doc-lite",
-      "description": "Quick reference documentation",
-      "category": "doc"
-    },
-    {
-      "name": "/doc-module",
-      "description": "Document specific module",
-      "arguments": ["module_name"],
-      "category": "doc"
-    },
-    {
-      "name": "/analyze",
-      "description": "Codebase analysis commands",
-      "hints": ["/analyze-full", "/analyze-moderate", "/analyze-lite", "/analyze-module", "/analyze-deps"],
+      "name": "pa:analyze",
+      "description": "Analyze codebase",
+      "hints": ["pa:analyze-full", "pa:analyze-moderate", "pa:analyze-lite", "pa:analyze-deps"],
       "category": "analyze"
     },
     {
-      "name": "/commit",
-      "description": "Git commit commands",
-      "hints": ["/commit-feat", "/commit-fix", "/commit-docs", "/commit-refactor"],
+      "name": "pa:commit",
+      "description": "Git commit",
+      "hints": ["pa:commit-feat", "pa:commit-fix", "pa:commit-docs"],
       "category": "git"
     },
     {
-      "name": "/branch",
-      "description": "Git branch commands",
-      "hints": ["/branch-feature", "/branch-hotfix", "/branch-release"],
+      "name": "pa:branch",
+      "description": "Git branch operations",
+      "hints": ["pa:branch-feature", "pa:branch-hotfix", "pa:branch-release"],
       "category": "git"
     },
     {
-      "name": "/pr",
-      "description": "Pull request commands",
-      "hints": ["/pr-create", "/pr-update", "/pr-merge"],
+      "name": "pa:pr",
+      "description": "Pull request operations",
+      "hints": ["pa:pr-create", "pa:pr-update", "pa:pr-merge"],
       "category": "git"
     },
     {
-      "name": "/deploy",
-      "description": "Deployment commands",
-      "hints": ["/deploy-staging", "/deploy-prod", "/deploy-check"],
+      "name": "pa:deploy",
+      "description": "Deployment operations",
+      "hints": ["pa:deploy-staging", "pa:deploy-prod", "pa:deploy-check"],
       "category": "deploy"
     },
     {
-      "name": "/rollback",
-      "description": "Rollback commands",
-      "hints": ["/rollback-quick", "/rollback-full"],
+      "name": "pa:rollback",
+      "description": "Rollback operations",
+      "hints": ["pa:rollback-quick", "pa:rollback-full"],
       "category": "deploy"
     },
     {
-      "name": "/report",
-      "description": "Report commands",
-      "hints": ["/report-velocity", "/report-quality", "/report-coverage", "/report-security"],
+      "name": "pa:report",
+      "description": "Generate reports",
+      "hints": ["pa:report-velocity", "pa:report-quality", "pa:report-coverage"],
       "category": "report"
     },
     {
-      "name": "/collab",
-      "description": "Collaboration commands",
-      "hints": ["/collab-start", "/collab-join", "/collab-leave"],
-      "category": "collab"
-    },
-    {
-      "name": "/status",
+      "name": "pa:status",
       "description": "Show workflow status",
       "category": "utility"
     },
     {
-      "name": "/help",
+      "name": "pa:help",
       "description": "Show all commands",
       "category": "utility"
     },
     {
-      "name": "/config",
-      "description": "Configuration commands",
-      "category": "utility"
-    },
-    {
-      "name": "/doctor",
-      "description": "Run health check",
+      "name": "pa:config",
+      "description": "Configuration settings",
       "category": "utility"
     }
   ],
@@ -155,7 +131,6 @@
     "git": "Git & Commits",
     "deploy": "Deployment",
     "report": "Reports",
-    "collab": "Collaboration",
     "utility": "Utilities"
   }
 }

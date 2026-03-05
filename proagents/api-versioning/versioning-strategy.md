@@ -285,7 +285,7 @@ api_versioning:
 
 | Command | Description |
 |---------|-------------|
-| `/api-version new [version]` | Create new API version |
-| `/api-version deprecate [version]` | Mark version as deprecated |
-| `/api-version status` | Show version status |
-| `/api-migration-guide [from] [to]` | Generate migration guide |
+| `pa:api-version new [version]` | Create new API version |
+| `pa:api-version deprecate [version]` | Mark version as deprecated |
+| `pa:api-version status` | Show version status |
+| `pa:api-migration-guide [from] [to]` | Generate migration guide |

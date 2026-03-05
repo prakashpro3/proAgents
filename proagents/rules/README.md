@@ -173,7 +173,7 @@ configuration:
 
 | Command | Description |
 |---------|-------------|
-| `/rules-check` | Run rule validation |
-| `/rules-list` | List all active rules |
-| `/rules-add` | Add new rule |
-| `/rules-disable [id]` | Disable a rule |
+| `pa:rules-check` | Run rule validation |
+| `pa:rules-list` | List all active rules |
+| `pa:rules-add` | Add new rule |
+| `pa:rules-disable [id]` | Disable a rule |

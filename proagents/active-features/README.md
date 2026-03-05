@@ -120,7 +120,7 @@ Recommendation: Coordinate before merge
 
 ### Start Feature Tracking
 
-When you run `/feature-start "Feature Name"`:
+When you run `pa:feature "Feature Name"`:
 1. Directory created: `active-features/feature-name/`
 2. Status files initialized
 3. Added to `_index.json`
@@ -169,8 +169,8 @@ proagents/active-features/*/files-modified.json
 
 | Command | Description |
 |---------|-------------|
-| `/feature-start` | Start new feature tracking |
-| `/feature-status` | View current status |
-| `/feature-list` | List all active features |
-| `/conflict-check` | Check for conflicts |
-| `/feature-complete` | Mark feature complete |
+| `pa:feature` | Start new feature tracking |
+| `pa:feature-status` | View current status |
+| `pa:feature-list` | List all active features |
+| `pa:conflict-check` | Check for conflicts |
+| `pa:feature-complete` | Mark feature complete |

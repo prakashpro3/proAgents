@@ -521,6 +521,6 @@ naming_conventions:
 
 | Command | Description |
 |---------|-------------|
-| `/naming-check` | Check naming conventions |
-| `/naming-fix` | Auto-fix naming issues |
-| `/naming-guide` | Show naming guide |
+| `pa:naming-check` | Check naming conventions |
+| `pa:naming-fix` | Auto-fix naming issues |
+| `pa:naming-guide` | Show naming guide |

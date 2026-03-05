@@ -36,13 +36,13 @@ Recognize and respond to these workflow commands:
 
 | Command | Action |
 |---------|--------|
-| `/init` | Initialize ProAgents workflow |
-| `/feature <name>` | Start new feature development |
-| `/fix <desc>` | Quick bug fix workflow |
-| `/doc` | Generate documentation |
-| `/test` | Run test suite |
-| `/qa` | Quality checks |
-| `/deploy` | Deployment preparation |
+| `pa:init` | Initialize ProAgents workflow |
+| `pa:feature <name>` | Start new feature development |
+| `pa:fix <desc>` | Quick bug fix workflow |
+| `pa:doc` | Generate documentation |
+| `pa:test` | Run test suite |
+| `pa:qa` | Quality checks |
+| `pa:deploy` | Deployment preparation |
 
 ## Cascade Flow Integration
 

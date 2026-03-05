@@ -115,6 +115,6 @@ overrides:
 
 | Command | Description |
 |---------|-------------|
-| `/standards-check` | Check code against standards |
-| `/standards-view` | View current standards |
-| `/standards-update` | Update standards from template |
+| `pa:standards-check` | Check code against standards |
+| `pa:standards-view` | View current standards |
+| `pa:standards-update` | Update standards from template |

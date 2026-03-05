@@ -130,12 +130,12 @@ git merge hotfix/critical-fix
 
 | Command | Action |
 |---------|--------|
-| `/branch-feature "name"` | Create feature branch |
-| `/branch-hotfix "name"` | Create hotfix branch |
-| `/branch-release "v1.0.0"` | Create release branch |
-| `/commit-feat` | Feature commit |
-| `/commit-fix` | Fix commit |
-| `/pr-create` | Create pull request |
+| `pa:branch-feature "name"` | Create feature branch |
+| `pa:branch-hotfix "name"` | Create hotfix branch |
+| `pa:branch-release "v1.0.0"` | Create release branch |
+| `pa:commit-feat` | Feature commit |
+| `pa:commit-fix` | Fix commit |
+| `pa:pr-create` | Create pull request |
 
 ---
 

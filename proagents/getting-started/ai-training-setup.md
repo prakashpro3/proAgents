@@ -35,7 +35,7 @@ As you work, the system learns:
 /feature-start "Add user profile"
 # → Learns feature naming patterns
 
-/analyze
+pa:analyze
 # → Learns project structure
 
 /implement

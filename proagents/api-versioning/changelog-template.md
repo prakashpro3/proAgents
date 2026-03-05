@@ -220,6 +220,6 @@ If breaking change, describe:
 
 | Command | Description |
 |---------|-------------|
-| `/api-changelog add` | Add changelog entry |
-| `/api-changelog view` | View API changelog |
-| `/api-changelog generate` | Auto-generate from changes |
+| `pa:api-changelog add` | Add changelog entry |
+| `pa:api-changelog view` | View API changelog |
+| `pa:api-changelog generate` | Auto-generate from changes |

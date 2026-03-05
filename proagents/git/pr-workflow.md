@@ -280,7 +280,7 @@ git push --force-with-lease
 
 | Command | Description |
 |---------|-------------|
-| `/pr-create` | Create pull request |
-| `/pr-update` | Update PR description |
-| `/pr-merge` | Merge pull request |
-| `/pr-review` | Request review |
+| `pa:pr-create` | Create pull request |
+| `pa:pr-update` | Update PR description |
+| `pa:pr-merge` | Merge pull request |
+| `pa:pr-review` | Request review |

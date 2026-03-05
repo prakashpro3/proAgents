@@ -56,7 +56,7 @@ Not every task requires the full 10-phase workflow. ProAgents supports multiple 
 
 ### Start in Full Workflow Mode
 ```bash
-/feature start "User Authentication"
+pa:feature start "User Authentication"
 ```
 
 ### Start in Bug Fix Mode
@@ -128,9 +128,9 @@ workflow_modes:
 
 | Command | Description |
 |---------|-------------|
-| `/feature start [name]` | Start full workflow |
-| `/fix [description]` | Start bug fix mode |
-| `/quick [description]` | Start quick change mode |
-| `/resume [feature]` | Resume previous work |
-| `/mode` | Show current mode |
-| `/mode switch [mode]` | Switch to different mode |
+| `pa:feature start [name]` | Start full workflow |
+| `pa:fix [description]` | Start bug fix mode |
+| `pa:quick [description]` | Start quick change mode |
+| `pa:resume [feature]` | Resume previous work |
+| `pa:mode` | Show current mode |
+| `pa:mode switch [mode]` | Switch to different mode |

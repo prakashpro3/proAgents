@@ -276,8 +276,8 @@ learning:
 
 | Command | Description |
 |---------|-------------|
-| `/learning-status` | Show learning statistics |
-| `/learning-patterns` | View learned patterns |
-| `/learning-corrections` | View correction history |
-| `/learning-reset` | Reset learning data |
-| `/learning-export` | Export learning data |
+| `pa:learning-status` | Show learning statistics |
+| `pa:learning-patterns` | View learned patterns |
+| `pa:learning-corrections` | View correction history |
+| `pa:learning-reset` | Reset learning data |
+| `pa:learning-export` | Export learning data |

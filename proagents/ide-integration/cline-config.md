@@ -38,13 +38,13 @@ Respond to these commands:
 
 | Command | Description | Action |
 |---------|-------------|--------|
-| `/init` | Initialize ProAgents | Set up workflow configuration |
-| `/feature <name>` | New feature | Full development workflow |
-| `/fix <bug>` | Bug fix | Streamlined fix workflow |
-| `/doc` | Documentation | Generate docs for code |
-| `/test` | Testing | Write/run tests |
-| `/review` | Code review | Review current changes |
-| `/status` | Status check | Show workflow progress |
+| `pa:init` | Initialize ProAgents | Set up workflow configuration |
+| `pa:feature <name>` | New feature | Full development workflow |
+| `pa:fix <bug>` | Bug fix | Streamlined fix workflow |
+| `pa:doc` | Documentation | Generate docs for code |
+| `pa:test` | Testing | Write/run tests |
+| `pa:review` | Code review | Review current changes |
+| `pa:status` | Status check | Show workflow progress |
 
 ## Task Execution
 

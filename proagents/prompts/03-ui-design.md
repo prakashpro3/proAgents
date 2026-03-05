@@ -10,9 +10,9 @@ Choose your design input method:
 
 | Method | Command | When to Use |
 |--------|---------|-------------|
-| Figma | `/design-figma` | Have Figma file access |
-| Export | `/design-export` | Have exported images/PDFs |
-| Sketch | `/design-sketch` | Have hand-drawn wireframes |
+| Figma | `pa:design-figma` | Have Figma file access |
+| Export | `pa:design-export` | Have exported images/PDFs |
+| Sketch | `pa:design-sketch` | Have hand-drawn wireframes |
 
 ---
 
@@ -484,10 +484,10 @@ Accessibility:
 
 | Command | Description |
 |---------|-------------|
-| `/design-figma` | Extract from Figma design |
-| `/design-export` | Analyze exported images |
-| `/design-sketch` | Interpret hand-drawn sketch |
-| `/design-tokens` | Generate design tokens |
-| `/component-spec` | Create component specification |
-| `/responsive-spec` | Document responsive behavior |
-| `/design-handoff` | Generate handoff document |
+| `pa:design-figma` | Extract from Figma design |
+| `pa:design-export` | Analyze exported images |
+| `pa:design-sketch` | Interpret hand-drawn sketch |
+| `pa:design-tokens` | Generate design tokens |
+| `pa:component-spec` | Create component specification |
+| `pa:responsive-spec` | Document responsive behavior |
+| `pa:design-handoff` | Generate handoff document |

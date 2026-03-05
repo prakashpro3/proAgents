@@ -635,10 +635,10 @@ technical_debt:
 
 | Command | Description |
 |---------|-------------|
-| `/debt-assess` | Run debt assessment |
-| `/debt-status` | View debt dashboard |
-| `/debt-list` | List all debt items |
-| `/debt-add` | Add debt item manually |
-| `/debt-resolve [id]` | Mark item as resolved |
-| `/debt-report` | Generate debt report |
-| `/debt-trends` | View debt trends |
+| `pa:debt-assess` | Run debt assessment |
+| `pa:debt-status` | View debt dashboard |
+| `pa:debt-list` | List all debt items |
+| `pa:debt-add` | Add debt item manually |
+| `pa:debt-resolve [id]` | Mark item as resolved |
+| `pa:debt-report` | Generate debt report |
+| `pa:debt-trends` | View debt trends |

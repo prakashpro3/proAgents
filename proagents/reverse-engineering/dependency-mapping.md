@@ -556,12 +556,12 @@ reverse_engineering:
 
 | Command | Description |
 |---------|-------------|
-| `/re-deps` | Full dependency analysis |
-| `/re-deps --internal` | Internal modules only |
-| `/re-deps --external` | External packages only |
-| `/re-deps --circular` | Find circular dependencies |
-| `/re-deps --dead` | Find dead/unused code |
-| `/re-deps --security` | Security vulnerability check |
-| `/re-deps --impact [file]` | Impact analysis for file |
-| `/re-deps --outdated` | List outdated packages |
-| `/re-deps --tree` | Show dependency tree |
+| `pa:re-deps` | Full dependency analysis |
+| `pa:re-deps --internal` | Internal modules only |
+| `pa:re-deps --external` | External packages only |
+| `pa:re-deps --circular` | Find circular dependencies |
+| `pa:re-deps --dead` | Find dead/unused code |
+| `pa:re-deps --security` | Security vulnerability check |
+| `pa:re-deps --impact [file]` | Impact analysis for file |
+| `pa:re-deps --outdated` | List outdated packages |
+| `pa:re-deps --tree` | Show dependency tree |

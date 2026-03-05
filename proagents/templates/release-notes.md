@@ -208,7 +208,7 @@ docs/
 
 | Command | Action |
 |---------|--------|
-| `/doc-release` | Generate release notes for current version |
-| `/doc-release [version]` | Generate notes for specific version |
-| `/doc-release --announce` | Generate release announcement |
-| `/doc-release --archive` | Archive current notes to docs/releases/ |
+| `pa:release` | Generate release notes for current version |
+| `pa:doc-release [version]` | Generate notes for specific version |
+| `pa:doc-release --announce` | Generate release announcement |
+| `pa:doc-release --archive` | Archive current notes to docs/releases/ |

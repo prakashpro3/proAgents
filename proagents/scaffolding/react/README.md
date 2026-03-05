@@ -392,8 +392,8 @@ describe('MyComponent', () => {
 
 | Command | Description |
 |---------|-------------|
-| `/component [name]` | Generate new component |
-| `/hook [name]` | Generate custom hook |
-| `/page [name]` | Generate page component |
-| `/service [name]` | Generate service |
-| `/store [name]` | Generate Zustand store |
+| `pa:component [name]` | Generate new component |
+| `pa:hook [name]` | Generate custom hook |
+| `pa:page [name]` | Generate page component |
+| `pa:service [name]` | Generate service |
+| `pa:store [name]` | Generate Zustand store |

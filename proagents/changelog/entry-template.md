@@ -278,6 +278,6 @@ All notable changes to this project.
 
 | Command | Description |
 |---------|-------------|
-| `/changelog-add` | Add changelog entry |
-| `/changelog-view` | View recent changes |
-| `/changelog-search` | Search changelog |
+| `pa:changelog-add` | Add changelog entry |
+| `pa:changelog-view` | View recent changes |
+| `pa:changelog-search` | Search changelog |

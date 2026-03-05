@@ -465,12 +465,12 @@ src/components/Button/
 
 | Command | Description |
 |---------|-------------|
-| `/screen [name]` | Generate new screen |
-| `/component [name]` | Generate component |
-| `/hook [name]` | Generate custom hook |
-| `/navigator [name]` | Generate navigator |
-| `/service [name]` | Generate service |
-| `/run ios` | Run on iOS simulator |
-| `/run android` | Run on Android emulator |
-| `/build ios` | Build iOS release |
-| `/build android` | Build Android release |
+| `pa:screen [name]` | Generate new screen |
+| `pa:component [name]` | Generate component |
+| `pa:hook [name]` | Generate custom hook |
+| `pa:navigator [name]` | Generate navigator |
+| `pa:service [name]` | Generate service |
+| `pa:run ios` | Run on iOS simulator |
+| `pa:run android` | Run on Android emulator |
+| `pa:build ios` | Build iOS release |
+| `pa:build android` | Build Android release |

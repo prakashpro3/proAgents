@@ -399,7 +399,7 @@ guardrails:
 
 | Command | Description |
 |---------|-------------|
-| `/guardrails status` | Show current guardrail status |
-| `/guardrails check` | Run all guardrail checks |
-| `/guardrails bypass [id]` | Bypass specific guardrail |
-| `/guardrails history` | Show bypass history |
+| `pa:guardrails status` | Show current guardrail status |
+| `pa:guardrails check` | Run all guardrail checks |
+| `pa:guardrails bypass [id]` | Bypass specific guardrail |
+| `pa:guardrails history` | Show bypass history |

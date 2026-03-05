@@ -495,11 +495,11 @@ TEST DATA:
 
 | Command | Description |
 |---------|-------------|
-| `/plan` | Create implementation plan |
-| `/architecture` | Design architecture |
-| `/file-plan` | Map file changes |
-| `/task-breakdown` | Break into tasks |
-| `/risk-assess` | Assess risks |
-| `/api-design` | Design API changes |
-| `/state-plan` | Plan state management |
-| `/test-strategy` | Plan testing approach |
+| `pa:plan` | Create implementation plan |
+| `pa:architecture` | Design architecture |
+| `pa:file-plan` | Map file changes |
+| `pa:task-breakdown` | Break into tasks |
+| `pa:risk-assess` | Assess risks |
+| `pa:api-design` | Design API changes |
+| `pa:state-plan` | Plan state management |
+| `pa:test-strategy` | Plan testing approach |

@@ -432,7 +432,7 @@ Let's wrap up. Please:
 /fix "Login button not responding"
 # More effective than: "There's a bug"
 
-/analyze
+pa:analyze
 # Let ProAgents understand your codebase first
 ```
 

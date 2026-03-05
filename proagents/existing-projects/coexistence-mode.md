@@ -476,8 +476,8 @@ coexistence_metrics:
 
 | Command | Description |
 |---------|-------------|
-| `/coexist-status` | View coexistence status |
-| `/coexist-level [1-4]` | Set coexistence level |
-| `/coexist-exempt [path]` | Exempt path from ProAgents |
-| `/coexist-conflicts` | View any conflicts |
-| `/proagents disable --temp` | Temporarily disable |
+| `pa:coexist-status` | View coexistence status |
+| `pa:coexist-level [1-4]` | Set coexistence level |
+| `pa:coexist-exempt [path]` | Exempt path from ProAgents |
+| `pa:coexist-conflicts` | View any conflicts |
+| `pa:proagents disable --temp` | Temporarily disable |

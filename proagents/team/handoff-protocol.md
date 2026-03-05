@@ -375,6 +375,6 @@ handoff:
 
 | Command | Description |
 |---------|-------------|
-| `/handoff-create` | Create handoff document |
-| `/handoff-emergency` | Quick emergency handoff |
-| `/handoff-checklist` | Show handoff checklist |
+| `pa:handoff-create` | Create handoff document |
+| `pa:handoff-emergency` | Quick emergency handoff |
+| `pa:handoff-checklist` | Show handoff checklist |

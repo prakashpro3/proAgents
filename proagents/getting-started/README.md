@@ -54,7 +54,7 @@ That's it! ProAgents will guide you through the workflow.
 
 ## Next Steps
 
-1. **Explore Commands**: Run `/help` to see all available commands
+1. **Explore Commands**: Run `pa:help` to see all available commands
 2. **Customize Standards**: Set up [coding standards](../standards/)
 3. **Configure Rules**: Add [validation rules](../rules/)
 4. **Set Up Integrations**: Connect your [tools](../integrations/)

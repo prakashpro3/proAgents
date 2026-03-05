@@ -51,7 +51,7 @@ IDE rules configure the AI assistant to:
 
 1. **Follow ProAgents Workflow**: Use the correct phases and checkpoints
 2. **Match Project Patterns**: Follow detected code conventions
-3. **Use Slash Commands**: Recognize `/feature`, `/fix`, `/doc` commands
+3. **Use Slash Commands**: Recognize `pa:feature`, `pa:fix`, `pa:doc` commands
 4. **Maintain Context**: Keep track of current feature and phase
 5. **Apply Standards**: Enforce project-specific coding standards
 

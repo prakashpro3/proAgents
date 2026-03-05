@@ -555,9 +555,9 @@ performance:
 
 | Command | Description |
 |---------|-------------|
-| `/load-test` | Run default load test |
-| `/load-test --smoke` | Run smoke test |
-| `/load-test --stress` | Run stress test |
-| `/load-test --spike` | Run spike test |
-| `/load-test --soak` | Run soak test |
-| `/load-test --report` | Generate test report |
+| `pa:load-test` | Run default load test |
+| `pa:load-test --smoke` | Run smoke test |
+| `pa:load-test --stress` | Run stress test |
+| `pa:load-test --spike` | Run spike test |
+| `pa:load-test --soak` | Run soak test |
+| `pa:load-test --report` | Generate test report |

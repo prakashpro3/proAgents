@@ -318,10 +318,10 @@ changelog:
 
 | Command | Description |
 |---------|-------------|
-| `/changelog` | View recent changes |
-| `/changelog --today` | Today's changes |
-| `/changelog --week` | This week's changes |
-| `/changelog search [query]` | Search changelogs |
-| `/changelog create` | Create new entry |
-| `/changelog release [version]` | Generate release notes |
-| `/changelog export` | Export changelog |
+| `pa:changelog` | View recent changes |
+| `pa:changelog --today` | Today's changes |
+| `pa:changelog --week` | This week's changes |
+| `pa:changelog search [query]` | Search changelogs |
+| `pa:changelog create` | Create new entry |
+| `pa:changelog release [version]` | Generate release notes |
+| `pa:changelog export` | Export changelog |

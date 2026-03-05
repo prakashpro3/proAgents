@@ -35,7 +35,7 @@ cache/
 
 ### Creation
 Cache is created/updated when:
-- Running `/analyze` command
+- Running `pa:analyze` command
 - Starting a new feature (incremental update)
 - Manual cache refresh
 

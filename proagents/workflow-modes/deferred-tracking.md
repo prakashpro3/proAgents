@@ -397,9 +397,9 @@ deferred_tracking:
 
 | Command | Description |
 |---------|-------------|
-| `/deferred list` | List all deferred tasks |
-| `/deferred show [id]` | Show task details |
-| `/deferred complete [id]` | Mark task complete |
-| `/deferred close [id]` | Close without completing |
-| `/deferred assign [id] [user]` | Assign task |
-| `/deferred report` | Generate report |
+| `pa:deferred list` | List all deferred tasks |
+| `pa:deferred show [id]` | Show task details |
+| `pa:deferred complete [id]` | Mark task complete |
+| `pa:deferred close [id]` | Close without completing |
+| `pa:deferred assign [id] [user]` | Assign task |
+| `pa:deferred report` | Generate report |
