@@ -103,7 +103,7 @@ Use these conventions for AI to better interpret your sketches:
 ### Usage
 
 ```
-/design-sketch
+pa:design-sketch
 
 AI: "Please provide your sketch or wireframe."
 User: [Provides image path or uploads sketch]

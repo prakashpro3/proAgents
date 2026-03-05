@@ -7,7 +7,7 @@ Universal prompts for rollback planning and execution.
 ## Quick Start
 
 ```
-/rollback
+pa:rollback
 ```
 
 Related commands:

@@ -139,7 +139,7 @@ Create a specs document with:
 ### Usage
 
 ```
-/design-export
+pa:design-export
 
 AI: "Please provide the exported design files."
 User: [Provides file paths or uploads images]

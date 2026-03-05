@@ -7,7 +7,7 @@ Universal prompts for code implementation phase.
 ## Quick Start
 
 ```
-/implement
+pa:implement
 ```
 
 ---

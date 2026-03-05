@@ -215,20 +215,20 @@ approvals:
     production:
       required: true
 
-# Custom Slash Commands
+# Custom Commands
 custom_commands:
-  "/ship":
+  "pa:ship":
     description: "Full deployment workflow"
     steps:
-      - "/test-all"
-      - "/qa-full"
-      - "/deploy-prod"
+      - "pa:test-all"
+      - "pa:qa-full"
+      - "pa:deploy-prod"
 
-  "/morning":
+  "pa:morning":
     description: "Daily start routine"
     steps:
-      - "/status"
-      - "/feature-list"
+      - "pa:status"
+      - "pa:feature-list"
 
 # Standards (extend or override)
 # extends:

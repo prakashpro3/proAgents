@@ -97,7 +97,7 @@ pa:design-figma "https://figma.com/file/xxx/Design"
 ### Usage
 
 ```
-/design-export
+pa:design-export
 
 AI: "Please provide the exported design files."
 User: [Uploads images or provides paths]
@@ -124,7 +124,7 @@ Use Figma's native developer features:
 4. Provide to AI
 
 ```
-/design
+pa:design
 
 User: "Here's the CSS from Figma Dev Mode:
 [paste CSS]"

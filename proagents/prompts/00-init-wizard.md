@@ -367,7 +367,7 @@ For experienced users who want to skip the wizard:
 
 ```bash
 # Full wizard (default)
-/init
+pa:init
 
 # Quick init with type
 pa:init --type web-frontend

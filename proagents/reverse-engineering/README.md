@@ -104,7 +104,7 @@ Output:
 
 ```bash
 # Full reverse engineering
-/reverse-engineer
+pa:reverse-engineer
 
 # Specific scope
 pa:reverse-engineer --scope architecture

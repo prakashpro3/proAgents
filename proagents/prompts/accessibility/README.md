@@ -24,22 +24,22 @@ These prompts help ensure your application is accessible to all users, including
 
 ```bash
 # Full accessibility audit
-/a11y audit <component>
+pa:a11y audit <component>
 
 # Check WCAG compliance at specific level
-/a11y wcag AA
+pa:a11y wcag AA
 
 # Review ARIA implementation
-/a11y aria <component>
+pa:a11y aria <component>
 
 # Check keyboard navigation
-/a11y keyboard <component>
+pa:a11y keyboard <component>
 
 # Fix specific accessibility issue
-/a11y fix <issue>
+pa:a11y fix <issue>
 
 # Generate accessibility tests
-/a11y test <component>
+pa:a11y test <component>
 ```
 
 ---

@@ -204,13 +204,13 @@ function Modal({ isOpen, onClose, children }) {
 
 ```bash
 # Run accessibility audit
-/a11y audit ./src/components/Button.tsx
+pa:a11y audit ./src/components/Button.tsx
 
 # Check specific WCAG criteria
-/a11y check 1.4.3  # Color contrast
+pa:a11y check 1.4.3  # Color contrast
 
 # Generate a11y tests
-/a11y test-gen ./src/components/Form.tsx
+pa:a11y test-gen ./src/components/Form.tsx
 ```
 
 ---

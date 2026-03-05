@@ -7,7 +7,7 @@ Universal prompts for planning feature implementation.
 ## Quick Start
 
 ```
-/plan
+pa:plan
 ```
 
 ---

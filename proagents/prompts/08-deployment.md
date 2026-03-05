@@ -7,7 +7,7 @@ Universal prompts for deployment preparation and execution.
 ## Quick Start
 
 ```
-/deploy
+pa:deploy
 ```
 
 Related commands:

@@ -127,7 +127,7 @@ pa:feature start "User Preferences" --pilot
 # ... (all phases)
 
 # 3. Collect feedback
-/pilot-feedback
+pa:pilot-feedback
 
 # 4. Review and adjust
 pa:config adjust --based-on pilot

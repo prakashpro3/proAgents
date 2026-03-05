@@ -21,7 +21,7 @@ Choose your design input method:
 ### Extract Design from Figma
 
 ```
-/design-figma
+pa:design-figma
 
 I have a Figma design for "[FEATURE_NAME]":
 URL: [FIGMA_URL or FILE_ID]
@@ -82,7 +82,7 @@ For each component in the Figma design:
 ### Analyze Exported Designs
 
 ```
-/design-export
+pa:design-export
 
 I have exported design files for "[FEATURE_NAME]":
 [Provide file paths or describe uploads]
@@ -155,7 +155,7 @@ Accessibility:
 ### Interpret Hand-drawn Sketch
 
 ```
-/design-sketch
+pa:design-sketch
 
 I have a sketch/wireframe for "[FEATURE_NAME]":
 [Provide image path or describe sketch]

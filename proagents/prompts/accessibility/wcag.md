@@ -55,7 +55,7 @@ For each finding, provide:
 ### Check Component for AA Compliance
 
 ```markdown
-/a11y wcag AA
+pa:a11y wcag AA
 
 Check this button component for WCAG AA compliance:
 
