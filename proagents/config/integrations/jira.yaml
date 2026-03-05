@@ -1,0 +1,144 @@
+# Jira Integration Configuration
+# Copy these settings to your proagents.config.yaml under 'integrations.jira'
+
+# =============================================================================
+# BASIC CONFIGURATION
+# =============================================================================
+
+jira:
+  enabled: true
+
+  # Connection Settings
+  connection:
+    base_url: "https://your-company.atlassian.net"  # Your Jira instance URL
+    api_version: "3"  # Jira Cloud API version
+
+    # Authentication (use environment variables!)
+    auth:
+      type: "api_token"  # api_token | oauth | basic
+      # Set these in .env file:
+      # JIRA_EMAIL=your-email@company.com
+      # JIRA_API_TOKEN=your-api-token
+
+  # Project Settings
+  project:
+    key: "PROJ"                    # Your Jira project key
+    default_issue_type: "Story"    # Story | Bug | Task | etc.
+    default_priority: "Medium"     # Highest | High | Medium | Low | Lowest
+
+# =============================================================================
+# ISSUE MAPPING
+# =============================================================================
+
+  # Map ProAgents modes to Jira issue types
+  issue_types:
+    feature: "Story"
+    bug_fix: "Bug"
+    quick_change: "Task"
+    refactoring: "Task"
+
+  # Custom field mappings
+  custom_fields:
+    # Map ProAgents data to Jira custom fields
+    # Format: jira_field_id: proagents_source
+    feature_branch: "customfield_10001"
+    pr_link: "customfield_10002"
+    test_coverage: "customfield_10003"
+
+# =============================================================================
+# WORKFLOW SYNC
+# =============================================================================
+
+  # Map ProAgents phases to Jira transitions
+  transitions:
+    # When ProAgents enters a phase, transition Jira to corresponding status
+    analysis_start: "In Progress"
+    implementation_start: "In Development"
+    testing_start: "In Testing"
+    code_review_start: "In Review"
+    deployment_start: "Deploying"
+    complete: "Done"
+    blocked: "Blocked"
+
+  # Auto-create issues
+  auto_create:
+    on_feature_start: true
+    include_requirements: true
+    include_acceptance_criteria: true
+
+  # Auto-update issues
+  auto_update:
+    on_phase_change: true
+    on_commit: false  # Can be noisy
+    on_pr_create: true
+    on_deployment: true
+
+# =============================================================================
+# COMMENTS AND LOGGING
+# =============================================================================
+
+  comments:
+    # Add comments to Jira issues during workflow
+    on_analysis_complete: true
+    on_implementation_complete: true
+    on_test_results: true
+    on_deployment: true
+
+    # Comment format
+    format: "markdown"  # markdown | plain
+
+    # Include details in comments
+    include:
+      - commit_links
+      - pr_links
+      - test_coverage
+      - deployment_url
+
+# =============================================================================
+# SPRINT INTEGRATION
+# =============================================================================
+
+  sprints:
+    enabled: true
+
+    # Auto-assign new issues to current sprint
+    auto_assign_sprint: true
+
+    # Sprint field (usually standard, but can be custom)
+    sprint_field: "customfield_10020"
+
+# =============================================================================
+# NOTIFICATIONS
+# =============================================================================
+
+  notifications:
+    # Notify watchers
+    notify_watchers: true
+
+    # Add mentions
+    mention_on:
+      - deployment
+      - blocker
+
+# =============================================================================
+# EXAMPLE USAGE
+# =============================================================================
+
+# After configuration, ProAgents will:
+#
+# 1. Create Jira issue when you start a feature:
+#    /feature start "Add user authentication"
+#    → Creates PROJ-123: Add user authentication
+#
+# 2. Update Jira as you progress:
+#    Phase: Analysis → Jira: In Progress
+#    Phase: Implementation → Jira: In Development
+#    Phase: Testing → Jira: In Testing
+#
+# 3. Add comments with details:
+#    "Analysis completed. See requirements: [link]"
+#    "PR created: #456. Ready for review."
+#
+# 4. Complete when done:
+#    /feature complete
+#    → Jira: Done, with full summary

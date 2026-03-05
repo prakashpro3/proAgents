@@ -1,0 +1,188 @@
+# Custom Rules Template
+# Copy to custom-rules.yaml and customize for your project
+
+# Rule severity levels:
+# - error: Blocks progress, must fix
+# - warning: Shows alert, can proceed
+# - info: Informational only
+# - off: Disabled
+
+rules:
+  # ==========================================
+  # NAMING RULES
+  # ==========================================
+
+  - id: component-naming
+    type: naming
+    pattern: "^[A-Z][a-zA-Z]*$"
+    applies_to: "components/**/*.tsx"
+    message: "Components must use PascalCase"
+    severity: error
+
+  - id: hook-naming
+    type: naming
+    pattern: "^use[A-Z][a-zA-Z]*$"
+    applies_to: "hooks/**/*.ts"
+    message: "Hooks must start with 'use' prefix"
+    severity: error
+
+  - id: constant-naming
+    type: naming
+    pattern: "^[A-Z][A-Z0-9_]*$"
+    applies_to: "constants/**/*.ts"
+    message: "Constants must use UPPER_SNAKE_CASE"
+    severity: warning
+
+  # ==========================================
+  # IMPORT RULES
+  # ==========================================
+
+  - id: no-relative-parent-imports
+    type: import
+    pattern: "from '\\.\\./"
+    applies_to: "src/**/*.{ts,tsx}"
+    message: "Use absolute imports instead of relative parent imports"
+    severity: warning
+    auto_fix: true
+
+  - id: no-default-export
+    type: import
+    pattern: "export default"
+    applies_to: "src/components/**/*.tsx"
+    exclude: "src/pages/**"
+    message: "Use named exports for components"
+    severity: info
+
+  # ==========================================
+  # STRUCTURE RULES
+  # ==========================================
+
+  - id: no-business-logic-in-components
+    type: structure
+    rule: "Components should not import directly from /services/"
+    message: "Use hooks to access services, not direct imports"
+    severity: warning
+
+  - id: feature-folder-structure
+    type: structure
+    rule: "Feature folders must contain index.ts"
+    applies_to: "src/features/*"
+    message: "Feature folders must export via index.ts"
+    severity: error
+
+  # ==========================================
+  # PATTERN RULES
+  # ==========================================
+
+  - id: require-error-boundary
+    type: pattern
+    condition: "page_component"
+    requires: "ErrorBoundary"
+    message: "All page components must have error boundaries"
+    severity: error
+
+  - id: require-loading-state
+    type: pattern
+    condition: "uses_async_data"
+    requires: "loading state handling"
+    message: "Components fetching data must handle loading state"
+    severity: warning
+
+  - id: require-empty-state
+    type: pattern
+    condition: "renders_list"
+    requires: "empty state handling"
+    message: "Lists must handle empty state"
+    severity: warning
+
+  # ==========================================
+  # SECURITY RULES
+  # ==========================================
+
+  - id: no-dangerously-set-html
+    type: security
+    pattern: "dangerouslySetInnerHTML"
+    message: "Avoid dangerouslySetInnerHTML - XSS risk"
+    severity: error
+    exceptions:
+      - "src/components/RichTextRenderer.tsx"
+
+  - id: no-eval
+    type: security
+    pattern: "\\beval\\("
+    message: "Never use eval() - security risk"
+    severity: error
+
+  - id: no-hardcoded-secrets
+    type: security
+    patterns:
+      - "password\\s*=\\s*['\"][^'\"]+['\"]"
+      - "api[_-]?key\\s*=\\s*['\"][^'\"]+['\"]"
+      - "secret\\s*=\\s*['\"][^'\"]+['\"]"
+    message: "No hardcoded secrets - use environment variables"
+    severity: error
+
+  # ==========================================
+  # TESTING RULES
+  # ==========================================
+
+  - id: min-test-coverage
+    type: coverage
+    minimum: 80
+    applies_to: "src/**/*.{ts,tsx}"
+    exclude:
+      - "src/**/*.d.ts"
+      - "src/**/index.ts"
+    message: "Minimum 80% test coverage required"
+    severity: warning
+
+  - id: require-component-tests
+    type: coverage
+    condition: "new_component"
+    requires: "test file"
+    message: "New components must have tests"
+    severity: error
+
+  # ==========================================
+  # CUSTOM BUSINESS RULES
+  # ==========================================
+
+  # Example: Analytics tracking
+  - id: require-analytics-on-buttons
+    type: custom
+    condition: "Button component with onClick"
+    requires: "analytics tracking call"
+    message: "All button clicks should be tracked"
+    severity: info
+
+  # Example: Accessibility
+  - id: require-aria-labels
+    type: custom
+    condition: "interactive element without visible text"
+    requires: "aria-label attribute"
+    message: "Interactive elements need aria-labels"
+    severity: warning
+
+# ==========================================
+# GLOBAL SETTINGS
+# ==========================================
+
+settings:
+  # Paths to exclude from all rules
+  global_exclude:
+    - "node_modules/**"
+    - "dist/**"
+    - "build/**"
+    - "coverage/**"
+    - "**/*.test.{ts,tsx}"
+    - "**/*.spec.{ts,tsx}"
+
+  # Auto-fix settings
+  auto_fix:
+    enabled: true
+    require_confirmation: true
+
+  # Reporting
+  reporting:
+    format: "detailed"  # summary | detailed
+    group_by: "severity"  # severity | type | file

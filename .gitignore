@@ -1,0 +1,58 @@
+# ProAgents Runtime Data
+# These directories contain runtime/session data that should not be committed
+
+# Learning data (user preferences, project patterns - generated at runtime)
+proagents/.learning/global/
+proagents/.learning/projects/
+
+# Active feature tracking (runtime session data)
+proagents/active-features/*.json
+proagents/active-features/feature-*/
+!proagents/active-features/.gitkeep
+!proagents/active-features/schemas/
+
+# Cache data files (keep schemas, exclude generated cache)
+proagents/cache/*.json
+!proagents/cache/schemas/
+
+# Changelog entries (generated per-project)
+proagents/changelog/20*/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules (if examples are run)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Log files
+*.log
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Test coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

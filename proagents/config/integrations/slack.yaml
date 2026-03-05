@@ -1,0 +1,230 @@
+# Slack Integration Configuration
+# Copy these settings to your proagents.config.yaml under 'integrations.slack'
+
+# =============================================================================
+# BASIC CONFIGURATION
+# =============================================================================
+
+slack:
+  enabled: true
+
+  # Webhook URL (use environment variable!)
+  # Set in .env: SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxx
+  # Or use Bot Token for richer features:
+  # Set in .env: SLACK_BOT_TOKEN=xoxb-xxx
+
+# =============================================================================
+# CHANNEL CONFIGURATION
+# =============================================================================
+
+  channels:
+    # Default channel for notifications
+    default: "#dev-notifications"
+
+    # Channel mapping by event type
+    mapping:
+      feature_start: "#dev-features"
+      deployment: "#deployments"
+      alerts: "#dev-alerts"
+      code_review: "#code-review"
+
+    # DM settings
+    direct_messages:
+      enabled: true
+      # Send DM for personal notifications
+      on:
+        - assigned_review
+        - mentioned
+        - blocked
+
+# =============================================================================
+# NOTIFICATION EVENTS
+# =============================================================================
+
+  notifications:
+    # Feature lifecycle
+    feature:
+      on_start: true
+      on_complete: true
+      on_blocked: true
+
+    # Development phases
+    phases:
+      on_analysis_complete: false
+      on_implementation_complete: false
+      on_testing_complete: false
+      on_review_ready: true
+
+    # Pull requests
+    pull_requests:
+      on_created: true
+      on_approved: true
+      on_merged: true
+      on_changes_requested: true
+
+    # Deployments
+    deployment:
+      on_staging: true
+      on_production: true
+      on_rollback: true
+      on_failure: true
+
+    # Alerts
+    alerts:
+      on_security_issue: true
+      on_test_failure: true
+      on_ci_failure: true
+
+# =============================================================================
+# MESSAGE FORMATTING
+# =============================================================================
+
+  formatting:
+    # Include rich formatting
+    use_blocks: true
+
+    # Include buttons for actions
+    include_actions: true
+
+    # Color coding
+    colors:
+      success: "#36a64f"
+      warning: "#ffcc00"
+      error: "#ff0000"
+      info: "#0066cc"
+
+# =============================================================================
+# MESSAGE TEMPLATES
+# =============================================================================
+
+  templates:
+    feature_start: |
+      :rocket: *New Feature Started*
+      *{{feature_name}}*
+      Developer: {{developer}}
+      Branch: `{{branch}}`
+      <{{tracking_url}}|View in tracker>
+
+    pr_created: |
+      :pull_request: *PR Ready for Review*
+      *{{pr_title}}*
+      Author: {{author}}
+      <{{pr_url}}|View PR> • {{files_changed}} files changed
+
+    deployment_production: |
+      :white_check_mark: *Deployed to Production*
+      *{{feature_name}}*
+      Version: `{{version}}`
+      Commit: `{{commit_sha}}`
+      <{{deployment_url}}|View deployment>
+
+    deployment_failure: |
+      :x: *Deployment Failed*
+      Environment: {{environment}}
+      Error: {{error_message}}
+      <{{logs_url}}|View logs>
+      cc: @oncall
+
+    security_alert: |
+      :warning: *Security Alert*
+      Severity: {{severity}}
+      Issue: {{description}}
+      File: `{{file_path}}`
+      Action required: <{{action_url}}|Review now>
+
+# =============================================================================
+# INTERACTIVE FEATURES
+# =============================================================================
+
+  interactive:
+    # Enable interactive buttons
+    enabled: true
+
+    # Available actions in messages
+    actions:
+      deployment:
+        - label: "View Logs"
+          action: "view_logs"
+        - label: "Rollback"
+          action: "rollback"
+          style: "danger"
+
+      pr_review:
+        - label: "Approve"
+          action: "approve"
+          style: "primary"
+        - label: "Request Changes"
+          action: "request_changes"
+
+# =============================================================================
+# THREADING
+# =============================================================================
+
+  threading:
+    # Use threads for updates
+    enabled: true
+
+    # Start thread for feature and post updates there
+    thread_on:
+      - feature_start
+
+    # Reply in thread for these events
+    reply_in_thread:
+      - phase_complete
+      - commit
+      - pr_update
+
+# =============================================================================
+# MENTIONS
+# =============================================================================
+
+  mentions:
+    # Mention settings
+    enabled: true
+
+    # Who to mention
+    mapping:
+      # Mention specific users/groups by event
+      deployment_failure: ["@oncall", "@devops"]
+      security_alert: ["@security-team"]
+      blocked: ["@tech-lead"]
+
+    # User ID mapping (for @mentions to work)
+    # users:
+    #   developer1: "U01234567"
+    #   tech_lead: "U76543210"
+
+# =============================================================================
+# RATE LIMITING
+# =============================================================================
+
+  rate_limiting:
+    # Prevent notification spam
+    enabled: true
+
+    # Max messages per hour per channel
+    max_per_hour: 30
+
+    # Batch similar notifications
+    batch_similar: true
+    batch_window_seconds: 60
+
+# =============================================================================
+# EXAMPLE USAGE
+# =============================================================================
+
+# After configuration:
+#
+# 1. Feature starts:
+#    → #dev-features: ":rocket: New Feature Started..."
+#
+# 2. PR created:
+#    → #code-review: ":pull_request: PR Ready for Review..."
+#    → Buttons: [View PR] [Approve]
+#
+# 3. Deployment:
+#    → #deployments: ":white_check_mark: Deployed to Production..."
+#
+# 4. Failure:
+#    → #dev-alerts: ":x: Deployment Failed..."
+#    → Mentions @oncall

@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "user-preferences-schema.json",
+  "title": "User Preferences Schema",
+  "description": "Schema for user preferences in the ProAgents learning system",
+  "type": "object",
+  "required": ["version", "updated_at"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to this schema file"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the preferences format"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last update"
+    },
+    "checkpoint_preferences": {
+      "type": "object",
+      "properties": {
+        "usually_skips": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Checkpoints the user typically skips"
+        },
+        "always_reviews": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Checkpoints the user always reviews"
+        },
+        "auto_approve_conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "checkpoint": { "type": "string" },
+              "condition": { "type": "string" },
+              "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+            },
+            "required": ["checkpoint", "condition"]
+          }
+        }
+      }
+    },
+    "workflow_preferences": {
+      "type": "object",
+      "properties": {
+        "preferred_mode": {
+          "type": "string",
+          "enum": ["full", "bug_fix", "quick_change"]
+        },
+        "skip_phases_for_bug_fixes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "detail_level": {
+          "type": "string",
+          "enum": ["low", "moderate", "high"]
+        },
+        "verbosity": {
+          "type": "string",
+          "enum": ["minimal", "moderate", "verbose"]
+        }
+      }
+    },
+    "code_preferences": {
+      "type": "object",
+      "properties": {
+        "naming_style": {
+          "type": "object",
+          "properties": {
+            "components": { "type": "string" },
+            "functions": { "type": "string" },
+            "constants": { "type": "string" },
+            "files": { "type": "string" }
+          }
+        },
+        "formatting": {
+          "type": "object",
+          "properties": {
+            "indent": { "type": "integer", "minimum": 1, "maximum": 8 },
+            "quotes": { "type": "string", "enum": ["single", "double"] },
+            "semicolons": { "type": "boolean" },
+            "trailing_commas": { "type": "string", "enum": ["none", "es5", "all"] }
+          }
+        },
+        "patterns": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "review_preferences": {
+      "type": "object",
+      "properties": {
+        "focus_areas": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "thoroughness": {
+          "type": "string",
+          "enum": ["low", "moderate", "high"]
+        },
+        "comment_style": {
+          "type": "string",
+          "enum": ["inline", "summary", "both"]
+        }
+      }
+    },
+    "notification_preferences": {
+      "type": "object",
+      "properties": {
+        "on_checkpoint": { "type": "boolean" },
+        "on_completion": { "type": "boolean" },
+        "on_error": { "type": "boolean" },
+        "channels": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "learning_consent": {
+      "type": "object",
+      "properties": {
+        "track_corrections": { "type": "boolean" },
+        "track_patterns": { "type": "boolean" },
+        "share_anonymized": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+/**
+ * {{PageName}} Page
+ *
+ * {{description}}
+ *
+ * Route: /{{route}}
+ */
+
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+{{#if hasParams}}
+import { {{PageName}}Content } from './{{PageName}}Content';
+{{/if}}
+
+// ============================================================================
+// Metadata
+// ============================================================================
+
+export const metadata: Metadata = {
+  title: '{{pageTitle}}',
+  description: '{{pageDescription}}',
+  openGraph: {
+    title: '{{pageTitle}}',
+    description: '{{pageDescription}}',
+  },
+};
+
+{{#if hasParams}}
+// ============================================================================
+// Types
+// ============================================================================
+
+interface {{PageName}}PageProps {
+  params: {
+    {{paramName}}: string;
+  };
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}
+
+// ============================================================================
+// Data Fetching
+// ============================================================================
+
+async function get{{EntityName}}(id: string) {
+  try {
+    const response = await fetch(
+      `${process.env.API_URL}/api/{{kebabCase entityName}}s/${id}`,
+      {
+        next: { revalidate: 60 }, // Cache for 60 seconds
+      }
+    );
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
+      }
+      throw new Error('Failed to fetch data');
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching {{entityName}}:', error);
+    throw error;
+  }
+}
+
+// ============================================================================
+// Page Component
+// ============================================================================
+
+export default async function {{PageName}}Page({
+  params,
+  searchParams,
+}: {{PageName}}PageProps) {
+  const data = await get{{EntityName}}(params.{{paramName}});
+
+  if (!data) {
+    notFound();
+  }
+
+  return (
+    <main className="container mx-auto px-4 py-8">
+      <{{PageName}}Content data={data} />
+    </main>
+  );
+}
+
+{{else}}
+// ============================================================================
+// Page Component
+// ============================================================================
+
+export default function {{PageName}}Page() {
+  return (
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">{{pageTitle}}</h1>
+
+      <section className="space-y-6">
+        {/* Page content */}
+        <p className="text-gray-600">
+          {{pageDescription}}
+        </p>
+      </section>
+    </main>
+  );
+}
+{{/if}}

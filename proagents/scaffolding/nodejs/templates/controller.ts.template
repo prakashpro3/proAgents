@@ -1,0 +1,167 @@
+/**
+ * {{ControllerName}} Controller
+ *
+ * {{description}}
+ *
+ * Routes: /api/{{route}}
+ */
+
+import { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
+import { {{ServiceName}} } from '../services/{{serviceName}}.service';
+import { AppError } from '../utils/errors';
+import { asyncHandler } from '../utils/asyncHandler';
+
+// ============================================================================
+// Validation Schemas
+// ============================================================================
+
+const create{{EntityName}}Schema = z.object({
+  name: z.string().min(1).max(255),
+  description: z.string().optional(),
+  email: z.string().email().optional(),
+});
+
+const update{{EntityName}}Schema = create{{EntityName}}Schema.partial();
+
+const querySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(10),
+  search: z.string().optional(),
+  sortBy: z.string().optional(),
+  sortOrder: z.enum(['asc', 'desc']).default('desc'),
+});
+
+const idSchema = z.object({
+  id: z.string().uuid(),
+});
+
+// ============================================================================
+// Controller Class
+// ============================================================================
+
+export class {{ControllerName}} {
+  private service: {{ServiceName}};
+
+  constructor() {
+    this.service = new {{ServiceName}}();
+  }
+
+  // ==========================================================================
+  // GET /api/{{route}}
+  // ==========================================================================
+
+  /**
+   * Get all {{entityName}}s with pagination
+   */
+  getAll = asyncHandler(async (req: Request, res: Response) => {
+    const query = querySchema.parse(req.query);
+
+    const result = await this.service.findAll({
+      page: query.page,
+      limit: query.limit,
+      search: query.search,
+      sortBy: query.sortBy,
+      sortOrder: query.sortOrder,
+    });
+
+    res.json({
+      success: true,
+      data: result.data,
+      meta: {
+        page: result.page,
+        limit: result.limit,
+        total: result.total,
+        totalPages: result.totalPages,
+      },
+    });
+  });
+
+  // ==========================================================================
+  // GET /api/{{route}}/:id
+  // ==========================================================================
+
+  /**
+   * Get a single {{entityName}} by ID
+   */
+  getById = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = idSchema.parse(req.params);
+
+    const item = await this.service.findById(id);
+
+    if (!item) {
+      throw new AppError('{{EntityName}} not found', 404);
+    }
+
+    res.json({
+      success: true,
+      data: item,
+    });
+  });
+
+  // ==========================================================================
+  // POST /api/{{route}}
+  // ==========================================================================
+
+  /**
+   * Create a new {{entityName}}
+   */
+  create = asyncHandler(async (req: Request, res: Response) => {
+    const data = create{{EntityName}}Schema.parse(req.body);
+
+    const item = await this.service.create(data);
+
+    res.status(201).json({
+      success: true,
+      data: item,
+    });
+  });
+
+  // ==========================================================================
+  // PUT /api/{{route}}/:id
+  // ==========================================================================
+
+  /**
+   * Update an existing {{entityName}}
+   */
+  update = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = idSchema.parse(req.params);
+    const data = update{{EntityName}}Schema.parse(req.body);
+
+    const item = await this.service.update(id, data);
+
+    if (!item) {
+      throw new AppError('{{EntityName}} not found', 404);
+    }
+
+    res.json({
+      success: true,
+      data: item,
+    });
+  });
+
+  // ==========================================================================
+  // DELETE /api/{{route}}/:id
+  // ==========================================================================
+
+  /**
+   * Delete a {{entityName}}
+   */
+  delete = asyncHandler(async (req: Request, res: Response) => {
+    const { id } = idSchema.parse(req.params);
+
+    const deleted = await this.service.delete(id);
+
+    if (!deleted) {
+      throw new AppError('{{EntityName}} not found', 404);
+    }
+
+    res.status(204).send();
+  });
+}
+
+// ============================================================================
+// Export Instance
+// ============================================================================
+
+export const {{camelCase controllerName}} = new {{ControllerName}}();

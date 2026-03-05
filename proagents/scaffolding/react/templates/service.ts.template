@@ -1,0 +1,155 @@
+/**
+ * {{ServiceName}} Service
+ *
+ * {{description}}
+ *
+ * @example
+ * ```ts
+ * const service = new {{ServiceName}}();
+ * const result = await service.getById('123');
+ * ```
+ */
+
+import { api } from '@/lib/api';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface {{EntityName}} {
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Create{{EntityName}}Input {
+  name: string;
+}
+
+export interface Update{{EntityName}}Input {
+  name?: string;
+}
+
+export interface {{EntityName}}ListParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sortBy?: keyof {{EntityName}};
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface {{EntityName}}ListResponse {
+  data: {{EntityName}}[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+// ============================================================================
+// Service Class
+// ============================================================================
+
+/**
+ * {{ServiceName}}
+ *
+ * Handles all {{entityName}} related operations
+ */
+export class {{ServiceName}} {
+  private readonly basePath = '/api/{{kebabCase entityName}}s';
+
+  // ==========================================================================
+  // CRUD Operations
+  // ==========================================================================
+
+  /**
+   * Get all {{entityName}}s with pagination
+   */
+  async getAll(params: {{EntityName}}ListParams = {}): Promise<{{EntityName}}ListResponse> {
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+    } = params;
+
+    const queryParams = new URLSearchParams({
+      page: String(page),
+      limit: String(limit),
+      sortBy,
+      sortOrder,
+      ...(search && { search }),
+    });
+
+    const response = await api.get<{{EntityName}}ListResponse>(
+      `${this.basePath}?${queryParams}`
+    );
+
+    return response;
+  }
+
+  /**
+   * Get a single {{entityName}} by ID
+   */
+  async getById(id: string): Promise<{{EntityName}}> {
+    const response = await api.get<{{EntityName}}>(`${this.basePath}/${id}`);
+    return response;
+  }
+
+  /**
+   * Create a new {{entityName}}
+   */
+  async create(input: Create{{EntityName}}Input): Promise<{{EntityName}}> {
+    const response = await api.post<{{EntityName}}>(this.basePath, input);
+    return response;
+  }
+
+  /**
+   * Update an existing {{entityName}}
+   */
+  async update(id: string, input: Update{{EntityName}}Input): Promise<{{EntityName}}> {
+    const response = await api.patch<{{EntityName}}>(`${this.basePath}/${id}`, input);
+    return response;
+  }
+
+  /**
+   * Delete a {{entityName}}
+   */
+  async delete(id: string): Promise<void> {
+    await api.delete(`${this.basePath}/${id}`);
+  }
+
+  // ==========================================================================
+  // Additional Operations
+  // ==========================================================================
+
+  /**
+   * Check if a {{entityName}} exists
+   */
+  async exists(id: string): Promise<boolean> {
+    try {
+      await this.getById(id);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Search {{entityName}}s
+   */
+  async search(query: string): Promise<{{EntityName}}[]> {
+    const response = await this.getAll({ search: query, limit: 20 });
+    return response.data;
+  }
+}
+
+// ============================================================================
+// Singleton Export
+// ============================================================================
+
+export const {{camelCase serviceName}} = new {{ServiceName}}();
+
+export default {{camelCase serviceName}};

@@ -1,0 +1,177 @@
+# Validation Rules Template
+# Copy to validation-rules.yaml and customize for your project
+
+# These rules validate data at system boundaries:
+# - API inputs/outputs
+# - Form data
+# - External integrations
+
+validation:
+  # ==========================================
+  # API VALIDATION
+  # ==========================================
+
+  api:
+    # Request validation
+    requests:
+      require_content_type: true
+      allowed_content_types:
+        - "application/json"
+        - "multipart/form-data"
+      max_body_size: "10mb"
+      require_auth_header: true
+      auth_exceptions:
+        - "POST /api/auth/login"
+        - "POST /api/auth/register"
+        - "GET /api/health"
+
+    # Response validation
+    responses:
+      require_json: true
+      require_status_codes: true
+      require_error_format: true
+      error_format:
+        required_fields:
+          - "error"
+          - "message"
+        optional_fields:
+          - "code"
+          - "details"
+
+  # ==========================================
+  # INPUT VALIDATION
+  # ==========================================
+
+  inputs:
+    # String validation
+    strings:
+      default_max_length: 255
+      default_min_length: 1
+      sanitize_html: true
+      trim_whitespace: true
+
+    # Email validation
+    email:
+      pattern: "^[^@]+@[^@]+\\.[^@]+$"
+      max_length: 255
+      normalize: true  # lowercase
+
+    # Password validation
+    password:
+      min_length: 8
+      require_uppercase: true
+      require_lowercase: true
+      require_number: true
+      require_special: false
+      blocked_passwords_file: "common-passwords.txt"
+
+    # URL validation
+    url:
+      require_https: true
+      allowed_protocols:
+        - "https"
+        - "http"  # Only for development
+      validate_domain: false
+
+    # Phone validation
+    phone:
+      formats:
+        - "+1XXXXXXXXXX"
+        - "XXX-XXX-XXXX"
+      normalize: true
+
+  # ==========================================
+  # FILE VALIDATION
+  # ==========================================
+
+  files:
+    uploads:
+      max_size: "10mb"
+      allowed_types:
+        images:
+          - "image/jpeg"
+          - "image/png"
+          - "image/gif"
+          - "image/webp"
+        documents:
+          - "application/pdf"
+          - "application/msword"
+          - "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      scan_for_malware: true
+      sanitize_filenames: true
+
+  # ==========================================
+  # DATABASE VALIDATION
+  # ==========================================
+
+  database:
+    # Query validation
+    queries:
+      max_results: 1000
+      require_pagination: true
+      timeout_ms: 30000
+
+    # Data validation
+    data:
+      sanitize_inputs: true
+      validate_foreign_keys: true
+      check_constraints: true
+
+  # ==========================================
+  # BUSINESS RULES
+  # ==========================================
+
+  business:
+    # User limits
+    users:
+      max_username_length: 30
+      min_username_length: 3
+      username_pattern: "^[a-zA-Z0-9_]+$"
+
+    # Content limits
+    content:
+      max_title_length: 200
+      max_description_length: 2000
+      max_tags: 10
+
+    # Rate limits
+    rates:
+      max_requests_per_minute: 60
+      max_uploads_per_day: 100
+
+  # ==========================================
+  # CUSTOM VALIDATORS
+  # ==========================================
+
+  custom:
+    # Example: Validate product SKU format
+    - name: "product_sku"
+      pattern: "^[A-Z]{3}-[0-9]{6}$"
+      message: "SKU must be in format XXX-000000"
+
+    # Example: Validate order ID
+    - name: "order_id"
+      pattern: "^ORD-[0-9]{8}-[A-Z0-9]{4}$"
+      message: "Invalid order ID format"
+
+# ==========================================
+# VALIDATION SETTINGS
+# ==========================================
+
+settings:
+  # Error handling
+  on_validation_error:
+    log: true
+    response_code: 400
+    include_details: true  # Set false in production
+
+  # Sanitization
+  sanitization:
+    trim_strings: true
+    normalize_unicode: true
+    remove_null_bytes: true
+
+  # Localization
+  messages:
+    language: "en"
+    custom_messages_file: "validation-messages.json"

@@ -1,0 +1,226 @@
+/**
+ * use{{HookName}} Hook
+ *
+ * {{description}}
+ *
+ * @example
+ * ```tsx
+ * const { data, loading, error, refetch } = use{{HookName}}();
+ * ```
+ */
+
+import { useState, useEffect, useCallback, useMemo } from 'react';
+{{#if useQuery}}
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+{{/if}}
+import { {{serviceName}} } from '@/services/{{serviceName}}';
+import type { {{EntityName}} } from '@/types';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface Use{{HookName}}Options {
+  /** Enable/disable auto-fetching */
+  enabled?: boolean;
+  /** Initial data */
+  initialData?: {{EntityName}}[];
+  /** Refetch interval in milliseconds */
+  refetchInterval?: number;
+}
+
+export interface Use{{HookName}}Result {
+  /** Fetched data */
+  data: {{EntityName}}[] | null;
+  /** Loading state */
+  loading: boolean;
+  /** Error state */
+  error: Error | null;
+  /** Refetch function */
+  refetch: () => Promise<void>;
+  /** Create new item */
+  create: (input: Create{{EntityName}}Input) => Promise<{{EntityName}}>;
+  /** Update item */
+  update: (id: string, input: Update{{EntityName}}Input) => Promise<{{EntityName}}>;
+  /** Delete item */
+  remove: (id: string) => Promise<void>;
+  /** Mutation loading state */
+  mutating: boolean;
+}
+
+interface Create{{EntityName}}Input {
+  name: string;
+  description?: string;
+}
+
+interface Update{{EntityName}}Input {
+  name?: string;
+  description?: string;
+}
+
+// ============================================================================
+// Hook Implementation
+// ============================================================================
+
+export function use{{HookName}}(
+  options: Use{{HookName}}Options = {}
+): Use{{HookName}}Result {
+  const {
+    enabled = true,
+    initialData = null,
+    refetchInterval,
+  } = options;
+
+  {{#if useQuery}}
+  // React Query implementation
+  const queryClient = useQueryClient();
+
+  // Query
+  const {
+    data,
+    isLoading: loading,
+    error,
+    refetch: queryRefetch,
+  } = useQuery({
+    queryKey: ['{{entityName}}s'],
+    queryFn: () => {{serviceName}}.getAll(),
+    enabled,
+    initialData,
+    refetchInterval,
+  });
+
+  // Mutations
+  const createMutation = useMutation({
+    mutationFn: (input: Create{{EntityName}}Input) => {{serviceName}}.create(input),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['{{entityName}}s'] });
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, input }: { id: string; input: Update{{EntityName}}Input }) =>
+      {{serviceName}}.update(id, input),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['{{entityName}}s'] });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => {{serviceName}}.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['{{entityName}}s'] });
+    },
+  });
+
+  const refetch = useCallback(async () => {
+    await queryRefetch();
+  }, [queryRefetch]);
+
+  const create = useCallback(async (input: Create{{EntityName}}Input) => {
+    return createMutation.mutateAsync(input);
+  }, [createMutation]);
+
+  const update = useCallback(async (id: string, input: Update{{EntityName}}Input) => {
+    return updateMutation.mutateAsync({ id, input });
+  }, [updateMutation]);
+
+  const remove = useCallback(async (id: string) => {
+    await deleteMutation.mutateAsync(id);
+  }, [deleteMutation]);
+
+  const mutating = createMutation.isPending ||
+    updateMutation.isPending ||
+    deleteMutation.isPending;
+
+  return {
+    data: data ?? null,
+    loading,
+    error: error as Error | null,
+    refetch,
+    create,
+    update,
+    remove,
+    mutating,
+  };
+  {{else}}
+  // useState implementation
+  const [data, setData] = useState<{{EntityName}}[] | null>(initialData);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [mutating, setMutating] = useState(false);
+
+  const fetchData = useCallback(async () => {
+    if (!enabled) return;
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const result = await {{serviceName}}.getAll();
+      setData(result);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Failed to fetch'));
+    } finally {
+      setLoading(false);
+    }
+  }, [enabled]);
+
+  useEffect(() => {
+    fetchData();
+
+    if (refetchInterval) {
+      const interval = setInterval(fetchData, refetchInterval);
+      return () => clearInterval(interval);
+    }
+  }, [fetchData, refetchInterval]);
+
+  const refetch = useCallback(async () => {
+    await fetchData();
+  }, [fetchData]);
+
+  const create = useCallback(async (input: Create{{EntityName}}Input) => {
+    setMutating(true);
+    try {
+      const result = await {{serviceName}}.create(input);
+      await fetchData();
+      return result;
+    } finally {
+      setMutating(false);
+    }
+  }, [fetchData]);
+
+  const update = useCallback(async (id: string, input: Update{{EntityName}}Input) => {
+    setMutating(true);
+    try {
+      const result = await {{serviceName}}.update(id, input);
+      await fetchData();
+      return result;
+    } finally {
+      setMutating(false);
+    }
+  }, [fetchData]);
+
+  const remove = useCallback(async (id: string) => {
+    setMutating(true);
+    try {
+      await {{serviceName}}.delete(id);
+      await fetchData();
+    } finally {
+      setMutating(false);
+    }
+  }, [fetchData]);
+
+  return {
+    data,
+    loading,
+    error,
+    refetch,
+    create,
+    update,
+    remove,
+    mutating,
+  };
+  {{/if}}
+}
+
+export default use{{HookName}};

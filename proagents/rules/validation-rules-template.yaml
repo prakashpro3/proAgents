@@ -1,0 +1,517 @@
+# Validation Rules Template
+# Copy this file to your project and customize the rules
+
+# Schema version for compatibility checking
+schema_version: "1.0"
+
+# Rule enforcement levels
+enforcement:
+  error: true      # Block progress, must fix
+  warning: true    # Show alert, can proceed
+  info: true       # Informational only
+
+# =============================================================================
+# Code Quality Rules
+# =============================================================================
+
+code_quality:
+  # Complexity limits
+  - id: max-cyclomatic-complexity
+    type: complexity
+    description: "Maximum cyclomatic complexity per function"
+    threshold: 15
+    severity: warning
+    auto_fix: false
+    message: "Function complexity ({value}) exceeds limit ({threshold})"
+
+  - id: max-cognitive-complexity
+    type: complexity
+    description: "Maximum cognitive complexity per function"
+    threshold: 20
+    severity: warning
+    auto_fix: false
+    message: "Cognitive complexity ({value}) exceeds limit ({threshold})"
+
+  - id: max-function-length
+    type: length
+    description: "Maximum lines per function"
+    threshold: 50
+    severity: warning
+    auto_fix: false
+    message: "Function length ({value} lines) exceeds limit ({threshold})"
+
+  - id: max-file-length
+    type: length
+    description: "Maximum lines per file"
+    threshold: 500
+    severity: info
+    auto_fix: false
+    message: "File length ({value} lines) exceeds recommended limit ({threshold})"
+
+  - id: max-parameters
+    type: count
+    description: "Maximum parameters per function"
+    threshold: 5
+    severity: warning
+    auto_fix: false
+    message: "Too many parameters ({value}), consider using an options object"
+
+# =============================================================================
+# Naming Convention Rules
+# =============================================================================
+
+naming_conventions:
+  # File naming
+  - id: component-file-naming
+    type: naming
+    description: "React component files must be PascalCase"
+    pattern: "^[A-Z][a-zA-Z0-9]*\\.(tsx|jsx)$"
+    applies_to:
+      - "src/components/**/*"
+      - "src/app/**/*"
+    severity: error
+    message: "Component file '{file}' must use PascalCase naming"
+
+  - id: hook-file-naming
+    type: naming
+    description: "Hook files must start with 'use' and be camelCase"
+    pattern: "^use[A-Z][a-zA-Z0-9]*\\.ts$"
+    applies_to:
+      - "src/hooks/**/*"
+    severity: error
+    message: "Hook file '{file}' must start with 'use' prefix"
+
+  - id: util-file-naming
+    type: naming
+    description: "Utility files must be kebab-case"
+    pattern: "^[a-z][a-z0-9-]*\\.ts$"
+    applies_to:
+      - "src/utils/**/*"
+      - "src/lib/**/*"
+    severity: warning
+    message: "Utility file '{file}' should use kebab-case naming"
+
+  - id: test-file-naming
+    type: naming
+    description: "Test files must end with .test or .spec"
+    pattern: ".*\\.(test|spec)\\.(ts|tsx|js|jsx)$"
+    applies_to:
+      - "**/*.test.*"
+      - "**/*.spec.*"
+      - "__tests__/**/*"
+    severity: error
+    message: "Test file '{file}' must end with .test or .spec"
+
+  # Variable naming
+  - id: constant-naming
+    type: naming
+    description: "Constants must be UPPER_SNAKE_CASE"
+    pattern: "^[A-Z][A-Z0-9_]*$"
+    applies_to_code:
+      - "const declarations at module level"
+    severity: warning
+    message: "Constant '{name}' should use UPPER_SNAKE_CASE"
+
+  - id: interface-naming
+    type: naming
+    description: "Interfaces must be PascalCase (no I prefix)"
+    pattern: "^[A-Z][a-zA-Z0-9]*$"
+    applies_to_code:
+      - "interface declarations"
+    severity: warning
+    message: "Interface '{name}' should use PascalCase without 'I' prefix"
+
+  - id: type-naming
+    type: naming
+    description: "Type aliases must be PascalCase"
+    pattern: "^[A-Z][a-zA-Z0-9]*$"
+    applies_to_code:
+      - "type declarations"
+    severity: warning
+    message: "Type '{name}' should use PascalCase"
+
+# =============================================================================
+# Architecture Rules
+# =============================================================================
+
+architecture:
+  # Import restrictions
+  - id: no-circular-imports
+    type: import
+    description: "No circular dependencies between modules"
+    check: "circular_dependency"
+    severity: error
+    message: "Circular dependency detected: {cycle}"
+
+  - id: layer-boundaries
+    type: import
+    description: "Enforce layer boundaries"
+    rules:
+      - from: "src/components/**"
+        disallow:
+          - "src/services/**"
+          - "src/repositories/**"
+        message: "Components should not import directly from services or repositories"
+      - from: "src/hooks/**"
+        allow:
+          - "src/services/**"
+          - "src/types/**"
+          - "src/utils/**"
+        message: "Hooks can import from services, types, and utils"
+      - from: "src/services/**"
+        disallow:
+          - "src/components/**"
+          - "src/hooks/**"
+        message: "Services should not depend on UI layer"
+    severity: error
+
+  - id: index-exports
+    type: structure
+    description: "Modules should use index files for exports"
+    check: "has_index_file"
+    applies_to:
+      - "src/components/*"
+      - "src/hooks"
+      - "src/services"
+    severity: info
+    message: "Module '{module}' should have an index.ts for exports"
+
+  # File organization
+  - id: colocation
+    type: structure
+    description: "Related files should be colocated"
+    rules:
+      - components:
+          required:
+            - "*.tsx"
+          optional:
+            - "*.test.tsx"
+            - "*.module.css"
+            - "*.types.ts"
+          message: "Component should have related files colocated"
+    severity: info
+
+# =============================================================================
+# Security Rules
+# =============================================================================
+
+security:
+  - id: no-hardcoded-secrets
+    type: pattern
+    description: "No hardcoded secrets or credentials"
+    patterns:
+      - "password\\s*=\\s*['\"][^'\"]+['\"]"
+      - "api_key\\s*=\\s*['\"][^'\"]+['\"]"
+      - "secret\\s*=\\s*['\"][^'\"]+['\"]"
+      - "token\\s*=\\s*['\"][^'\"]+['\"]"
+      - "(?i)bearer\\s+[a-zA-Z0-9_-]{20,}"
+    exclude_patterns:
+      - "*.test.ts"
+      - "*.spec.ts"
+      - "*.example.*"
+    severity: error
+    message: "Possible hardcoded secret detected at {location}"
+
+  - id: no-unsafe-innerHTML
+    type: pattern
+    description: "Avoid dangerouslySetInnerHTML without sanitization"
+    patterns:
+      - "dangerouslySetInnerHTML"
+    severity: warning
+    message: "Use of dangerouslySetInnerHTML detected. Ensure content is sanitized."
+
+  - id: no-eval
+    type: pattern
+    description: "No use of eval or similar"
+    patterns:
+      - "\\beval\\s*\\("
+      - "new\\s+Function\\s*\\("
+    severity: error
+    message: "Use of eval() or Function() constructor is not allowed"
+
+  - id: sql-injection-prevention
+    type: pattern
+    description: "Prevent SQL injection via string concatenation"
+    patterns:
+      - "query\\s*\\(\\s*[`'\"].*\\$\\{"
+      - "\\.raw\\s*\\(\\s*[`'\"].*\\$\\{"
+    severity: error
+    message: "Potential SQL injection vulnerability. Use parameterized queries."
+
+  - id: validate-user-input
+    type: custom
+    description: "User input should be validated"
+    check: "input_validation"
+    applies_to:
+      - "src/api/**"
+      - "src/pages/api/**"
+      - "src/app/api/**"
+    severity: warning
+    message: "API endpoint should validate user input with schema validation"
+
+# =============================================================================
+# Testing Rules
+# =============================================================================
+
+testing:
+  - id: minimum-test-coverage
+    type: coverage
+    description: "Minimum test coverage requirements"
+    thresholds:
+      lines: 80
+      branches: 70
+      functions: 80
+      statements: 80
+    applies_to:
+      - "src/**/*.ts"
+      - "src/**/*.tsx"
+    exclude:
+      - "src/**/*.d.ts"
+      - "src/**/*.test.*"
+      - "src/**/*.spec.*"
+    severity: warning
+    message: "Test coverage ({value}%) is below minimum ({threshold}%)"
+
+  - id: critical-path-coverage
+    type: coverage
+    description: "Critical paths require higher coverage"
+    thresholds:
+      lines: 95
+      branches: 90
+    applies_to:
+      - "src/services/auth/**"
+      - "src/services/payment/**"
+      - "src/api/auth/**"
+    severity: error
+    message: "Critical path coverage ({value}%) must be at least {threshold}%"
+
+  - id: test-file-required
+    type: structure
+    description: "Source files should have corresponding test files"
+    check: "has_test_file"
+    applies_to:
+      - "src/components/**/*.tsx"
+      - "src/hooks/**/*.ts"
+      - "src/services/**/*.ts"
+    exclude:
+      - "**/*.d.ts"
+      - "**/index.ts"
+      - "**/types.ts"
+    severity: info
+    message: "File '{file}' should have a corresponding test file"
+
+  - id: no-skipped-tests
+    type: pattern
+    description: "No skipped tests in main branch"
+    patterns:
+      - "\\bit\\.skip\\s*\\("
+      - "\\bdescribe\\.skip\\s*\\("
+      - "\\btest\\.skip\\s*\\("
+      - "\\bxit\\s*\\("
+      - "\\bxdescribe\\s*\\("
+    severity: warning
+    on_branch:
+      - "main"
+      - "master"
+    message: "Skipped tests found. Remove .skip before merging."
+
+# =============================================================================
+# Performance Rules
+# =============================================================================
+
+performance:
+  - id: no-sync-operations
+    type: pattern
+    description: "Avoid synchronous file operations"
+    patterns:
+      - "readFileSync"
+      - "writeFileSync"
+      - "existsSync"
+      - "mkdirSync"
+    exclude:
+      - "scripts/**"
+      - "*.config.*"
+    severity: warning
+    message: "Use async file operations instead of sync methods"
+
+  - id: bundle-size-limit
+    type: bundle
+    description: "Maximum bundle size limits"
+    limits:
+      main: "250kb"
+      chunk: "100kb"
+      total: "1mb"
+    severity: warning
+    message: "Bundle size ({size}) exceeds limit ({limit})"
+
+  - id: no-large-dependencies
+    type: dependency
+    description: "Avoid large dependencies when lighter alternatives exist"
+    check:
+      - package: "moment"
+        alternative: "date-fns or dayjs"
+        max_size: "50kb"
+      - package: "lodash"
+        alternative: "lodash-es or native methods"
+        max_size: "25kb"
+    severity: info
+    message: "Consider using {alternative} instead of {package}"
+
+  - id: image-optimization
+    type: assets
+    description: "Images should be optimized"
+    rules:
+      max_size: "500kb"
+      formats:
+        - "webp"
+        - "avif"
+        - "svg"
+      exclude:
+        - "png"
+        - "jpg"
+    applies_to:
+      - "public/images/**"
+      - "src/assets/**"
+    severity: info
+    message: "Image '{file}' should be optimized (current: {size})"
+
+# =============================================================================
+# Accessibility Rules
+# =============================================================================
+
+accessibility:
+  - id: require-alt-text
+    type: pattern
+    description: "Images must have alt text"
+    check: "img_alt_attribute"
+    applies_to:
+      - "**/*.tsx"
+      - "**/*.jsx"
+    severity: error
+    message: "Image element must have alt attribute"
+
+  - id: require-button-type
+    type: pattern
+    description: "Buttons should have explicit type"
+    check: "button_type_attribute"
+    applies_to:
+      - "**/*.tsx"
+      - "**/*.jsx"
+    severity: warning
+    message: "Button element should have explicit type attribute"
+
+  - id: require-label-for-input
+    type: pattern
+    description: "Form inputs must have associated labels"
+    check: "input_label_association"
+    applies_to:
+      - "**/*.tsx"
+      - "**/*.jsx"
+    severity: error
+    message: "Input element must have an associated label"
+
+  - id: color-contrast
+    type: custom
+    description: "Ensure sufficient color contrast"
+    check: "wcag_color_contrast"
+    level: "AA"
+    severity: warning
+    message: "Color contrast ratio ({ratio}) does not meet WCAG {level} requirements"
+
+# =============================================================================
+# Documentation Rules
+# =============================================================================
+
+documentation:
+  - id: require-jsdoc-public
+    type: documentation
+    description: "Public functions must have JSDoc comments"
+    check: "has_jsdoc"
+    applies_to:
+      - "exported functions"
+      - "exported classes"
+    exclude:
+      - "**/*.test.*"
+      - "**/*.spec.*"
+    severity: info
+    message: "Public function '{name}' should have JSDoc documentation"
+
+  - id: require-readme
+    type: structure
+    description: "Modules should have README files"
+    check: "has_readme"
+    applies_to:
+      - "src/components/*"
+      - "src/services/*"
+      - "packages/*"
+    severity: info
+    message: "Module '{module}' should have a README.md"
+
+# =============================================================================
+# Custom Project Rules
+# =============================================================================
+
+custom:
+  # Add your project-specific rules here
+  # Example:
+  # - id: require-analytics-tracking
+  #   type: custom
+  #   description: "User actions should include analytics tracking"
+  #   check: "analytics_tracking"
+  #   applies_to:
+  #     - "src/components/Button/**"
+  #     - "src/components/Form/**"
+  #   severity: info
+  #   message: "Component should include analytics tracking for user actions"
+
+# =============================================================================
+# Rule Overrides
+# =============================================================================
+
+overrides:
+  # Override rules for specific paths
+  - path: "src/legacy/**"
+    rules:
+      max-cyclomatic-complexity:
+        threshold: 25
+        severity: info
+      max-function-length:
+        enabled: false
+
+  - path: "scripts/**"
+    rules:
+      no-sync-operations:
+        enabled: false
+
+  - path: "**/*.test.*"
+    rules:
+      max-function-length:
+        threshold: 100
+
+# =============================================================================
+# Global Settings
+# =============================================================================
+
+settings:
+  # Files/patterns to always ignore
+  ignore:
+    - "node_modules/**"
+    - "dist/**"
+    - "build/**"
+    - ".next/**"
+    - "coverage/**"
+    - "*.min.js"
+    - "*.bundle.js"
+    - "*.generated.*"
+
+  # Run rules in parallel for better performance
+  parallel: true
+
+  # Cache validation results
+  cache: true
+  cache_location: ".proagents/validation-cache"
+
+  # Report format
+  report:
+    format: "stylish"  # stylish, json, html
+    output: ".proagents/validation-report"

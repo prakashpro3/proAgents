@@ -1,0 +1,207 @@
+/**
+ * {{ServiceName}} Service
+ *
+ * {{description}}
+ */
+
+import { {{RepositoryName}} } from '../repositories/{{repositoryName}}.repository';
+import { {{EntityName}}, Create{{EntityName}}Input, Update{{EntityName}}Input } from '../types/{{entityName}}.types';
+import { AppError } from '../utils/errors';
+import { logger } from '../utils/logger';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface FindAllParams {
+  page: number;
+  limit: number;
+  search?: string;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface FindAllResult {
+  data: {{EntityName}}[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+// ============================================================================
+// Service Class
+// ============================================================================
+
+export class {{ServiceName}} {
+  private repository: {{RepositoryName}};
+
+  constructor() {
+    this.repository = new {{RepositoryName}}();
+  }
+
+  // ==========================================================================
+  // Find All
+  // ==========================================================================
+
+  async findAll(params: FindAllParams): Promise<FindAllResult> {
+    const { page, limit, search, sortBy, sortOrder } = params;
+
+    logger.debug('Finding all {{entityName}}s', { params });
+
+    const offset = (page - 1) * limit;
+
+    const [data, total] = await Promise.all([
+      this.repository.findMany({
+        where: search ? { name: { contains: search } } : undefined,
+        orderBy: sortBy ? { [sortBy]: sortOrder } : { createdAt: 'desc' },
+        skip: offset,
+        take: limit,
+      }),
+      this.repository.count({
+        where: search ? { name: { contains: search } } : undefined,
+      }),
+    ]);
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  // ==========================================================================
+  // Find By ID
+  // ==========================================================================
+
+  async findById(id: string): Promise<{{EntityName}} | null> {
+    logger.debug('Finding {{entityName}} by ID', { id });
+
+    const item = await this.repository.findById(id);
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Find By ID (with error)
+  // ==========================================================================
+
+  async findByIdOrFail(id: string): Promise<{{EntityName}}> {
+    const item = await this.findById(id);
+
+    if (!item) {
+      throw new AppError('{{EntityName}} not found', 404);
+    }
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Create
+  // ==========================================================================
+
+  async create(input: Create{{EntityName}}Input): Promise<{{EntityName}}> {
+    logger.info('Creating {{entityName}}', { input });
+
+    // Validate business rules
+    await this.validateCreate(input);
+
+    const item = await this.repository.create(input);
+
+    logger.info('{{EntityName}} created', { id: item.id });
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Update
+  // ==========================================================================
+
+  async update(id: string, input: Update{{EntityName}}Input): Promise<{{EntityName}} | null> {
+    logger.info('Updating {{entityName}}', { id, input });
+
+    // Check exists
+    const existing = await this.findById(id);
+    if (!existing) {
+      return null;
+    }
+
+    // Validate business rules
+    await this.validateUpdate(id, input);
+
+    const item = await this.repository.update(id, input);
+
+    logger.info('{{EntityName}} updated', { id });
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Delete
+  // ==========================================================================
+
+  async delete(id: string): Promise<boolean> {
+    logger.info('Deleting {{entityName}}', { id });
+
+    // Check exists
+    const existing = await this.findById(id);
+    if (!existing) {
+      return false;
+    }
+
+    // Validate can delete
+    await this.validateDelete(id);
+
+    await this.repository.delete(id);
+
+    logger.info('{{EntityName}} deleted', { id });
+
+    return true;
+  }
+
+  // ==========================================================================
+  // Business Logic
+  // ==========================================================================
+
+  /**
+   * Validate creation rules
+   */
+  private async validateCreate(input: Create{{EntityName}}Input): Promise<void> {
+    // Example: Check for duplicates
+    const existing = await this.repository.findByName(input.name);
+    if (existing) {
+      throw new AppError('{{EntityName}} with this name already exists', 409);
+    }
+  }
+
+  /**
+   * Validate update rules
+   */
+  private async validateUpdate(id: string, input: Update{{EntityName}}Input): Promise<void> {
+    if (input.name) {
+      const existing = await this.repository.findByName(input.name);
+      if (existing && existing.id !== id) {
+        throw new AppError('{{EntityName}} with this name already exists', 409);
+      }
+    }
+  }
+
+  /**
+   * Validate deletion rules
+   */
+  private async validateDelete(id: string): Promise<void> {
+    // Example: Check for dependencies
+    const hasDependent = await this.repository.hasDependentRecords(id);
+    if (hasDependent) {
+      throw new AppError('Cannot delete {{entityName}} with dependent records', 400);
+    }
+  }
+}
+
+// ============================================================================
+// Export Instance
+// ============================================================================
+
+export const {{camelCase serviceName}} = new {{ServiceName}}();

@@ -1,0 +1,317 @@
+# Decision Defaults Configuration
+# Pre-configured answers for common AI questions
+# Prevents workflow interruptions by providing automatic decisions
+
+# =============================================================================
+# AUTOMATION LEVEL
+# =============================================================================
+automation:
+  # full: No user intervention, all decisions auto-made
+  # semi: Only pause for critical decisions
+  # guided: Pause at checkpoints only
+  # manual: Ask for guidance (traditional mode)
+  level: "full"
+
+  # Log all auto-decisions for post-review
+  log_decisions: true
+
+  # Show summary after workflow completion
+  show_summary: true
+
+  # Confidence threshold (decisions below this are flagged)
+  confidence_threshold: "medium"  # high, medium, low
+
+# =============================================================================
+# ARCHITECTURE DECISIONS
+# =============================================================================
+architecture:
+  # API Style
+  api_style: "rest"  # rest, graphql, grpc, trpc
+
+  # State Management
+  state_management:
+    global: "zustand"  # zustand, redux, jotai, mobx
+    server: "react-query"  # react-query, swr, apollo
+    forms: "react-hook-form"  # react-hook-form, formik
+
+  # Styling
+  styling: "tailwind"  # tailwind, css-modules, styled-components, scss
+
+  # Database
+  database: "postgresql"  # postgresql, mysql, mongodb, sqlite
+
+  # ORM
+  orm: "prisma"  # prisma, typeorm, drizzle, knex
+
+  # Authentication
+  auth:
+    method: "jwt"  # jwt, session, oauth
+    storage: "httponly-cookie"  # httponly-cookie, localstorage, memory
+    provider: "custom"  # custom, next-auth, auth0, clerk
+
+  # Caching
+  caching: "react-query"  # react-query, redis, in-memory
+
+# =============================================================================
+# CODE STYLE DECISIONS
+# =============================================================================
+code_style:
+  # Components
+  component:
+    style: "functional"  # functional, class
+    memo: "when-needed"  # always, when-needed, never
+    display_name: true
+
+  # Exports
+  exports:
+    style: "named"  # named, default, mixed
+    barrel_files: true  # Use index.ts for re-exports
+
+  # TypeScript
+  typescript:
+    strict: true
+    props_style: "interface"  # interface, type
+    return_types: "infer"  # explicit, infer
+
+  # Naming Conventions
+  naming:
+    components: "PascalCase"
+    hooks: "useCamelCase"
+    services: "camelCase"
+    utilities: "camelCase"
+    constants: "UPPER_SNAKE_CASE"
+    types: "PascalCase"
+    files:
+      components: "PascalCase"
+      others: "kebab-case"
+
+  # File Organization
+  organization:
+    components: "folder-per-component"  # folder-per-component, flat
+    colocate_tests: true
+    colocate_styles: true
+
+# =============================================================================
+# TESTING DECISIONS
+# =============================================================================
+testing:
+  # Frameworks
+  unit_framework: "vitest"  # vitest, jest
+  e2e_framework: "playwright"  # playwright, cypress
+  component_testing: "testing-library"
+
+  # Coverage
+  coverage:
+    target: 80
+    minimum: 60
+    fail_below_minimum: true
+
+  # Test Location
+  location: "colocated"  # colocated, separate (__tests__ folder)
+
+  # What to Test
+  always_test:
+    - "components"
+    - "hooks"
+    - "services"
+    - "utilities"
+
+  # Mocking
+  mock_strategy: "minimal"  # minimal, comprehensive
+
+# =============================================================================
+# IMPLEMENTATION DECISIONS
+# =============================================================================
+implementation:
+  # When multiple approaches exist
+  approach_selection: "simplest"  # simplest, most_performant, most_scalable
+
+  # Error Handling
+  error_handling:
+    style: "try-catch"  # try-catch, result-type, error-boundary
+    logging: true
+    user_friendly_messages: true
+
+  # Async Patterns
+  async:
+    style: "async-await"  # async-await, promises
+    error_handling: "try-catch"
+
+  # Null/Undefined Handling
+  null_handling: "optional-chaining"  # optional-chaining, explicit-checks
+
+  # Data Validation
+  validation:
+    library: "zod"  # zod, yup, joi
+    location: "schema-files"  # inline, schema-files
+
+  # Comments
+  comments:
+    style: "jsdoc"  # jsdoc, inline, minimal
+    when: "complex-logic-only"  # always, complex-logic-only, never
+
+# =============================================================================
+# FILE CREATION DECISIONS
+# =============================================================================
+file_creation:
+  # Component Files
+  component:
+    create_test: true
+    create_styles: false  # If using Tailwind, no separate style files
+    create_index: true
+    create_types: "if-complex"  # always, if-complex, never
+
+  # Service Files
+  service:
+    create_test: true
+    create_types: true
+    create_interface: true
+
+  # API Route Files
+  api_route:
+    create_validation: true
+    create_types: true
+    create_test: true
+
+# =============================================================================
+# DEPENDENCY DECISIONS
+# =============================================================================
+dependencies:
+  # When adding new packages
+  prefer_existing: true  # Use already installed packages when possible
+
+  # Package Selection Priority
+  selection_priority:
+    1: "already-installed"
+    2: "project-default"
+    3: "most-popular-stable"
+
+  # Defaults by Category
+  defaults:
+    http_client: "axios"  # axios, fetch, ky
+    date_handling: "date-fns"  # date-fns, dayjs, luxon
+    icons: "lucide-react"  # lucide-react, heroicons, react-icons
+    forms: "react-hook-form"
+    validation: "zod"
+    animation: "framer-motion"  # framer-motion, react-spring
+
+# =============================================================================
+# GIT DECISIONS
+# =============================================================================
+git:
+  # Branch Naming
+  branch_prefix:
+    feature: "feature/"
+    bugfix: "fix/"
+    hotfix: "hotfix/"
+    refactor: "refactor/"
+
+  # Commit Style
+  commit_style: "conventional"  # conventional, simple
+
+  # Auto Actions
+  auto_stage: true
+  auto_commit_message: true
+
+# =============================================================================
+# DEPLOYMENT DECISIONS
+# =============================================================================
+deployment:
+  # Default Environment
+  default_target: "staging"  # development, staging, production
+
+  # Strategy
+  strategy: "rolling"  # rolling, blue-green, canary
+
+  # Auto-deploy
+  auto_deploy:
+    staging: true
+    production: false  # Always require explicit approval
+
+# =============================================================================
+# COMMON QUESTION ANSWERS
+# =============================================================================
+common_questions:
+  "Should I create a new component or modify existing?":
+    rule: "Create new if functionality is distinct. Modify if extending existing."
+    default: "create_new"
+
+  "Where should I put this file?":
+    rule: "Follow existing project structure patterns."
+    use: "pattern_matching"
+
+  "Should I add tests?":
+    rule: "Always add tests for new code."
+    default: true
+
+  "What should I name this?":
+    rule: "Follow naming conventions from code_style section."
+    use: "naming_conventions"
+
+  "Should I refactor while implementing?":
+    rule: "No. Focus on requested task only."
+    default: false
+
+  "Should I add error handling?":
+    rule: "Always add appropriate error handling."
+    default: true
+
+  "Should I add TypeScript types?":
+    rule: "Always for public interfaces, infer for internals."
+    default: true
+
+  "Should I add comments?":
+    rule: "Only for complex logic that isn't self-explanatory."
+    default: "when_complex"
+
+  "Should I split this into smaller files?":
+    rule: "If file exceeds 300 lines, consider splitting."
+    threshold: 300
+
+  "Which import style should I use?":
+    rule: "Use path aliases when available, relative for nearby files."
+    use: "path_aliases"
+
+# =============================================================================
+# INFERENCE RULES
+# =============================================================================
+inference_rules:
+  # Match existing patterns
+  - condition: "similar_code_exists"
+    action: "follow_existing_pattern"
+    confidence: "high"
+
+  # Use project defaults
+  - condition: "no_existing_pattern"
+    action: "use_project_defaults"
+    confidence: "medium"
+
+  # Conservative fallback
+  - condition: "uncertain"
+    action: "use_safest_option"
+    confidence: "low"
+    flag_for_review: true
+
+# =============================================================================
+# SAFETY RULES
+# =============================================================================
+safety:
+  # Even in full automation, pause for these
+  always_flag:
+    - "deleting_data"
+    - "modifying_auth"
+    - "changing_permissions"
+    - "external_api_keys"
+    - "payment_related"
+
+  # Use safest option for
+  prefer_safe:
+    - "data_handling"
+    - "security_related"
+    - "user_input"
+
+  # Never auto-decide
+  require_explicit_config:
+    - "production_deployment"
+    - "database_migrations_prod"
+    - "secret_management"

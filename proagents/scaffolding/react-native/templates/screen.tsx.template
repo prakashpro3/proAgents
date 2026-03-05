@@ -1,0 +1,247 @@
+/**
+ * {{ScreenName}} Screen
+ *
+ * {{description}}
+ */
+
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+{{#if useNavigation}}
+import { useNavigation, useRoute } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RouteProp } from '@react-navigation/native';
+import type { RootStackParamList } from '@/navigation/types';
+{{/if}}
+import { useTheme } from '@/hooks/useTheme';
+import { use{{EntityName}} } from '@/hooks/use{{EntityName}}';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+{{#if useNavigation}}
+type {{ScreenName}}NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  '{{ScreenName}}'
+>;
+
+type {{ScreenName}}RouteProp = RouteProp<RootStackParamList, '{{ScreenName}}'>;
+{{/if}}
+
+interface {{ScreenName}}Props {
+  // Screen props
+}
+
+// ============================================================================
+// Component
+// ============================================================================
+
+export function {{ScreenName}}Screen({}: {{ScreenName}}Props) {
+  {{#if useNavigation}}
+  const navigation = useNavigation<{{ScreenName}}NavigationProp>();
+  const route = useRoute<{{ScreenName}}RouteProp>();
+  {{/if}}
+  const { colors, spacing } = useTheme();
+
+  // State
+  const [refreshing, setRefreshing] = useState(false);
+
+  // Data
+  const { data, loading, error, refetch } = use{{EntityName}}();
+
+  // ==========================================================================
+  // Handlers
+  // ==========================================================================
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }, [refetch]);
+
+  const handleItemPress = useCallback((id: string) => {
+    {{#if useNavigation}}
+    navigation.navigate('{{EntityName}}Detail', { id });
+    {{/if}}
+  }, [{{#if useNavigation}}navigation{{/if}}]);
+
+  // ==========================================================================
+  // Effects
+  // ==========================================================================
+
+  useEffect(() => {
+    // Initial load or side effects
+  }, []);
+
+  // ==========================================================================
+  // Render Helpers
+  // ==========================================================================
+
+  const renderLoading = () => (
+    <View style={styles.centerContainer}>
+      <ActivityIndicator size="large" color={colors.primary} />
+      <Text style={[styles.loadingText, { color: colors.textSecondary }]}>
+        Loading...
+      </Text>
+    </View>
+  );
+
+  const renderError = () => (
+    <View style={styles.centerContainer}>
+      <Text style={[styles.errorText, { color: colors.error }]}>
+        {error?.message || 'Something went wrong'}
+      </Text>
+      <TouchableOpacity
+        style={[styles.retryButton, { backgroundColor: colors.primary }]}
+        onPress={handleRefresh}
+      >
+        <Text style={styles.retryButtonText}>Retry</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const renderEmpty = () => (
+    <View style={styles.centerContainer}>
+      <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
+        No items found
+      </Text>
+    </View>
+  );
+
+  const renderContent = () => (
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={[
+        styles.scrollContent,
+        { padding: spacing.md },
+      ]}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          tintColor={colors.primary}
+        />
+      }
+    >
+      {data?.map((item) => (
+        <TouchableOpacity
+          key={item.id}
+          style={[styles.itemContainer, { backgroundColor: colors.card }]}
+          onPress={() => handleItemPress(item.id)}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.itemTitle, { color: colors.text }]}>
+            {item.name}
+          </Text>
+          {item.description && (
+            <Text style={[styles.itemDescription, { color: colors.textSecondary }]}>
+              {item.description}
+            </Text>
+          )}
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  );
+
+  // ==========================================================================
+  // Render
+  // ==========================================================================
+
+  return (
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+      edges={['bottom']}
+    >
+      {/* Header */}
+      <View style={[styles.header, { borderBottomColor: colors.border }]}>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>
+          {{screenTitle}}
+        </Text>
+      </View>
+
+      {/* Content */}
+      {loading && !refreshing && renderLoading()}
+      {error && !loading && renderError()}
+      {!loading && !error && data?.length === 0 && renderEmpty()}
+      {!loading && !error && data && data.length > 0 && renderContent()}
+    </SafeAreaView>
+  );
+}
+
+// ============================================================================
+// Styles
+// ============================================================================
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+  },
+  errorText: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  emptyText: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  retryButton: {
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  retryButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  itemContainer: {
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+  itemTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  itemDescription: {
+    fontSize: 14,
+    marginTop: 4,
+  },
+});
+
+export default {{ScreenName}}Screen;

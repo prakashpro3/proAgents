@@ -1,0 +1,149 @@
+/**
+ * {{ComponentName}} Component Tests
+ */
+
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { {{ComponentName}} } from './{{ComponentName}}';
+import type { {{ComponentName}}Props } from './{{ComponentName}}';
+
+// ============================================================================
+// Test Utilities
+// ============================================================================
+
+const defaultProps: {{ComponentName}}Props = {
+  title: 'Test Title',
+  description: 'Test Description',
+};
+
+function renderComponent(props: Partial<{{ComponentName}}Props> = {}) {
+  const mergedProps = { ...defaultProps, ...props };
+  return render(<{{ComponentName}} {...mergedProps} />);
+}
+
+// ============================================================================
+// Tests
+// ============================================================================
+
+describe('{{ComponentName}}', () => {
+  // ==========================================================================
+  // Rendering Tests
+  // ==========================================================================
+
+  describe('rendering', () => {
+    it('should render with required props', () => {
+      renderComponent();
+
+      expect(screen.getByTestId('{{kebabCase ComponentName}}')).toBeInTheDocument();
+      expect(screen.getByText('Test Title')).toBeInTheDocument();
+    });
+
+    it('should render description when provided', () => {
+      renderComponent({ description: 'My description' });
+
+      expect(screen.getByText('My description')).toBeInTheDocument();
+    });
+
+    it('should not render description when not provided', () => {
+      renderComponent({ description: undefined });
+
+      expect(screen.queryByText('Test Description')).not.toBeInTheDocument();
+    });
+
+    it('should render children when provided', () => {
+      render(
+        <{{ComponentName}} title="Title">
+          <span>Child content</span>
+        </{{ComponentName}}>
+      );
+
+      expect(screen.getByText('Child content')).toBeInTheDocument();
+    });
+
+    it('should apply custom className', () => {
+      renderComponent({ className: 'custom-class' });
+
+      expect(screen.getByTestId('{{kebabCase ComponentName}}')).toHaveClass('custom-class');
+    });
+  });
+
+  // ==========================================================================
+  // Interaction Tests
+  // ==========================================================================
+
+  describe('interactions', () => {
+    it('should call onClick when clicked', async () => {
+      const handleClick = jest.fn();
+      renderComponent({ onClick: handleClick });
+
+      await userEvent.click(screen.getByTestId('{{kebabCase ComponentName}}'));
+
+      expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call onClick when Enter key is pressed', async () => {
+      const handleClick = jest.fn();
+      renderComponent({ onClick: handleClick });
+
+      const element = screen.getByTestId('{{kebabCase ComponentName}}');
+      element.focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not have button role when onClick is not provided', () => {
+      renderComponent({ onClick: undefined });
+
+      expect(screen.getByTestId('{{kebabCase ComponentName}}')).not.toHaveAttribute('role');
+    });
+
+    it('should have button role when onClick is provided', () => {
+      renderComponent({ onClick: jest.fn() });
+
+      expect(screen.getByTestId('{{kebabCase ComponentName}}')).toHaveAttribute('role', 'button');
+    });
+  });
+
+  // ==========================================================================
+  // Accessibility Tests
+  // ==========================================================================
+
+  describe('accessibility', () => {
+    it('should be focusable when clickable', () => {
+      renderComponent({ onClick: jest.fn() });
+
+      const element = screen.getByTestId('{{kebabCase ComponentName}}');
+      expect(element).toHaveAttribute('tabIndex', '0');
+    });
+
+    it('should not be focusable when not clickable', () => {
+      renderComponent({ onClick: undefined });
+
+      const element = screen.getByTestId('{{kebabCase ComponentName}}');
+      expect(element).not.toHaveAttribute('tabIndex');
+    });
+  });
+
+  // ==========================================================================
+  // Snapshot Tests
+  // ==========================================================================
+
+  describe('snapshots', () => {
+    it('should match snapshot with default props', () => {
+      const { container } = renderComponent();
+      expect(container).toMatchSnapshot();
+    });
+
+    it('should match snapshot with all props', () => {
+      const { container } = renderComponent({
+        title: 'Full Title',
+        description: 'Full Description',
+        className: 'custom-class',
+        onClick: jest.fn(),
+      });
+      expect(container).toMatchSnapshot();
+    });
+  });
+});

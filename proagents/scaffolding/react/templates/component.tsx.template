@@ -1,0 +1,88 @@
+/**
+ * {{ComponentName}} Component
+ *
+ * {{description}}
+ *
+ * @example
+ * ```tsx
+ * <{{ComponentName}} title="Example" />
+ * ```
+ */
+
+import React, { memo } from 'react';
+import type { FC } from 'react';
+{{#if useStyles}}
+import styles from './{{ComponentName}}.module.css';
+{{/if}}
+{{#if useTailwind}}
+import { cn } from '@/lib/utils';
+{{/if}}
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface {{ComponentName}}Props {
+  /** Primary content or title */
+  title: string;
+  /** Optional description text */
+  description?: string;
+  /** Additional CSS classes */
+  className?: string;
+  /** Click handler */
+  onClick?: () => void;
+  /** Children elements */
+  children?: React.ReactNode;
+}
+
+// ============================================================================
+// Component
+// ============================================================================
+
+/**
+ * {{ComponentName}}
+ *
+ * {{description}}
+ */
+export const {{ComponentName}}: FC<{{ComponentName}}Props> = memo(
+  ({ title, description, className, onClick, children }) => {
+    // ========================================================================
+    // Render
+    // ========================================================================
+
+    return (
+      <div
+        {{#if useTailwind}}
+        className={cn('rounded-lg border p-4', className)}
+        {{else}}
+        className={`${styles.container} ${className || ''}`}
+        {{/if}}
+        onClick={onClick}
+        role={onClick ? 'button' : undefined}
+        tabIndex={onClick ? 0 : undefined}
+        onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
+        data-testid="{{kebabCase ComponentName}}"
+      >
+        <h3 className={{#if useTailwind}}"text-lg font-semibold"{{else}}{styles.title}{{/if}}>
+          {title}
+        </h3>
+
+        {description && (
+          <p className={{#if useTailwind}}"text-gray-600 mt-2"{{else}}{styles.description}{{/if}}>
+            {description}
+          </p>
+        )}
+
+        {children && (
+          <div className={{#if useTailwind}}"mt-4"{{else}}{styles.content}{{/if}}>
+            {children}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+{{ComponentName}}.displayName = '{{ComponentName}}';
+
+export default {{ComponentName}};

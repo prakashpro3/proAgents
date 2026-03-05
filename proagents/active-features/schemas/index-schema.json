@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProAgents Feature Index",
+  "description": "Schema for the master feature tracking index",
+  "type": "object",
+  "required": ["version", "active_features"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "active_features": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/active_feature" }
+    },
+    "paused_features": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/paused_feature" }
+    },
+    "completed_features": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/completed_feature" }
+    },
+    "conflicts": {
+      "type": "object",
+      "properties": {
+        "active": { "type": "array" },
+        "resolved": { "type": "array" }
+      }
+    },
+    "statistics": {
+      "type": "object"
+    }
+  },
+  "definitions": {
+    "active_feature": {
+      "type": "object",
+      "required": ["id", "name", "current_phase", "branch"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^feature-[a-z0-9-]+$" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "current_phase": {
+          "type": "string",
+          "enum": ["init", "analysis", "requirements", "design", "planning", "implementation", "testing", "review", "documentation", "deployment"]
+        },
+        "phase_progress": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "branch": { "type": "string" },
+        "started": { "type": "string", "format": "date-time" },
+        "last_updated": { "type": "string", "format": "date-time" },
+        "estimated_completion": { "type": "string", "format": "date-time" },
+        "assignee": { "type": "string" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "blockers": { "type": "array", "items": { "type": "string" } },
+        "dependencies": { "type": "array", "items": { "type": "string" } },
+        "files_modified_count": { "type": "integer" },
+        "checkpoints_completed": { "type": "array", "items": { "type": "string" } },
+        "checkpoints_pending": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "paused_feature": {
+      "type": "object",
+      "required": ["id", "name", "paused_at"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "current_phase": { "type": "string" },
+        "phase_progress": { "type": "integer" },
+        "branch": { "type": "string" },
+        "started": { "type": "string", "format": "date-time" },
+        "paused_at": { "type": "string", "format": "date-time" },
+        "pause_reason": { "type": "string" },
+        "assignee": { "type": "string" },
+        "priority": { "type": "string" },
+        "blocked_by": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "completed_feature": {
+      "type": "object",
+      "required": ["id", "name", "completed_at"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "completed_at": { "type": "string", "format": "date-time" },
+        "duration_hours": { "type": "number" },
+        "merged_commit": { "type": "string" },
+        "pr_number": { "type": "integer" }
+      }
+    }
+  }
+}

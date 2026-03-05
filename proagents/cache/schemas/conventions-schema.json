@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "cache-conventions-schema.json",
+  "title": "Cache Conventions Schema",
+  "description": "Schema for cached code conventions in the ProAgents analysis cache",
+  "type": "object",
+  "required": ["version", "generated_at", "naming"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "naming": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/naming_convention" }
+        },
+        "code": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/naming_convention" }
+        }
+      }
+    },
+    "formatting": {
+      "type": "object",
+      "properties": {
+        "indentation": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["spaces", "tabs"] },
+            "size": { "type": "integer", "minimum": 1, "maximum": 8 },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "quotes": {
+          "type": "object",
+          "properties": {
+            "style": { "type": "string", "enum": ["single", "double"] },
+            "jsx": { "type": "string", "enum": ["single", "double"] },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "semicolons": {
+          "type": "object",
+          "properties": {
+            "required": { "type": "boolean" },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "trailing_commas": {
+          "type": "object",
+          "properties": {
+            "style": { "type": "string", "enum": ["none", "es5", "all"] },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "line_length": {
+          "type": "object",
+          "properties": {
+            "max": { "type": "integer", "minimum": 40, "maximum": 200 },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      }
+    },
+    "imports": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "group": { "type": "string" },
+              "pattern": { "type": "string" }
+            }
+          }
+        },
+        "style": { "type": "string", "enum": ["named", "default", "mixed"] },
+        "newline_between_groups": { "type": "boolean" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "exports": {
+      "type": "object",
+      "properties": {
+        "style": { "type": "string", "enum": ["named", "default", "mixed"] },
+        "default_exports": { "type": "string" },
+        "barrel_files": { "type": "boolean" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "comments": {
+      "type": "object",
+      "properties": {
+        "style": { "type": "string" },
+        "required_for": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "format": {
+          "type": "object",
+          "properties": {
+            "single_line": { "type": "string" },
+            "multi_line": { "type": "string" },
+            "doc": { "type": "string" }
+          }
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  },
+  "definitions": {
+    "naming_convention": {
+      "type": "object",
+      "properties": {
+        "pattern": { "type": "string" },
+        "prefix": { "type": "string" },
+        "suffix": { "type": "string" },
+        "extension": { "type": "string" },
+        "examples": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

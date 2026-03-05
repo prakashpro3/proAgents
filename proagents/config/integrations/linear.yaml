@@ -1,0 +1,157 @@
+# Linear Integration Configuration
+# Copy these settings to your proagents.config.yaml under 'integrations.linear'
+
+# =============================================================================
+# BASIC CONFIGURATION
+# =============================================================================
+
+linear:
+  enabled: true
+
+  # Connection Settings
+  connection:
+    # Authentication (use environment variables!)
+    # Set in .env: LINEAR_API_KEY=lin_api_xxx
+    api_url: "https://api.linear.app/graphql"
+
+  # Team Settings
+  team:
+    id: "TEAM-123"              # Your Linear team ID
+    key: "ENG"                  # Team key prefix for issues
+
+# =============================================================================
+# ISSUE CONFIGURATION
+# =============================================================================
+
+  # Default settings for new issues
+  defaults:
+    priority: 2                  # 0=No Priority, 1=Urgent, 2=High, 3=Normal, 4=Low
+    estimate: null               # Story points (null = unestimated)
+
+  # Map ProAgents modes to Linear labels
+  labels:
+    feature: "feature"
+    bug_fix: "bug"
+    quick_change: "chore"
+    refactoring: "refactor"
+
+  # Project assignment
+  projects:
+    auto_assign: true
+    # Map features to projects by pattern
+    mapping:
+      "auth*": "project_auth_id"
+      "payment*": "project_payments_id"
+      "*": "project_default_id"      # Fallback
+
+# =============================================================================
+# WORKFLOW SYNC
+# =============================================================================
+
+  # Map ProAgents phases to Linear workflow states
+  workflow_states:
+    # Format: proagents_phase: linear_state_name
+    pending: "Backlog"
+    analysis_start: "In Progress"
+    implementation_start: "In Progress"
+    testing_start: "In Review"
+    code_review_start: "In Review"
+    complete: "Done"
+    cancelled: "Canceled"
+
+  # Auto-sync settings
+  sync:
+    # Create Linear issue when feature starts
+    create_on_start: true
+
+    # Update Linear status with phase changes
+    update_on_phase: true
+
+    # Add comments for key events
+    comment_on:
+      - analysis_complete
+      - pr_created
+      - tests_passed
+      - deployed
+
+    # Link to GitHub PRs
+    link_github_prs: true
+
+# =============================================================================
+# CYCLE (SPRINT) INTEGRATION
+# =============================================================================
+
+  cycles:
+    enabled: true
+
+    # Auto-assign to current cycle
+    auto_assign_current: true
+
+    # Include in cycle reports
+    include_in_reports: true
+
+# =============================================================================
+# BIDIRECTIONAL SYNC
+# =============================================================================
+
+  bidirectional:
+    enabled: true
+
+    # If issue is updated in Linear, reflect in ProAgents
+    sync_from_linear:
+      priority: true
+      assignee: true
+      labels: true
+      due_date: true
+
+    # Conflict resolution
+    conflict_resolution: "linear_wins"  # linear_wins | proagents_wins | newest
+
+# =============================================================================
+# COMMENTS AND UPDATES
+# =============================================================================
+
+  comments:
+    # Format for automated comments
+    format: "markdown"
+
+    # Templates
+    templates:
+      analysis_complete: |
+        **Analysis Complete**
+        - Requirements documented
+        - Implementation plan ready
+        - Estimated effort: {{estimate}}
+
+      pr_created: |
+        **Pull Request Created**
+        [PR #{{pr_number}}]({{pr_url}})
+        - Branch: `{{branch}}`
+        - Changes: {{files_changed}} files
+
+      deployed: |
+        **Deployed to {{environment}}**
+        - Commit: {{commit_sha}}
+        - URL: {{deployment_url}}
+
+# =============================================================================
+# EXAMPLE USAGE
+# =============================================================================
+
+# After configuration:
+#
+# 1. Start feature:
+#    /feature start "Add dark mode"
+#    → Creates ENG-456: Add dark mode
+#    → Assigns to current cycle
+#    → Sets status: In Progress
+#
+# 2. Automatic updates as you work:
+#    - Comments added for milestones
+#    - PR automatically linked
+#    - Status updated with phases
+#
+# 3. View in Linear:
+#    - Full history in activity feed
+#    - Links to code and PRs
+#    - Cycle velocity tracking

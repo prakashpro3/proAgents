@@ -1,0 +1,286 @@
+# Custom Rules Template
+# Define project-specific rules for code validation and enforcement
+
+# =============================================================================
+# NAMING RULES
+# =============================================================================
+naming_rules:
+  # Component naming
+  - id: "component-naming"
+    type: "naming"
+    pattern: "^[A-Z][a-zA-Z]*$"
+    applies_to: "**/*.tsx"
+    exclude: ["**/*.test.tsx", "**/index.tsx"]
+    message: "Component names must be PascalCase"
+    severity: "error"  # error | warning | info
+
+  # Hook naming
+  - id: "hook-naming"
+    type: "naming"
+    pattern: "^use[A-Z][a-zA-Z]*$"
+    applies_to: "**/hooks/**/*.ts"
+    message: "Hooks must start with 'use' prefix"
+    severity: "error"
+
+  # Service naming
+  - id: "service-naming"
+    type: "naming"
+    pattern: "^[a-z][a-zA-Z]*Service$"
+    applies_to: "**/services/**/*.ts"
+    message: "Services should end with 'Service' suffix"
+    severity: "warning"
+
+  # Constant naming
+  - id: "constant-naming"
+    type: "naming"
+    pattern: "^[A-Z][A-Z0-9_]*$"
+    applies_to: "**/constants/**/*.ts"
+    message: "Constants must be UPPER_SNAKE_CASE"
+    severity: "warning"
+
+# =============================================================================
+# FILE STRUCTURE RULES
+# =============================================================================
+structure_rules:
+  # Components must be in components folder
+  - id: "component-location"
+    type: "structure"
+    rule: "Components (*.tsx with JSX) must be in src/components/ or src/pages/"
+    applies_to: "**/*.tsx"
+    allowed_paths:
+      - "src/components/**"
+      - "src/pages/**"
+      - "src/features/**/components/**"
+    message: "React components should be in designated component directories"
+    severity: "warning"
+
+  # Services must be in services folder
+  - id: "service-location"
+    type: "structure"
+    rule: "Service files must be in src/services/"
+    applies_to: "**/*Service.ts"
+    allowed_paths:
+      - "src/services/**"
+    message: "Service files should be in src/services/"
+    severity: "warning"
+
+  # No business logic in components
+  - id: "no-logic-in-components"
+    type: "structure"
+    rule: "Components should not import directly from services"
+    pattern: "import.*from.*services"
+    applies_to: "src/components/**/*.tsx"
+    message: "Use hooks to access services, not direct imports"
+    severity: "warning"
+    suggestion: "Create a custom hook that wraps the service call"
+
+# =============================================================================
+# CODE PATTERN RULES
+# =============================================================================
+pattern_rules:
+  # Require error boundary for pages
+  - id: "page-error-boundary"
+    type: "pattern"
+    condition: "file in src/pages/**/*.tsx"
+    requires: "ErrorBoundary wrapper or error.tsx file"
+    message: "Page components should have error handling"
+    severity: "warning"
+
+  # No console.log in production code
+  - id: "no-console-log"
+    type: "pattern"
+    pattern: "console\\.(log|debug|info)"
+    applies_to: "src/**/*.{ts,tsx}"
+    exclude: ["**/*.test.ts", "**/*.test.tsx"]
+    message: "Remove console statements before committing"
+    severity: "warning"
+    auto_fix: false
+
+  # Require loading states
+  - id: "require-loading-state"
+    type: "pattern"
+    condition: "component uses useQuery or useMutation"
+    requires: "isLoading or isPending handling"
+    message: "Async operations should handle loading states"
+    severity: "warning"
+
+  # Require error handling for async
+  - id: "require-error-handling"
+    type: "pattern"
+    condition: "async function or Promise"
+    requires: "try-catch or .catch()"
+    message: "Async operations should have error handling"
+    severity: "warning"
+
+# =============================================================================
+# TESTING RULES
+# =============================================================================
+testing_rules:
+  # Components must have tests
+  - id: "component-test-required"
+    type: "testing"
+    rule: "Every component must have a corresponding test file"
+    applies_to: "src/components/**/*.tsx"
+    requires: "{filename}.test.tsx"
+    message: "Component is missing test file"
+    severity: "warning"
+
+  # Minimum test coverage
+  - id: "min-coverage"
+    type: "coverage"
+    minimum: 80
+    applies_to: "src/**/*.{ts,tsx}"
+    exclude: ["**/*.d.ts", "**/types/**"]
+    message: "Code coverage must be at least 80%"
+    severity: "error"
+
+  # Test naming convention
+  - id: "test-naming"
+    type: "testing"
+    rule: "Test descriptions should be descriptive"
+    pattern: "^(should|when|given|it)"
+    applies_to: "**/*.test.{ts,tsx}"
+    message: "Test descriptions should start with 'should', 'when', 'given', or 'it'"
+    severity: "info"
+
+# =============================================================================
+# SECURITY RULES
+# =============================================================================
+security_rules:
+  # No hardcoded secrets
+  - id: "no-hardcoded-secrets"
+    type: "security"
+    patterns:
+      - "api[_-]?key\\s*[:=]\\s*['\"][^'\"]+['\"]"
+      - "password\\s*[:=]\\s*['\"][^'\"]+['\"]"
+      - "secret\\s*[:=]\\s*['\"][^'\"]+['\"]"
+      - "token\\s*[:=]\\s*['\"][^'\"]+['\"]"
+    applies_to: "**/*.{ts,tsx,js,jsx}"
+    exclude: ["**/*.test.*", "**/*.example.*"]
+    message: "Potential hardcoded secret detected"
+    severity: "error"
+
+  # No innerHTML
+  - id: "no-innerhtml"
+    type: "security"
+    pattern: "innerHTML|dangerouslySetInnerHTML"
+    applies_to: "**/*.{tsx,jsx}"
+    message: "Avoid innerHTML to prevent XSS vulnerabilities"
+    severity: "warning"
+    suggestion: "Use safe alternatives or sanitize input with DOMPurify"
+
+  # Validate user input
+  - id: "validate-user-input"
+    type: "security"
+    condition: "handling user input (forms, URL params)"
+    requires: "input validation (zod, yup, or manual)"
+    message: "User input should be validated"
+    severity: "warning"
+
+# =============================================================================
+# PERFORMANCE RULES
+# =============================================================================
+performance_rules:
+  # No unnecessary re-renders
+  - id: "use-memo-for-expensive"
+    type: "performance"
+    condition: "expensive computation in render"
+    requires: "useMemo wrapper"
+    message: "Expensive computations should be memoized"
+    severity: "info"
+
+  # Lazy load routes
+  - id: "lazy-load-routes"
+    type: "performance"
+    condition: "route component import"
+    requires: "React.lazy() wrapper"
+    applies_to: "**/router/**/*.tsx"
+    message: "Route components should be lazy loaded"
+    severity: "info"
+
+  # Image optimization
+  - id: "optimized-images"
+    type: "performance"
+    condition: "using <img> tag"
+    requires: "next/image or optimized image component"
+    message: "Use optimized image components"
+    severity: "info"
+
+# =============================================================================
+# ACCESSIBILITY RULES
+# =============================================================================
+accessibility_rules:
+  # Images need alt text
+  - id: "img-alt-required"
+    type: "accessibility"
+    pattern: "<img(?![^>]*alt=)"
+    applies_to: "**/*.{tsx,jsx}"
+    message: "Images must have alt text"
+    severity: "warning"
+
+  # Buttons need accessible names
+  - id: "button-accessible-name"
+    type: "accessibility"
+    condition: "<button> or Button component"
+    requires: "text content or aria-label"
+    message: "Buttons must have accessible names"
+    severity: "warning"
+
+  # Form inputs need labels
+  - id: "input-label-required"
+    type: "accessibility"
+    condition: "<input> element"
+    requires: "associated <label> or aria-label"
+    message: "Form inputs must have labels"
+    severity: "warning"
+
+# =============================================================================
+# CUSTOM PROJECT RULES
+# =============================================================================
+custom_rules:
+  # Example: Require analytics on button clicks
+  - id: "analytics-on-buttons"
+    type: "custom"
+    condition: "Button component with onClick"
+    requires: "analytics.track() call"
+    message: "Button clicks should be tracked"
+    severity: "info"
+    enabled: false  # Enable if using analytics
+
+  # Example: Require feature flags for new features
+  - id: "feature-flag-required"
+    type: "custom"
+    condition: "new feature component"
+    requires: "feature flag wrapper"
+    message: "New features should be behind feature flags"
+    severity: "info"
+    enabled: false  # Enable if using feature flags
+
+# =============================================================================
+# RULE CONFIGURATION
+# =============================================================================
+configuration:
+  # Global settings
+  global:
+    fail_on_error: true
+    fail_on_warning: false
+    auto_fix_enabled: true
+
+  # Rule overrides by path
+  overrides:
+    - path: "src/legacy/**"
+      rules:
+        component-naming: "off"
+        no-console-log: "warning"
+
+    - path: "scripts/**"
+      rules:
+        no-console-log: "off"
+
+  # Ignore patterns
+  ignore:
+    - "node_modules/**"
+    - "dist/**"
+    - "build/**"
+    - ".next/**"
+    - "coverage/**"

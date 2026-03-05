@@ -1,0 +1,155 @@
+/**
+ * {{RepositoryName}} Repository
+ *
+ * {{description}}
+ */
+
+import { db } from '../lib/db';
+import { {{EntityName}}, Create{{EntityName}}Input, Update{{EntityName}}Input } from '../types/{{entityName}}.types';
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface FindManyParams {
+  where?: {
+    name?: { contains: string };
+  };
+  orderBy?: Record<string, 'asc' | 'desc'>;
+  skip?: number;
+  take?: number;
+}
+
+// ============================================================================
+// Repository Class
+// ============================================================================
+
+export class {{RepositoryName}} {
+  private readonly tableName = '{{tableName}}';
+
+  // ==========================================================================
+  // Find Many
+  // ==========================================================================
+
+  async findMany(params: FindManyParams = {}): Promise<{{EntityName}}[]> {
+    const { where, orderBy, skip = 0, take = 10 } = params;
+
+    // Using Prisma-like syntax - adapt to your ORM
+    const items = await db.{{entityName}}.findMany({
+      where,
+      orderBy,
+      skip,
+      take,
+    });
+
+    return items;
+  }
+
+  // ==========================================================================
+  // Count
+  // ==========================================================================
+
+  async count(params: Pick<FindManyParams, 'where'> = {}): Promise<number> {
+    const { where } = params;
+
+    const count = await db.{{entityName}}.count({ where });
+
+    return count;
+  }
+
+  // ==========================================================================
+  // Find By ID
+  // ==========================================================================
+
+  async findById(id: string): Promise<{{EntityName}} | null> {
+    const item = await db.{{entityName}}.findUnique({
+      where: { id },
+    });
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Find By Name
+  // ==========================================================================
+
+  async findByName(name: string): Promise<{{EntityName}} | null> {
+    const item = await db.{{entityName}}.findFirst({
+      where: { name },
+    });
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Create
+  // ==========================================================================
+
+  async create(input: Create{{EntityName}}Input): Promise<{{EntityName}}> {
+    const item = await db.{{entityName}}.create({
+      data: {
+        ...input,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    });
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Update
+  // ==========================================================================
+
+  async update(id: string, input: Update{{EntityName}}Input): Promise<{{EntityName}}> {
+    const item = await db.{{entityName}}.update({
+      where: { id },
+      data: {
+        ...input,
+        updatedAt: new Date(),
+      },
+    });
+
+    return item;
+  }
+
+  // ==========================================================================
+  // Delete
+  // ==========================================================================
+
+  async delete(id: string): Promise<void> {
+    await db.{{entityName}}.delete({
+      where: { id },
+    });
+  }
+
+  // ==========================================================================
+  // Has Dependent Records
+  // ==========================================================================
+
+  async hasDependentRecords(id: string): Promise<boolean> {
+    // Check for related records that would prevent deletion
+    // Implement based on your data model
+    const count = await db.relatedEntity.count({
+      where: { {{entityName}}Id: id },
+    });
+
+    return count > 0;
+  }
+
+  // ==========================================================================
+  // Transaction Support
+  // ==========================================================================
+
+  async transaction<T>(
+    fn: (tx: typeof db) => Promise<T>
+  ): Promise<T> {
+    return db.$transaction(fn);
+  }
+}
+
+// ============================================================================
+// Export Instance
+// ============================================================================
+
+export const {{camelCase repositoryName}} = new {{RepositoryName}}();

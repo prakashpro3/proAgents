@@ -1,0 +1,330 @@
+# ProAgents Configuration - React Native Mobile
+# This configuration is optimized for React Native mobile applications
+
+project:
+  name: "My Mobile App"
+  type: "mobile"
+  description: "React Native mobile application"
+
+  # Technology stack
+  tech_stack:
+    framework: "react-native"
+    cli: "expo"  # expo | react-native-cli
+    language: "typescript"
+    styling: "styled-components"  # styled-components | nativewind | stylesheet
+    state_management: "zustand"
+    navigation: "react-navigation"
+    testing: "jest"
+
+  # Target platforms
+  platforms:
+    ios: true
+    android: true
+
+# Workflow Configuration
+workflow:
+  default_mode: "full"
+
+  phases:
+    analysis:
+      enabled: true
+      depth: "full"
+      cache_duration: "24h"
+      # Mobile-specific analysis
+      include:
+        - native_modules
+        - platform_specific_code
+        - app_permissions
+
+    requirements:
+      enabled: true
+      template: "mobile-requirements"
+      include:
+        - platform_requirements
+        - device_support
+        - offline_requirements
+
+    ui_design:
+      enabled: true
+      required: true
+      # Mobile-specific design considerations
+      include:
+        - platform_guidelines  # iOS HIG, Material Design
+        - responsive_layouts
+        - gesture_interactions
+
+    implementation:
+      enabled: true
+      patterns:
+        - "functional-components"
+        - "custom-hooks"
+        - "platform-specific"
+
+    testing:
+      enabled: true
+      coverage_threshold: 75  # Slightly lower for mobile
+      types:
+        unit: true
+        integration: true
+        e2e: true
+        device: true  # Real device testing
+
+    review:
+      enabled: true
+      automated_checks: true
+      # Mobile-specific reviews
+      include:
+        - performance_check
+        - battery_impact
+        - memory_usage
+
+    documentation:
+      enabled: true
+      mode: "moderate"
+
+# Checkpoints
+checkpoints:
+  after_analysis: true
+  after_requirements: true
+  after_design: true  # Critical for mobile UX
+  after_implementation: false
+  after_testing: true  # Device testing checkpoint
+  before_deployment: true
+
+  custom:
+    - name: "Platform Compliance Review"
+      after_phase: "implementation"
+      condition: "new_native_module"
+      required: true
+
+    - name: "Performance Review"
+      after_phase: "testing"
+      condition: "always"
+      required: true
+
+    - name: "App Store Guidelines Check"
+      after_phase: "documentation"
+      condition: "before_release"
+      required: true
+
+# Git Integration
+git:
+  enabled: true
+  branch_prefix: "feature/"
+  branch_naming: "kebab-case"
+  commit_convention: "conventional"
+  require_pr: true
+
+  protected_branches:
+    - "main"
+    - "develop"
+    - "release/*"
+
+# Parallel Features
+parallel_features:
+  enabled: true
+  max_concurrent: 2
+  conflict_detection: true
+
+  # Mobile-specific conflict areas
+  high_conflict_paths:
+    - "app.json"
+    - "ios/Podfile"
+    - "android/build.gradle"
+    - "src/navigation/**"
+
+# Standards
+standards:
+  coding_standards: "./standards/react-native-standards.md"
+  component_template: "./templates/component-template.tsx"
+
+  naming:
+    components: "PascalCase"
+    screens: "PascalCase"  # with 'Screen' suffix
+    hooks: "camelCase"
+    services: "camelCase"
+
+  # Platform-specific code
+  platform_specific:
+    ios: "*.ios.tsx"
+    android: "*.android.tsx"
+
+  # Directory structure
+  structure:
+    src/screens: "Screen components"
+    src/components: "Shared components"
+    src/navigation: "Navigation configuration"
+    src/services: "API and business logic"
+    src/hooks: "Custom hooks"
+    src/stores: "State management"
+    src/assets: "Images, fonts, etc."
+
+# Mobile-Specific Configuration
+mobile:
+  # Supported OS versions
+  min_versions:
+    ios: "13.0"
+    android: "21"  # API level (Android 5.0)
+
+  # Device support
+  devices:
+    phones: true
+    tablets: true
+
+  # Orientation
+  orientation: "portrait"  # portrait | landscape | both
+
+  # Permissions (for documentation/review)
+  permissions:
+    - camera
+    - location
+    - notifications
+    - storage
+
+# Testing Configuration
+testing:
+  framework: "jest"
+  coverage:
+    minimum: 75
+    include:
+      - "src/**/*.tsx"
+      - "src/**/*.ts"
+    exclude:
+      - "**/*.d.ts"
+      - "**/__mocks__/**"
+
+  # Test types
+  types:
+    unit:
+      pattern: "*.test.tsx"
+      framework: "jest"
+    integration:
+      pattern: "*.integration.test.tsx"
+      framework: "jest"
+    e2e:
+      pattern: "*.e2e.ts"
+      framework: "detox"  # or maestro
+
+  # Device testing
+  device_testing:
+    ios_simulator: true
+    android_emulator: true
+    real_devices: "before_release"
+
+# Security
+security:
+  dependency_scanning: true
+  scan_frequency: "on_commit"
+  block_on_critical: true
+
+  # Mobile-specific security
+  secure_storage: true
+  certificate_pinning: true
+  code_obfuscation: true
+  prevent_screenshot: false  # For sensitive screens
+
+# Performance
+performance:
+  startup_time_target: "2s"
+  memory_limit: "200MB"
+  bundle_size_limit: "50MB"
+
+  # Mobile-specific metrics
+  monitoring:
+    fps: 60
+    js_thread: true
+    native_thread: true
+    memory_usage: true
+    battery_impact: true
+
+  # Optimizations
+  optimizations:
+    hermes_engine: true
+    lazy_loading: true
+    image_optimization: true
+    code_splitting: true
+
+# Documentation
+documentation:
+  auto_generate: true
+  mode: "moderate"
+  include:
+    - screens
+    - components
+    - navigation
+    - api_integration
+
+  # Mobile-specific docs
+  app_store:
+    privacy_policy: true
+    terms_of_service: true
+    app_description: true
+    screenshots: true
+
+# Learning System
+learning:
+  enabled: true
+  track_patterns: true
+  track_corrections: true
+  auto_apply_corrections: true
+
+  # Mobile-specific learning
+  learn:
+    - navigation_patterns
+    - animation_patterns
+    - platform_specific_solutions
+    - performance_optimizations
+
+# Integrations
+integrations:
+  figma:
+    enabled: true
+    platform_variants: true  # iOS and Android variants
+
+  # App distribution
+  app_center:
+    enabled: true
+    ios_distribution: true
+    android_distribution: true
+
+  # CI/CD
+  ci:
+    provider: "github-actions"
+    build:
+      ios: true
+      android: true
+    test:
+      unit: true
+      e2e: true
+
+  # Crash reporting
+  crash_reporting:
+    provider: "sentry"
+    enabled: true
+
+  # Analytics
+  analytics:
+    provider: "firebase"
+    enabled: true
+
+# Deployment
+deployment:
+  # Build configuration
+  build:
+    ios:
+      signing: "automatic"
+      distribution: "app-store"
+    android:
+      signing: "keystore"
+      distribution: "play-store"
+
+  # Release channels
+  channels:
+    development:
+      auto_deploy: true
+    staging:
+      auto_deploy: true
+      beta_testing: true
+    production:
+      require_approval: true
+      staged_rollout: true

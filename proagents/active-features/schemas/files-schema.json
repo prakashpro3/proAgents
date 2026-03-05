@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "active-features-files-schema.json",
+  "title": "Active Features Files Schema",
+  "description": "Schema for tracking files modified by a feature in ProAgents",
+  "type": "object",
+  "required": ["feature_id", "updated_at", "summary", "files"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "feature_id": {
+      "type": "string",
+      "pattern": "^feature-[a-z0-9-]+$"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total_files"],
+      "properties": {
+        "total_files": { "type": "integer", "minimum": 0 },
+        "new_files": { "type": "integer", "minimum": 0 },
+        "modified_files": { "type": "integer", "minimum": 0 },
+        "deleted_files": { "type": "integer", "minimum": 0 },
+        "lines_added": { "type": "integer", "minimum": 0 },
+        "lines_removed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "status"],
+        "properties": {
+          "path": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["new", "modified", "deleted", "renamed"]
+          },
+          "lines_added": { "type": "integer", "minimum": 0 },
+          "lines_removed": { "type": "integer", "minimum": 0 },
+          "last_modified": { "type": "string", "format": "date-time" },
+          "purpose": { "type": "string" },
+          "previous_path": { "type": "string" }
+        }
+      }
+    },
+    "conflicts": {
+      "type": "object",
+      "properties": {
+        "potential": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/conflict" }
+        },
+        "detected": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/conflict" }
+        },
+        "resolved": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/conflict" }
+        }
+      }
+    },
+    "impact_analysis": {
+      "type": "object",
+      "properties": {
+        "affected_modules": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "breaking_changes": { "type": "boolean" },
+        "requires_migration": { "type": "boolean" },
+        "security_sensitive": { "type": "boolean" }
+      }
+    }
+  },
+  "definitions": {
+    "conflict": {
+      "type": "object",
+      "properties": {
+        "file": { "type": "string" },
+        "with_feature": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["content", "structure", "dependency"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "resolved_at": { "type": "string", "format": "date-time" },
+        "resolution": { "type": "string" }
+      }
+    }
+  }
+}

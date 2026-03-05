@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "cache-metadata-schema.json",
+  "title": "Cache Metadata Schema",
+  "description": "Schema for cache metadata in the ProAgents analysis cache",
+  "type": "object",
+  "required": ["version", "cache_version", "project", "timestamps"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "cache_version": {
+      "type": "string"
+    },
+    "project": {
+      "type": "object",
+      "required": ["path", "name"],
+      "properties": {
+        "path": { "type": "string" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["web-frontend", "fullstack", "backend", "mobile", "library"]
+        }
+      }
+    },
+    "timestamps": {
+      "type": "object",
+      "properties": {
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "last_full_analysis": { "type": "string", "format": "date-time" },
+        "last_incremental_update": { "type": "string", "format": "date-time" }
+      }
+    },
+    "cache_status": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "valid": { "type": "boolean" },
+          "age_hours": { "type": "number", "minimum": 0 },
+          "ttl_hours": { "type": "number", "minimum": 0 },
+          "size_bytes": { "type": "integer", "minimum": 0 },
+          "last_updated": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "file_tracking": {
+      "type": "object",
+      "properties": {
+        "total_files": { "type": "integer", "minimum": 0 },
+        "tracked_files": { "type": "integer", "minimum": 0 },
+        "excluded_files": { "type": "integer", "minimum": 0 },
+        "last_file_check": { "type": "string", "format": "date-time" },
+        "files_changed_since_analysis": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "properties": {
+        "checksum": { "type": "string" },
+        "verified_at": { "type": "string", "format": "date-time" },
+        "status": {
+          "type": "string",
+          "enum": ["valid", "invalid", "unknown"]
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "properties": {
+        "total_size_bytes": { "type": "integer", "minimum": 0 },
+        "max_size_bytes": { "type": "integer", "minimum": 0 },
+        "usage_percent": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    }
+  }
+}

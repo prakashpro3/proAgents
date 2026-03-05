@@ -1,0 +1,204 @@
+/**
+ * {{ActionName}} Server Actions
+ *
+ * {{description}}
+ */
+
+'use server';
+
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { z } from 'zod';
+{{#if useAuth}}
+import { auth } from '@/lib/auth';
+{{/if}}
+{{#if useDb}}
+import { db } from '@/lib/db';
+{{/if}}
+
+// ============================================================================
+// Schemas
+// ============================================================================
+
+const create{{EntityName}}Schema = z.object({
+  name: z.string().min(1, 'Name is required').max(255),
+  description: z.string().optional(),
+});
+
+const update{{EntityName}}Schema = create{{EntityName}}Schema.partial();
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface ActionResult<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  errors?: Record<string, string[]>;
+}
+
+// ============================================================================
+// Actions
+// ============================================================================
+
+/**
+ * Create a new {{entityName}}
+ */
+export async function create{{EntityName}}(
+  formData: FormData
+): Promise<ActionResult> {
+  try {
+    {{#if useAuth}}
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return { success: false, error: 'Unauthorized' };
+    }
+    {{/if}}
+
+    // Parse and validate
+    const rawData = {
+      name: formData.get('name'),
+      description: formData.get('description'),
+    };
+
+    const validatedData = create{{EntityName}}Schema.safeParse(rawData);
+
+    if (!validatedData.success) {
+      return {
+        success: false,
+        error: 'Validation failed',
+        errors: validatedData.error.flatten().fieldErrors,
+      };
+    }
+
+    // Create record
+    {{#if useDb}}
+    const item = await db.{{entityName}}.create({
+      data: {
+        ...validatedData.data,
+        {{#if useAuth}}
+        userId: session.user.id,
+        {{/if}}
+      },
+    });
+    {{else}}
+    // Placeholder: Replace with actual creation logic
+    const item = { id: crypto.randomUUID(), ...validatedData.data };
+    {{/if}}
+
+    // Revalidate cache
+    revalidatePath('/{{kebabCase entityName}}s');
+    revalidateTag('{{kebabCase entityName}}s');
+
+    return { success: true, data: item };
+  } catch (error) {
+    console.error('create{{EntityName}} error:', error);
+    return { success: false, error: 'Failed to create {{entityName}}' };
+  }
+}
+
+/**
+ * Update an existing {{entityName}}
+ */
+export async function update{{EntityName}}(
+  id: string,
+  formData: FormData
+): Promise<ActionResult> {
+  try {
+    {{#if useAuth}}
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return { success: false, error: 'Unauthorized' };
+    }
+    {{/if}}
+
+    // Parse and validate
+    const rawData = {
+      name: formData.get('name') || undefined,
+      description: formData.get('description') || undefined,
+    };
+
+    const validatedData = update{{EntityName}}Schema.safeParse(rawData);
+
+    if (!validatedData.success) {
+      return {
+        success: false,
+        error: 'Validation failed',
+        errors: validatedData.error.flatten().fieldErrors,
+      };
+    }
+
+    // Update record
+    {{#if useDb}}
+    const item = await db.{{entityName}}.update({
+      where: { id },
+      data: validatedData.data,
+    });
+    {{else}}
+    // Placeholder: Replace with actual update logic
+    const item = { id, ...validatedData.data };
+    {{/if}}
+
+    // Revalidate cache
+    revalidatePath('/{{kebabCase entityName}}s');
+    revalidatePath(`/{{kebabCase entityName}}s/${id}`);
+    revalidateTag('{{kebabCase entityName}}s');
+
+    return { success: true, data: item };
+  } catch (error) {
+    console.error('update{{EntityName}} error:', error);
+    return { success: false, error: 'Failed to update {{entityName}}' };
+  }
+}
+
+/**
+ * Delete a {{entityName}}
+ */
+export async function delete{{EntityName}}(id: string): Promise<ActionResult> {
+  try {
+    {{#if useAuth}}
+    // Check authentication
+    const session = await auth();
+    if (!session?.user) {
+      return { success: false, error: 'Unauthorized' };
+    }
+    {{/if}}
+
+    // Delete record
+    {{#if useDb}}
+    await db.{{entityName}}.delete({
+      where: { id },
+    });
+    {{else}}
+    // Placeholder: Replace with actual deletion logic
+    {{/if}}
+
+    // Revalidate cache
+    revalidatePath('/{{kebabCase entityName}}s');
+    revalidateTag('{{kebabCase entityName}}s');
+
+    return { success: true };
+  } catch (error) {
+    console.error('delete{{EntityName}} error:', error);
+    return { success: false, error: 'Failed to delete {{entityName}}' };
+  }
+}
+
+/**
+ * Form action wrapper for create
+ */
+export async function create{{EntityName}}Action(
+  _prevState: ActionResult,
+  formData: FormData
+): Promise<ActionResult> {
+  const result = await create{{EntityName}}(formData);
+
+  if (result.success) {
+    redirect('/{{kebabCase entityName}}s');
+  }
+
+  return result;
+}

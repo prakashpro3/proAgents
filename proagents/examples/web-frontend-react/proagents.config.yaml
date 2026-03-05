@@ -1,0 +1,183 @@
+# ProAgents Configuration - React Web Frontend
+# This configuration is optimized for React/TypeScript web frontend projects
+
+project:
+  name: "My React App"
+  type: "web-frontend"
+  description: "React web application"
+
+  # Technology stack
+  tech_stack:
+    framework: "react"
+    language: "typescript"
+    styling: "tailwind"  # css-modules | styled-components | tailwind | scss
+    state_management: "zustand"  # redux | zustand | context | recoil
+    testing: "vitest"  # jest | vitest
+    bundler: "vite"  # webpack | vite | parcel
+
+# Workflow Configuration
+workflow:
+  # Default mode for new tasks
+  default_mode: "full"  # full | bug_fix | quick_change
+
+  phases:
+    analysis:
+      enabled: true
+      depth: "moderate"  # full | moderate | lite
+      cache_duration: "24h"
+
+    requirements:
+      enabled: true
+      template: "feature-requirements"
+
+    ui_design:
+      enabled: true
+      # React-specific: Always enable UI design phase
+      required: true
+      figma_integration: true
+
+    implementation:
+      enabled: true
+      patterns:
+        - "functional-components"
+        - "custom-hooks"
+        - "css-modules"
+
+    testing:
+      enabled: true
+      coverage_threshold: 80
+      types:
+        unit: true
+        integration: true
+        e2e: true  # Enable for critical user flows
+
+    review:
+      enabled: true
+      automated_checks: true
+
+    documentation:
+      enabled: true
+      mode: "moderate"
+
+# Checkpoints (approval gates)
+checkpoints:
+  after_analysis: true
+  after_requirements: false
+  after_design: true  # Important for UI-heavy projects
+  after_implementation: false
+  after_testing: false
+  before_deployment: true
+
+  # Custom checkpoints
+  custom:
+    - name: "Accessibility Review"
+      after_phase: "implementation"
+      condition: "new_components"
+      required: true
+
+# Git Integration
+git:
+  enabled: true
+  branch_prefix: "feature/"
+  branch_naming: "kebab-case"
+  commit_convention: "conventional"
+  require_pr: true
+
+  # Branch protection
+  protected_branches:
+    - "main"
+    - "develop"
+
+# Parallel Feature Development
+parallel_features:
+  enabled: true
+  max_concurrent: 3
+  conflict_detection: true
+
+# Standards and Rules
+standards:
+  coding_standards: "./standards/react-standards.md"
+  component_template: "./templates/component-template.tsx"
+
+  naming:
+    components: "PascalCase"
+    hooks: "camelCase"  # with 'use' prefix
+    files:
+      components: "PascalCase"
+      hooks: "camelCase"
+      utilities: "camelCase"
+      styles: "camelCase"
+      tests: "PascalCase.test"
+
+# Testing Configuration
+testing:
+  framework: "vitest"
+  coverage:
+    minimum: 80
+    include:
+      - "src/**/*.tsx"
+      - "src/**/*.ts"
+    exclude:
+      - "src/**/*.d.ts"
+      - "src/**/index.ts"
+
+  # Test file patterns
+  patterns:
+    unit: "*.test.tsx"
+    integration: "*.integration.test.tsx"
+    e2e: "*.e2e.test.ts"
+
+# Security
+security:
+  dependency_scanning: true
+  scan_frequency: "on_commit"
+  block_on_critical: true
+
+  # React-specific
+  prevent_xss: true
+  sanitize_user_input: true
+
+# Performance
+performance:
+  bundle_analysis: true
+  max_bundle_size: "500KB"
+  lighthouse_targets:
+    performance: 90
+    accessibility: 100
+    best_practices: 90
+    seo: 90
+
+# Documentation
+documentation:
+  auto_generate: true
+  mode: "moderate"
+  include:
+    - components
+    - hooks
+    - utilities
+
+  storybook:
+    enabled: true
+    auto_docs: true
+
+# Learning System
+learning:
+  enabled: true
+  track_patterns: true
+  track_corrections: true
+  auto_apply_corrections: true
+
+# Integrations
+integrations:
+  figma:
+    enabled: true
+    auto_extract_tokens: true
+
+  storybook:
+    enabled: true
+
+  # CI/CD
+  ci:
+    provider: "github-actions"
+    auto_test: true
+    auto_lint: true

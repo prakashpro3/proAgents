@@ -1,0 +1,415 @@
+# ProAgents Configuration - Backend Node.js
+# This configuration is optimized for Node.js backend/API projects
+
+project:
+  name: "My API Service"
+  type: "backend"
+  description: "Node.js REST API service"
+
+  # Technology stack
+  tech_stack:
+    runtime: "nodejs"
+    version: "20"
+    language: "typescript"
+    framework: "express"  # express | fastify | nestjs | hono
+    database: "postgresql"
+    orm: "prisma"  # prisma | typeorm | drizzle
+    cache: "redis"
+    queue: "bullmq"
+    testing: "jest"
+
+# Workflow Configuration
+workflow:
+  default_mode: "full"
+
+  phases:
+    analysis:
+      enabled: true
+      depth: "full"
+      cache_duration: "12h"
+      # Backend-specific analysis
+      include:
+        - api_endpoints
+        - database_schema
+        - external_services
+        - message_queues
+
+    requirements:
+      enabled: true
+      template: "api-requirements"
+      include:
+        - api_contract
+        - data_models
+        - integration_requirements
+        - performance_requirements
+
+    ui_design:
+      enabled: false  # Backend-only, no UI
+      # Exception: Enable for admin dashboards
+      enable_for:
+        - "admin/**"
+        - "dashboard/**"
+
+    implementation:
+      enabled: true
+      patterns:
+        - "service-layer"
+        - "repository-pattern"
+        - "dependency-injection"
+        - "middleware"
+
+    testing:
+      enabled: true
+      coverage_threshold: 85  # Higher for backend
+      types:
+        unit: true
+        integration: true
+        api: true
+        load: true  # Load/stress testing
+
+    review:
+      enabled: true
+      automated_checks: true
+      # Extra review for critical paths
+      mandatory_for:
+        - "src/services/auth/**"
+        - "src/services/payment/**"
+        - "src/middleware/security/**"
+
+    documentation:
+      enabled: true
+      mode: "full"
+      # API documentation is critical
+      api_docs: true
+
+# Checkpoints
+checkpoints:
+  after_analysis: true
+  after_requirements: true  # API contract review
+  after_design: false  # No UI design
+  after_implementation: false
+  after_testing: true  # Load test review
+  before_deployment: true
+
+  custom:
+    - name: "API Contract Review"
+      after_phase: "requirements"
+      condition: "api_changes"
+      required: true
+
+    - name: "Database Migration Review"
+      after_phase: "implementation"
+      condition: "schema_changes"
+      required: true
+
+    - name: "Security Review"
+      after_phase: "implementation"
+      condition: "auth_or_sensitive_data"
+      required: true
+
+    - name: "Load Test Review"
+      after_phase: "testing"
+      condition: "new_endpoint"
+      required: true
+
+# Git Integration
+git:
+  enabled: true
+  branch_prefix: "feature/"
+  branch_naming: "kebab-case"
+  commit_convention: "conventional"
+  require_pr: true
+
+  protected_branches:
+    - "main"
+    - "staging"
+    - "develop"
+
+# Parallel Features
+parallel_features:
+  enabled: true
+  max_concurrent: 3
+  conflict_detection: true
+
+  # Backend-specific conflict areas
+  high_conflict_paths:
+    - "prisma/schema.prisma"
+    - "src/routes/**"
+    - "src/middleware/**"
+    - "docker-compose.yml"
+
+# Standards
+standards:
+  coding_standards: "./standards/nodejs-standards.md"
+  api_standards: "./standards/api-standards.md"
+
+  naming:
+    controllers: "PascalCase"  # with 'Controller' suffix
+    services: "PascalCase"  # with 'Service' suffix
+    repositories: "PascalCase"  # with 'Repository' suffix
+    middleware: "camelCase"
+    routes: "kebab-case"
+    models: "PascalCase"
+
+  # Directory structure
+  structure:
+    src/controllers: "HTTP request handlers"
+    src/services: "Business logic"
+    src/repositories: "Data access layer"
+    src/models: "Data models/entities"
+    src/middleware: "Express middleware"
+    src/routes: "Route definitions"
+    src/utils: "Utility functions"
+    src/config: "Configuration"
+    src/types: "TypeScript types"
+
+# API Configuration
+api:
+  style: "rest"  # rest | graphql
+  versioning: "url"  # /api/v1/...
+  documentation: "openapi"
+  validation: "zod"
+
+  # Request/Response format
+  format:
+    request:
+      body: "json"
+      query: "camelCase"
+      params: "camelCase"
+    response:
+      success: "{ success: true, data, meta }"
+      error: "{ success: false, error: { code, message, details } }"
+      pagination: "{ data, pagination: { page, limit, total } }"
+
+  # Endpoints
+  endpoints:
+    naming: "kebab-case"
+    versioned: true
+    rate_limited: true
+
+# Database Configuration
+database:
+  orm: "prisma"
+  provider: "postgresql"
+
+  # Connection
+  connection:
+    pool_size: 10
+    timeout: 30000
+
+  # Migrations
+  migrations:
+    auto_generate: false
+    require_rollback: true
+    test_on_dev_data: true
+    naming: "timestamp_description"
+
+  # Safety
+  safety:
+    warn_on_destructive: true
+    require_backup_before_migration: true
+    transaction_timeout: 60000
+
+# Testing Configuration
+testing:
+  framework: "jest"
+  coverage:
+    minimum: 85
+    include:
+      - "src/**/*.ts"
+    exclude:
+      - "**/*.d.ts"
+      - "src/types/**"
+      - "prisma/**"
+
+  # Test types
+  types:
+    unit:
+      pattern: "*.test.ts"
+      location: "__tests__/unit"
+      mock_external: true
+    integration:
+      pattern: "*.integration.test.ts"
+      location: "__tests__/integration"
+      use_test_db: true
+    api:
+      pattern: "*.api.test.ts"
+      location: "__tests__/api"
+      framework: "supertest"
+    load:
+      pattern: "*.load.test.ts"
+      location: "__tests__/load"
+      framework: "k6"
+      thresholds:
+        p95: "200ms"
+        p99: "500ms"
+        error_rate: "1%"
+
+# Security
+security:
+  dependency_scanning: true
+  scan_frequency: "daily"
+  block_on_critical: true
+
+  # Authentication
+  auth:
+    strategy: "jwt"
+    token_expiry: "1h"
+    refresh_token: true
+    password_hashing: "argon2"
+
+  # API Security
+  api:
+    rate_limiting:
+      enabled: true
+      window: "15m"
+      max_requests: 100
+    cors:
+      enabled: true
+      origins: "configured"
+    helmet: true
+    input_validation: true
+    sql_injection_prevention: true
+    xss_prevention: true
+
+  # Secrets
+  secrets:
+    manager: "env"  # env | vault | aws-secrets
+    rotation: true
+
+# Performance
+performance:
+  # Response time targets
+  api_targets:
+    response_time_p50: "50ms"
+    response_time_p95: "200ms"
+    response_time_p99: "500ms"
+
+  # Throughput
+  throughput:
+    min_rps: 1000
+    target_rps: 5000
+
+  # Resource limits
+  resources:
+    memory_limit: "512MB"
+    cpu_limit: "1"
+
+  # Optimizations
+  optimizations:
+    connection_pooling: true
+    query_caching: true
+    response_compression: true
+    request_logging: "async"
+
+  # Monitoring
+  monitoring:
+    apm: true
+    metrics: true
+    tracing: true
+
+# Documentation
+documentation:
+  auto_generate: true
+  mode: "full"
+
+  # API Documentation (critical for backend)
+  api_docs:
+    format: "openapi"
+    version: "3.0"
+    auto_generate: true
+    include_examples: true
+    include_schemas: true
+
+  # Additional docs
+  include:
+    - api_reference
+    - database_schema
+    - architecture
+    - deployment
+
+# Learning System
+learning:
+  enabled: true
+  track_patterns: true
+  track_corrections: true
+  auto_apply_corrections: true
+
+  # Backend-specific learning
+  learn:
+    - api_patterns
+    - error_handling
+    - database_queries
+    - validation_patterns
+    - middleware_patterns
+
+# Integrations
+integrations:
+  # Database
+  database:
+    provider: "postgresql"
+    admin: "pgadmin"
+
+  # Cache
+  redis:
+    enabled: true
+    use_for:
+      - session
+      - cache
+      - rate_limiting
+
+  # Message Queue
+  queue:
+    provider: "bullmq"
+    redis_backed: true
+
+  # Monitoring
+  monitoring:
+    apm: "datadog"  # datadog | newrelic | elastic
+    logging: "winston"
+    metrics: "prometheus"
+
+  # CI/CD
+  ci:
+    provider: "github-actions"
+    test: true
+    lint: true
+    security_scan: true
+    docker_build: true
+
+# Deployment
+deployment:
+  # Container
+  container:
+    runtime: "docker"
+    base_image: "node:20-alpine"
+    multi_stage: true
+
+  # Orchestration
+  orchestration: "kubernetes"  # kubernetes | ecs | docker-compose
+
+  # Environments
+  environments:
+    development:
+      replicas: 1
+      auto_deploy: true
+    staging:
+      replicas: 2
+      auto_deploy: true
+    production:
+      replicas: 3
+      auto_scaling: true
+      min_replicas: 2
+      max_replicas: 10
+
+  # Health checks
+  health_checks:
+    liveness: "/health/live"
+    readiness: "/health/ready"
+    startup: "/health/startup"
+
+  # Rollback
+  rollback:
+    automatic: true
+    error_threshold: "5%"
+    response_time_threshold: "3x"

@@ -1,0 +1,213 @@
+# ProAgents Configuration
+# Customize this file for your project
+
+project:
+  name: "My Project"
+  type: "fullstack"  # web-frontend | fullstack | mobile | backend
+
+# Checkpoint Configuration
+# Pause for approval at these phases
+checkpoints:
+  after_analysis: true
+  after_requirements: false
+  after_design: true
+  after_implementation: false
+  after_testing: false
+  before_deployment: true
+
+# Entry Mode Configuration
+entry_modes:
+  allow_direct_implementation: true
+  allow_bug_fix_fast_track: true
+  allow_quick_changes: true
+
+  # Guardrails
+  require_tests_always: true
+  require_review_for_critical: true
+  max_files_without_planning: 3
+
+  # Auto-upgrade triggers
+  auto_upgrade_on:
+    - "changes_exceed_3_files"
+    - "touches_security_code"
+    - "modifies_database"
+    - "changes_api_contract"
+
+# Git Configuration
+git:
+  enabled: true
+  branch_prefix: "feature/"
+  commit_convention: "conventional"  # conventional | simple | custom
+  require_pr: true
+
+# Parallel Feature Development
+parallel_features:
+  enabled: true
+  max_concurrent: 3
+
+# Documentation Configuration
+documentation:
+  default_mode: "moderate"  # full | moderate | lite
+  default_scope: "project"
+  output:
+    format: "markdown"
+    directory: "./docs"
+    include_diagrams: true
+  required_for_all_modes: true
+
+# AI Model Configuration
+ai:
+  default_model: "auto"  # auto | claude-3-opus | gpt-4 | etc.
+
+  task_specific:
+    code_analysis: "auto"
+    code_generation: "auto"
+    quick_fixes: "auto"
+    documentation: "auto"
+
+  cost_management:
+    daily_limit: 50.00
+    alert_at: 40.00
+    fallback_to_cheaper: true
+
+# Testing Configuration
+testing:
+  coverage_targets:
+    unit: 80
+    integration: 60
+    e2e: "critical_flows"
+  parallel: true
+  max_workers: 4
+
+# Security Configuration
+security:
+  require_review: true
+  scan_dependencies: "daily"  # daily | weekly | on_change
+  owasp_compliance: true
+
+# Learning Configuration
+learning:
+  enabled: true
+  track_preferences: true
+  track_patterns: true
+  track_corrections: true
+  auto_apply_corrections: true
+  auto_adjust_checkpoints: true
+
+# =============================================================================
+# AUTOMATION CONFIGURATION (NEW)
+# =============================================================================
+# Controls how AI makes decisions without asking questions
+automation:
+  # Automation level: full | semi | guided | manual
+  # - full: No questions, all decisions auto-made
+  # - semi: Only pause for critical decisions
+  # - guided: Pause at checkpoints only
+  # - manual: Ask for guidance (traditional mode)
+  level: "full"
+
+  # Allow user intervention (overrides level for specific situations)
+  user_intervention: false
+
+  # Log all auto-decisions for post-review
+  log_decisions: true
+
+  # Show decision summary after workflow completion
+  show_summary: true
+
+  # Confidence threshold for flagging decisions
+  # Decisions below this confidence are flagged for review
+  confidence_threshold: "medium"  # high | medium | low
+
+  # Pre-configured decisions (prevents AI from asking)
+  decisions:
+    # Architecture
+    architecture:
+      api_style: "rest"
+      state_management: "zustand"
+      styling: "tailwind"
+      database: "postgresql"
+      orm: "prisma"
+      auth_method: "jwt"
+
+    # Code Style
+    code_style:
+      component_style: "functional"
+      export_style: "named"
+      props_style: "interface"
+
+    # Testing
+    testing:
+      framework: "vitest"
+      coverage_target: 80
+      location: "colocated"
+
+    # Implementation
+    implementation:
+      approach: "simplest"
+      error_handling: "try-catch"
+      null_handling: "optional-chaining"
+
+  # Behavior when decision not in config
+  fallback:
+    unknown_decisions: "use_safest_default"
+    flag_for_review: true
+
+  # Safety: Even in full automation, flag these
+  safety:
+    always_flag:
+      - "deleting_data"
+      - "modifying_auth"
+      - "production_deployment"
+    prefer_safe_for:
+      - "security_related"
+      - "data_handling"
+
+# Integration Configuration
+integrations:
+  jira:
+    enabled: false
+    # base_url: "https://company.atlassian.net"
+    # project_key: "PROJ"
+
+  linear:
+    enabled: false
+    # team_id: "TEAM-123"
+
+  notion:
+    enabled: false
+    # database_id: "xxx-xxx"
+
+# Approval Workflow
+approvals:
+  feature_approval:
+    levels:
+      - role: "tech_lead"
+        required: true
+        timeout: "24h"
+
+  deployment_approval:
+    staging:
+      auto_approve: true
+    production:
+      required: true
+
+# Custom Slash Commands
+custom_commands:
+  "/ship":
+    description: "Full deployment workflow"
+    steps:
+      - "/test-all"
+      - "/qa-full"
+      - "/deploy-prod"
+
+  "/morning":
+    description: "Daily start routine"
+    steps:
+      - "/status"
+      - "/feature-list"
+
+# Standards (extend or override)
+# extends:
+#   - "./base-standards.yaml"
+#   - "npm:@company/coding-standards"

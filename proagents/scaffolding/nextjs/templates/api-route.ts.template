@@ -1,0 +1,185 @@
+/**
+ * {{RouteName}} API Route
+ *
+ * {{description}}
+ *
+ * Route: /api/{{route}}
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+{{#if useAuth}}
+import { auth } from '@/lib/auth';
+{{/if}}
+{{#if useDb}}
+import { db } from '@/lib/db';
+{{/if}}
+
+// ============================================================================
+// Validation Schemas
+// ============================================================================
+
+const {{entityName}}Schema = z.object({
+  name: z.string().min(1).max(255),
+  description: z.string().optional(),
+});
+
+const querySchema = z.object({
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(10),
+  search: z.string().optional(),
+});
+
+// ============================================================================
+// Types
+// ============================================================================
+
+interface {{EntityName}} {
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// ============================================================================
+// GET Handler
+// ============================================================================
+
+/**
+ * GET /api/{{route}}
+ *
+ * Fetch all {{entityName}}s with pagination
+ */
+export async function GET(request: NextRequest) {
+  try {
+    {{#if useAuth}}
+    // Check authentication
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+    {{/if}}
+
+    // Parse query parameters
+    const { searchParams } = new URL(request.url);
+    const query = querySchema.parse({
+      page: searchParams.get('page'),
+      limit: searchParams.get('limit'),
+      search: searchParams.get('search'),
+    });
+
+    // Fetch data
+    {{#if useDb}}
+    const skip = (query.page - 1) * query.limit;
+    const where = query.search
+      ? { name: { contains: query.search, mode: 'insensitive' } }
+      : {};
+
+    const [items, total] = await Promise.all([
+      db.{{entityName}}.findMany({
+        where,
+        skip,
+        take: query.limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      db.{{entityName}}.count({ where }),
+    ]);
+    {{else}}
+    // Placeholder: Replace with actual data fetching
+    const items: {{EntityName}}[] = [];
+    const total = 0;
+    {{/if}}
+
+    return NextResponse.json({
+      data: items,
+      meta: {
+        page: query.page,
+        limit: query.limit,
+        total,
+        totalPages: Math.ceil(total / query.limit),
+      },
+    });
+  } catch (error) {
+    console.error('GET /api/{{route}} error:', error);
+
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid query parameters', details: error.errors },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+// ============================================================================
+// POST Handler
+// ============================================================================
+
+/**
+ * POST /api/{{route}}
+ *
+ * Create a new {{entityName}}
+ */
+export async function POST(request: NextRequest) {
+  try {
+    {{#if useAuth}}
+    // Check authentication
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+    {{/if}}
+
+    // Parse and validate body
+    const body = await request.json();
+    const data = {{entityName}}Schema.parse(body);
+
+    // Create record
+    {{#if useDb}}
+    const item = await db.{{entityName}}.create({
+      data: {
+        ...data,
+        {{#if useAuth}}
+        userId: session.user.id,
+        {{/if}}
+      },
+    });
+    {{else}}
+    // Placeholder: Replace with actual creation logic
+    const item: {{EntityName}} = {
+      id: crypto.randomUUID(),
+      ...data,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    {{/if}}
+
+    return NextResponse.json(item, { status: 201 });
+  } catch (error) {
+    console.error('POST /api/{{route}} error:', error);
+
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Validation error', details: error.errors },
+        { status: 400 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}

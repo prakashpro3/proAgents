@@ -1,0 +1,187 @@
+{
+  "$schema": "https://proagents.dev/schemas/dashboard-config.json",
+  "version": "1.0.0",
+  "dashboard": {
+    "id": "dev-velocity",
+    "name": "Development Velocity Dashboard",
+    "description": "Track feature completion and team productivity",
+    "refreshInterval": 300,
+    "theme": "auto"
+  },
+  "layout": {
+    "columns": 12,
+    "rowHeight": 80,
+    "margin": [16, 16]
+  },
+  "widgets": [
+    {
+      "id": "features-completed",
+      "type": "stat",
+      "title": "Features Completed",
+      "position": { "x": 0, "y": 0, "w": 3, "h": 2 },
+      "config": {
+        "metric": "features.completed.count",
+        "timeRange": "30d",
+        "comparison": "previous_period",
+        "format": "number",
+        "color": "green"
+      }
+    },
+    {
+      "id": "bugs-fixed",
+      "type": "stat",
+      "title": "Bugs Fixed",
+      "position": { "x": 3, "y": 0, "w": 3, "h": 2 },
+      "config": {
+        "metric": "bugs.fixed.count",
+        "timeRange": "30d",
+        "comparison": "previous_period",
+        "format": "number",
+        "color": "blue"
+      }
+    },
+    {
+      "id": "avg-feature-time",
+      "type": "stat",
+      "title": "Avg Feature Time",
+      "position": { "x": 6, "y": 0, "w": 3, "h": 2 },
+      "config": {
+        "metric": "features.avg_completion_time",
+        "timeRange": "30d",
+        "format": "duration",
+        "suffix": "days"
+      }
+    },
+    {
+      "id": "test-coverage",
+      "type": "gauge",
+      "title": "Test Coverage",
+      "position": { "x": 9, "y": 0, "w": 3, "h": 2 },
+      "config": {
+        "metric": "quality.test_coverage",
+        "min": 0,
+        "max": 100,
+        "thresholds": [
+          { "value": 60, "color": "red" },
+          { "value": 80, "color": "yellow" },
+          { "value": 100, "color": "green" }
+        ]
+      }
+    },
+    {
+      "id": "feature-timeline",
+      "type": "timeline",
+      "title": "Feature Progress",
+      "position": { "x": 0, "y": 2, "w": 8, "h": 3 },
+      "config": {
+        "dataSource": "features.active",
+        "groupBy": "status",
+        "showMilestones": true,
+        "fields": ["name", "phase", "progress", "assignee"]
+      }
+    },
+    {
+      "id": "phase-distribution",
+      "type": "pie",
+      "title": "Features by Phase",
+      "position": { "x": 8, "y": 2, "w": 4, "h": 3 },
+      "config": {
+        "metric": "features.by_phase",
+        "colors": {
+          "analysis": "#3B82F6",
+          "implementation": "#10B981",
+          "testing": "#F59E0B",
+          "review": "#8B5CF6",
+          "deployment": "#EC4899"
+        }
+      }
+    },
+    {
+      "id": "velocity-chart",
+      "type": "line",
+      "title": "Velocity Trend",
+      "position": { "x": 0, "y": 5, "w": 6, "h": 3 },
+      "config": {
+        "metrics": [
+          { "id": "features", "label": "Features", "color": "#3B82F6" },
+          { "id": "bugs", "label": "Bug Fixes", "color": "#10B981" }
+        ],
+        "timeRange": "90d",
+        "granularity": "week",
+        "showTrend": true
+      }
+    },
+    {
+      "id": "team-leaderboard",
+      "type": "table",
+      "title": "Team Contributions",
+      "position": { "x": 6, "y": 5, "w": 6, "h": 3 },
+      "config": {
+        "dataSource": "team.contributions",
+        "columns": [
+          { "field": "developer", "label": "Developer" },
+          { "field": "features", "label": "Features", "align": "right" },
+          { "field": "bugs", "label": "Bugs Fixed", "align": "right" },
+          { "field": "reviews", "label": "Reviews", "align": "right" }
+        ],
+        "sortBy": "features",
+        "sortOrder": "desc",
+        "limit": 10
+      }
+    },
+    {
+      "id": "recent-activity",
+      "type": "feed",
+      "title": "Recent Activity",
+      "position": { "x": 0, "y": 8, "w": 12, "h": 2 },
+      "config": {
+        "dataSource": "activity.feed",
+        "limit": 10,
+        "showTimestamp": true,
+        "eventTypes": ["feature_complete", "deployment", "pr_merged"]
+      }
+    }
+  ],
+  "dataSources": {
+    "features.completed.count": {
+      "type": "api",
+      "endpoint": "/api/metrics/features/completed",
+      "method": "GET"
+    },
+    "bugs.fixed.count": {
+      "type": "api",
+      "endpoint": "/api/metrics/bugs/fixed",
+      "method": "GET"
+    },
+    "features.active": {
+      "type": "api",
+      "endpoint": "/api/features?status=active",
+      "method": "GET"
+    },
+    "team.contributions": {
+      "type": "api",
+      "endpoint": "/api/metrics/team/contributions",
+      "method": "GET"
+    },
+    "activity.feed": {
+      "type": "websocket",
+      "endpoint": "wss://api.example.com/activity"
+    }
+  },
+  "filters": [
+    {
+      "id": "time-range",
+      "type": "date-range",
+      "label": "Time Range",
+      "default": "30d",
+      "options": ["7d", "30d", "90d", "1y"]
+    },
+    {
+      "id": "team",
+      "type": "select",
+      "label": "Team",
+      "dataSource": "teams.list",
+      "multiple": true
+    }
+  ]
+}

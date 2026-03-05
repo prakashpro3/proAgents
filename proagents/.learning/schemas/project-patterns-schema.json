@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "project-patterns-schema.json",
+  "title": "Project Patterns Schema",
+  "description": "Schema for project-specific patterns in the ProAgents learning system",
+  "type": "object",
+  "required": ["project_id", "version", "updated_at"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Unique identifier for the project"
+    },
+    "project_path": {
+      "type": "string",
+      "description": "File system path to the project"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "naming_conventions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "pattern": { "type": "string" },
+          "prefix": { "type": "string" },
+          "suffix": { "type": "string" },
+          "examples": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "code_patterns": {
+      "type": "object",
+      "properties": {
+        "imports": {
+          "type": "object",
+          "properties": {
+            "order": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "group_by": { "type": "string" },
+            "examples": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "exports": {
+          "type": "object",
+          "properties": {
+            "style": { "type": "string" },
+            "examples": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "error_handling": {
+          "type": "object",
+          "properties": {
+            "style": { "type": "string" },
+            "error_type": { "type": "string" },
+            "logging": { "type": "boolean" }
+          }
+        },
+        "state_management": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "properties": {
+        "directory_structure": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "patterns_used": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "testing": {
+      "type": "object",
+      "properties": {
+        "framework": { "type": "string" },
+        "structure": { "type": "string" },
+        "naming": { "type": "string" },
+        "coverage_target": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "patterns": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "learned_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_analysis": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confidence_overall": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

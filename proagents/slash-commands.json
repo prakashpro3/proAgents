@@ -1,0 +1,161 @@
+{
+  "version": "1.0.0",
+  "commands": [
+    {
+      "name": "/init",
+      "description": "Initialize ProAgents in this project",
+      "hints": [],
+      "category": "setup"
+    },
+    {
+      "name": "/feature",
+      "description": "Feature development commands",
+      "hints": ["/feature-start", "/feature-status", "/feature-pause", "/feature-resume", "/feature-complete", "/feature-list"],
+      "category": "feature"
+    },
+    {
+      "name": "/feature-start",
+      "description": "Start a new feature",
+      "arguments": ["feature_name"],
+      "category": "feature"
+    },
+    {
+      "name": "/feature-status",
+      "description": "Check current feature status",
+      "category": "feature"
+    },
+    {
+      "name": "/fix",
+      "description": "Bug fix commands",
+      "hints": ["/fix-quick", "/hotfix", "/fix-upgrade"],
+      "category": "fix"
+    },
+    {
+      "name": "/fix-quick",
+      "description": "Quick bug fix mode",
+      "arguments": ["bug_description"],
+      "category": "fix"
+    },
+    {
+      "name": "/qa",
+      "description": "Quality assurance commands",
+      "hints": ["/qa-full", "/qa-quick", "/qa-security", "/qa-perf"],
+      "category": "qa"
+    },
+    {
+      "name": "/test",
+      "description": "Testing commands",
+      "hints": ["/test-unit", "/test-integration", "/test-e2e", "/test-all"],
+      "category": "test"
+    },
+    {
+      "name": "/doc",
+      "description": "Documentation commands",
+      "hints": ["/doc-full", "/doc-moderate", "/doc-lite", "/doc-module", "/doc-file", "/doc-api"],
+      "category": "doc"
+    },
+    {
+      "name": "/doc-full",
+      "description": "Full in-depth documentation",
+      "category": "doc"
+    },
+    {
+      "name": "/doc-moderate",
+      "description": "Balanced documentation",
+      "category": "doc"
+    },
+    {
+      "name": "/doc-lite",
+      "description": "Quick reference documentation",
+      "category": "doc"
+    },
+    {
+      "name": "/doc-module",
+      "description": "Document specific module",
+      "arguments": ["module_name"],
+      "category": "doc"
+    },
+    {
+      "name": "/analyze",
+      "description": "Codebase analysis commands",
+      "hints": ["/analyze-full", "/analyze-moderate", "/analyze-lite", "/analyze-module", "/analyze-deps"],
+      "category": "analyze"
+    },
+    {
+      "name": "/commit",
+      "description": "Git commit commands",
+      "hints": ["/commit-feat", "/commit-fix", "/commit-docs", "/commit-refactor"],
+      "category": "git"
+    },
+    {
+      "name": "/branch",
+      "description": "Git branch commands",
+      "hints": ["/branch-feature", "/branch-hotfix", "/branch-release"],
+      "category": "git"
+    },
+    {
+      "name": "/pr",
+      "description": "Pull request commands",
+      "hints": ["/pr-create", "/pr-update", "/pr-merge"],
+      "category": "git"
+    },
+    {
+      "name": "/deploy",
+      "description": "Deployment commands",
+      "hints": ["/deploy-staging", "/deploy-prod", "/deploy-check"],
+      "category": "deploy"
+    },
+    {
+      "name": "/rollback",
+      "description": "Rollback commands",
+      "hints": ["/rollback-quick", "/rollback-full"],
+      "category": "deploy"
+    },
+    {
+      "name": "/report",
+      "description": "Report commands",
+      "hints": ["/report-velocity", "/report-quality", "/report-coverage", "/report-security"],
+      "category": "report"
+    },
+    {
+      "name": "/collab",
+      "description": "Collaboration commands",
+      "hints": ["/collab-start", "/collab-join", "/collab-leave"],
+      "category": "collab"
+    },
+    {
+      "name": "/status",
+      "description": "Show workflow status",
+      "category": "utility"
+    },
+    {
+      "name": "/help",
+      "description": "Show all commands",
+      "category": "utility"
+    },
+    {
+      "name": "/config",
+      "description": "Configuration commands",
+      "category": "utility"
+    },
+    {
+      "name": "/doctor",
+      "description": "Run health check",
+      "category": "utility"
+    }
+  ],
+  "categories": {
+    "setup": "Initialization & Setup",
+    "feature": "Feature Development",
+    "fix": "Bug Fixing",
+    "qa": "Quality Assurance",
+    "test": "Testing",
+    "doc": "Documentation",
+    "analyze": "Analysis",
+    "git": "Git & Commits",
+    "deploy": "Deployment",
+    "report": "Reports",
+    "collab": "Collaboration",
+    "utility": "Utilities"
+  }
+}

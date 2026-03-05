@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "active-features-dependencies-schema.json",
+  "title": "Active Features Dependencies Schema",
+  "description": "Schema for tracking feature dependencies in ProAgents",
+  "type": "object",
+  "required": ["feature_id", "updated_at"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "feature_id": {
+      "type": "string",
+      "pattern": "^feature-[a-z0-9-]+$"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/feature_dependency" }
+    },
+    "blocks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/feature_dependency" }
+    },
+    "shared_resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["resource"],
+        "properties": {
+          "resource": { "type": "string" },
+          "shared_with": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "conflict_risk": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "coordination_required": { "type": "boolean" }
+        }
+      }
+    },
+    "external_dependencies": {
+      "type": "object",
+      "properties": {
+        "packages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "version"],
+            "properties": {
+              "name": { "type": "string" },
+              "version": { "type": "string" },
+              "added": { "type": "boolean" },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "type": { "type": "string" },
+              "required": { "type": "boolean" },
+              "configured": { "type": "boolean" }
+            }
+          }
+        },
+        "environment_variables": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "merge_requirements": {
+      "type": "object",
+      "properties": {
+        "order": { "type": "integer", "minimum": 1 },
+        "can_merge_independently": { "type": "boolean" },
+        "requires_features": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "required_before": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "feature_dependency": {
+      "type": "object",
+      "required": ["feature_id"],
+      "properties": {
+        "feature_id": { "type": "string" },
+        "reason": { "type": "string" },
+        "required_phase": {
+          "type": "string",
+          "enum": [
+            "analysis_complete",
+            "design_complete",
+            "implementation_complete",
+            "testing_complete",
+            "review_complete",
+            "deployed"
+          ]
+        },
+        "blocking_since": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

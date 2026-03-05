@@ -1,0 +1,287 @@
+# ProAgents Configuration - Full-Stack Next.js
+# This configuration is optimized for full-stack Next.js applications
+
+project:
+  name: "My Next.js App"
+  type: "fullstack"
+  description: "Full-stack Next.js application with API routes"
+
+  # Technology stack
+  tech_stack:
+    framework: "nextjs"
+    version: "14"  # App Router
+    language: "typescript"
+    styling: "tailwind"
+    state_management: "zustand"
+    database: "postgresql"
+    orm: "prisma"
+    auth: "next-auth"
+    testing: "jest"
+
+# Workflow Configuration
+workflow:
+  default_mode: "full"
+
+  phases:
+    analysis:
+      enabled: true
+      depth: "full"  # Full-stack requires comprehensive analysis
+      cache_duration: "12h"
+
+    requirements:
+      enabled: true
+      template: "fullstack-requirements"
+      include_api_contract: true
+
+    ui_design:
+      enabled: true
+      required: true
+      # Skip for API-only features
+      skip_for:
+        - "app/api/**"
+        - "lib/services/**"
+
+    implementation:
+      enabled: true
+      patterns:
+        - "server-components"
+        - "client-components"
+        - "api-routes"
+        - "server-actions"
+
+    testing:
+      enabled: true
+      coverage_threshold: 80
+      types:
+        unit: true
+        integration: true
+        e2e: true
+        api: true  # API endpoint testing
+
+    review:
+      enabled: true
+      automated_checks: true
+      # Extra review for critical paths
+      mandatory_for:
+        - "app/api/auth/**"
+        - "lib/services/payment/**"
+
+    documentation:
+      enabled: true
+      mode: "full"  # Full-stack needs comprehensive docs
+
+# Checkpoints
+checkpoints:
+  after_analysis: true
+  after_requirements: true  # Important for full-stack alignment
+  after_design: true
+  after_implementation: false
+  after_testing: false
+  before_deployment: true
+
+  custom:
+    - name: "API Contract Review"
+      after_phase: "requirements"
+      condition: "api_changes"
+      required: true
+
+    - name: "Database Migration Review"
+      after_phase: "implementation"
+      condition: "schema_changes"
+      required: true
+
+    - name: "Security Review"
+      after_phase: "implementation"
+      condition: "touches_auth_or_payment"
+      required: true
+
+# Git Integration
+git:
+  enabled: true
+  branch_prefix: "feature/"
+  branch_naming: "kebab-case"
+  commit_convention: "conventional"
+  require_pr: true
+
+  protected_branches:
+    - "main"
+    - "staging"
+    - "develop"
+
+# Parallel Features
+parallel_features:
+  enabled: true
+  max_concurrent: 2  # Lower limit for full-stack complexity
+  conflict_detection: true
+
+  # Full-stack specific conflict areas
+  high_conflict_paths:
+    - "prisma/schema.prisma"
+    - "app/api/**"
+    - "lib/auth/**"
+
+# Standards
+standards:
+  coding_standards: "./standards/nextjs-standards.md"
+  api_standards: "./standards/api-standards.md"
+
+  naming:
+    components: "PascalCase"
+    pages: "kebab-case"  # Next.js file-based routing
+    api_routes: "kebab-case"
+    server_actions: "camelCase"
+    hooks: "camelCase"
+
+  # Directory structure
+  structure:
+    app: "App Router pages and layouts"
+    components: "Shared React components"
+    lib: "Utilities and services"
+    prisma: "Database schema and migrations"
+
+# Database Configuration
+database:
+  orm: "prisma"
+  provider: "postgresql"
+
+  migrations:
+    auto_generate: false  # Require manual review
+    require_rollback: true
+    test_on_dev_data: true
+
+  # Safety checks
+  safety:
+    warn_on_destructive: true
+    require_backup_before_migration: true
+
+# API Configuration
+api:
+  versioning: "url"  # /api/v1/...
+  documentation: "openapi"
+  validation: "zod"
+
+  # Response format
+  response_format:
+    success: "{ data, meta }"
+    error: "{ error: { code, message, details } }"
+
+# Testing Configuration
+testing:
+  framework: "jest"
+  coverage:
+    minimum: 80
+    include:
+      - "app/**/*.tsx"
+      - "app/**/*.ts"
+      - "lib/**/*.ts"
+    exclude:
+      - "**/*.d.ts"
+      - "prisma/**"
+
+  # Test types
+  types:
+    unit:
+      pattern: "*.test.ts"
+      location: "__tests__/unit"
+    integration:
+      pattern: "*.integration.test.ts"
+      location: "__tests__/integration"
+    api:
+      pattern: "*.api.test.ts"
+      location: "__tests__/api"
+    e2e:
+      pattern: "*.e2e.test.ts"
+      framework: "playwright"
+
+# Security
+security:
+  dependency_scanning: true
+  scan_frequency: "daily"
+  block_on_critical: true
+
+  # Full-stack specific
+  auth:
+    provider: "next-auth"
+    session_strategy: "jwt"
+    require_csrf: true
+
+  api:
+    rate_limiting: true
+    input_validation: true
+    sql_injection_prevention: true
+
+# Performance
+performance:
+  bundle_analysis: true
+  max_bundle_size: "1MB"
+
+  # Next.js specific
+  server_components: "prefer"
+  image_optimization: true
+  font_optimization: true
+
+  lighthouse_targets:
+    performance: 90
+    accessibility: 100
+    best_practices: 90
+    seo: 95
+
+  api_targets:
+    response_time_p95: "200ms"
+    response_time_p99: "500ms"
+
+# Documentation
+documentation:
+  auto_generate: true
+  mode: "full"
+  include:
+    - components
+    - api_endpoints
+    - database_schema
+    - environment_variables
+
+  api_docs:
+    format: "openapi"
+    auto_generate: true
+
+# Learning System
+learning:
+  enabled: true
+  track_patterns: true
+  track_corrections: true
+  auto_apply_corrections: true
+
+  # Full-stack specific learning
+  learn:
+    - api_patterns
+    - database_queries
+    - component_patterns
+    - auth_patterns
+
+# Integrations
+integrations:
+  figma:
+    enabled: true
+
+  database:
+    provider: "postgresql"
+    gui: "prisma-studio"
+
+  # PM tools
+  github:
+    enabled: true
+    auto_link_pr: true
+    close_on_merge: true
+
+  # CI/CD
+  ci:
+    provider: "github-actions"
+    environments:
+      - development
+      - staging
+      - production
+
+  # Deployment
+  deployment:
+    provider: "vercel"
+    preview_deployments: true
