@@ -20,7 +20,7 @@ Existing projects often have multiple patterns for the same thing. Pattern recon
 
 ```bash
 # Detect all patterns
-/detect-patterns
+pa:detect-patterns
 
 # Focus on specific area
 pa:detect-patterns --type state-management

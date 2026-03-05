@@ -60,7 +60,7 @@ pa:feature "Feature name"
 pa:status
 
 # Get help
-/help
+pa:help
 
 # Quick bug fix
 pa:fix "Bug description"

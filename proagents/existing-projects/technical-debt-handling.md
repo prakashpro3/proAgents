@@ -56,7 +56,7 @@ ProAgents helps track and gradually reduce debt without blocking progress.
 
 ```bash
 # Full technical debt assessment
-/debt-assess
+pa:debt-assess
 
 # Assess specific category
 pa:debt-assess --category testing

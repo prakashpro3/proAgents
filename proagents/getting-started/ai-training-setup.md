@@ -38,7 +38,7 @@ pa:feature "Add user profile"
 pa:analyze
 # → Learns project structure
 
-/implement
+pa:implement
 # → Learns code patterns
 ```
 

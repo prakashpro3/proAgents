@@ -10,7 +10,7 @@ Quick start guides for setting up ProAgents features.
 
 ```bash
 # In your project directory
-/init
+pa:init
 ```
 
 This creates the `.proagents/` directory with default configuration.

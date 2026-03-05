@@ -29,7 +29,7 @@ pa:init --existing
 pa:assess-compatibility
 
 # Generate adoption plan
-/adoption-plan
+pa:adoption-plan
 ```
 
 ---
