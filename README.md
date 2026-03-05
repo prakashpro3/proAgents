@@ -48,7 +48,7 @@ proagents feature start "Add user authentication"
 
 **Using AI assistant (Claude, ChatGPT, etc.):**
 ```
-/feature-start "Add user authentication"
+pa:feature "Add user authentication"
 ```
 
 ### 3. Follow the guided workflow
@@ -91,21 +91,21 @@ proagents commands                  # Show all commands
 
 ---
 
-## Slash Commands
+## Commands
 
-Type `/` in your AI assistant to see available commands:
+Type `pa:` in your AI assistant to use ProAgents commands:
 
 | Command | Description |
 |---------|-------------|
-| `/init` | Initialize ProAgents in your project |
-| `/feature-start` | Start a new feature |
-| `/fix` | Quick bug fix mode |
-| `/doc` | Generate documentation |
-| `/qa` | Quality assurance checks |
-| `/test` | Run test workflows |
-| `/deploy` | Deployment preparation |
-| `/status` | Check current status |
-| `/help` | Show all commands |
+| `pa:init` | Initialize ProAgents in your project |
+| `pa:feature` | Start a new feature |
+| `pa:fix` | Quick bug fix mode |
+| `pa:doc` | Generate documentation |
+| `pa:qa` | Quality assurance checks |
+| `pa:test` | Run test workflows |
+| `pa:deploy` | Deployment preparation |
+| `pa:status` | Check current status |
+| `pa:help` | Show all commands |
 
 ---
 
