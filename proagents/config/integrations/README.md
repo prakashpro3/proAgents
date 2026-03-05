@@ -20,7 +20,7 @@ Configuration examples for integrating ProAgents with external tools.
 
 1. **Copy the example config** to your `proagents.config.yaml`
 2. **Set environment variables** for API keys (never commit secrets)
-3. **Test the integration** with `/integration test <name>`
+3. **Test the integration** with `pa:integration test <name>`
 
 ---
 

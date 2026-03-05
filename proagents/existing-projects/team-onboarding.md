@@ -180,22 +180,22 @@ practice_feature:
 exercises:
   exercise_1:
     name: "Start a Feature"
-    command: "/feature start 'Practice Feature'"
+    command: "pa:feature 'Practice Feature'"
     learn: "Feature initialization"
 
   exercise_2:
     name: "Check Analysis"
-    command: "/analyze"
+    command: "pa:analyze"
     learn: "Codebase analysis"
 
   exercise_3:
     name: "Document Progress"
-    command: "/doc-moderate"
+    command: "pa:doc-moderate"
     learn: "Documentation generation"
 
   exercise_4:
     name: "Run Quality Checks"
-    command: "/qa"
+    command: "pa:qa"
     learn: "Quality assurance"
 
   exercise_5:
@@ -259,7 +259,7 @@ buddy_system:
 ## Troubleshooting Guide
 
 ### "Analysis is taking too long"
-Solution: Use `/analyze --depth moderate` for faster analysis
+Solution: Use `pa:analyze --depth moderate` for faster analysis
 
 ### "Conflict detected with another feature"
 Solution: Check `pa:feature-list` and coordinate with the other developer

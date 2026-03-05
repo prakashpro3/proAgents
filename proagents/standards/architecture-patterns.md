@@ -663,7 +663,7 @@ Created feature 'user-profile' at src/features/user-profile/
 scaffolding:
   templates:
     feature:
-      command: "/scaffold feature {name}"
+      command: "pa:scaffold feature {name}"
       structure:
         - path: "index.ts"
           template: "templates/feature-index.ts"
@@ -675,7 +675,7 @@ scaffolding:
             storeName: "{Name}Store"
 
     component:
-      command: "/scaffold component {name} --type {type}"
+      command: "pa:scaffold component {name} --type {type}"
       variants:
         page:
           structure: "component_patterns.page.structure"

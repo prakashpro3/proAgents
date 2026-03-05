@@ -345,11 +345,11 @@ testing_debt:
 
   tools:
     - name: "Coverage report"
-      command: "/test-coverage"
+      command: "pa:test-coverage"
     - name: "Untested code finder"
-      command: "/find-untested"
+      command: "pa:find-untested"
     - name: "Test generator"
-      command: "/generate-tests [file]"
+      command: "pa:generate-tests [file]"
 
   configuration:
     block_pr_below: null  # Don't block existing
@@ -375,10 +375,10 @@ security_debt:
       timeline: "1 week"
 
   process:
-    1_scan: "/security-scan"
+    1_scan: "pa:security-scan"
     2_prioritize: "Critical → High → Medium → Low"
     3_fix: "Dedicated security sprint if needed"
-    4_verify: "/security-scan --verify"
+    4_verify: "pa:security-scan --verify"
 
   automation:
     dependency_scanning: "daily"
@@ -413,11 +413,11 @@ documentation_debt:
 
   commands:
     - name: "Generate all docs"
-      command: "/doc-full"
+      command: "pa:doc-full"
     - name: "Update README"
-      command: "/doc-readme"
+      command: "pa:doc-readme"
     - name: "API documentation"
-      command: "/doc-api"
+      command: "pa:doc-api"
 
   configuration:
     auto_update: true
@@ -450,11 +450,11 @@ code_quality_debt:
 
     tools:
       - name: "Complexity report"
-        command: "/quality-complexity"
+        command: "pa:quality-complexity"
       - name: "Duplication finder"
-        command: "/quality-duplicates"
+        command: "pa:quality-duplicates"
       - name: "Code smell detector"
-        command: "/quality-smells"
+        command: "pa:quality-smells"
 
   configuration:
     block_new_smells: true

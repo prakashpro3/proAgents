@@ -265,9 +265,9 @@ learning:
 
   # Reset options
   reset_commands:
-    - "/learning-reset all"      # Reset everything
-    - "/learning-reset project"  # Reset current project
-    - "/learning-reset patterns" # Reset patterns only
+    - "pa:learning-reset all"      # Reset everything
+    - "pa:learning-reset project"  # Reset current project
+    - "pa:learning-reset patterns" # Reset patterns only
 ```
 
 ---

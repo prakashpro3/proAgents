@@ -398,7 +398,7 @@ escape_hatches:
     when: "Hook causing issues"
 
   skip_analysis:
-    command: "/proagents disable --temp"
+    command: "pa:disable --temp"
     when: "Need to move fast"
 
   exempt_file:
@@ -406,7 +406,7 @@ escape_hatches:
     when: "File should be excluded"
 
   exempt_feature:
-    method: "/feature exempt [name]"
+    method: "pa:feature exempt [name]"
     when: "Feature shouldn't be tracked"
 ```
 

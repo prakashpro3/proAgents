@@ -194,13 +194,13 @@ context_awareness:
 reversibility:
   # All adaptations can be undone
   undo_commands:
-    - "/learning-undo last"
-    - "/learning-undo [adaptation-id]"
-    - "/learning-disable [pattern]"
+    - "pa:learning-undo last"
+    - "pa:learning-undo [adaptation-id]"
+    - "pa:learning-disable [pattern]"
 
   # Reset to defaults
   reset:
-    - "/learning-reset"
+    - "pa:learning-reset"
     - "Clears all learned patterns"
     - "Returns to default behavior"
 ```

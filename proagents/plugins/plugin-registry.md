@@ -110,9 +110,9 @@ plugins:
 ```
 
 **Commands:**
-- `/jira link <ticket-id>` - Link feature to existing ticket
-- `/jira status` - Show linked ticket status
-- `/jira comment <message>` - Add comment to ticket
+- `pa:jira link <ticket-id>` - Link feature to existing ticket
+- `pa:jira status` - Show linked ticket status
+- `pa:jira comment <message>` - Add comment to ticket
 
 ---
 

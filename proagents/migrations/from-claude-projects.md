@@ -228,29 +228,30 @@ learning:
 - Write tests for this
 ```
 
-**To ProAgents Slash Commands:**
+**To ProAgents Commands:**
 
 **`proagents/slash-commands.json`:**
 ```json
 {
+  "prefix": "pa:",
   "commands": [
     {
-      "name": "/feature",
+      "name": "pa:feature",
       "description": "Start new feature development",
       "prompt": "Start a new feature workflow"
     },
     {
-      "name": "/review",
+      "name": "pa:review",
       "description": "Code review assistance",
       "prompt": "Review the current code changes"
     },
     {
-      "name": "/debug",
+      "name": "pa:debug",
       "description": "Debug an issue",
       "prompt": "Help debug the following issue"
     },
     {
-      "name": "/test",
+      "name": "pa:test",
       "description": "Generate tests",
       "prompt": "Generate tests for the current code"
     }
