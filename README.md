@@ -5,6 +5,19 @@
 A portable, universal development workflow framework that automates the full software development lifecycle. Works with **any AI platform** (Claude, ChatGPT, Gemini, Copilot, etc.) and **any IDE**.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/proagents.svg)](https://www.npmjs.com/package/proagents)
+
+---
+
+## Installation
+
+```bash
+# Install globally
+npm install -g proagents
+
+# Or use directly with npx
+npx proagents init
+```
 
 ---
 
@@ -19,14 +32,21 @@ A portable, universal development workflow framework that automates the full sof
 
 ## Quick Start
 
-### 1. Copy the `proagents/` folder to your project
+### 1. Initialize ProAgents in your project
 
 ```bash
-cp -r proagents/ /path/to/your/project/
+cd your-project
+npx proagents init
 ```
 
-### 2. Start a feature (with any AI)
+### 2. Start a feature
 
+**Using CLI:**
+```bash
+proagents feature start "Add user authentication"
+```
+
+**Using AI assistant (Claude, ChatGPT, etc.):**
 ```
 /feature-start "Add user authentication"
 ```
@@ -38,6 +58,20 @@ The AI guides you through 10 phases:
 ```
 Init → Analysis → Requirements → Design → Planning →
 Implementation → Testing → Review → Documentation → Deployment
+```
+
+---
+
+## CLI Commands
+
+```bash
+proagents init                      # Initialize in current project
+proagents feature start "name"      # Start a new feature
+proagents feature status            # Check feature status
+proagents fix "bug description"     # Quick bug fix mode
+proagents status                    # Show ProAgents status
+proagents docs                      # Open documentation
+proagents commands                  # Show all commands
 ```
 
 ---
