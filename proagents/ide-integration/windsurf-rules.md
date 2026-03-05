@@ -184,7 +184,7 @@ Configure custom flows in `.windsurfrules`:
 ```markdown
 ## Custom Flows
 
-### /refactor Flow
+### pa:refactor Flow
 1. Analyze current implementation
 2. Identify improvement opportunities
 3. Propose refactoring plan
@@ -192,7 +192,7 @@ Configure custom flows in `.windsurfrules`:
 5. Verify no regressions
 6. Update tests if needed
 
-### /optimize Flow
+### pa:optimize Flow
 1. Profile current performance
 2. Identify bottlenecks
 3. Propose optimizations

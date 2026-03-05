@@ -131,13 +131,13 @@ Streamlined workflow for fixing bugs quickly without skipping quality.
 
 ```bash
 # Start bug fix
-/fix "Login button not responding on mobile"
+pa:fix "Login button not responding on mobile"
 
 # With issue reference
-/fix "Login button issue" --issue PROJ-123
+pa:fix "Login button issue" --issue PROJ-123
 
 # With urgency
-/fix "Critical auth bypass" --priority critical
+pa:fix "Critical auth bypass" --priority critical
 ```
 
 ### Auto-Context Gathering
@@ -226,10 +226,10 @@ Minimal workflow for simple, low-risk changes.
 
 ```bash
 # Quick change
-/quick "Update API URL to production"
+pa:quick "Update API URL to production"
 
 # With specific file
-/quick "Fix typo in button" --file src/components/Button.tsx
+pa:quick "Fix typo in button" --file src/components/Button.tsx
 ```
 
 ### Restrictions
@@ -301,13 +301,13 @@ Continue work on a previously started feature.
 
 ```bash
 # Resume by feature name
-/resume user-authentication
+pa:resume user-authentication
 
 # Resume last feature
-/resume --last
+pa:resume --last
 
 # Show all resumable features
-/resume --list
+pa:resume --list
 ```
 
 ### Resume Context

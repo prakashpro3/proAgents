@@ -426,10 +426,10 @@ Let's wrap up. Please:
 ### Use Slash Commands
 
 ```bash
-/feature-start "Add user authentication"
+pa:feature "Add user authentication"
 # More effective than: "I want to add auth"
 
-/fix "Login button not responding"
+pa:fix "Login button not responding"
 # More effective than: "There's a bug"
 
 pa:analyze

@@ -18,10 +18,10 @@ AI-assisted debugging workflows.
 ## Quick Commands
 
 ```bash
-/debug analyze <error>     # Analyze error message
-/debug trace <issue>       # Trace issue through code
-/debug suggest <symptom>   # Get fix suggestions
-/debug test <hypothesis>   # Test a hypothesis
+pa:debug analyze <error>     # Analyze error message
+pa:debug trace <issue>       # Trace issue through code
+pa:debug suggest <symptom>   # Get fix suggestions
+pa:debug test <hypothesis>   # Test a hypothesis
 ```
 
 ---

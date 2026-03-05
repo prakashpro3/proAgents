@@ -47,7 +47,7 @@ export READONLY_MODE=true
 echo $ENVIRONMENT  # Should show "production"
 
 # Alert the team
-/debug start --reason "Investigating ticket #1234"
+pa:debug start --reason "Investigating ticket #1234"
 ```
 
 ---
@@ -435,16 +435,16 @@ gh pr create --title "Fix N+1 query in dashboard loading"
 
 ```bash
 # Start debug session
-/debug start --ticket TICKET-1234
+pa:debug start --ticket TICKET-1234
 
 # Log findings
-/debug log "Found N+1 query in dashboard loading"
+pa:debug log "Found N+1 query in dashboard loading"
 
 # Share findings
-/debug share --channel #engineering
+pa:debug share --channel #engineering
 
 # End session
-/debug end --summary "Root cause: N+1 query, fix deployed"
+pa:debug end --summary "Root cause: N+1 query, fix deployed"
 ```
 
 ---

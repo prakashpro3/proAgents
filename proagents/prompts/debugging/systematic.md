@@ -257,14 +257,14 @@ function Counter() {
 
 ```bash
 # Analyze error message
-/debug error "TypeError: Cannot read property 'name' of undefined"
+pa:debug error "TypeError: Cannot read property 'name' of undefined"
 
 # Trace execution
-/debug trace "User registration fails after email validation"
+pa:debug trace "User registration fails after email validation"
 
 # Get fix suggestions
-/debug fix "Form resets on blur"
+pa:debug fix "Form resets on blur"
 
 # Generate debugging test
-/debug test "API returns 500 on large payload"
+pa:debug test "API returns 500 on large payload"
 ```

@@ -252,14 +252,14 @@ console.log(`A: ${timeA}ms, B: ${timeB}ms`);
 
 ```bash
 # Analyze function complexity
-/perf complexity <function>
+pa:perf complexity <function>
 
 # Find memory leaks
-/perf memory-leak <component>
+pa:perf memory-leak <component>
 
 # Suggest optimizations
-/perf optimize <code>
+pa:perf optimize <code>
 
 # Generate benchmark
-/perf benchmark <function>
+pa:perf benchmark <function>
 ```

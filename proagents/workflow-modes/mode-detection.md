@@ -314,10 +314,10 @@ Users can always override:
 pa:feature start "Fix login button" --mode full
 
 # Force bug fix mode
-/fix "Add new validation" --mode bug-fix
+pa:fix "Add new validation" --mode bug-fix
 
 # Skip detection
-/quick "Update config" --no-detect
+pa:quick "Update config" --no-detect
 ```
 
 ---

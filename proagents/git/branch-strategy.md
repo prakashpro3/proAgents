@@ -81,7 +81,7 @@ git checkout -b feature/my-feature
 
 Or use slash command:
 ```
-/branch-feature "my-feature"
+pa:branch-feature "my-feature"
 ```
 
 ### Working on Feature
@@ -103,7 +103,7 @@ git rebase origin/develop
 git push origin feature/my-feature
 
 # Create PR to develop
-# (Or use /pr-create)
+# (Or use pa:pr-create)
 ```
 
 ### Hotfix

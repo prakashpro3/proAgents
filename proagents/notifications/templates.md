@@ -367,7 +367,7 @@ notifications:
 
     # Override specific templates
     overrides:
-      feature.completed: "./templates/feature-completed.json"
+      feature.completed: "./templatespa:feature-completed.json"
       deploy.failed: "./templates/deploy-failed.json"
 
     # Template directory
@@ -381,11 +381,11 @@ notifications:
   templates:
     channels:
       slack:
-        feature.completed: "./templates/slack/feature-completed.json"
+        feature.completed: "./templates/slackpa:feature-completed.json"
         deploy.failed: "./templates/slack/deploy-failed.json"
 
       email:
-        feature.completed: "./templates/email/feature-completed.html"
+        feature.completed: "./templates/emailpa:feature-completed.html"
         weekly_digest: "./templates/email/weekly-digest.html"
 
       # Discord uses default templates

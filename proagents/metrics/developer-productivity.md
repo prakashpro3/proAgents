@@ -352,17 +352,17 @@ async function collectIssueMetrics(project: string): Promise<IssueMetrics> {
 
 ```bash
 # View productivity dashboard
-/metrics productivity
+pa:metrics productivity
 
 # Analyze specific period
-/metrics productivity --from 2024-01-01 --to 2024-01-31
+pa:metrics productivity --from 2024-01-01 --to 2024-01-31
 
 # Compare periods
-/metrics productivity --compare "this-sprint" "last-sprint"
+pa:metrics productivity --compare "this-sprint" "last-sprint"
 
 # Export data
-/metrics productivity --export json
+pa:metrics productivity --export json
 
 # View individual metrics
-/metrics productivity --developer @alice
+pa:metrics productivity --developer @alice
 ```

@@ -889,13 +889,13 @@ Design Summary:
 Override checkpoints when starting a feature:
 ```bash
 # Skip all optional checkpoints
-/feature-start "Feature" --auto
+pa:feature "Feature" --auto
 
 # Stop at every phase
-/feature-start "Feature" --checkpoint=all
+pa:feature "Feature" --checkpoint=all
 
 # Only critical checkpoints
-/feature-start "Feature" --checkpoint=critical
+pa:feature "Feature" --checkpoint=critical
 ```
 
 ### Custom Checkpoints

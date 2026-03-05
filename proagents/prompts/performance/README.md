@@ -18,10 +18,10 @@ AI-assisted performance analysis and optimization.
 ## Quick Commands
 
 ```bash
-/perf analyze <code>       # Analyze code performance
-/perf profile <function>   # Profile function execution
-/perf optimize <target>    # Suggest optimizations
-/perf benchmark <code>     # Create benchmarks
+pa:perf analyze <code>       # Analyze code performance
+pa:perf profile <function>   # Profile function execution
+pa:perf optimize <target>    # Suggest optimizations
+pa:perf benchmark <code>     # Create benchmarks
 ```
 
 ---

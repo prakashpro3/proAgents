@@ -409,22 +409,22 @@ Top Improvement Areas:
 
 ```bash
 # View quality dashboard
-/metrics quality
+pa:metrics quality
 
 # Detailed coverage report
-/metrics coverage --detailed
+pa:metrics coverage --detailed
 
 # Complexity hotspots
-/metrics complexity --hotspots
+pa:metrics complexity --hotspots
 
 # Technical debt breakdown
-/metrics debt --by-category
+pa:metrics debt --by-category
 
 # Dependency audit
-/metrics dependencies --audit
+pa:metrics dependencies --audit
 
 # Generate quality report
-/metrics quality --report --format pdf
+pa:metrics quality --report --format pdf
 ```
 
 ---

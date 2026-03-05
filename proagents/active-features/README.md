@@ -128,7 +128,7 @@ When you run `pa:feature "Feature Name"`:
 ### Check Conflicts
 
 ```
-/conflict-check
+pa:conflict-check
 ```
 
 Shows any file conflicts with other active features.
@@ -136,7 +136,7 @@ Shows any file conflicts with other active features.
 ### View Status
 
 ```
-/feature-status
+pa:feature-status
 ```
 
 Shows current feature progress and any blockers.

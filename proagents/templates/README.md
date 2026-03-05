@@ -18,7 +18,7 @@ Standardized templates for all workflow outputs ensuring consistency.
 | [Implementation Plan](./implementation-plan.md) | Planning | Task breakdown, architecture |
 | [Test Plan](./test-plan.md) | Testing | Test strategy and coverage |
 | [Code Review Report](./code-review-report.md) | Review | Review findings, suggestions |
-| [Feature Status](./feature-status.md) | Tracking | Progress and status updates |
+| [Feature Status](.pa:feature-status.md) | Tracking | Progress and status updates |
 | [Deployment Checklist](./deployment-checklist.md) | Deployment | Pre-deploy verification |
 | [Rollback Plan](./rollback-plan.md) | Rollback | Recovery procedures |
 

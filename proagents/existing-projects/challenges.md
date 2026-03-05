@@ -855,7 +855,7 @@ exceptions:
 
 ## Next Steps
 
-1. Run `/assess-compatibility` to identify which issues affect your project
+1. Run `pa:assess-compatibility` to identify which issues affect your project
 2. Review `gradual-adoption.md` for step-by-step adoption
 3. Use `pattern-reconciliation.md` to handle convention conflicts
 4. See `coexistence-mode.md` for running alongside existing workflows

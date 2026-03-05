@@ -59,7 +59,7 @@ This runbook provides a structured approach to responding to production incident
 pd incident acknowledge --id <incident-id>
 
 # Or via Slack
-/incident acknowledge
+pa:incident acknowledge
 ```
 
 ### 1.2 Initial Assessment
@@ -82,7 +82,7 @@ Based on assessment, classify the incident:
 
 ```bash
 # Update incident severity
-/incident severity set SEV2 --reason "Auth service affecting 30% of users"
+pa:incident severity set SEV2 --reason "Auth service affecting 30% of users"
 ```
 
 ### 1.4 Notify Stakeholders
@@ -283,7 +283,7 @@ npm run test:integration
 pd incident resolve --id <incident-id>
 
 # Final Slack update
-/incident close --resolution "Rolled back problematic change, service restored"
+pa:incident close --resolution "Rolled back problematic change, service restored"
 ```
 
 ### 4.4 Final Communication
@@ -373,10 +373,10 @@ git commit -m "Add connection pool troubleshooting steps"
 
 ```bash
 # Track action items
-/incident action-items list --incident INC-2024-0115
+pa:incident action-items list --incident INC-2024-0115
 
 # Update status
-/incident action-items update <item-id> --status complete
+pa:incident action-items update <item-id> --status complete
 ```
 
 ---
@@ -429,23 +429,23 @@ git commit -m "Add connection pool troubleshooting steps"
 
 ```bash
 # Start incident
-/incident start --severity SEV2 --description "Login failures"
+pa:incident start --severity SEV2 --description "Login failures"
 
 # Update status
-/incident update --status investigating --message "Checking logs"
+pa:incident update --status investigating --message "Checking logs"
 
 # Change severity
-/incident severity set SEV1 --reason "Complete outage"
+pa:incident severity set SEV1 --reason "Complete outage"
 
 # Add timeline entry
-/incident timeline add "Identified root cause: DB connection exhaustion"
+pa:incident timeline add "Identified root cause: DB connection exhaustion"
 
 # Escalate
-/incident escalate --to @sre-team --reason "Need database access"
+pa:incident escalate --to @sre-team --reason "Need database access"
 
 # Resolve
-/incident resolve --summary "Rolled back to v1.2.3"
+pa:incident resolve --summary "Rolled back to v1.2.3"
 
 # Generate post-mortem
-/incident postmortem generate
+pa:incident postmortem generate
 ```

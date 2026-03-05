@@ -472,22 +472,22 @@ function processPayment(order, payment) {
 
 ```bash
 # Apply specific refactoring pattern
-/refactor apply extract-method --function processOrder
+pa:refactor apply extract-method --function processOrder
 
 # Apply polymorphism
-/refactor apply polymorphism --switch-statement line:45
+pa:refactor apply polymorphism --switch-statement line:45
 
 # Extract class
-/refactor apply extract-class --class User --extract Profile,Auth
+pa:refactor apply extract-class --class User --extract Profile,Auth
 
 # Replace magic numbers
-/refactor apply constants --file config.ts
+pa:refactor apply constants --file config.ts
 
 # Introduce parameter object
-/refactor apply param-object --function createUser
+pa:refactor apply param-object --function createUser
 
 # Flatten conditionals
-/refactor apply guard-clauses --function processPayment
+pa:refactor apply guard-clauses --function processPayment
 ```
 
 ---

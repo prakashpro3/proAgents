@@ -505,22 +505,22 @@ app.post('/api/users', validate(CreateUserSchema), createUser);
 
 ```bash
 # Validate schema files
-/schema validate ./schemas/
+pa:schema validate ./schemas/
 
 # Generate JSON Schema from TypeScript
-/schema generate --from types.ts --out schemas/
+pa:schema generate --from types.ts --out schemas/
 
 # Compare schemas for breaking changes
-/schema diff ./old-schema.json ./new-schema.json
+pa:schema diff ./old-schema.json ./new-schema.json
 
 # Generate TypeScript from JSON Schema
-/schema to-typescript ./schemas/user.json
+pa:schema to-typescript ./schemas/user.json
 
 # Validate OpenAPI spec
-/schema openapi validate ./openapi.yaml
+pa:schema openapi validate ./openapi.yaml
 
 # Generate mock data from schema
-/schema mock ./schemas/user.json
+pa:schema mock ./schemas/user.json
 ```
 
 ---

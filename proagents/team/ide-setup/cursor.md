@@ -66,7 +66,7 @@ Cursor's AI chat integrates well with ProAgents:
 ```
 # In Cursor Chat (Cmd+L)
 
-"Run /feature start 'Add user authentication'"
+"Run pa:feature 'Add user authentication'"
 
 "Check the ProAgents workflow status"
 

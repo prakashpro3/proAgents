@@ -61,17 +61,17 @@ pa:feature start "User Authentication"
 
 ### Start in Bug Fix Mode
 ```bash
-/fix "Login button not responding"
+pa:fix "Login button not responding"
 ```
 
 ### Start in Quick Change Mode
 ```bash
-/quick "Update API endpoint URL"
+pa:quick "Update API endpoint URL"
 ```
 
 ### Resume Previous Work
 ```bash
-/resume user-auth
+pa:resume user-auth
 ```
 
 ---

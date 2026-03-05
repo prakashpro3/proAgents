@@ -345,10 +345,10 @@ bypass_procedures:
 
 ```bash
 # Bypass with justification
-/guardrail bypass scope_warning --reason "One-time migration script"
+pa:guardrail bypass scope_warning --reason "One-time migration script"
 
 # Request bypass approval
-/guardrail request-bypass critical_path --approver tech_lead
+pa:guardrail request-bypass critical_path --approver tech_lead
 ```
 
 ---

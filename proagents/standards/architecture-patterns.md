@@ -643,7 +643,7 @@ validation:
 
 ```bash
 # Create a new feature following patterns
-/scaffold feature user-profile
+pa:scaffold feature user-profile
 
 # Output:
 Created feature 'user-profile' at src/features/user-profile/

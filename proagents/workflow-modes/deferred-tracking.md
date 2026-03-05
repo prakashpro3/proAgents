@@ -307,23 +307,23 @@ reminders:
 
 ```bash
 # Mark task complete
-/deferred complete DEF-001
+pa:deferred complete DEF-001
 
 # Complete with details
-/deferred complete DEF-001 --commit abc123 --notes "Added 5 integration tests"
+pa:deferred complete DEF-001 --commit abc123 --notes "Added 5 integration tests"
 
 # Bulk complete
-/deferred complete DEF-001 DEF-002 DEF-003
+pa:deferred complete DEF-001 DEF-002 DEF-003
 ```
 
 ### Closing Without Completing
 
 ```bash
 # Close as won't do
-/deferred close DEF-001 --reason "No longer applicable after refactor"
+pa:deferred close DEF-001 --reason "No longer applicable after refactor"
 
 # Close as duplicate
-/deferred close DEF-001 --duplicate DEF-005
+pa:deferred close DEF-001 --duplicate DEF-005
 ```
 
 ---

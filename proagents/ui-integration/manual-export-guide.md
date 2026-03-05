@@ -350,7 +350,7 @@ exports/
 
 ```
 1. Export designs from your tool
-2. Run: /design-export
+2. Run: pa:design-export
 3. Provide exported files
 4. Review AI analysis
 5. Confirm component mapping

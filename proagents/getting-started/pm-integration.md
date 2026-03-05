@@ -23,15 +23,15 @@ Connect ProAgents to your project management tools for seamless workflow trackin
 ### Step 1: Choose Your Tool
 
 ```bash
-/pm setup
+pa:pm setup
 ```
 
 Select from the interactive menu, or specify directly:
 
 ```bash
-/pm setup jira
-/pm setup linear
-/pm setup github
+pa:pm setup jira
+pa:pm setup linear
+pa:pm setup github
 ```
 
 ### Step 2: Authenticate
@@ -77,7 +77,7 @@ integrations:
 ### Step 3: Test Connection
 
 ```bash
-/pm test
+pa:pm test
 ```
 
 Expected output:
@@ -97,7 +97,7 @@ Expected output:
 
 When you start a feature:
 ```bash
-/feature-start "Add user authentication"
+pa:feature "Add user authentication"
 ```
 
 ProAgents automatically:
@@ -108,7 +108,7 @@ ProAgents automatically:
 ### Sync Status
 
 ```bash
-/pm sync
+pa:pm sync
 ```
 
 Updates your PM tool with current feature status.
@@ -116,7 +116,7 @@ Updates your PM tool with current feature status.
 ### Link Existing Issue
 
 ```bash
-/feature-start "Add auth" --issue PROJ-123
+pa:feature "Add auth" --issue PROJ-123
 ```
 
 ---
@@ -231,7 +231,7 @@ integrations:
 
 ```
 ┌─────────────────┐
-│ /feature-start  │
+│ pa:feature  │
 └────────┬────────┘
          │
          ▼
@@ -262,7 +262,7 @@ integrations:
 ### Bug Fix Integration
 
 ```bash
-/fix "Login button broken" --issue BUG-456
+pa:fix "Login button broken" --issue BUG-456
 ```
 
 ProAgents:
@@ -277,24 +277,24 @@ ProAgents:
 
 ```bash
 # Setup
-/pm setup [tool]           # Initialize PM integration
+pa:pm setup [tool]           # Initialize PM integration
 
 # Status
-/pm status                  # Show integration status
-/pm test                    # Test connection
+pa:pm status                  # Show integration status
+pa:pm test                    # Test connection
 
 # Sync
-/pm sync                    # Sync current feature
-/pm sync-all                # Sync all active features
+pa:pm sync                    # Sync current feature
+pa:pm sync-all                # Sync all active features
 
 # Issues
-/pm create "Title"          # Create new issue
-/pm link ISSUE-123          # Link current feature to issue
-/pm unlink                  # Unlink current feature
+pa:pm create "Title"          # Create new issue
+pa:pm link ISSUE-123          # Link current feature to issue
+pa:pm unlink                  # Unlink current feature
 
 # Queries
-/pm issues                  # List assigned issues
-/pm search "query"          # Search issues
+pa:pm issues                  # List assigned issues
+pa:pm search "query"          # Search issues
 ```
 
 ---
@@ -305,10 +305,10 @@ ProAgents:
 
 ```bash
 # Re-authenticate
-/pm auth
+pa:pm auth
 
 # Test with debug output
-/pm test --debug
+pa:pm test --debug
 ```
 
 ### Status Not Syncing

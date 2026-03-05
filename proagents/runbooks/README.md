@@ -38,16 +38,16 @@ Runbooks provide step-by-step procedures for handling incidents, debugging produ
 
 ```bash
 # 1. Assess the situation
-/runbook incident assess
+pa:runbook incident assess
 
 # 2. Start incident response
-/runbook incident start --severity SEV2 --description "Login failures"
+pa:runbook incident start --severity SEV2 --description "Login failures"
 
 # 3. Follow guided steps
-/runbook incident guide
+pa:runbook incident guide
 
 # 4. Close incident
-/runbook incident close --resolution "Fixed auth service timeout"
+pa:runbook incident close --resolution "Fixed auth service timeout"
 ```
 
 ---
@@ -56,19 +56,19 @@ Runbooks provide step-by-step procedures for handling incidents, debugging produ
 
 ```bash
 # List available runbooks
-/runbook list
+pa:runbook list
 
 # Start a runbook
-/runbook start <runbook-name>
+pa:runbook start <runbook-name>
 
 # View runbook steps
-/runbook view <runbook-name>
+pa:runbook view <runbook-name>
 
 # Log runbook execution
-/runbook log --action "Restarted service"
+pa:runbook log --action "Restarted service"
 
 # Generate post-mortem
-/runbook postmortem --incident INC-123
+pa:runbook postmortem --incident INC-123
 ```
 
 ---

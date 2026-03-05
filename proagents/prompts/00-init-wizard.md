@@ -370,18 +370,18 @@ For experienced users who want to skip the wizard:
 /init
 
 # Quick init with type
-/init --type web-frontend
-/init --type mobile --framework react-native
-/init --type backend --framework nestjs
+pa:init --type web-frontend
+pa:init --type mobile --framework react-native
+pa:init --type backend --framework nestjs
 
 # Use existing config
-/init --config ./proagents.config.yaml
+pa:init --config ./proagents.config.yaml
 
 # Minimal setup (prompts only essential questions)
-/init --quick
+pa:init --quick
 
 # Skip all prompts, use all defaults
-/init --yes
+pa:init --yes
 ```
 
 ---
@@ -396,12 +396,12 @@ ProAgents initialized successfully!
 
 Next steps:
 1. Review proagents.config.yaml
-2. Start your first feature: /feature-start "Feature name"
-3. Need help? Run /help
+2. Start your first feature: pa:feature "Feature name"
+3. Need help? Run pa:help
 
 Your project type: Web Frontend (React)
 Recommended workflow:
-  /feature-start → /analyze → Design → /implement → /test → /deploy
+  pa:feature → pa:analyze → Design → pa:implement → pa:test → pa:deploy
 ```
 
 2. **Create initial files:**

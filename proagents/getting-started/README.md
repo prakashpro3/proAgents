@@ -33,7 +33,7 @@ checkpoints:
 ### 3. Start Your First Feature
 
 ```bash
-/feature-start "Add user authentication"
+pa:feature "Add user authentication"
 ```
 
 That's it! ProAgents will guide you through the workflow.

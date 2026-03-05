@@ -16,7 +16,7 @@ A complete walkthrough of building an API feature using ProAgents workflow.
 ### Start Feature
 
 ```
-User: /feature-start "Product Inventory API"
+User: pa:feature "Product Inventory API"
 ```
 
 ### Context Gathered

@@ -18,10 +18,10 @@ AI-assisted code refactoring workflows.
 ## Quick Commands
 
 ```bash
-/refactor identify    # Find refactoring opportunities
-/refactor plan        # Create refactoring plan
-/refactor execute     # Perform refactoring
-/refactor validate    # Verify refactoring
+pa:refactor identify    # Find refactoring opportunities
+pa:refactor plan        # Create refactoring plan
+pa:refactor execute     # Perform refactoring
+pa:refactor validate    # Verify refactoring
 ```
 
 ---

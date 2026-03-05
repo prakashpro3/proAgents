@@ -462,7 +462,7 @@ AI Output:
 ```
 1. Create sketch (paper or digital)
 2. Photo/scan sketch
-3. Run: /design-sketch
+3. Run: pa:design-sketch
 4. Provide sketch image
 5. Review AI interpretation
 6. Iterate and refine

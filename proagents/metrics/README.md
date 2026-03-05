@@ -53,18 +53,18 @@ metrics:
 
 ```bash
 # View current metrics dashboard
-/metrics dashboard
+pa:metrics dashboard
 
 # Generate weekly report
-/metrics report --period weekly
+pa:metrics report --period weekly
 
 # View specific category
-/metrics productivity
-/metrics quality
-/metrics deployment
+pa:metrics productivity
+pa:metrics quality
+pa:metrics deployment
 
 # Export metrics
-/metrics export --format json --output ./metrics.json
+pa:metrics export --format json --output ./metrics.json
 ```
 
 ---

@@ -547,7 +547,7 @@ locked:
 
 ```bash
 # Validate configuration
-/config validate
+pa:config validate
 
 # Output:
 Configuration Validation

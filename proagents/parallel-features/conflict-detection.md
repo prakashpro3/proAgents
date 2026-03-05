@@ -50,7 +50,7 @@ Beyond file-level, detect:
 Before starting a new feature:
 
 ```
-/conflict-check "feature-name"
+pa:conflict-check "feature-name"
 
 Output:
 Feature: user-profile
@@ -90,7 +90,7 @@ Track file modifications:
 ### 3. Pre-Merge Check
 
 ```
-/conflict-check-merge "feature-name"
+pa:conflict-check-merge "feature-name"
 
 Checking feature-user-profile for merge conflicts...
 

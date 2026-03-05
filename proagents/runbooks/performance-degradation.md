@@ -483,19 +483,19 @@ For users with 100 items, latency increased from 100ms to 800ms.
 
 ```bash
 # Start performance investigation
-/perf investigate --service my-service
+pa:perf investigate --service my-service
 
 # Quick metrics check
-/perf status
+pa:perf status
 
 # Generate performance report
-/perf report --period "last-24h"
+pa:perf report --period "last-24h"
 
 # Scale service
-/perf scale my-service --replicas 10
+pa:perf scale my-service --replicas 10
 
 # Enable performance mode
-/perf optimize --enable-cache --enable-compression
+pa:perf optimize --enable-cache --enable-compression
 ```
 
 ---

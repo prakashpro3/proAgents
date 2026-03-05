@@ -1,13 +1,13 @@
-# ProAgents Slash Commands Reference
+# ProAgents Commands Reference
 
-## How Slash Commands Work
+## How Commands Work
 
-Type `/` to see available commands. As you type more, hints filter to show related commands.
+Type `pa:` to see available commands. As you type more, hints filter to show related commands.
 
 ```
-/     -> Shows all categories
-/d    -> Shows: /doc, /deploy, /doctor
-/doc  -> Shows: /doc-full, /doc-moderate, /doc-lite...
+pa:     -> Shows all categories
+pa:d    -> Shows: pa:doc, pa:deploy, pa:doctor
+pa:doc  -> Shows: pa:doc-full, pa:doc-moderate, pa:doc-lite...
 ```
 
 ---
@@ -42,7 +42,7 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 **Usage:**
 ```
-/feature-start "Add user authentication"
+pa:feature "Add user authentication"
 ```
 
 ---
@@ -58,7 +58,7 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 **Usage:**
 ```
-/fix-quick "Login button not working"
+pa:fix-quick "Login button not working"
 ```
 
 ---
@@ -102,9 +102,9 @@ Type `/` to see available commands. As you type more, hints filter to show relat
 
 **Usage:**
 ```
-/doc-full
-/doc-module auth
-/doc-file ./src/services/AuthService.ts
+pa:doc-full
+pa:doc-module auth
+pa:doc-file ./src/services/AuthService.ts
 ```
 
 ---
@@ -184,18 +184,18 @@ Define your own commands in `proagents.config.yaml`:
 
 ```yaml
 custom_commands:
-  "/ship":
+  "pa:ship":
     description: "Full deployment workflow"
     steps:
-      - "/test-all"
-      - "/qa-full"
-      - "/deploy-prod"
+      - "pa:test-all"
+      - "pa:qa-full"
+      - "pa:deploy-prod"
 
-  "/morning":
+  "pa:morning":
     description: "Daily start routine"
     steps:
-      - "/status"
-      - "/feature-list"
+      - "pa:status"
+      - "pa:feature-list"
 ```
 
 ---
@@ -204,8 +204,8 @@ custom_commands:
 
 Run multiple commands:
 ```
-/test && /deploy
-/qa && /deploy || /rollback
+pa:test && pa:deploy
+pa:qa && pa:deploy || pa:rollback
 ```
 
 ---

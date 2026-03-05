@@ -54,9 +54,9 @@ proagents collab start \
 │ https://proagents.io/collab/sess_abc123xyz                │
 │                                                             │
 │ Commands:                                                   │
-│ • /invite <email> - Invite participant                     │
-│ • /status - Show session status                            │
-│ • /end - End session                                       │
+│ • pa:invite <email> - Invite participant                   │
+│ • pa:status - Show session status                          │
+│ • pa:end - End session                                     │
 │                                                             │
 │ Waiting for participants...                                │
 │                                                             │
@@ -309,13 +309,13 @@ proagents collab export sess_abc123 --format markdown
 
 ```bash
 # Send message (in session)
-/chat Ready to switch roles?
+pa:chat Ready to switch roles?
 
 # Send code reference
-/chat Check line 45 in AuthService.ts
+pa:chat Check line 45 in AuthService.ts
 
 # React to message
-/react 👍
+pa:react 👍
 ```
 
 ### Voice/Video Integration

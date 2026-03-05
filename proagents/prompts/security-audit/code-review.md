@@ -244,17 +244,17 @@ app.post('/api/users', async (req, res) => {
 
 ```bash
 # Full security audit
-/security audit ./src
+pa:security audit ./src
 
 # Check for OWASP Top 10
-/security owasp ./src/api
+pa:security owasp ./src/api
 
 # Find secrets
-/security secrets ./
+pa:security secrets ./
 
 # Check dependencies
-/security deps
+pa:security deps
 
 # Generate security report
-/security report
+pa:security report
 ```

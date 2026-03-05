@@ -54,7 +54,7 @@ ProAgents uses a 10-phase development workflow:
 
 ```bash
 # Start a new feature
-/feature-start "Feature name"
+pa:feature "Feature name"
 
 # Check status
 pa:status
@@ -63,7 +63,7 @@ pa:status
 /help
 
 # Quick bug fix
-/fix "Bug description"
+pa:fix "Bug description"
 ```
 
 ### 3. Important Files

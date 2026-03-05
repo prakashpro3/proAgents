@@ -32,7 +32,7 @@ That's it! Learning starts automatically.
 As you work, the system learns:
 
 ```bash
-/feature-start "Add user profile"
+pa:feature "Add user profile"
 # → Learns feature naming patterns
 
 pa:analyze
@@ -45,7 +45,7 @@ pa:analyze
 ### Step 3: Check Learning Progress
 
 ```bash
-/learning status
+pa:learning status
 ```
 
 Output:
@@ -167,13 +167,13 @@ You can explicitly teach patterns:
 
 ```bash
 # Teach a naming convention
-/learning teach "Components should use PascalCase with 'View' suffix"
+pa:learning teach "Components should use PascalCase with 'View' suffix"
 
 # Teach a code pattern
-/learning teach "Always use React Query for data fetching"
+pa:learning teach "Always use React Query for data fetching"
 
 # Teach domain terminology
-/learning teach "A 'Workspace' contains multiple 'Projects'"
+pa:learning teach "A 'Workspace' contains multiple 'Projects'"
 ```
 
 ### Correction Learning
@@ -250,7 +250,7 @@ learning:
 ### View Learning Summary
 
 ```bash
-/learning report
+pa:learning report
 ```
 
 Output:
@@ -276,16 +276,16 @@ Output:
 ### View Specific Patterns
 
 ```bash
-/learning patterns           # View all learned patterns
-/learning patterns naming    # View naming patterns
-/learning patterns testing   # View testing patterns
+pa:learning patterns           # View all learned patterns
+pa:learning patterns naming    # View naming patterns
+pa:learning patterns testing   # View testing patterns
 ```
 
 ### View Corrections
 
 ```bash
-/learning corrections        # View all auto-corrections
-/learning corrections active # View active corrections
+pa:learning corrections        # View all auto-corrections
+pa:learning corrections active # View active corrections
 ```
 
 ---
@@ -295,36 +295,36 @@ Output:
 ### Export Learning Data
 
 ```bash
-/learning export --output ./learning-export.json
+pa:learning export --output ./learning-export.json
 ```
 
 ### Import Learning Data
 
 ```bash
-/learning import ./learning-export.json
+pa:learning import ./learning-export.json
 ```
 
 ### Reset Learning
 
 ```bash
 # Reset specific category
-/learning reset patterns
+pa:learning reset patterns
 
 # Reset all learning
-/learning reset --all
+pa:learning reset --all
 
 # Reset with confirmation
-/learning reset --all --confirm
+pa:learning reset --all --confirm
 ```
 
 ### Disable Specific Learning
 
 ```bash
 # Temporarily disable a learned pattern
-/learning disable "Use apiClient instead of fetch"
+pa:learning disable "Use apiClient instead of fetch"
 
 # Re-enable
-/learning enable "Use apiClient instead of fetch"
+pa:learning enable "Use apiClient instead of fetch"
 ```
 
 ---
@@ -335,20 +335,20 @@ Output:
 
 ```bash
 # Check status
-/learning status
+pa:learning status
 
 # Debug mode
-/learning debug
+pa:learning debug
 ```
 
 ### Wrong Pattern Learned
 
 ```bash
 # Remove incorrect pattern
-/learning remove "incorrect pattern"
+pa:learning remove "incorrect pattern"
 
 # Or correct it
-/learning correct "old pattern" --to "correct pattern"
+pa:learning correct "old pattern" --to "correct pattern"
 ```
 
 ### Performance Issues

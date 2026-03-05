@@ -26,22 +26,22 @@ These prompts help identify and fix security vulnerabilities in your code. ProAg
 
 ```bash
 # Full security audit
-/security audit <file_or_directory>
+pa:security audit <file_or_directory>
 
 # OWASP Top 10 check
-/security owasp <code>
+pa:security owasp <code>
 
 # Find hardcoded secrets
-/security secrets <path>
+pa:security secrets <path>
 
 # Check dependency vulnerabilities
-/security deps
+pa:security deps
 
 # Review authentication code
-/security auth <file>
+pa:security auth <file>
 
 # Check for injection vulnerabilities
-/security injection <code>
+pa:security injection <code>
 ```
 
 ---

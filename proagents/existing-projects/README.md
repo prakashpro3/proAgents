@@ -23,10 +23,10 @@ This guide addresses each challenge with practical solutions.
 
 ```bash
 # Initialize with existing project mode
-/init --existing
+pa:init --existing
 
 # Run compatibility assessment first
-/assess-compatibility
+pa:assess-compatibility
 
 # Generate adoption plan
 /adoption-plan

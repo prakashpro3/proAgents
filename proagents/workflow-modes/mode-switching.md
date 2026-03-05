@@ -33,7 +33,7 @@ Action: Suggest upgrade to Full Workflow
 **How to Switch:**
 ```bash
 # Manual switch
-/mode switch full-workflow
+pa:mode switch full-workflow
 
 # Accept suggestion
 # When prompted: [Upgrade to Full Workflow?] → Yes
@@ -78,10 +78,10 @@ Action: Suggest downgrade to Bug Fix
 **How to Switch:**
 ```bash
 # Manual switch
-/mode switch bug-fix
+pa:mode switch bug-fix
 
 # With confirmation
-/mode switch bug-fix --confirm
+pa:mode switch bug-fix --confirm
 ```
 
 **What Happens:**
@@ -315,18 +315,18 @@ preserved_on_switch:
 
 ```bash
 # Switch modes
-/mode switch full-workflow
-/mode switch bug-fix
-/mode switch quick-change
+pa:mode switch full-workflow
+pa:mode switch bug-fix
+pa:mode switch quick-change
 
 # Check current mode
-/mode current
+pa:mode current
 
 # See switch history
-/mode history
+pa:mode history
 
 # Force mode (skip confirmation)
-/mode switch full-workflow --force
+pa:mode switch full-workflow --force
 ```
 
 ---

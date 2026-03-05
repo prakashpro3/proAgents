@@ -38,7 +38,7 @@ integrations:
 ### Usage
 
 ```
-/design-figma "https://figma.com/file/xxx/Design"
+pa:design-figma "https://figma.com/file/xxx/Design"
 ```
 
 ### What Gets Extracted

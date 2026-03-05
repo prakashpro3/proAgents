@@ -234,25 +234,25 @@ You are a senior developer helping with the ProAgents workflow.
 - Explain trade-offs of different approaches
 - Reference existing project patterns
 
-## Slash Commands
+## Commands
 
 Respond to these custom commands:
 
-### /proagents-feature
+### pa:feature
 Start a new feature workflow:
 1. Ask about the feature requirements
 2. Analyze affected areas
 3. Propose implementation plan
 4. Guide through implementation
 
-### /proagents-fix
+### pa:fix
 Quick bug fix workflow:
 1. Help identify the bug
 2. Suggest fix approach
 3. Generate fix code
 4. Suggest test cases
 
-### /proagents-review
+### pa:review
 Code review assistance:
 1. Check for common issues
 2. Verify patterns are followed

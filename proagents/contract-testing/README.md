@@ -136,19 +136,19 @@ describe('User Service Provider', () => {
 
 ```bash
 # Run consumer tests
-/contract test consumer
+pa:contract test consumer
 
 # Run provider tests
-/contract test provider
+pa:contract test provider
 
 # Publish contracts
-/contract publish
+pa:contract publish
 
 # Verify contracts
-/contract verify
+pa:contract verify
 
 # Generate contract documentation
-/contract docs
+pa:contract docs
 ```
 
 ---

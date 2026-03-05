@@ -18,18 +18,18 @@ The compatibility assessment:
 
 ```bash
 # Full compatibility assessment
-/assess-compatibility
+pa:assess-compatibility
 
 # Quick assessment (faster, less detailed)
-/assess-compatibility --quick
+pa:assess-compatibility --quick
 
 # Assessment with report
-/assess-compatibility --report
+pa:assess-compatibility --report
 
 # Assessment for specific areas
-/assess-compatibility --focus patterns
-/assess-compatibility --focus security
-/assess-compatibility --focus testing
+pa:assess-compatibility --focus patterns
+pa:assess-compatibility --focus security
+pa:assess-compatibility --focus testing
 ```
 
 ---

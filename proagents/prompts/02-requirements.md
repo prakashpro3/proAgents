@@ -7,7 +7,7 @@ Universal prompts for gathering and documenting feature requirements.
 ## Quick Start
 
 ```
-/feature-start "Feature Name"
+pa:feature "Feature Name"
 ```
 
 ---

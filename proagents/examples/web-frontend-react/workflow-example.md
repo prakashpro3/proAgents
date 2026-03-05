@@ -16,7 +16,7 @@ A complete walkthrough of building a feature using ProAgents workflow.
 ### Start Feature
 
 ```
-User: /feature-start "User Profile Page"
+User: pa:feature "User Profile Page"
 ```
 
 ### Context Gathered

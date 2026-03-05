@@ -27,12 +27,12 @@ These prompts work with any AI platform (Claude, ChatGPT, Gemini, Copilot, etc.)
 
 ## Usage
 
-### With Slash Commands
+### With Commands
 
 ```
-/init           → Uses 00-init.md
-/feature-start  → Uses full workflow
-/doc            → Uses 07-documentation.md
+pa:init      → Uses 00-init.md
+pa:feature   → Uses full workflow
+pa:doc       → Uses 07-documentation.md
 ```
 
 ### Manual Copy-Paste

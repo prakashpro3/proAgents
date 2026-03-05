@@ -21,7 +21,7 @@ Reverse engineering enables ProAgents to:
 
 ### 1. Onboarding to Existing Project
 ```
-/reverse-engineer --full
+pa:reverse-engineer --full
 
 Output:
 - Complete architecture documentation
@@ -33,7 +33,7 @@ Output:
 
 ### 2. Documentation Generation
 ```
-/reverse-engineer --docs
+pa:reverse-engineer --docs
 
 Output:
 - README for each module
@@ -44,7 +44,7 @@ Output:
 
 ### 3. Architecture Understanding
 ```
-/reverse-engineer --architecture
+pa:reverse-engineer --architecture
 
 Output:
 - High-level architecture diagram
@@ -55,7 +55,7 @@ Output:
 
 ### 4. Code Quality Assessment
 ```
-/reverse-engineer --quality
+pa:reverse-engineer --quality
 
 Output:
 - Tech debt identification
@@ -107,18 +107,18 @@ Output:
 /reverse-engineer
 
 # Specific scope
-/reverse-engineer --scope architecture
-/reverse-engineer --scope api
-/reverse-engineer --scope components
-/reverse-engineer --scope database
+pa:reverse-engineer --scope architecture
+pa:reverse-engineer --scope api
+pa:reverse-engineer --scope components
+pa:reverse-engineer --scope database
 
 # Output format
-/reverse-engineer --format markdown
-/reverse-engineer --format html
-/reverse-engineer --format json
+pa:reverse-engineer --format markdown
+pa:reverse-engineer --format html
+pa:reverse-engineer --format json
 
 # Specific path
-/reverse-engineer --path ./src/modules/auth
+pa:reverse-engineer --path ./src/modules/auth
 ```
 
 ---

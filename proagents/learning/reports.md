@@ -225,11 +225,11 @@ reports:
 
 ```bash
 # Generate reports via slash commands
-/report-learning weekly
-/report-learning monthly
-/report-learning patterns
-/report-learning decisions
-/report-learning all
+pa:report-learning weekly
+pa:report-learning monthly
+pa:report-learning patterns
+pa:report-learning decisions
+pa:report-learning all
 ```
 
 ---
@@ -279,7 +279,7 @@ Reports include actionable insights:
 │                                                                 │
 │ 1. Consider disabling "after_testing" checkpoint               │
 │    → You've skipped it 95% of the time                        │
-│    → Run: /config set checkpoints.after_testing false         │
+│    → Run: pa:config set checkpoints.after_testing false       │
 │                                                                 │
 │ 2. Document your preferred caching strategy                    │
 │    → Only 45% confidence, frequently corrected                │

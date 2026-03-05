@@ -23,9 +23,9 @@ Existing projects often have multiple patterns for the same thing. Pattern recon
 /detect-patterns
 
 # Focus on specific area
-/detect-patterns --type state-management
-/detect-patterns --type components
-/detect-patterns --type api
+pa:detect-patterns --type state-management
+pa:detect-patterns --type components
+pa:detect-patterns --type api
 ```
 
 ### Detection Output

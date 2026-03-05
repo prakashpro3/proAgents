@@ -427,22 +427,22 @@ metrics:
 
 ```bash
 # View learning dashboard
-/metrics learning
+pa:metrics learning
 
 # Adoption analysis
-/metrics learning --adoption
+pa:metrics learning --adoption
 
 # Pattern accuracy
-/metrics learning --patterns
+pa:metrics learning --patterns
 
 # Suggestion stats
-/metrics learning --suggestions
+pa:metrics learning --suggestions
 
 # Time savings report
-/metrics learning --savings
+pa:metrics learning --savings
 
 # Generate learning report
-/metrics learning --report
+pa:metrics learning --report
 ```
 
 ---

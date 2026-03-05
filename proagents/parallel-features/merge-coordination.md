@@ -218,7 +218,7 @@ merge_workflow:
   phases:
     pre_merge:
       - name: "Conflict Check"
-        command: "/merge-check [feature]"
+        command: "pa:merge-check [feature]"
         required: true
 
       - name: "Test Verification"

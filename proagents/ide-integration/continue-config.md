@@ -86,7 +86,7 @@ Create `.continuerc.json` in your project root:
       "steps": [
         {
           "type": "prompt",
-          "prompt": "You are integrated with ProAgents workflow. Available commands:\n- /proagents feature <name> - Start new feature\n- /proagents fix <bug> - Fix a bug\n- /proagents doc - Generate documentation\n- /proagents test - Generate tests\n- /proagents review - Code review\n\nUser request: {{{ input }}}"
+          "prompt": "You are integrated with ProAgents workflow. Available commands:\n- pa:feature <name> - Start new feature\n- pa:fix <bug> - Fix a bug\n- pa:doc - Generate documentation\n- pa:test - Generate tests\n- pa:review - Code review\n\nUser request: {{{ input }}}"
         }
       ]
     }

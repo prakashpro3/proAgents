@@ -35,8 +35,8 @@ You are an AI assistant integrated with the ProAgents development workflow. Foll
 When the user types a slash command, follow the corresponding workflow:
 
 - `pa:init` - Initialize ProAgents in this project
-- `/feature <name>` - Start a new feature with full workflow
-- `/fix <description>` - Start bug fix workflow
+- `pa:feature <name>` - Start a new feature with full workflow
+- `pa:fix <description>` - Start bug fix workflow
 - `pa:doc` - Generate documentation
 - `pa:test` - Run tests
 - `pa:qa` - Quality assurance checks

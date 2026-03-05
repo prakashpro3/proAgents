@@ -466,22 +466,22 @@ metrics:
 
 ```bash
 # View DORA dashboard
-/metrics dora
+pa:metrics dora
 
 # Deployment frequency
-/metrics deployments --frequency
+pa:metrics deployments --frequency
 
 # Lead time analysis
-/metrics deployments --lead-time
+pa:metrics deployments --lead-time
 
 # Failure rate
-/metrics deployments --failures
+pa:metrics deployments --failures
 
 # MTTR analysis
-/metrics deployments --mttr
+pa:metrics deployments --mttr
 
 # Generate DORA report
-/metrics dora --report --period quarterly
+pa:metrics dora --report --period quarterly
 ```
 
 ---

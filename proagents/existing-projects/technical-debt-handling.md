@@ -59,12 +59,12 @@ ProAgents helps track and gradually reduce debt without blocking progress.
 /debt-assess
 
 # Assess specific category
-/debt-assess --category testing
-/debt-assess --category security
-/debt-assess --category patterns
+pa:debt-assess --category testing
+pa:debt-assess --category security
+pa:debt-assess --category patterns
 
 # Quick assessment
-/debt-assess --quick
+pa:debt-assess --quick
 ```
 
 ### Assessment Output

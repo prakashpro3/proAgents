@@ -171,7 +171,7 @@ All notable changes to this project.
 
 ```bash
 # Search all changelogs
-/changelog search "authentication"
+pa:changelog search "authentication"
 
 # Results:
 - 2024-01-15: User authentication system
@@ -183,29 +183,29 @@ All notable changes to this project.
 
 ```bash
 # Last 7 days
-/changelog --since "7 days ago"
+pa:changelog --since "7 days ago"
 
 # Specific date range
-/changelog --from "2024-01-01" --to "2024-01-15"
+pa:changelog --from "2024-01-01" --to "2024-01-15"
 ```
 
 ### Filter by Type
 
 ```bash
 # Only features
-/changelog --type feature
+pa:changelog --type feature
 
 # Only bug fixes
-/changelog --type bugfix
+pa:changelog --type bugfix
 
 # Only quick changes
-/changelog --type quick
+pa:changelog --type quick
 ```
 
 ### Filter by Author
 
 ```bash
-/changelog --author "developer@example.com"
+pa:changelog --author "developer@example.com"
 ```
 
 ---
@@ -244,7 +244,7 @@ Extracted:
 
 ```bash
 # Generate release notes
-/changelog release 1.2.0
+pa:changelog release 1.2.0
 
 # Output:
 # Release Notes - v1.2.0

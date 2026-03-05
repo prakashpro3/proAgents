@@ -128,19 +128,19 @@ class EmployeeRepository { save() {} }
 
 ```bash
 # Find long methods
-/refactor smell long-methods --threshold 30
+pa:refactor smell long-methods --threshold 30
 
 # Find large files
-/refactor smell large-files --threshold 500
+pa:refactor smell large-files --threshold 500
 
 # Find duplicate code
-/refactor smell duplicates
+pa:refactor smell duplicates
 
 # Find complex functions
-/refactor smell complexity --threshold 10
+pa:refactor smell complexity --threshold 10
 
 # Full analysis
-/refactor smell all
+pa:refactor smell all
 ```
 
 ---
@@ -149,16 +149,16 @@ class EmployeeRepository { save() {} }
 
 ```bash
 # Extract long method
-/refactor extract-method {function_name}
+pa:refactor extract-method {function_name}
 
 # Split large class
-/refactor split-class {class_name}
+pa:refactor split-class {class_name}
 
 # Remove dead code
-/refactor remove-dead-code
+pa:refactor remove-dead-code
 
 # Inline trivial methods
-/refactor inline-trivial
+pa:refactor inline-trivial
 ```
 
 ---

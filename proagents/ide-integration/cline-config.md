@@ -267,7 +267,7 @@ Add to `.vscode/settings.json`:
 
 ```json
 {
-  "cline.customInstructions": "Follow ProAgents workflow. Use /feature for new features, /fix for bugs.",
+  "cline.customInstructions": "Follow ProAgents workflow. Use pa:feature for new features, pa:fix for bugs.",
 
   "cline.alwaysAllowReads": true,
   "cline.alwaysAllowWrites": false,
@@ -360,7 +360,7 @@ ide:
 ### Starting a Feature
 
 ```
-User: /feature user-authentication
+User: pa:feature user-authentication
 
 Cline:
 I'll help you implement user authentication. Let me start by analyzing the codebase.
@@ -383,7 +383,7 @@ Shall I proceed with this plan?
 ### Bug Fix
 
 ```
-User: /fix Login button not responding
+User: pa:fix Login button not responding
 
 Cline:
 I'll investigate the login button issue.

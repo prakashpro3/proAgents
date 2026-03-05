@@ -200,7 +200,7 @@ exercises:
 
   exercise_5:
     name: "Complete Feature"
-    command: "/feature-complete"
+    command: "pa:feature-complete"
     learn: "Feature completion"
 ```
 

@@ -16,7 +16,7 @@ Architecture Decision Records (ADRs) capture important architectural decisions a
 
 ```bash
 # Using ProAgents command
-/adr new "Use PostgreSQL for primary database"
+pa:adr new "Use PostgreSQL for primary database"
 
 # Creates: adr/0001-use-postgresql-for-primary-database.md
 ```
@@ -25,13 +25,13 @@ Architecture Decision Records (ADRs) capture important architectural decisions a
 
 ```bash
 # List all ADRs
-/adr list
+pa:adr list
 
 # Filter by status
-/adr list --status accepted
+pa:adr list --status accepted
 
 # Search ADRs
-/adr search "database"
+pa:adr search "database"
 ```
 
 ---
@@ -152,33 +152,33 @@ See [template.md](./template.md) for the full template.
 
 ```bash
 # Create new ADR
-/adr new "Decision title"
+pa:adr new "Decision title"
 
 # Create from template
-/adr new --template security "Implement OAuth 2.0"
+pa:adr new --template security "Implement OAuth 2.0"
 
 # List ADRs
-/adr list
-/adr list --status accepted
-/adr list --tag database
+pa:adr list
+pa:adr list --status accepted
+pa:adr list --tag database
 
 # Search ADRs
-/adr search "authentication"
+pa:adr search "authentication"
 
 # Show ADR
-/adr show 0001
+pa:adr show 0001
 
 # Update status
-/adr status 0001 --set deprecated
+pa:adr status 0001 --set deprecated
 
 # Supersede ADR
-/adr supersede 0001 --with 0015
+pa:adr supersede 0001 --with 0015
 
 # Generate index
-/adr index
+pa:adr index
 
 # Export ADRs
-/adr export --format html
+pa:adr export --format html
 ```
 
 ---

@@ -365,17 +365,17 @@ function MyComponent() {
 
 ```bash
 # Profile render performance
-/perf profile --component UserList
+pa:perf profile --component UserList
 
 # Find memory leaks
-/perf memory --snapshot
+pa:perf memory --snapshot
 
 # Analyze bundle
-/perf bundle --analyze
+pa:perf bundle --analyze
 
 # Check Core Web Vitals
-/perf vitals
+pa:perf vitals
 
 # Find slow API calls
-/perf network --slow
+pa:perf network --slow
 ```

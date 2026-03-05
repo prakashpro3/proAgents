@@ -47,8 +47,8 @@ rules:
 ### 3. Run Validation
 
 ```bash
-/rules-check        # Check all rules
-/rules-check --fix  # Auto-fix where possible
+pa:rules-check        # Check all rules
+pa:rules-check --fix  # Auto-fix where possible
 ```
 
 ---

@@ -49,16 +49,16 @@ Gradual adoption allows:
 
 ```bash
 # 1. Initialize ProAgents (non-invasive)
-/init --existing --assess-only
+pa:init --existing --assess-only
 
 # 2. Run compatibility assessment
-/assess-compatibility --report
+pa:assess-compatibility --report
 
 # 3. Review generated configuration
-/config review
+pa:config review
 
 # 4. Identify pilot feature
-/adoption-plan --suggest-pilot
+pa:adoption-plan --suggest-pilot
 ```
 
 ### Deliverables
@@ -130,7 +130,7 @@ pa:feature start "User Preferences" --pilot
 /pilot-feedback
 
 # 4. Review and adjust
-/config adjust --based-on pilot
+pa:config adjust --based-on pilot
 ```
 
 ### Configuration for Phase 2
