@@ -89,6 +89,72 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:deps-outdated` | Find outdated packages |
 | `pa:deps-security` | Security scan dependencies |
 
+## Code Generation
+
+| Command | What to Do |
+|---------|------------|
+| `pa:generate` | Show generation options |
+| `pa:generate-component "name"` | Generate component from template |
+| `pa:generate-api "name"` | Generate API endpoint |
+| `pa:generate-test "file"` | Generate test file |
+
+## Refactoring
+
+| Command | What to Do |
+|---------|------------|
+| `pa:refactor` | Suggest refactoring opportunities |
+| `pa:rename "old" "new"` | Rename across codebase |
+| `pa:extract "name"` | Extract function/component |
+| `pa:cleanup` | Remove dead code, unused imports |
+
+## Time Tracking
+
+| Command | What to Do |
+|---------|------------|
+| `pa:time-start` | Start tracking → `./proagents/time-tracking.json` |
+| `pa:time-stop` | Stop tracking, save duration |
+| `pa:time-report` | Show time report by feature |
+
+## Environment & Setup
+
+| Command | What to Do |
+|---------|------------|
+| `pa:env-check` | Verify environment setup |
+| `pa:env-setup` | Setup dev environment |
+| `pa:secrets-scan` | Scan for exposed secrets |
+
+## Database
+
+| Command | What to Do |
+|---------|------------|
+| `pa:db-migrate` | Run database migrations |
+| `pa:db-seed` | Seed with test data |
+| `pa:db-reset` | Reset database (caution!) |
+
+## Accessibility & Performance
+
+| Command | What to Do |
+|---------|------------|
+| `pa:a11y` | Run accessibility audit |
+| `pa:lighthouse` | Run Lighthouse audit |
+| `pa:perf` | Performance analysis |
+
+## Export & Backup
+
+| Command | What to Do |
+|---------|------------|
+| `pa:export` | Export config/data → JSON file |
+| `pa:import` | Import from export file |
+| `pa:backup` | Backup proagents folder |
+
+## Learning & AI
+
+| Command | What to Do |
+|---------|------------|
+| `pa:learn "pattern"` | Teach AI a pattern |
+| `pa:forget "pattern"` | Remove learned pattern |
+| `pa:suggestions` | Show AI suggestions |
+
 ## Key Files to Read
 
 | File | Purpose |

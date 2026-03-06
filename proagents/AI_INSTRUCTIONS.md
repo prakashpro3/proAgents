@@ -572,6 +572,345 @@ For `pa:deps-security`:
 3. Categorize by severity
 4. Suggest fixes
 
+### Code Generation
+| Command | Action |
+|---------|--------|
+| `pa:generate` | Show generation options |
+| `pa:generate-component "name"` | Generate React/Vue component |
+| `pa:generate-api "name"` | Generate API endpoint |
+| `pa:generate-test "file"` | Generate test file for module |
+| `pa:generate-hook "name"` | Generate custom hook |
+| `pa:generate-service "name"` | Generate service class |
+
+**How to execute Code Generation commands:**
+
+For `pa:generate-component`:
+1. Read project type and patterns from `./proagents/cache/patterns.json`
+2. Use template from `./proagents/scaffolding/` matching project type
+3. Apply project naming conventions
+4. Create component file with:
+   - Component code
+   - Types/interfaces
+   - Basic styles (if applicable)
+   - Test file (optional)
+5. Save to appropriate directory based on project structure
+
+For `pa:generate-api`:
+1. Detect API framework (Express, Next.js, NestJS, etc.)
+2. Use appropriate template
+3. Generate:
+   - Route handler
+   - Input validation
+   - Error handling
+   - Types
+4. Add to routes index if applicable
+
+For `pa:generate-test`:
+1. Read the source file
+2. Detect testing framework (Jest, Vitest, etc.)
+3. Generate test file with:
+   - Import statements
+   - Describe blocks
+   - Test cases for each function
+   - Mock setup
+4. Save alongside source or in tests/ folder
+
+### Refactoring
+| Command | Action |
+|---------|--------|
+| `pa:refactor` | Analyze and suggest refactoring |
+| `pa:refactor "file"` | Refactor specific file |
+| `pa:rename "old" "new"` | Rename symbol across codebase |
+| `pa:extract "name"` | Extract function/component |
+| `pa:cleanup` | Remove dead code, unused imports |
+| `pa:cleanup-imports` | Clean up imports only |
+
+**How to execute Refactoring commands:**
+
+For `pa:refactor`:
+1. Analyze codebase for:
+   - Long functions (>50 lines)
+   - Deep nesting (>3 levels)
+   - Duplicate code
+   - Complex conditionals
+   - God classes/components
+2. Prioritize by impact
+3. Suggest specific refactoring for each issue
+4. Offer to apply refactoring
+
+For `pa:rename`:
+1. Find all occurrences of symbol
+2. Check for naming conflicts
+3. Show preview of changes
+4. Apply rename across all files
+5. Update imports/exports
+
+For `pa:cleanup`:
+1. Find unused imports
+2. Find unused variables
+3. Find dead code (unreachable)
+4. Find unused exports
+5. Show list and offer to remove
+6. Log changes to activity.log
+
+### Time Tracking
+| Command | Action |
+|---------|--------|
+| `pa:time-start` | Start time tracking |
+| `pa:time-start "task"` | Start tracking specific task |
+| `pa:time-stop` | Stop current time tracking |
+| `pa:time-pause` | Pause time tracking |
+| `pa:time-report` | Show time report |
+| `pa:time-report "feature"` | Report for specific feature |
+
+**How to execute Time Tracking commands:**
+
+For `pa:time-start`:
+1. Create/update `./proagents/time-tracking.json`:
+   ```json
+   {
+     "current": {
+       "task": "feature-user-auth",
+       "started": "2024-03-06T15:00:00Z",
+       "status": "running"
+     },
+     "entries": []
+   }
+   ```
+2. Log to activity.log
+
+For `pa:time-stop`:
+1. Read current tracking
+2. Calculate duration
+3. Add to entries array:
+   ```json
+   {
+     "task": "feature-user-auth",
+     "started": "2024-03-06T15:00:00Z",
+     "ended": "2024-03-06T17:30:00Z",
+     "duration_minutes": 150,
+     "ai": "Claude:opus-4"
+   }
+   ```
+4. Clear current tracking
+
+For `pa:time-report`:
+1. Read all entries from time-tracking.json
+2. Group by task/feature
+3. Calculate totals
+4. Display report:
+   ```
+   Time Report
+   ═══════════
+   Feature: user-auth
+   Total: 5h 30m
+   Sessions: 3
+
+   Feature: dashboard
+   Total: 2h 15m
+   Sessions: 2
+   ```
+
+### Environment & Setup
+| Command | Action |
+|---------|--------|
+| `pa:env-check` | Verify environment setup |
+| `pa:env-setup` | Setup development environment |
+| `pa:env-diff` | Compare environments |
+| `pa:secrets-scan` | Scan for exposed secrets |
+| `pa:secrets-check` | Verify required secrets exist |
+
+**How to execute Environment commands:**
+
+For `pa:env-check`:
+1. Check for required files (.env, .env.local, etc.)
+2. Verify Node/Python/etc. version matches
+3. Check for required dependencies
+4. Verify database connection (if applicable)
+5. Check for required environment variables
+6. Report status:
+   ```
+   Environment Check
+   ═════════════════
+   ✓ Node.js v18.17.0 (required: >=18)
+   ✓ npm v9.6.0
+   ✓ .env.local exists
+   ⚠ DATABASE_URL not set
+   ✗ Redis not running
+   ```
+
+For `pa:secrets-scan`:
+1. Scan codebase for patterns:
+   - API keys (sk_, pk_, api_key, etc.)
+   - Passwords in code
+   - Private keys
+   - Connection strings
+2. Check .gitignore for sensitive files
+3. Report findings with file locations
+4. Suggest fixes (move to .env, etc.)
+
+### Database Commands
+| Command | Action |
+|---------|--------|
+| `pa:db-migrate` | Run database migrations |
+| `pa:db-migrate-create "name"` | Create new migration |
+| `pa:db-seed` | Seed database with test data |
+| `pa:db-reset` | Reset database |
+| `pa:db-status` | Show migration status |
+
+**How to execute Database commands:**
+
+For `pa:db-migrate`:
+1. Detect ORM (Prisma, TypeORM, Sequelize, Drizzle, etc.)
+2. Run appropriate migrate command:
+   - Prisma: `npx prisma migrate dev`
+   - TypeORM: `npm run typeorm migration:run`
+3. Report results
+
+For `pa:db-seed`:
+1. Find seed files (prisma/seed.ts, seeds/, etc.)
+2. Run seed command
+3. Report inserted records
+
+For `pa:db-reset`:
+1. Warn user about data loss
+2. Require confirmation
+3. Drop and recreate database
+4. Run migrations
+5. Optionally run seeds
+
+### Accessibility & Performance
+| Command | Action |
+|---------|--------|
+| `pa:a11y` | Run accessibility audit |
+| `pa:a11y "url"` | Audit specific page |
+| `pa:lighthouse` | Run Lighthouse audit |
+| `pa:lighthouse "url"` | Audit specific URL |
+| `pa:perf` | Performance analysis |
+| `pa:perf-bundle` | Bundle size analysis |
+
+**How to execute A11y & Performance commands:**
+
+For `pa:a11y`:
+1. Check for a11y tools (axe, pa11y, etc.)
+2. Run audit on pages/components
+3. Report issues by severity:
+   ```
+   Accessibility Audit
+   ═══════════════════
+   Critical: 2
+   Serious: 5
+   Moderate: 12
+   Minor: 8
+
+   Top Issues:
+   • Missing alt text on images (5 instances)
+   • Low color contrast (3 instances)
+   • Missing form labels (2 instances)
+   ```
+4. Link to WCAG guidelines for each issue
+
+For `pa:lighthouse`:
+1. Check if Lighthouse is available
+2. Run audit (provide command or use API)
+3. Parse results
+4. Display scores:
+   ```
+   Lighthouse Scores
+   ═════════════════
+   Performance:    85 ████████░░
+   Accessibility:  92 █████████░
+   Best Practices: 100 ██████████
+   SEO:            90 █████████░
+   ```
+
+For `pa:perf`:
+1. Analyze:
+   - Bundle sizes
+   - Load times
+   - Render performance
+   - Memory usage patterns
+2. Identify bottlenecks
+3. Suggest optimizations
+
+### Export & Backup
+| Command | Action |
+|---------|--------|
+| `pa:export` | Export ProAgents config and data |
+| `pa:export-config` | Export only configuration |
+| `pa:import` | Import from export file |
+| `pa:backup` | Create full backup |
+| `pa:backup-restore` | Restore from backup |
+
+**How to execute Export & Backup commands:**
+
+For `pa:export`:
+1. Gather all ProAgents data:
+   - proagents.config.yaml
+   - context.md
+   - decisions.md
+   - feedback.md
+   - active-features/
+   - learned patterns
+2. Create export file: `proagents-export-YYYY-MM-DD.json`
+3. Optionally encrypt sensitive data
+
+For `pa:import`:
+1. Read export file
+2. Validate format
+3. Merge or replace existing data
+4. Report what was imported
+
+For `pa:backup`:
+1. Create timestamped backup of entire proagents/ folder
+2. Save to `./proagents/backups/` or specified location
+3. Compress if large
+4. Maintain rolling backups (keep last N)
+
+### Learning & AI
+| Command | Action |
+|---------|--------|
+| `pa:learn "pattern"` | Teach AI a new pattern |
+| `pa:learn-from "file"` | Learn patterns from file |
+| `pa:forget "pattern"` | Remove learned pattern |
+| `pa:suggestions` | Show AI suggestions for project |
+| `pa:suggestions-apply` | Apply a suggestion |
+
+**How to execute Learning commands:**
+
+For `pa:learn`:
+1. Parse the pattern description
+2. Add to `./proagents/.learning/`:
+   ```json
+   {
+     "pattern": "Always use React Query for API calls",
+     "type": "preference",
+     "added": "2024-03-06",
+     "added_by": "user",
+     "applies_to": ["api", "data-fetching"]
+   }
+   ```
+3. Confirm pattern learned
+
+For `pa:forget`:
+1. Find matching pattern
+2. Remove from learning data
+3. Confirm removal
+
+For `pa:suggestions`:
+1. Analyze project state
+2. Check learned patterns
+3. Generate suggestions:
+   ```
+   AI Suggestions
+   ══════════════
+   1. [Code Quality] Consider adding error boundaries to page components
+   2. [Performance] Bundle size increased 15% - review new dependencies
+   3. [Testing] Test coverage dropped below 80% in src/utils/
+   4. [Security] 2 dependencies have known vulnerabilities
+   ```
+4. Offer to apply each suggestion
+
 ### AI Platform Management
 | Command | Action |
 |---------|--------|

@@ -257,6 +257,53 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:deps-outdated` | Find outdated packages |
 | `pa:deps-security` | Security scan |
 
+### Code Generation
+| Command | Description |
+|---------|-------------|
+| `pa:generate` | Show generation options |
+| `pa:generate-component` | Generate component |
+| `pa:generate-api` | Generate API endpoint |
+| `pa:generate-test` | Generate test file |
+
+### Refactoring
+| Command | Description |
+|---------|-------------|
+| `pa:refactor` | Suggest refactoring |
+| `pa:rename` | Rename across codebase |
+| `pa:extract` | Extract function/component |
+| `pa:cleanup` | Remove dead code |
+
+### Time Tracking
+| Command | Description |
+|---------|-------------|
+| `pa:time-start` | Start time tracking |
+| `pa:time-stop` | Stop tracking |
+| `pa:time-report` | Show time report |
+
+### Environment & Database
+| Command | Description |
+|---------|-------------|
+| `pa:env-check` | Verify environment |
+| `pa:secrets-scan` | Scan for secrets |
+| `pa:db-migrate` | Run migrations |
+| `pa:db-seed` | Seed database |
+
+### Accessibility & Performance
+| Command | Description |
+|---------|-------------|
+| `pa:a11y` | Accessibility audit |
+| `pa:lighthouse` | Lighthouse audit |
+| `pa:perf` | Performance analysis |
+
+### Export & Learning
+| Command | Description |
+|---------|-------------|
+| `pa:export` | Export config/data |
+| `pa:import` | Import data |
+| `pa:backup` | Backup proagents |
+| `pa:learn` | Teach AI a pattern |
+| `pa:suggestions` | Show AI suggestions |
+
 ### Custom Commands
 | Command | Description |
 |---------|-------------|

@@ -1,0 +1,19 @@
+{
+  "current": null,
+  "entries": [],
+  "_comment": "Time tracking data managed by pa:time-start/stop commands",
+  "_format": {
+    "current": {
+      "task": "feature-name",
+      "started": "2024-03-06T15:00:00Z",
+      "status": "running"
+    },
+    "entry": {
+      "task": "feature-name",
+      "started": "2024-03-06T15:00:00Z",
+      "ended": "2024-03-06T17:30:00Z",
+      "duration_minutes": 150,
+      "ai": "Claude:opus-4"
+    }
+  }
+}
