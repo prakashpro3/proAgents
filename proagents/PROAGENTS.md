@@ -2,6 +2,8 @@
 
 Execute these commands when user types them (prefix: `pa:`):
 
+> **Multi-AI Note:** Multiple AIs may work on this project. Always read fresh state from files before executing commands. See `./proagents/AI_INSTRUCTIONS.md` for details.
+
 ## Commands
 
 | Command | What to Do |

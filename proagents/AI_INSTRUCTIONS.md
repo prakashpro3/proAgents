@@ -2,6 +2,25 @@
 
 This project uses ProAgents - an AI-agnostic development workflow framework.
 
+## CRITICAL: Multi-AI Environment
+
+**Multiple AI tools may work on this project simultaneously (Claude, Cursor, Gemini, Copilot, etc.). They do NOT share context.**
+
+Before executing ANY `pa:` command:
+
+1. **ALWAYS read fresh state from files** - Never rely on previous knowledge or cached data
+2. **Key files to check:**
+   - `./proagents/proagents.config.yaml` - Project and platform config
+   - `./proagents/active-features/` - Active feature status
+   - `./CHANGELOG.md` - Recent changes
+   - `./RELEASE_NOTES.md` - Release history
+3. **If you detect conflicts or outdated state:**
+   - Inform the user: "I notice [X] may have changed since my last context. Let me refresh..."
+   - Re-read the relevant files before proceeding
+4. **After making changes:**
+   - Always update the relevant tracking files (status.json, config, etc.)
+   - Other AIs will read these files to stay in sync
+
 ## Command Recognition
 
 When the user types commands starting with `pa:`, recognize and execute them:
@@ -60,13 +79,6 @@ When the user types commands starting with `pa:`, recognize and execute them:
 | `pa:ai-sync` | Sync config with existing files |
 
 **How to execute AI Platform commands:**
-
-**IMPORTANT - Multi-AI Environment:**
-When multiple AI tools work on the same project, they don't share context. Before executing ANY `pa:ai-*` command:
-1. ALWAYS read fresh state from files (don't rely on cached/previous knowledge)
-2. Read `./proagents/proagents.config.yaml` for current config
-3. Check which files actually exist in project root
-4. If you detect mismatches, inform user and suggest `pa:ai-sync`
 
 For `pa:ai-list`:
 - Read `./proagents/proagents.config.yaml` and show the `platforms` array
