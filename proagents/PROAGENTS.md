@@ -41,6 +41,54 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:standup` | Generate daily standup summary |
 | `pa:tech-debt` | Scan for technical debt |
 
+## Navigation & Flow
+
+| Command | What to Do |
+|---------|------------|
+| `pa:next` | Show next step in current workflow |
+| `pa:resume` | Resume paused feature from last checkpoint |
+| `pa:skip` | Skip current phase, move to next |
+| `pa:back` | Go back to previous phase |
+| `pa:progress` | Show visual progress bar |
+
+## Context & History
+
+| Command | What to Do |
+|---------|------------|
+| `pa:context` | View project context |
+| `pa:diff` | Show changes since last session |
+| `pa:history` | Show command history with results |
+| `pa:checkpoint` | Create snapshot/restore point |
+| `pa:undo` | Undo last AI action (git revert) |
+
+## Sprint & Estimation
+
+| Command | What to Do |
+|---------|------------|
+| `pa:sprint-start` | Start new sprint → `./proagents/sprints/` |
+| `pa:sprint-end` | End sprint with summary |
+| `pa:estimate` | Estimate task complexity (S/M/L/XL) |
+| `pa:velocity` | Show velocity metrics |
+
+## Integration
+
+| Command | What to Do |
+|---------|------------|
+| `pa:github` | GitHub commands (issue, PR) |
+| `pa:github-pr` | Create pull request |
+| `pa:jira` | Sync with Jira ticket |
+| `pa:notify` | Send notification (Slack/email) |
+
+## Code Quality
+
+| Command | What to Do |
+|---------|------------|
+| `pa:metrics` | Show code quality metrics |
+| `pa:coverage` | Show test coverage report |
+| `pa:deps` | Analyze dependencies |
+| `pa:deps-outdated` | Find outdated packages |
+| `pa:deps-security` | Security scan dependencies |
+
 ## Key Files to Read
 
 | File | Purpose |

@@ -1,0 +1,13 @@
+{
+  "checkpoints": [],
+  "_comment": "Checkpoints are created with pa:checkpoint command",
+  "_format": {
+    "id": "cp-001",
+    "timestamp": "2024-03-06T15:00:00Z",
+    "commit": "abc123def",
+    "description": "Before major refactor",
+    "feature": "feature-name",
+    "phase": "implementation",
+    "created_by": "Claude:opus-4"
+  }
+}

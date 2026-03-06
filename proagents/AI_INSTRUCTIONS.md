@@ -337,6 +337,241 @@ For `pa:implement`:
 | `pa:deploy` | Deployment preparation |
 | `pa:rollback` | Rollback procedures |
 
+### Navigation & Flow
+| Command | Action |
+|---------|--------|
+| `pa:next` | Show next step in current workflow |
+| `pa:resume` | Resume paused feature from where left off |
+| `pa:skip` | Skip current phase, move to next |
+| `pa:back` | Go back to previous phase |
+| `pa:progress` | Show visual progress bar for current feature |
+
+**How to execute Navigation commands:**
+
+For `pa:next`:
+1. Read `./proagents/active-features/*/status.json` to find current feature
+2. Identify current phase from status
+3. Show what the next step/phase is
+4. Provide guidance for the next action
+
+For `pa:resume`:
+1. Read `./proagents/active-features/` to find paused features
+2. Read feature's `status.json` for last phase and progress
+3. Read `./proagents/handoff.md` for context
+4. Continue from where it was left off
+
+For `pa:skip`:
+1. Read current feature status
+2. Mark current phase as "skipped" in status.json
+3. Move to next phase
+4. Log skip reason to activity.log
+5. Warn if skipping critical phase (testing, review)
+
+For `pa:back`:
+1. Read current feature status
+2. Move to previous phase
+3. Update status.json
+4. Reload context from previous phase
+
+For `pa:progress`:
+1. Read `./proagents/active-features/*/status.json`
+2. Calculate percentage complete (current_phase / total_phases)
+3. Display visual progress bar:
+   ```
+   Feature: user-auth
+   Phase: 5/10 (Implementation)
+   Progress: [████████░░░░░░░░░░░░] 50%
+
+   ✓ Init → ✓ Analysis → ✓ Requirements → ✓ Design → ● Implementation → ○ Testing → ○ Review → ○ Docs → ○ Deploy
+   ```
+
+### Context & History
+| Command | Action |
+|---------|--------|
+| `pa:context` | Quick view/edit project context |
+| `pa:context-edit` | Edit project context interactively |
+| `pa:diff` | Show what changed since last session |
+| `pa:history` | Show command history with results |
+| `pa:checkpoint` | Create a snapshot/restore point |
+| `pa:checkpoint-restore` | Restore from a checkpoint |
+| `pa:undo` | Undo last AI action using git |
+
+**How to execute Context & History commands:**
+
+For `pa:context`:
+1. Read `./proagents/context.md`
+2. Display current project context summary
+3. Show last updated timestamp
+
+For `pa:diff`:
+1. Read `./proagents/activity.log` for last session timestamp
+2. Run `git diff` from that point
+3. Summarize changes by file/module
+4. Highlight significant changes
+
+For `pa:history`:
+1. Read `./proagents/history.log`
+2. Show recent commands with their results
+3. Format: `[timestamp] command → result`
+
+For `pa:checkpoint`:
+1. Create git commit with message "checkpoint: [description]"
+2. Save checkpoint info to `./proagents/checkpoints.json`:
+   ```json
+   {
+     "checkpoints": [
+       {
+         "id": "cp-001",
+         "timestamp": "2024-03-06T15:00:00Z",
+         "commit": "abc123",
+         "description": "Before auth refactor",
+         "feature": "user-auth",
+         "phase": "implementation"
+       }
+     ]
+   }
+   ```
+3. Log to activity.log
+
+For `pa:undo`:
+1. Read last action from `./proagents/activity.log`
+2. If file changes, run `git checkout` to revert
+3. If multiple files, offer selective undo
+4. Update activity.log with undo entry
+
+### Sprint & Project Management
+| Command | Action |
+|---------|--------|
+| `pa:sprint-start` | Start a new sprint |
+| `pa:sprint-end` | End sprint with summary |
+| `pa:sprint-status` | Show current sprint status |
+| `pa:estimate` | Estimate task complexity |
+| `pa:estimate "task"` | Estimate specific task |
+| `pa:velocity` | Show team velocity metrics |
+
+**How to execute Sprint commands:**
+
+For `pa:sprint-start`:
+1. Create `./proagents/sprints/sprint-{number}.json`:
+   ```json
+   {
+     "sprint_number": 1,
+     "start_date": "2024-03-06",
+     "end_date": "2024-03-20",
+     "goals": [],
+     "features": [],
+     "status": "active"
+   }
+   ```
+2. Ask for sprint goals
+3. Link active features to sprint
+
+For `pa:sprint-end`:
+1. Read current sprint file
+2. Calculate metrics (completed features, velocity)
+3. Generate sprint summary → `./proagents/sprints/sprint-{n}-summary.md`
+4. Archive sprint
+
+For `pa:estimate`:
+1. Analyze task/feature complexity
+2. Consider: code changes, files affected, dependencies, testing needs
+3. Provide estimate in story points or T-shirt sizes (S/M/L/XL)
+4. Save estimate to feature status.json
+
+For `pa:velocity`:
+1. Read completed sprints from `./proagents/sprints/`
+2. Calculate average story points per sprint
+3. Show velocity chart/trend
+
+### Integration Commands
+| Command | Action |
+|---------|--------|
+| `pa:github` | GitHub integration commands |
+| `pa:github-issue` | Create GitHub issue from current work |
+| `pa:github-pr` | Create pull request |
+| `pa:jira` | Jira integration commands |
+| `pa:jira-sync` | Sync with Jira ticket |
+| `pa:notify` | Send notification |
+| `pa:notify-slack` | Send Slack notification |
+| `pa:notify-email` | Send email notification |
+
+**How to execute Integration commands:**
+
+For `pa:github-issue`:
+1. Read current feature/bug context
+2. Generate issue title and body
+3. Show preview and ask for confirmation
+4. Provide `gh issue create` command or API call
+
+For `pa:github-pr`:
+1. Read current feature context
+2. Generate PR title and description
+3. Include: summary, changes, test plan
+4. Provide `gh pr create` command
+
+For `pa:jira-sync`:
+1. Read Jira config from `proagents.config.yaml`
+2. Find linked ticket (from feature name or config)
+3. Update ticket status based on feature phase
+4. Add comment with progress
+
+For `pa:notify`:
+1. Read notification config from `proagents.config.yaml`
+2. Generate notification message based on context
+3. Send via configured channel (Slack webhook, email, etc.)
+
+### Code Quality Commands
+| Command | Action |
+|---------|--------|
+| `pa:metrics` | Show code quality metrics |
+| `pa:metrics-history` | Show metrics over time |
+| `pa:coverage` | Show test coverage report |
+| `pa:coverage-diff` | Show coverage changes |
+| `pa:deps` | Analyze dependencies |
+| `pa:deps-outdated` | Find outdated dependencies |
+| `pa:deps-security` | Security scan dependencies |
+
+**How to execute Code Quality commands:**
+
+For `pa:metrics`:
+1. Analyze codebase for:
+   - Lines of code (by language)
+   - Cyclomatic complexity
+   - Code duplication
+   - Function/file sizes
+2. Save to `./proagents/metrics/latest.json`
+3. Display summary with warnings for issues
+
+For `pa:coverage`:
+1. Check for coverage reports (coverage/, .nyc_output/, etc.)
+2. Parse coverage data
+3. Display summary:
+   ```
+   Test Coverage Report
+   ═══════════════════
+   Overall: 82% ✓
+
+   By Module:
+   • src/auth/     95% ████████████████████ ✓
+   • src/api/      78% ███████████████░░░░░
+   • src/utils/    65% █████████████░░░░░░░ ⚠
+   ```
+
+For `pa:deps`:
+1. Read package.json / requirements.txt
+2. Analyze dependency tree
+3. Identify:
+   - Direct vs transitive deps
+   - Duplicate packages
+   - Large dependencies
+   - Outdated versions
+
+For `pa:deps-security`:
+1. Run `npm audit` or equivalent
+2. Parse security advisories
+3. Categorize by severity
+4. Suggest fixes
+
 ### AI Platform Management
 | Command | Action |
 |---------|--------|

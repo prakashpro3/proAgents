@@ -214,6 +214,49 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:ai-add` | Add more AI platforms |
 | `pa:ai-sync` | Sync config with files |
 
+### Navigation & Flow
+| Command | Description |
+|---------|-------------|
+| `pa:next` | Show next step in workflow |
+| `pa:resume` | Resume paused feature |
+| `pa:skip` | Skip current phase |
+| `pa:back` | Go to previous phase |
+| `pa:progress` | Show visual progress bar |
+
+### Context & History
+| Command | Description |
+|---------|-------------|
+| `pa:context` | View project context |
+| `pa:diff` | Show changes since last session |
+| `pa:history` | Show command history |
+| `pa:checkpoint` | Create restore point |
+| `pa:undo` | Undo last action |
+
+### Sprint & Estimation
+| Command | Description |
+|---------|-------------|
+| `pa:sprint-start` | Start new sprint |
+| `pa:sprint-end` | End sprint with summary |
+| `pa:estimate` | Estimate task complexity |
+| `pa:velocity` | Show velocity metrics |
+
+### Integration
+| Command | Description |
+|---------|-------------|
+| `pa:github` | GitHub integration |
+| `pa:github-pr` | Create pull request |
+| `pa:jira` | Sync with Jira |
+| `pa:notify` | Send notification |
+
+### Code Quality
+| Command | Description |
+|---------|-------------|
+| `pa:metrics` | Code quality metrics |
+| `pa:coverage` | Test coverage report |
+| `pa:deps` | Analyze dependencies |
+| `pa:deps-outdated` | Find outdated packages |
+| `pa:deps-security` | Security scan |
+
 ### Custom Commands
 | Command | Description |
 |---------|-------------|
