@@ -2,70 +2,30 @@
 
 This project uses ProAgents workflow framework.
 
-## Command Recognition
+## Essential Commands
 
-Recognize commands starting with `pa:` prefix:
+| Command | Action |
+|---------|--------|
+| `pa:feature "name"` | Start new feature workflow |
+| `pa:fix "bug"` | Quick bug fix mode |
+| `pa:doc` | Documentation options |
+| `pa:qa` | Quality assurance checks |
+| `pa:test` | Run test workflow |
+| `pa:deploy` | Deployment preparation |
+| `pa:status` | Show current progress |
 
-**Initialization**
-- `pa:init` - Initialize ProAgents in project
-- `pa:help` - Show all commands
-- `pa:status` - Show current progress
+## Full Command Reference
 
-**Feature Development**
-- `pa:feature "name"` - Start feature workflow (see ./proagents/WORKFLOW.md)
-- `pa:feature-start "name"` - Start new feature
-- `pa:feature-status` - Check feature status
-- `pa:feature-list` - List all features
-- `pa:feature-complete` - Mark feature complete
-- `pa:fix "bug"` - Bug fix mode (see ./proagents/workflow-modes/entry-modes.md)
+For complete command list, see: `./proagents/AI_INSTRUCTIONS.md`
 
-**Documentation**
-- `pa:doc` - Documentation options
-- `pa:doc-full` - Generate full documentation (see ./proagents/prompts/07-documentation.md)
-- `pa:doc-moderate` - Balanced documentation
-- `pa:doc-lite` - Quick reference
-- `pa:doc-module [name]` - Document specific module
-- `pa:doc-file [path]` - Document specific file
-- `pa:doc-api` - Generate API documentation
-- `pa:readme` - Generate/update README
-- `pa:changelog` - Update CHANGELOG.md
-- `pa:release` - Generate release notes
+## On `pa:` Command
 
-**Quality & Testing**
-- `pa:qa` - Quality checks (see ./proagents/checklists/code-quality.md)
-- `pa:test` - Test workflow (see ./proagents/prompts/06-testing.md)
-- `pa:review` - Code review workflow
+1. Read the corresponding file from `./proagents/prompts/` or `./proagents/workflow-modes/`
+2. Follow the workflow instructions
+3. Use project config from `./proagents/proagents.config.yaml`
 
-**Deployment**
-- `pa:deploy` - Deployment workflow (see ./proagents/prompts/08-deployment.md)
-- `pa:rollback` - Rollback procedures
+## Key Files
 
-**AI Platform Management**
-- `pa:ai-list` - List installed AI platforms
-- `pa:ai-add` - Add more AI platforms
-- `pa:ai-remove` - Remove AI platforms from config
-
-**Configuration**
-- `pa:config` - Show current configuration
-- `pa:config-list` - List all configurable options
-- `pa:config-show` - Show current config values
-- `pa:config-set K V` - Set a config value
-- `pa:config-get K` - Get a config value
-- `pa:config-setup` - Interactive config wizard
-- `pa:config-customize` - Copy templates to customize
-
-**Utilities**
-- `pa:uninstall` - Remove ProAgents from project
-
-## Workflow
-
-When user types `pa:` command:
-1. Read corresponding prompt from ./proagents/prompts/
-2. Follow the defined workflow
-3. Respect settings in ./proagents/proagents.config.yaml
-
-## Key References
-
-- Workflow: ./proagents/WORKFLOW.md
-- Commands: ./proagents/PROAGENTS.md
-- Prompts: ./proagents/prompts/
+- `./proagents/AI_INSTRUCTIONS.md` - Complete command reference
+- `./proagents/WORKFLOW.md` - Full 10-phase workflow
+- `./proagents/prompts/` - Phase-specific prompts
