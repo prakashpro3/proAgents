@@ -62,17 +62,43 @@ When the user types commands starting with `pa:`, recognize and execute them:
 
 For `pa:ai-list`:
 - Read `./proagents/proagents.config.yaml` and show the `platforms` array
-- Show which AI instruction files exist in project root (CLAUDE.md, GEMINI.md, etc.)
+- Show which AI instruction files exist in project root
 
 For `pa:ai-add`:
-- Tell user to run: `npx proagents ai add`
-- This will show an interactive prompt to select additional AI platforms
-- The command will create the appropriate AI instruction files (.cursorrules, GEMINI.md, etc.)
+1. Show available platforms to user:
+   | Platform | File Created |
+   |----------|--------------|
+   | Claude Code | CLAUDE.md |
+   | Cursor | .cursorrules |
+   | Windsurf | .windsurfrules |
+   | GitHub Copilot | .github/copilot-instructions.md |
+   | ChatGPT | CHATGPT.md |
+   | Gemini | GEMINI.md |
+   | Bolt | BOLT.md |
+   | Lovable | LOVABLE.md |
+   | Replit | REPLIT.md |
+   | Kiro | KIRO.md |
+   | Groq | GROQ.md |
+   | AntiGravity | ANTIGRAVITY.md |
+
+2. Ask user which platforms to add
+3. For each selected platform:
+   - Copy content from `./proagents/{PLATFORM}.md` (e.g., `./proagents/CLAUDE.md`)
+   - If target file exists, wrap new content with markers and append:
+     ```
+     <!-- PROAGENTS:START -->
+     {content from proagents folder}
+     <!-- PROAGENTS:END -->
+     ```
+   - If target file doesn't exist, create it with the content wrapped in markers
+4. Update `./proagents/proagents.config.yaml` to add platform to `platforms` array
 
 For `pa:ai-remove`:
-- Tell user to run: `npx proagents ai remove`
-- This will show which platforms can be removed
-- The command will remove the AI instruction files and update config
+1. Read `./proagents/proagents.config.yaml` to get current platforms
+2. Show list and ask which to remove
+3. For each selected:
+   - Remove the PROAGENTS section (between markers) from the file, OR delete the file if it only contains ProAgents content
+   - Update config to remove from `platforms` array
 
 ### Configuration
 | Command | Action |

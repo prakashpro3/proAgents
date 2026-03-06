@@ -15,9 +15,9 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:doc` | Generate documentation |
 | `pa:release` | Generate release notes → `./RELEASE_NOTES.md` |
 | `pa:changelog` | Update `./CHANGELOG.md` |
-| `pa:ai-list` | Show configured AI platforms from config |
-| `pa:ai-add` | Tell user to run `npx proagents ai add` |
-| `pa:ai-remove` | Tell user to run `npx proagents ai remove` |
+| `pa:ai-list` | Read config, show installed AI platforms |
+| `pa:ai-add` | Show platform options, create AI instruction files |
+| `pa:ai-remove` | Show installed platforms, remove selected files |
 
 ## Feature Workflow
 
