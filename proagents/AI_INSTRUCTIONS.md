@@ -58,6 +58,22 @@ When the user types commands starting with `pa:`, recognize and execute them:
 | `pa:ai-add` | Add more AI platforms |
 | `pa:ai-remove` | Remove AI platforms from config |
 
+**How to execute AI Platform commands:**
+
+For `pa:ai-list`:
+- Read `./proagents/proagents.config.yaml` and show the `platforms` array
+- Show which AI instruction files exist in project root (CLAUDE.md, GEMINI.md, etc.)
+
+For `pa:ai-add`:
+- Tell user to run: `npx proagents ai add`
+- This will show an interactive prompt to select additional AI platforms
+- The command will create the appropriate AI instruction files (.cursorrules, GEMINI.md, etc.)
+
+For `pa:ai-remove`:
+- Tell user to run: `npx proagents ai remove`
+- This will show which platforms can be removed
+- The command will remove the AI instruction files and update config
+
 ### Configuration
 | Command | Action |
 |---------|--------|
