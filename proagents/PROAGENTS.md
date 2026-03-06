@@ -18,6 +18,7 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:ai-list` | Read config, show installed AI platforms |
 | `pa:ai-add` | Show platform options, create AI instruction files |
 | `pa:ai-remove` | Show installed platforms, remove selected files |
+| `pa:ai-sync` | Sync config with existing files (fix mismatches) |
 
 ## Feature Workflow
 

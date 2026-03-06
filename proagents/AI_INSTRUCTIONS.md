@@ -57,8 +57,16 @@ When the user types commands starting with `pa:`, recognize and execute them:
 | `pa:ai-list` | List installed AI platforms |
 | `pa:ai-add` | Add more AI platforms |
 | `pa:ai-remove` | Remove AI platforms from config |
+| `pa:ai-sync` | Sync config with existing files |
 
 **How to execute AI Platform commands:**
+
+**IMPORTANT - Multi-AI Environment:**
+When multiple AI tools work on the same project, they don't share context. Before executing ANY `pa:ai-*` command:
+1. ALWAYS read fresh state from files (don't rely on cached/previous knowledge)
+2. Read `./proagents/proagents.config.yaml` for current config
+3. Check which files actually exist in project root
+4. If you detect mismatches, inform user and suggest `pa:ai-sync`
 
 For `pa:ai-list`:
 - Read `./proagents/proagents.config.yaml` and show the `platforms` array
@@ -99,6 +107,31 @@ For `pa:ai-remove`:
 3. For each selected:
    - Remove the PROAGENTS section (between markers) from the file, OR delete the file if it only contains ProAgents content
    - Update config to remove from `platforms` array
+
+For `pa:ai-sync`:
+1. Scan project root for AI instruction files
+2. Read current config from `./proagents/proagents.config.yaml`
+3. Compare and show differences:
+   - Files that exist but not in config
+   - Config entries that don't have matching files
+4. Ask user: "Add missing files to config?" or "Remove orphan config entries?"
+5. Update config to match actual files
+
+**Platform ID to File Mapping:**
+| Platform ID | File |
+|-------------|------|
+| claude | CLAUDE.md |
+| cursor | .cursorrules |
+| windsurf | .windsurfrules |
+| copilot | .github/copilot-instructions.md |
+| chatgpt | CHATGPT.md |
+| gemini | GEMINI.md |
+| bolt | BOLT.md |
+| lovable | LOVABLE.md |
+| replit | REPLIT.md |
+| kiro | KIRO.md |
+| groq | GROQ.md |
+| antigravity | ANTIGRAVITY.md |
 
 ### Configuration
 | Command | Action |
