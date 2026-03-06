@@ -149,14 +149,31 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:d` | `pa:doc` |
 | `pa:t` | `pa:test` |
 | `pa:q` | `pa:qa` |
+| `pa:a` | `pa:analyze` |
+| `pa:r` | `pa:requirements` |
+| `pa:p` | `pa:plan` |
+| `pa:i` | `pa:implement` |
 
 ### Core Commands
 | Command | Description |
 |---------|-------------|
-| `pa:feature "name"` | Start new feature workflow |
+| `pa:feature "name"` | Start new feature workflow (all phases) |
 | `pa:fix "description"` | Quick bug fix mode |
 | `pa:status` | Show current progress |
 | `pa:help` | Show all commands |
+
+### Workflow Phase Commands
+| Command | Phase | Description |
+|---------|-------|-------------|
+| `pa:analyze` | Analysis | Deep codebase analysis |
+| `pa:requirements` | Requirements | Gather feature requirements |
+| `pa:design` | Design | UI/Architecture design |
+| `pa:plan` | Planning | Create implementation plan |
+| `pa:implement` | Implementation | Execute code changes |
+| `pa:test` | Testing | Create and run tests |
+| `pa:review` | Review | Code review workflow |
+| `pa:doc` | Documentation | Generate documentation |
+| `pa:deploy` | Deployment | Deployment preparation |
 
 ### Documentation
 | Command | Description |
@@ -169,8 +186,7 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | Command | Description |
 |---------|-------------|
 | `pa:qa` | Run quality assurance checks |
-| `pa:test` | Run test workflow |
-| `pa:deploy` | Deployment preparation |
+| `pa:rollback` | Rollback procedures |
 
 ### Multi-AI Collaboration
 | Command | Description |

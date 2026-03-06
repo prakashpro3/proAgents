@@ -237,6 +237,10 @@ When the user types commands starting with `pa:`, recognize and execute them.
 | `pa:d` | `pa:doc` |
 | `pa:t` | `pa:test` |
 | `pa:q` | `pa:qa` |
+| `pa:a` | `pa:analyze` |
+| `pa:r` | `pa:requirements` |
+| `pa:p` | `pa:plan` |
+| `pa:i` | `pa:implement` |
 
 ### Initialization
 | Command | Action |
@@ -254,6 +258,56 @@ When the user types commands starting with `pa:`, recognize and execute them.
 | `pa:feature-list` | List all features |
 | `pa:feature-complete` | Mark feature complete |
 | `pa:fix "description"` | Quick bug fix mode |
+
+### Workflow Phase Commands
+Run individual phases of the development workflow:
+
+| Command | Phase | Action |
+|---------|-------|--------|
+| `pa:analyze` | Analysis | Deep codebase analysis - structure, patterns, dependencies |
+| `pa:analyze-full` | Analysis | Comprehensive analysis with full depth |
+| `pa:analyze-quick` | Analysis | Quick overview analysis |
+| `pa:requirements` | Requirements | Gather and document feature requirements |
+| `pa:requirements "feature"` | Requirements | Requirements for specific feature |
+| `pa:design` | Design | UI/UX and architecture design |
+| `pa:design-ui` | Design | Focus on UI/UX design |
+| `pa:design-arch` | Design | Focus on architecture design |
+| `pa:plan` | Planning | Create implementation plan |
+| `pa:plan "feature"` | Planning | Plan specific feature implementation |
+| `pa:implement` | Implementation | Execute implementation phase |
+| `pa:implement-continue` | Implementation | Continue paused implementation |
+
+**How to execute Workflow Phase commands:**
+
+For `pa:analyze`:
+1. Read `./proagents/prompts/01-analysis.md` for analysis workflow
+2. Scan project structure, dependencies, patterns
+3. Cache results in `./proagents/cache/`
+4. Output analysis report
+
+For `pa:requirements`:
+1. Read `./proagents/prompts/02-requirements.md`
+2. If feature name provided, create `./proagents/active-features/feature-{name}/requirements.md`
+3. Gather user stories, acceptance criteria, constraints
+4. Output requirements document
+
+For `pa:design`:
+1. Read `./proagents/prompts/03-ui-design.md`
+2. Check for design inputs (Figma, sketches, exports)
+3. Create component specifications
+4. Output design document
+
+For `pa:plan`:
+1. Read `./proagents/prompts/04-planning.md`
+2. Create implementation plan with task breakdown
+3. Identify dependencies and risks
+4. Save to `./proagents/active-features/feature-{name}/implementation-plan.md`
+
+For `pa:implement`:
+1. Read `./proagents/prompts/05-implementation.md`
+2. Follow existing project patterns
+3. Implement code changes
+4. Log progress to activity.log
 
 ### Documentation Commands
 | Command | Action |

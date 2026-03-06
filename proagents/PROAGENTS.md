@@ -3,7 +3,7 @@
 Execute these commands when user types them (prefix: `pa:`):
 
 ## Quick Aliases
-`pa:f` → feature | `pa:s` → status | `pa:h` → help | `pa:d` → doc | `pa:t` → test | `pa:q` → qa
+`pa:f` → feature | `pa:s` → status | `pa:h` → help | `pa:d` → doc | `pa:t` → test | `pa:q` → qa | `pa:a` → analyze | `pa:r` → requirements | `pa:p` → plan | `pa:i` → implement
 
 > **Multi-AI Note:** Multiple AIs may work on this project. Always read `./proagents/activity.log` before executing commands, and log your actions after completing them.
 
@@ -14,6 +14,11 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:help` | Show this command table |
 | `pa:feature "name"` | Create `./proagents/active-features/feature-[name]/`, analyze codebase, implement feature |
 | `pa:fix "description"` | Find bug, fix it, update `./CHANGELOG.md` |
+| `pa:analyze` | Deep codebase analysis → `./proagents/cache/` |
+| `pa:requirements` | Gather requirements → `./proagents/active-features/` |
+| `pa:design` | UI/Architecture design phase |
+| `pa:plan` | Create implementation plan |
+| `pa:implement` | Execute implementation phase |
 | `pa:status` | Read `./proagents/active-features/*/status.json`, show progress |
 | `pa:qa` | Check code quality, run tests, report issues |
 | `pa:test` | Create/run tests for current work |
@@ -48,16 +53,20 @@ Execute these commands when user types them (prefix: `pa:`):
 
 ## Feature Workflow
 
-`pa:feature` follows these phases:
-1. **Init** → Create tracking files
-2. **Analysis** → Understand existing code
-3. **Requirements** → Define what to build
-4. **Design** → Plan architecture
-5. **Implementation** → Write code
-6. **Testing** → Create tests
-7. **Review** → Quality check
-8. **Documentation** → Update docs
-9. **Deploy** → Prepare release
+`pa:feature` runs all phases, or run individually:
+
+| Phase | Command | Action |
+|-------|---------|--------|
+| 1. Init | `pa:feature "name"` | Create tracking files |
+| 2. Analysis | `pa:analyze` | Understand existing code |
+| 3. Requirements | `pa:requirements` | Define what to build |
+| 4. Design | `pa:design` | Plan UI/architecture |
+| 5. Planning | `pa:plan` | Create implementation plan |
+| 6. Implementation | `pa:implement` | Write code |
+| 7. Testing | `pa:test` | Create/run tests |
+| 8. Review | `pa:review` | Quality check |
+| 9. Documentation | `pa:doc` | Update docs |
+| 10. Deployment | `pa:deploy` | Prepare release |
 
 ## Save Locations
 
