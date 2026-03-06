@@ -1,0 +1,50 @@
+# ProAgents Commands for Windsurf
+
+This project uses ProAgents - an AI-agnostic development workflow framework.
+
+## Command Recognition
+
+Recognize commands with `pa:` prefix and execute the corresponding workflow.
+
+## Available Commands
+
+### Core Commands
+- `pa:help` - Show all available commands
+- `pa:feature "name"` - Start new feature (read ./proagents/WORKFLOW.md)
+- `pa:fix "description"` - Quick bug fix mode (read ./proagents/workflow-modes/entry-modes.md)
+- `pa:status` - Show current progress
+
+### Documentation Commands
+- `pa:doc` - Show documentation options
+- `pa:doc-full` - Generate full documentation (read ./proagents/prompts/07-documentation.md)
+- `pa:doc-moderate` - Generate balanced documentation
+- `pa:doc-lite` - Generate quick reference
+- `pa:doc-module [name]` - Document specific module
+- `pa:doc-file [path]` - Document specific file
+- `pa:doc-api` - Generate API documentation
+- `pa:readme` - Generate/update README
+- `pa:changelog` - Update CHANGELOG.md
+- `pa:release` - Generate release notes
+- `pa:release [version]` - Version-specific release notes
+
+### Quality Commands
+- `pa:qa` - Run quality checks (read ./proagents/checklists/code-quality.md)
+- `pa:test` - Run test workflow (read ./proagents/prompts/06-testing.md)
+- `pa:review` - Code review workflow
+
+### Deployment Commands
+- `pa:deploy` - Deployment preparation (read ./proagents/prompts/08-deployment.md)
+- `pa:rollback` - Rollback procedures
+
+## Execution Instructions
+
+When user types a `pa:` command:
+1. Read the corresponding prompt file from `./proagents/prompts/`
+2. Follow the workflow instructions in that file
+3. Use project configuration from `./proagents/proagents.config.yaml`
+
+## Key Files
+
+- `./proagents/WORKFLOW.md` - Full 10-phase workflow
+- `./proagents/PROAGENTS.md` - Quick command reference
+- `./proagents/prompts/` - Phase-specific AI prompts
