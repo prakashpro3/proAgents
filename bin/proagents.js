@@ -6,6 +6,9 @@ import { featureCommand } from '../lib/commands/feature.js';
 import { fixCommand } from '../lib/commands/fix.js';
 import { statusCommand } from '../lib/commands/status.js';
 import { helpCommand } from '../lib/commands/help.js';
+import { aiAddCommand, aiListCommand, aiRemoveCommand } from '../lib/commands/ai.js';
+import { uninstallCommand } from '../lib/commands/uninstall.js';
+import { configListCommand, configShowCommand, configEditCommand, configSetCommand, configGetCommand, configSetupCommand, configCustomizeCommand } from '../lib/commands/config.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -80,6 +83,73 @@ program
     console.log('Workflow: ./proagents/WORKFLOW.md');
     console.log('GitHub: https://github.com/prakashpro3/proAgents\n');
   });
+
+// AI platform commands
+const ai = program
+  .command('ai')
+  .description('Manage AI platform instruction files');
+
+ai
+  .command('add')
+  .description('Add more AI platforms')
+  .action(aiAddCommand);
+
+ai
+  .command('list')
+  .description('List installed AI platforms')
+  .action(aiListCommand);
+
+ai
+  .command('remove')
+  .description('Remove AI platforms from config')
+  .action(aiRemoveCommand);
+
+// Config commands
+const config = program
+  .command('config')
+  .description('Manage ProAgents configuration');
+
+config
+  .command('list')
+  .description('Show all configurable options')
+  .action(configListCommand);
+
+config
+  .command('show')
+  .description('Show current config values')
+  .action(configShowCommand);
+
+config
+  .command('edit')
+  .description('Info on how to edit config')
+  .action(configEditCommand);
+
+config
+  .command('set <key> <value>')
+  .description('Set a config value (e.g., checkpoints.after_analysis true)')
+  .action(configSetCommand);
+
+config
+  .command('get <key>')
+  .description('Get a config value (e.g., checkpoints.after_analysis)')
+  .action(configGetCommand);
+
+config
+  .command('setup')
+  .description('Interactive configuration wizard')
+  .action(configSetupCommand);
+
+config
+  .command('customize')
+  .description('Copy templates to create custom configurations')
+  .action(configCustomizeCommand);
+
+// Uninstall command
+program
+  .command('uninstall')
+  .description('Remove ProAgents from current project')
+  .option('-f, --force', 'Skip confirmation prompt')
+  .action(uninstallCommand);
 
 // Help command (custom)
 program

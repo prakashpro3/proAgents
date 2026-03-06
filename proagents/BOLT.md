@@ -8,11 +8,18 @@ When user types commands starting with `pa:`, recognize and execute them:
 
 ## Available Commands
 
-### Core Commands
+### Initialization
+- `pa:init` - Initialize ProAgents in project
 - `pa:help` - Show all available commands
-- `pa:feature "name"` - Start new feature workflow
-- `pa:fix "description"` - Quick bug fix mode
 - `pa:status` - Show current progress
+
+### Feature Development
+- `pa:feature "name"` - Start new feature workflow
+- `pa:feature-start "name"` - Start new feature
+- `pa:feature-status` - Check feature status
+- `pa:feature-list` - List all features
+- `pa:feature-complete` - Mark feature complete
+- `pa:fix "description"` - Quick bug fix mode
 
 ### Documentation Commands
 - `pa:doc` - Show documentation options
@@ -26,14 +33,31 @@ When user types commands starting with `pa:`, recognize and execute them:
 - `pa:changelog` - Update CHANGELOG.md
 - `pa:release` - Generate release notes
 
-### Quality Commands
+### Quality & Testing
 - `pa:qa` - Run quality assurance checks
 - `pa:test` - Run test workflow
 - `pa:review` - Code review workflow
 
-### Deployment Commands
+### Deployment
 - `pa:deploy` - Deployment preparation
 - `pa:rollback` - Rollback procedures
+
+### AI Platform Management
+- `pa:ai-list` - List installed AI platforms
+- `pa:ai-add` - Add more AI platforms
+- `pa:ai-remove` - Remove AI platforms from config
+
+### Configuration
+- `pa:config` - Show current configuration
+- `pa:config-list` - List all configurable options
+- `pa:config-show` - Show current config values
+- `pa:config-set K V` - Set a config value
+- `pa:config-get K` - Get a config value
+- `pa:config-setup` - Interactive config wizard
+- `pa:config-customize` - Copy templates to customize
+
+### Utilities
+- `pa:uninstall` - Remove ProAgents from project
 
 ## Execution Instructions
 

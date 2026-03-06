@@ -1,4 +1,4 @@
-# ProAgents Commands for Lovable
+# ProAgents Commands for Antigravity IDE
 
 This project uses ProAgents - an AI-agnostic development workflow framework.
 
@@ -86,13 +86,15 @@ When user types a `pa:` command:
 
 ## Prompt File Mapping
 
-- `pa:feature` → Read `./proagents/prompts/00-init.md` and `./proagents/WORKFLOW.md`
-- `pa:fix` → Read `./proagents/workflow-modes/entry-modes.md` (Bug Fix Fast Track section)
-- `pa:doc*` → Read `./proagents/prompts/07-documentation.md`
-- `pa:qa` → Read `./proagents/checklists/code-quality.md`
-- `pa:test` → Read `./proagents/prompts/06-testing.md`
-- `pa:deploy` → Read `./proagents/prompts/08-deployment.md`
-- `pa:release` → Read `./proagents/prompts/07-documentation.md` (Release Notes section)
+| Command | Prompt File |
+|---------|-------------|
+| `pa:feature` | `./proagents/prompts/00-init.md` + `./proagents/WORKFLOW.md` |
+| `pa:fix` | `./proagents/workflow-modes/entry-modes.md` (Bug Fix section) |
+| `pa:doc*` | `./proagents/prompts/07-documentation.md` |
+| `pa:qa` | `./proagents/checklists/code-quality.md` |
+| `pa:test` | `./proagents/prompts/06-testing.md` |
+| `pa:deploy` | `./proagents/prompts/08-deployment.md` |
+| `pa:release` | `./proagents/prompts/07-documentation.md` (Release Notes section) |
 
 ## Key Reference Files
 
@@ -105,6 +107,7 @@ When user types a `pa:` command:
 
 ## Important Notes
 
+- Works with both Gemini and Claude models in Antigravity
 - Always check `./proagents/` folder for project-specific configurations
 - Preserve user's `proagents.config.yaml` settings
 - Follow existing code patterns found in the project

@@ -6,13 +6,22 @@ This project uses ProAgents - an AI-agnostic development workflow framework.
 
 When the user types commands starting with `pa:`, recognize and execute them:
 
-### Core Commands
+### Initialization
 | Command | Action |
 |---------|--------|
+| `pa:init` | Initialize ProAgents in project |
 | `pa:help` | Show all available commands |
-| `pa:feature "name"` | Start new feature workflow |
-| `pa:fix "description"` | Quick bug fix mode |
 | `pa:status` | Show current progress |
+
+### Feature Development
+| Command | Action |
+|---------|--------|
+| `pa:feature "name"` | Start new feature workflow |
+| `pa:feature-start "name"` | Start new feature |
+| `pa:feature-status` | Check feature status |
+| `pa:feature-list` | List all features |
+| `pa:feature-complete` | Mark feature complete |
+| `pa:fix "description"` | Quick bug fix mode |
 
 ### Documentation Commands
 | Command | Action |
@@ -29,18 +38,41 @@ When the user types commands starting with `pa:`, recognize and execute them:
 | `pa:release` | Generate release notes |
 | `pa:release [version]` | Version-specific release notes |
 
-### Quality Commands
+### Quality & Testing
 | Command | Action |
 |---------|--------|
 | `pa:qa` | Run quality assurance checks |
 | `pa:test` | Run test workflow |
 | `pa:review` | Code review workflow |
 
-### Deployment Commands
+### Deployment
 | Command | Action |
 |---------|--------|
 | `pa:deploy` | Deployment preparation |
 | `pa:rollback` | Rollback procedures |
+
+### AI Platform Management
+| Command | Action |
+|---------|--------|
+| `pa:ai-list` | List installed AI platforms |
+| `pa:ai-add` | Add more AI platforms |
+| `pa:ai-remove` | Remove AI platforms from config |
+
+### Configuration
+| Command | Action |
+|---------|--------|
+| `pa:config` | Show current configuration |
+| `pa:config-list` | List all configurable options |
+| `pa:config-show` | Show current config values |
+| `pa:config-set K V` | Set a config value |
+| `pa:config-get K` | Get a config value |
+| `pa:config-setup` | Interactive config wizard |
+| `pa:config-customize` | Copy templates to customize |
+
+### Utilities
+| Command | Action |
+|---------|--------|
+| `pa:uninstall` | Remove ProAgents from project |
 
 ## How to Execute Commands
 
