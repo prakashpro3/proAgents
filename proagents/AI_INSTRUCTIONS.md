@@ -6,24 +6,237 @@ This project uses ProAgents - an AI-agnostic development workflow framework.
 
 **Multiple AI tools may work on this project simultaneously (Claude, Cursor, Gemini, Copilot, etc.). They do NOT share context.**
 
-Before executing ANY `pa:` command:
+### Before executing ANY `pa:` command:
 
-1. **ALWAYS read fresh state from files** - Never rely on previous knowledge or cached data
-2. **Key files to check:**
+1. **Read fresh state from files** - Never rely on previous knowledge
+2. **Read project context** - Read `./proagents/context.md` for persistent project knowledge
+3. **Check the activity log** - Read `./proagents/activity.log` to see recent AI actions
+4. **Key files to check:**
+   - `./proagents/context.md` - Persistent project context (READ FIRST!)
+   - `./proagents/activity.log` - Recent AI activity
+   - `./proagents/watchlist.yaml` - Files requiring confirmation before changes
    - `./proagents/proagents.config.yaml` - Project and platform config
    - `./proagents/active-features/` - Active feature status
    - `./CHANGELOG.md` - Recent changes
-   - `./RELEASE_NOTES.md` - Release history
-3. **If you detect conflicts or outdated state:**
+   - `./proagents/feedback.md` - Past corrections and preferences (LEARN FROM THESE!)
+
+### AI Feedback & Learning
+
+Before starting work, check `./proagents/feedback.md` for:
+- **Corrections**: Mistakes other AIs made - don't repeat them!
+- **Preferences**: How the user/team prefers things done
+- **Patterns**: What worked well in this project
+
+When you receive feedback or correction from the user:
+1. Log it in `./proagents/feedback.md` using `pa:feedback`
+2. Apply the learning to your current work
+3. Avoid making the same mistake again
+
+### File Watch List
+
+Before modifying ANY file, check `./proagents/watchlist.yaml`:
+
+- **critical**: Ask user for confirmation before modifying
+- **review_required**: Warn user and explain changes before modifying
+- **never_modify**: NEVER modify these files/patterns
+
+If a file matches a pattern, inform the user:
+> "This file is on the watch list (critical). Do you want me to proceed with the changes?"
+4. **If you detect conflicts or outdated state:**
    - Inform the user: "I notice [X] may have changed since my last context. Let me refresh..."
    - Re-read the relevant files before proceeding
-4. **After making changes:**
-   - Always update the relevant tracking files (status.json, config, etc.)
-   - Other AIs will read these files to stay in sync
+
+### After completing ANY `pa:` command:
+
+**ALWAYS log your activity** to `./proagents/activity.log`:
+
+```
+[TIMESTAMP] [AI_PLATFORM:MODEL] [COMMAND] Description
+```
+
+Example entries:
+```
+2024-03-06 15:10 [Claude:opus-4] [pa:feature] Started feature "user-auth"
+2024-03-06 15:12 [Cursor:gpt-4o] [pa:fix] Fixed login button bug in src/auth/login.ts
+2024-03-06 15:15 [Gemini:1.5-pro] [pa:doc] Updated API documentation
+2024-03-06 15:20 [Claude:sonnet-4] [pa:feature] Completed feature "user-auth"
+2024-03-06 15:25 [Copilot:gpt-4o] [pa:test] Added unit tests for auth module
+```
+
+**Include your model name** (e.g., opus-4, sonnet-4, gpt-4o, gemini-1.5-pro).
+Keep log entries concise (one line). Other AIs will read this to understand recent changes.
+
+### Command History
+
+Also log commands to `./proagents/history.log` with their results:
+
+```
+[TIMESTAMP] [AI:MODEL] COMMAND → RESULT
+```
+
+Example:
+```
+2024-03-06 15:10 [Claude:opus-4] pa:feature "user-auth" → Started
+2024-03-06 15:30 [Claude:opus-4] pa:feature "user-auth" → Completed
+2024-03-06 15:35 [Cursor:gpt-4o] pa:test → 15 passed, 2 failed
+2024-03-06 15:40 [Claude:sonnet-4] pa:fix "login bug" → Fixed
+```
+
+This helps track what commands were run and their outcomes.
+
+### Lock File for Active Work
+
+When starting a major task (feature, large fix, refactoring), create a lock file at `./proagents/.lock`:
+
+```yaml
+locked_by: Claude        # Your AI platform
+model: opus-4            # Your model name
+started: 2024-03-06T15:10:00
+task: "pa:feature user-auth"
+description: "Implementing user authentication with JWT"
+files:
+  - src/auth/*
+  - src/api/auth.ts
+expires: 2024-03-06T17:10:00  # Auto-expires after 2 hours
+```
+
+**Before starting major work:**
+1. Check if `./proagents/.lock` exists
+2. If locked by another AI, inform user: "Project is locked by [AI] working on [task]. Wait or ask user to override."
+3. If lock is expired (past `expires` time), you may delete it and proceed
+
+**After completing work:**
+1. Delete the `./proagents/.lock` file
+2. Log completion in activity.log
+
+### Conflict Detection
+
+Before modifying any file, check for potential conflicts:
+
+1. **Read activity.log** - See if another AI recently modified the same file
+2. **Check lock file** - See if another AI is working on related files
+3. **Look for patterns** like:
+   ```
+   2024-03-06 15:10 [Cursor:gpt-4o] Modified src/auth/login.ts
+   ```
+
+**If you detect a potential conflict:**
+
+Warn the user:
+> "I notice [Other AI] modified `src/auth/login.ts` 10 minutes ago.
+> There may be uncommitted changes. Should I:
+> 1. Proceed anyway (may overwrite their changes)
+> 2. Wait and check with them first
+> 3. Show me the recent changes to this file"
+
+**After modifying files, always log:**
+```
+[TIMESTAMP] [AI:MODEL] [MODIFIED] file1.ts, file2.ts
+```
+
+This helps other AIs detect conflicts.
+
+**Lock commands:**
+| Command | Action |
+|---------|--------|
+| `pa:lock` | Show current lock status |
+| `pa:lock-release` | Release lock (if you hold it) |
+| `pa:lock-override` | Force release lock (requires user confirmation) |
+
+### Handoff Notes
+
+When ending a session or switching to another AI, create handoff notes at `./proagents/handoff.md`:
+
+**For `pa:handoff`** - Create/update handoff notes:
+```markdown
+# AI Handoff Notes
+Updated: 2024-03-06 15:30 by Claude (opus-4)
+
+## Current Status
+- **Working on:** User authentication feature
+- **Phase:** Implementation (5 of 9)
+- **Branch:** feature/user-auth
+
+## Completed
+- [x] Login UI component
+- [x] JWT token generation
+- [x] Password hashing setup
+
+## In Progress
+- [ ] Password reset flow (50% done)
+- [ ] Email verification endpoint
+
+## Blocked / Needs Attention
+- Need API endpoint for sending emails (waiting on backend team)
+- Rate limiting not yet implemented
+
+## Files Modified
+- src/auth/login.tsx
+- src/auth/jwt.ts
+- src/api/auth.ts
+
+## Next Steps
+1. Complete password reset flow
+2. Add email verification
+3. Write tests for auth module
+
+## Notes for Next AI
+- Using bcrypt for password hashing (see src/auth/hash.ts)
+- JWT secret is in .env.local
+- Test user: test@example.com / password123
+```
+
+**For `pa:handoff-read`** - Read and summarize current handoff notes before starting work.
+
+### Session Summary
+
+**For `pa:session-end`** - Generate and save a session summary to `./proagents/sessions/`:
+
+```markdown
+# Session Summary
+Date: 2024-03-06 15:00-17:30
+AI: Claude (opus-4)
+
+## What Was Done
+- Implemented user authentication feature
+- Fixed 3 bugs in login flow
+- Added unit tests for auth module
+
+## Files Modified
+- src/auth/login.tsx (created)
+- src/auth/jwt.ts (created)
+- src/api/auth.ts (modified)
+- tests/auth.test.ts (created)
+
+## Commands Executed
+- pa:feature "user-auth" → Completed
+- pa:test → 15 passed, 0 failed
+- pa:doc → Updated API docs
+
+## Issues Encountered
+- Rate limiting not yet implemented (deferred)
+
+## Next Session Should
+1. Implement rate limiting
+2. Add password reset flow
+3. Write integration tests
+```
+
+Save to: `./proagents/sessions/YYYY-MM-DD-HHMMSS.md`
 
 ## Command Recognition
 
-When the user types commands starting with `pa:`, recognize and execute them:
+When the user types commands starting with `pa:`, recognize and execute them.
+
+### Quick Aliases
+| Alias | Expands To |
+|-------|------------|
+| `pa:f` | `pa:feature` |
+| `pa:s` | `pa:status` |
+| `pa:h` | `pa:help` |
+| `pa:d` | `pa:doc` |
+| `pa:t` | `pa:test` |
+| `pa:q` | `pa:qa` |
 
 ### Initialization
 | Command | Action |
@@ -156,10 +369,42 @@ For `pa:ai-sync`:
 | `pa:config-setup` | Interactive config wizard |
 | `pa:config-customize` | Copy templates to customize |
 
+### Custom Commands
+
+Check `./proagents/custom-commands.yaml` for project-specific commands.
+
+Built-in custom commands:
+| Command | Action |
+|---------|--------|
+| `pa:standup` | Generate daily standup summary |
+| `pa:sprint-review` | Generate sprint review |
+| `pa:tech-debt` | Scan and document technical debt |
+| `pa:security-scan` | Run security checklist |
+
+Users can add their own commands in `custom-commands.yaml`.
+
 ### Utilities
 | Command | Action |
 |---------|--------|
 | `pa:uninstall` | Remove ProAgents from project |
+
+### Collaboration (Multi-AI)
+| Command | Action |
+|---------|--------|
+| `pa:activity` | Show recent AI activity log |
+| `pa:lock` | Show current lock status |
+| `pa:lock-release` | Release lock (if you hold it) |
+| `pa:lock-override` | Force release lock (requires user confirmation) |
+| `pa:handoff` | Create handoff notes for other AIs |
+| `pa:handoff-read` | Read latest handoff notes |
+| `pa:session-end` | Generate session summary before ending |
+| `pa:session-history` | Show recent session summaries |
+| `pa:decision "title"` | Log an architectural/technical decision |
+| `pa:decisions` | Show all logged decisions |
+| `pa:error "description"` | Log an error and its solution |
+| `pa:errors` | Show logged errors (search for solutions) |
+| `pa:feedback "description"` | Log feedback/correction for AI learning |
+| `pa:feedback-list` | Show all feedback (learn from past corrections) |
 
 ## How to Execute Commands
 

@@ -1,0 +1,59 @@
+# Custom Commands
+# Define your own pa: commands that AI will recognize and execute.
+#
+# Format:
+# command_name:
+#   description: "What this command does"
+#   steps:
+#     - "Step 1 instruction"
+#     - "Step 2 instruction"
+#   files_to_read: []  # Optional: files AI should read first
+#   output: "file.md"  # Optional: where to save output
+
+# Example custom commands (uncomment to use):
+
+# pa:standup
+standup:
+  description: "Generate daily standup summary"
+  steps:
+    - "Read ./proagents/activity.log for today's entries"
+    - "Read ./proagents/active-features/ for current work"
+    - "Summarize: What was done yesterday, what's planned today, any blockers"
+  output: "stdout"
+
+# pa:sprint-review
+sprint_review:
+  description: "Generate sprint review summary"
+  steps:
+    - "Read all session summaries from ./proagents/sessions/"
+    - "Read ./CHANGELOG.md for completed features"
+    - "Generate sprint review with completed items, metrics, and highlights"
+  output: "./proagents/sprint-reviews/YYYY-MM-DD.md"
+
+# pa:tech-debt
+tech_debt:
+  description: "Scan for and document technical debt"
+  steps:
+    - "Search for TODO, FIXME, HACK comments in codebase"
+    - "Check for deprecated dependencies"
+    - "Document findings in ./proagents/tech-debt.md"
+  output: "./proagents/tech-debt.md"
+
+# pa:security-scan
+security_scan:
+  description: "Run security checklist"
+  steps:
+    - "Read ./proagents/checklists/security.md"
+    - "Check for hardcoded secrets in code"
+    - "Review authentication/authorization code"
+    - "Generate security report"
+  files_to_read:
+    - "./proagents/security/owasp-checklist.md"
+  output: "./proagents/security-report.md"
+
+# Add your own commands below:
+# my_command:
+#   description: "What it does"
+#   steps:
+#     - "Step 1"
+#     - "Step 2"

@@ -9,6 +9,8 @@ import { helpCommand } from '../lib/commands/help.js';
 import { aiAddCommand, aiListCommand, aiRemoveCommand } from '../lib/commands/ai.js';
 import { uninstallCommand } from '../lib/commands/uninstall.js';
 import { configListCommand, configShowCommand, configEditCommand, configSetCommand, configGetCommand, configSetupCommand, configCustomizeCommand } from '../lib/commands/config.js';
+import { doctorCommand } from '../lib/commands/doctor.js';
+import { upgradeCommand } from '../lib/commands/upgrade.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -32,6 +34,8 @@ program
   .description('Initialize ProAgents in the current project')
   .option('-f, --force', 'Overwrite existing proagents folder')
   .option('--skip-config', 'Skip creating config file')
+  .option('-t, --template <name>', 'Use a project template (e.g., nextjs-saas, react-spa)')
+  .option('--list-templates', 'List available project templates')
   .action(initCommand);
 
 // Feature commands
@@ -156,5 +160,18 @@ program
   .command('commands')
   .description('Show all available commands with examples')
   .action(helpCommand);
+
+// Doctor command
+program
+  .command('doctor')
+  .description('Check health of ProAgents installation')
+  .action(doctorCommand);
+
+// Upgrade command
+program
+  .command('upgrade')
+  .description('Upgrade proagents folder to latest version')
+  .option('-f, --force', 'Skip confirmation prompt')
+  .action(upgradeCommand);
 
 program.parse();

@@ -1,0 +1,39 @@
+# File Watch List
+# Files and patterns that require CONFIRMATION before AI modifies them.
+# AI must ask user before changing these files.
+
+# Critical files that should never be auto-modified
+critical:
+  - ".env*"                    # Environment variables
+  - "*.config.js"              # Configuration files
+  - "*.config.ts"
+  - "package.json"             # Dependencies
+  - "package-lock.json"
+  - "yarn.lock"
+  - "pnpm-lock.yaml"
+  - "tsconfig.json"            # TypeScript config
+  - "docker-compose*.yml"      # Docker configs
+  - "Dockerfile*"
+  - ".github/workflows/*"      # CI/CD pipelines
+  - "database/migrations/*"    # Database migrations
+
+# Files that need careful review before changes
+review_required:
+  - "src/lib/*"                # Core libraries
+  - "src/utils/*"              # Utility functions
+  - "src/config/*"             # App configuration
+  - "src/middleware/*"         # Middleware
+  - "src/auth/*"               # Authentication code
+
+# Patterns to never modify (absolute protection)
+never_modify:
+  - ".git/*"
+  - "node_modules/*"
+  - "dist/*"
+  - "build/*"
+  - ".next/*"
+  - "*.lock"
+  - "*.log"
+
+# Custom patterns (add your own)
+custom: []
