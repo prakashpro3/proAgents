@@ -911,6 +911,630 @@ For `pa:suggestions`:
    ```
 4. Offer to apply each suggestion
 
+### API & Documentation Generation
+| Command | Action |
+|---------|--------|
+| `pa:api-docs` | Generate OpenAPI/Swagger documentation |
+| `pa:api-docs "path"` | Generate docs for specific API path |
+| `pa:storybook` | Generate Storybook stories for components |
+| `pa:storybook "component"` | Generate story for specific component |
+| `pa:readme` | Auto-generate/update README.md |
+| `pa:readme-section "name"` | Update specific README section |
+| `pa:types` | Generate TypeScript types/interfaces |
+| `pa:types "file"` | Generate types for specific file |
+
+**How to execute API & Documentation commands:**
+
+For `pa:api-docs`:
+1. Detect API framework (Express, Next.js, NestJS, FastAPI, etc.)
+2. Scan route files for endpoints
+3. Extract:
+   - HTTP methods and paths
+   - Request/response types
+   - Query/path parameters
+   - Authentication requirements
+4. Generate OpenAPI 3.0 spec:
+   ```yaml
+   openapi: 3.0.0
+   info:
+     title: API Documentation
+     version: 1.0.0
+   paths:
+     /api/users:
+       get:
+         summary: List all users
+         responses:
+           '200':
+             description: Success
+   ```
+5. Save to `./docs/openapi.yaml` or `./swagger.json`
+6. Optionally generate HTML documentation
+
+For `pa:storybook`:
+1. Find React/Vue/Angular components
+2. Analyze component props/interfaces
+3. Generate story file with:
+   - Default story
+   - Variant stories for different props
+   - Interactive controls
+4. Save to `*.stories.tsx` alongside component:
+   ```tsx
+   import type { Meta, StoryObj } from '@storybook/react';
+   import { Button } from './Button';
+
+   const meta: Meta<typeof Button> = {
+     component: Button,
+     title: 'Components/Button',
+   };
+   export default meta;
+
+   export const Primary: StoryObj<typeof Button> = {
+     args: { variant: 'primary', children: 'Click me' },
+   };
+   ```
+
+For `pa:readme`:
+1. Analyze project structure
+2. Detect:
+   - Project type and framework
+   - Available scripts (npm scripts)
+   - Dependencies
+   - Existing documentation
+3. Generate/update README with:
+   - Project title and description
+   - Installation instructions
+   - Usage examples
+   - Available commands
+   - Contributing guidelines
+4. Preserve existing custom sections
+
+For `pa:types`:
+1. Analyze source file or API responses
+2. Infer TypeScript types:
+   - From JavaScript usage patterns
+   - From JSON data structures
+   - From API responses
+3. Generate interface/type definitions:
+   ```typescript
+   interface User {
+     id: string;
+     name: string;
+     email: string;
+     createdAt: Date;
+   }
+   ```
+4. Save to `types/` folder or alongside source
+
+### Git Advanced
+| Command | Action |
+|---------|--------|
+| `pa:branch` | Branch management (list, info) |
+| `pa:branch-create "name"` | Create new branch |
+| `pa:branch-clean` | Clean up merged/stale branches |
+| `pa:merge` | Smart merge with conflict preview |
+| `pa:merge "branch"` | Merge specific branch |
+| `pa:conflict` | Resolve merge conflicts with AI |
+| `pa:conflict "file"` | Resolve conflicts in specific file |
+| `pa:changelog-gen` | Auto-generate changelog from commits |
+| `pa:changelog-gen "version"` | Generate for specific version |
+
+**How to execute Git Advanced commands:**
+
+For `pa:branch`:
+1. Run `git branch -a` to list all branches
+2. Show current branch with `git branch --show-current`
+3. Display branch info:
+   ```
+   Branches
+   ════════
+   Current: feature/user-auth
+
+   Local:
+   • main (2 days ago)
+   • develop (1 hour ago)
+   • feature/user-auth * (current)
+   • feature/dashboard (5 days ago, stale)
+
+   Remote:
+   • origin/main
+   • origin/develop
+   ```
+
+For `pa:branch-clean`:
+1. Find merged branches: `git branch --merged`
+2. Find stale branches (no commits in 30+ days)
+3. Show list and ask for confirmation
+4. Delete selected branches
+5. Optionally prune remote tracking branches
+
+For `pa:merge`:
+1. Show current branch and target
+2. Preview changes: `git diff branch...HEAD`
+3. Check for conflicts: `git merge --no-commit --no-ff branch`
+4. If conflicts exist, list conflicting files
+5. If clean, proceed with merge
+6. Create merge commit with descriptive message
+
+For `pa:conflict`:
+1. List conflicting files: `git diff --name-only --diff-filter=U`
+2. For each file:
+   - Show conflict markers
+   - Analyze both versions
+   - Suggest resolution based on:
+     - Code context
+     - Which change is more recent
+     - What each change accomplishes
+3. Apply resolution and mark as resolved
+4. Stage resolved files
+
+For `pa:changelog-gen`:
+1. Get commits since last tag: `git log $(git describe --tags --abbrev=0)..HEAD`
+2. Parse conventional commits
+3. Group by type (feat, fix, docs, etc.)
+4. Generate changelog:
+   ```markdown
+   ## [1.2.0] - 2024-03-06
+
+   ### Added
+   - User authentication with JWT (#123)
+   - Dashboard component (#125)
+
+   ### Fixed
+   - Login button styling (#124)
+
+   ### Changed
+   - Updated dependencies (#126)
+   ```
+5. Prepend to CHANGELOG.md
+
+### Search & Code Navigation
+| Command | Action |
+|---------|--------|
+| `pa:find "pattern"` | Find code patterns/usage |
+| `pa:find-usage "symbol"` | Find all usages of symbol |
+| `pa:find-definition "symbol"` | Find definition of symbol |
+| `pa:todo` | Find and list all TODOs |
+| `pa:todo-add "message"` | Add TODO at current location |
+| `pa:fixme` | Find FIXMEs and critical issues |
+| `pa:unused` | Find unused code/exports |
+| `pa:unused-deps` | Find unused dependencies |
+
+**How to execute Search commands:**
+
+For `pa:find`:
+1. Search codebase for pattern using grep/ripgrep
+2. Support regex patterns
+3. Show results with context:
+   ```
+   Search Results: "useAuth"
+   ═══════════════════════════
+
+   src/hooks/useAuth.ts:5
+   │ export function useAuth() {
+
+   src/pages/Login.tsx:12
+   │ const { login, logout } = useAuth();
+
+   src/components/Navbar.tsx:8
+   │ const { user } = useAuth();
+
+   Found 3 matches in 3 files
+   ```
+
+For `pa:todo`:
+1. Search for TODO, FIXME, HACK, XXX comments
+2. Parse priority markers (TODO(high):, TODO:, etc.)
+3. Group by priority and file:
+   ```
+   TODOs Found: 15
+   ═══════════════
+
+   High Priority:
+   • src/auth/jwt.ts:45 - TODO(high): Add token refresh
+   • src/api/users.ts:78 - FIXME: SQL injection risk
+
+   Medium Priority:
+   • src/utils/date.ts:12 - TODO: Handle timezone
+
+   Low Priority:
+   • src/components/Button.tsx:5 - TODO: Add loading state
+   ```
+
+For `pa:fixme`:
+1. Search for FIXME, BUG, HACK, XXX, SECURITY
+2. Prioritize by keyword severity
+3. Show with context and age (when added via git blame)
+4. Suggest fixes where possible
+
+For `pa:unused`:
+1. Analyze exports and imports
+2. Find:
+   - Exported but never imported
+   - Defined but never used
+   - Dead code (unreachable)
+3. Report with confidence level:
+   ```
+   Unused Code Analysis
+   ═══════════════════
+
+   Definitely Unused:
+   • src/utils/old-helper.ts - entire file (no imports)
+   • src/types/legacy.ts:LegacyUser - type never used
+
+   Possibly Unused:
+   • src/api/deprecated.ts:oldEndpoint - only test imports
+   ```
+
+For `pa:unused-deps`:
+1. Read package.json dependencies
+2. Search codebase for imports
+3. Find packages never imported:
+   ```
+   Unused Dependencies
+   ═══════════════════
+
+   dependencies:
+   • lodash - never imported
+   • moment - never imported (consider date-fns)
+
+   devDependencies:
+   • @types/node - used
+   ```
+
+### Code Analysis
+| Command | Action |
+|---------|--------|
+| `pa:complexity` | Cyclomatic complexity analysis |
+| `pa:complexity "file"` | Analyze specific file |
+| `pa:duplication` | Find duplicate code blocks |
+| `pa:duplication "threshold"` | Set minimum lines threshold |
+| `pa:hotspots` | Find frequently changed files |
+| `pa:hotspots "days"` | Analyze over specific period |
+
+**How to execute Code Analysis commands:**
+
+For `pa:complexity`:
+1. Analyze functions/methods for:
+   - Cyclomatic complexity (if/else, switch, loops)
+   - Cognitive complexity
+   - Nesting depth
+   - Parameter count
+2. Report high complexity areas:
+   ```
+   Complexity Report
+   ═════════════════
+
+   High Complexity (>10):
+   • src/utils/parser.ts:parseData() - complexity: 15
+     ↳ 8 if statements, 3 loops, max depth: 4
+     ↳ Suggestion: Split into smaller functions
+
+   • src/api/handler.ts:processRequest() - complexity: 12
+     ↳ Large switch statement (10 cases)
+     ↳ Suggestion: Use strategy pattern
+
+   Medium Complexity (5-10):
+   • src/auth/validate.ts:validateUser() - complexity: 7
+   ```
+
+For `pa:duplication`:
+1. Find duplicate code blocks (default: 6+ lines)
+2. Calculate similarity percentage
+3. Report duplicates:
+   ```
+   Code Duplication Report
+   ═══════════════════════
+
+   Duplicate #1 (98% similar, 15 lines):
+   • src/api/users.ts:45-60
+   • src/api/posts.ts:32-47
+   ↳ Suggestion: Extract to shared utility
+
+   Duplicate #2 (100% identical, 8 lines):
+   • src/components/Card.tsx:12-20
+   • src/components/Panel.tsx:8-16
+   ↳ Suggestion: Create shared component
+
+   Total: 5 duplicate blocks, ~120 duplicated lines
+   ```
+
+For `pa:hotspots`:
+1. Analyze git history for frequently changed files
+2. Correlate with bug fixes
+3. Identify risky areas:
+   ```
+   Code Hotspots (Last 30 Days)
+   ════════════════════════════
+
+   Most Changed:
+   1. src/api/auth.ts - 45 changes, 12 bug fixes
+      ↳ High churn + bugs = refactoring candidate
+
+   2. src/utils/helpers.ts - 32 changes, 3 bug fixes
+      ↳ Frequently modified utility
+
+   3. src/components/Form.tsx - 28 changes, 8 bug fixes
+      ↳ Complex component, consider splitting
+   ```
+
+### Testing Advanced
+| Command | Action |
+|---------|--------|
+| `pa:test-e2e` | Create/run E2E tests |
+| `pa:test-e2e "flow"` | E2E test for specific flow |
+| `pa:test-unit` | Generate unit tests |
+| `pa:test-unit "file"` | Generate tests for file |
+| `pa:mock` | Generate mocks/stubs |
+| `pa:mock "module"` | Mock specific module |
+| `pa:snapshot` | Snapshot testing management |
+| `pa:snapshot-update` | Update snapshots |
+
+**How to execute Testing Advanced commands:**
+
+For `pa:test-e2e`:
+1. Detect E2E framework (Playwright, Cypress, etc.)
+2. Analyze user flows in the app
+3. Generate E2E test:
+   ```typescript
+   import { test, expect } from '@playwright/test';
+
+   test.describe('User Authentication', () => {
+     test('should login successfully', async ({ page }) => {
+       await page.goto('/login');
+       await page.fill('[name="email"]', 'test@example.com');
+       await page.fill('[name="password"]', 'password123');
+       await page.click('button[type="submit"]');
+       await expect(page).toHaveURL('/dashboard');
+     });
+
+     test('should show error for invalid credentials', async ({ page }) => {
+       await page.goto('/login');
+       await page.fill('[name="email"]', 'wrong@example.com');
+       await page.fill('[name="password"]', 'wrong');
+       await page.click('button[type="submit"]');
+       await expect(page.locator('.error')).toBeVisible();
+     });
+   });
+   ```
+
+For `pa:test-unit`:
+1. Read source file
+2. Identify functions/methods to test
+3. Generate comprehensive test file:
+   ```typescript
+   import { describe, it, expect, vi } from 'vitest';
+   import { calculateTotal, formatPrice } from './pricing';
+
+   describe('calculateTotal', () => {
+     it('should calculate total with tax', () => {
+       expect(calculateTotal(100, 0.1)).toBe(110);
+     });
+
+     it('should handle zero amount', () => {
+       expect(calculateTotal(0, 0.1)).toBe(0);
+     });
+
+     it('should throw for negative amounts', () => {
+       expect(() => calculateTotal(-100, 0.1)).toThrow();
+     });
+   });
+   ```
+
+For `pa:mock`:
+1. Analyze module dependencies
+2. Generate mock implementations:
+   ```typescript
+   // mocks/api.ts
+   import { vi } from 'vitest';
+
+   export const mockApi = {
+     getUsers: vi.fn().mockResolvedValue([
+       { id: '1', name: 'Test User' }
+     ]),
+     createUser: vi.fn().mockResolvedValue({ id: '2' }),
+     deleteUser: vi.fn().mockResolvedValue(true),
+   };
+
+   vi.mock('../api', () => mockApi);
+   ```
+3. Include type-safe mocks with TypeScript
+
+For `pa:snapshot`:
+1. Find existing snapshots
+2. Show status:
+   ```
+   Snapshot Status
+   ═══════════════
+
+   Total: 45 snapshots in 12 files
+
+   Outdated (need update):
+   • Button.test.tsx - 3 snapshots
+   • Card.test.tsx - 1 snapshot
+
+   Obsolete (no matching test):
+   • OldComponent.test.tsx.snap - entire file
+
+   Commands:
+   • pa:snapshot-update - Update outdated
+   • pa:snapshot-clean - Remove obsolete
+   ```
+
+### DevOps & Infrastructure
+| Command | Action |
+|---------|--------|
+| `pa:docker` | Docker commands overview |
+| `pa:docker-build` | Build Docker image |
+| `pa:docker-compose` | Docker Compose operations |
+| `pa:ci` | CI/CD pipeline status/management |
+| `pa:ci-run` | Trigger CI pipeline |
+| `pa:deploy-preview` | Deploy to preview environment |
+| `pa:deploy-preview-url` | Get preview deployment URL |
+
+**How to execute DevOps commands:**
+
+For `pa:docker`:
+1. Check for Dockerfile and docker-compose.yml
+2. Show available commands:
+   ```
+   Docker Status
+   ═════════════
+
+   Dockerfile: ✓ Found
+   docker-compose.yml: ✓ Found
+
+   Services:
+   • app - Node.js application
+   • db - PostgreSQL
+   • redis - Redis cache
+
+   Commands:
+   • pa:docker-build - Build images
+   • pa:docker-compose up - Start services
+   • pa:docker-compose down - Stop services
+   ```
+
+For `pa:docker-build`:
+1. Read Dockerfile
+2. Suggest optimizations if needed
+3. Build image with appropriate tags
+4. Report build status and size
+
+For `pa:ci`:
+1. Detect CI system (GitHub Actions, GitLab CI, etc.)
+2. Show pipeline status:
+   ```
+   CI/CD Status
+   ════════════
+
+   Platform: GitHub Actions
+
+   Recent Workflows:
+   ✓ Build & Test (main) - 2m ago - passed
+   ✓ Deploy Preview (PR #123) - 15m ago - passed
+   ✗ Security Scan (main) - 1h ago - failed
+     ↳ 2 vulnerabilities found
+
+   Current:
+   ● Build & Test (feature/auth) - running (1m 30s)
+   ```
+
+For `pa:deploy-preview`:
+1. Detect preview deployment platform (Vercel, Netlify, etc.)
+2. Trigger preview deployment
+3. Wait for deployment URL
+4. Return preview URL:
+   ```
+   Preview Deployment
+   ══════════════════
+
+   Branch: feature/user-auth
+   Status: Deploying...
+
+   ✓ Building... done (45s)
+   ✓ Deploying... done (30s)
+
+   Preview URL: https://my-app-user-auth-123.vercel.app
+   ```
+
+### Release Management
+| Command | Action |
+|---------|--------|
+| `pa:version` | Show current version |
+| `pa:version-bump "type"` | Bump version (major/minor/patch) |
+| `pa:tag` | Create git tag for release |
+| `pa:tag "version"` | Create specific version tag |
+| `pa:publish` | Publish package to registry |
+| `pa:publish-dry` | Dry run of publish |
+
+**How to execute Release commands:**
+
+For `pa:version`:
+1. Read version from package.json or equivalent
+2. Show version info:
+   ```
+   Version Info
+   ════════════
+
+   Current: 1.2.3
+   Last Release: 1.2.2 (2024-03-01)
+
+   Unreleased Changes:
+   • 5 features
+   • 3 bug fixes
+   • 2 breaking changes
+
+   Suggested Next:
+   • Major (2.0.0) - has breaking changes
+   • Minor (1.3.0) - new features
+   • Patch (1.2.4) - bug fixes only
+   ```
+
+For `pa:version-bump`:
+1. Determine bump type (major/minor/patch)
+2. Update version in:
+   - package.json
+   - package-lock.json
+   - Other version files
+3. Update CHANGELOG.md with new version
+4. Show changes:
+   ```
+   Version Bump: 1.2.3 → 1.3.0
+   ═══════════════════════════
+
+   Updated files:
+   • package.json
+   • package-lock.json
+   • CHANGELOG.md
+
+   Next steps:
+   • pa:tag 1.3.0 - Create release tag
+   • pa:publish - Publish to npm
+   ```
+
+For `pa:tag`:
+1. Create annotated git tag
+2. Include release notes in tag message
+3. Optionally push to remote:
+   ```
+   Created Tag: v1.3.0
+   ═══════════════════
+
+   Tag: v1.3.0
+   Message: Release 1.3.0 - User Authentication
+
+   Included:
+   • feat: Add user authentication
+   • feat: Add password reset
+   • fix: Login validation
+
+   Push to remote? (git push origin v1.3.0)
+   ```
+
+For `pa:publish`:
+1. Run pre-publish checks:
+   - Tests pass
+   - Build succeeds
+   - No uncommitted changes
+   - Version is tagged
+2. Show publish preview
+3. Publish to registry:
+   ```
+   Publishing: mypackage@1.3.0
+   ═══════════════════════════
+
+   Pre-checks:
+   ✓ Tests passing
+   ✓ Build successful
+   ✓ Clean working directory
+   ✓ Version tagged (v1.3.0)
+
+   Publishing to npm...
+   ✓ Published successfully!
+
+   https://www.npmjs.com/package/mypackage
+   ```
+
 ### AI Platform Management
 | Command | Action |
 |---------|--------|

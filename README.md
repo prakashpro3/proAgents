@@ -304,6 +304,59 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:learn` | Teach AI a pattern |
 | `pa:suggestions` | Show AI suggestions |
 
+### API & Documentation
+| Command | Description |
+|---------|-------------|
+| `pa:api-docs` | Generate OpenAPI/Swagger docs |
+| `pa:storybook` | Generate Storybook stories |
+| `pa:readme` | Auto-generate/update README |
+| `pa:types` | Generate TypeScript types |
+
+### Git Advanced
+| Command | Description |
+|---------|-------------|
+| `pa:branch` | Branch management |
+| `pa:merge` | Smart merge with conflict preview |
+| `pa:conflict` | Resolve merge conflicts with AI |
+| `pa:changelog-gen` | Auto-generate changelog |
+
+### Search & Code Navigation
+| Command | Description |
+|---------|-------------|
+| `pa:find` | Find code patterns/usage |
+| `pa:todo` | Find all TODOs in code |
+| `pa:fixme` | Find FIXMEs and critical issues |
+| `pa:unused` | Find unused code/exports |
+
+### Code Analysis
+| Command | Description |
+|---------|-------------|
+| `pa:complexity` | Cyclomatic complexity analysis |
+| `pa:duplication` | Find duplicate code blocks |
+| `pa:hotspots` | Find frequently changed files |
+
+### Testing Advanced
+| Command | Description |
+|---------|-------------|
+| `pa:test-e2e` | Create/run E2E tests |
+| `pa:test-unit` | Generate unit tests |
+| `pa:mock` | Generate mocks/stubs |
+| `pa:snapshot` | Snapshot testing management |
+
+### DevOps & Infrastructure
+| Command | Description |
+|---------|-------------|
+| `pa:docker` | Docker commands |
+| `pa:ci` | CI/CD pipeline management |
+| `pa:deploy-preview` | Deploy preview environment |
+
+### Release Management
+| Command | Description |
+|---------|-------------|
+| `pa:version` | Show/bump version |
+| `pa:tag` | Create git tag |
+| `pa:publish` | Publish package to registry |
+
 ### Custom Commands
 | Command | Description |
 |---------|-------------|

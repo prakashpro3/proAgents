@@ -155,6 +155,67 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:forget "pattern"` | Remove learned pattern |
 | `pa:suggestions` | Show AI suggestions |
 
+## API & Documentation
+
+| Command | What to Do |
+|---------|------------|
+| `pa:api-docs` | Generate OpenAPI/Swagger documentation |
+| `pa:storybook` | Generate Storybook stories |
+| `pa:readme` | Auto-generate/update README.md |
+| `pa:types` | Generate TypeScript types/interfaces |
+
+## Git Advanced
+
+| Command | What to Do |
+|---------|------------|
+| `pa:branch` | Branch management (list, create, clean) |
+| `pa:merge` | Smart merge with conflict preview |
+| `pa:conflict` | Resolve merge conflicts with AI |
+| `pa:changelog-gen` | Auto-generate changelog from commits |
+
+## Search & Navigation
+
+| Command | What to Do |
+|---------|------------|
+| `pa:find "pattern"` | Find code patterns/usage |
+| `pa:todo` | Find and list all TODOs in code |
+| `pa:fixme` | Find FIXMEs and critical issues |
+| `pa:unused` | Find unused code/exports |
+| `pa:unused-deps` | Find unused dependencies |
+
+## Code Analysis
+
+| Command | What to Do |
+|---------|------------|
+| `pa:complexity` | Cyclomatic complexity analysis |
+| `pa:duplication` | Find duplicate code blocks |
+| `pa:hotspots` | Find frequently changed files |
+
+## Testing Advanced
+
+| Command | What to Do |
+|---------|------------|
+| `pa:test-e2e` | Create/run E2E tests |
+| `pa:test-unit` | Generate unit tests |
+| `pa:mock` | Generate mocks/stubs |
+| `pa:snapshot` | Snapshot testing management |
+
+## DevOps & Infrastructure
+
+| Command | What to Do |
+|---------|------------|
+| `pa:docker` | Docker commands (build, compose) |
+| `pa:ci` | CI/CD pipeline status/management |
+| `pa:deploy-preview` | Deploy to preview environment |
+
+## Release Management
+
+| Command | What to Do |
+|---------|------------|
+| `pa:version` | Show/bump version |
+| `pa:tag` | Create git tag for release |
+| `pa:publish` | Publish package to registry |
+
 ## Key Files to Read
 
 | File | Purpose |
