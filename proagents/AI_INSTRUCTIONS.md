@@ -1535,6 +1535,446 @@ For `pa:publish`:
    https://www.npmjs.com/package/mypackage
    ```
 
+### Code Review & PR
+| Command | Action |
+|---------|--------|
+| `pa:review-request` | Request code review from team |
+| `pa:review-request "user"` | Request review from specific user |
+| `pa:review-comments` | Show PR review comments |
+| `pa:review-comments "pr"` | Comments for specific PR |
+| `pa:review-approve` | Approve current PR |
+| `pa:review-approve "pr"` | Approve specific PR |
+
+**How to execute Code Review commands:**
+
+For `pa:review-request`:
+1. Detect current branch and PR status
+2. If no PR exists, suggest creating one first
+3. Get team members from config or git history
+4. Request review:
+   ```
+   Review Request
+   ══════════════
+
+   PR: #123 - Add user authentication
+   Branch: feature/user-auth
+
+   Requesting review from:
+   • @tech-lead (suggested - code owner)
+   • @senior-dev (suggested - recent contributor)
+
+   Select reviewers or type username:
+   > @tech-lead, @qa-engineer
+
+   ✓ Review requested from 2 reviewers
+   ```
+
+For `pa:review-comments`:
+1. Get PR comments from GitHub/GitLab
+2. Group by file and status:
+   ```
+   PR Review Comments
+   ══════════════════
+
+   PR #123: Add user authentication
+   Status: Changes requested (2 pending)
+
+   src/auth/login.ts:
+   ├─ Line 45 [PENDING] @tech-lead:
+   │  "Consider using bcrypt instead of md5 for hashing"
+   │
+   └─ Line 78 [RESOLVED] @qa-engineer:
+      "Add error handling for network failures"
+
+   src/api/users.ts:
+   └─ Line 12 [PENDING] @tech-lead:
+      "Missing input validation"
+
+   Actions:
+   • Reply to comment: pa:review-reply "comment-id" "response"
+   • Resolve comment: pa:review-resolve "comment-id"
+   ```
+
+For `pa:review-approve`:
+1. Check all required checks pass
+2. Verify no pending comments
+3. Approve PR:
+   ```
+   PR Approval
+   ═══════════
+
+   PR #123: Add user authentication
+
+   Checks:
+   ✓ Tests passing
+   ✓ Build successful
+   ✓ No conflicts
+   ⚠ 1 pending comment (optional)
+
+   Approve anyway? [y/N]
+
+   ✓ PR approved!
+   Ready to merge.
+   ```
+
+### Architecture
+| Command | Action |
+|---------|--------|
+| `pa:architecture` | Show architecture overview |
+| `pa:architecture "module"` | Architecture for specific module |
+| `pa:architecture-diagram` | Generate architecture diagram |
+| `pa:architecture-export` | Export architecture docs |
+
+**How to execute Architecture commands:**
+
+For `pa:architecture`:
+1. Analyze project structure
+2. Identify architectural patterns
+3. Generate overview:
+   ```
+   Architecture Overview
+   ═════════════════════
+
+   Project: my-app
+   Type: Full-stack Next.js
+   Pattern: Clean Architecture + Feature-based
+
+   Layers:
+   ┌─────────────────────────────────────────┐
+   │  Presentation (app/, components/)       │
+   │  ┌───────────────────────────────────┐  │
+   │  │  Application (services/, hooks/)  │  │
+   │  │  ┌─────────────────────────────┐  │  │
+   │  │  │  Domain (types/, entities/) │  │  │
+   │  │  └─────────────────────────────┘  │  │
+   │  └───────────────────────────────────┘  │
+   └─────────────────────────────────────────┘
+
+   Key Components:
+   • API Routes: /app/api/* (15 endpoints)
+   • Pages: /app/* (12 pages)
+   • Components: /components/* (45 components)
+   • Services: /services/* (8 services)
+
+   Dependencies:
+   • Database: PostgreSQL via Prisma
+   • Auth: NextAuth.js with JWT
+   • State: Zustand + React Query
+   • Styling: Tailwind CSS
+
+   Patterns Detected:
+   • Repository Pattern (services/)
+   • Factory Pattern (components/forms/)
+   • Singleton (lib/prisma.ts)
+   ```
+
+For `pa:architecture-diagram`:
+1. Generate Mermaid diagram from codebase
+2. Show component relationships:
+   ```mermaid
+   graph TB
+     subgraph Presentation
+       Pages[Pages]
+       Components[Components]
+     end
+
+     subgraph Application
+       Services[Services]
+       Hooks[Hooks]
+     end
+
+     subgraph Infrastructure
+       API[API Routes]
+       DB[(Database)]
+     end
+
+     Pages --> Components
+     Pages --> Hooks
+     Hooks --> Services
+     Services --> API
+     API --> DB
+   ```
+3. Save to `./docs/architecture.md`
+
+### API Testing
+| Command | Action |
+|---------|--------|
+| `pa:api-test` | Test API endpoints |
+| `pa:api-test "endpoint"` | Test specific endpoint |
+| `pa:curl` | Generate curl commands |
+| `pa:curl "endpoint"` | Curl for specific endpoint |
+| `pa:postman` | Generate Postman collection |
+| `pa:postman-export` | Export to Postman file |
+
+**How to execute API Testing commands:**
+
+For `pa:api-test`:
+1. Discover API endpoints from routes
+2. Generate and run tests:
+   ```
+   API Test Results
+   ════════════════
+
+   Testing: /api/*
+   Environment: development (localhost:3000)
+
+   GET /api/users
+   ├─ Status: 200 OK ✓
+   ├─ Time: 45ms
+   └─ Response: Array[10 items]
+
+   POST /api/users
+   ├─ Status: 201 Created ✓
+   ├─ Time: 120ms
+   └─ Response: { id: "123", name: "Test" }
+
+   GET /api/users/:id
+   ├─ Status: 200 OK ✓
+   ├─ Time: 32ms
+   └─ Response: { id: "1", name: "John" }
+
+   DELETE /api/users/:id
+   ├─ Status: 401 Unauthorized ✗
+   ├─ Time: 15ms
+   └─ Error: Missing auth token
+
+   Summary: 3/4 passed (75%)
+   ```
+
+For `pa:curl`:
+1. Analyze API routes and generate curl commands:
+   ```
+   Generated Curl Commands
+   ═══════════════════════
+
+   # List users
+   curl -X GET http://localhost:3000/api/users \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer $TOKEN"
+
+   # Create user
+   curl -X POST http://localhost:3000/api/users \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer $TOKEN" \
+     -d '{"name": "John", "email": "john@example.com"}'
+
+   # Get user by ID
+   curl -X GET http://localhost:3000/api/users/123 \
+     -H "Authorization: Bearer $TOKEN"
+
+   Saved to: ./docs/curl-commands.sh
+   ```
+
+For `pa:postman`:
+1. Scan API routes and extract endpoints
+2. Generate Postman collection:
+   ```
+   Postman Collection Generated
+   ════════════════════════════
+
+   Collection: my-app API
+   Endpoints: 15
+
+   Folders:
+   ├─ Auth (3 endpoints)
+   │  ├─ POST /api/auth/login
+   │  ├─ POST /api/auth/register
+   │  └─ POST /api/auth/logout
+   ├─ Users (5 endpoints)
+   │  ├─ GET /api/users
+   │  ├─ POST /api/users
+   │  ├─ GET /api/users/:id
+   │  ├─ PUT /api/users/:id
+   │  └─ DELETE /api/users/:id
+   └─ Posts (7 endpoints)
+      └─ ...
+
+   Saved to: ./docs/postman-collection.json
+
+   Import: File > Import in Postman
+   ```
+
+### Health & Monitoring
+| Command | Action |
+|---------|--------|
+| `pa:health` | Project health check |
+| `pa:health-full` | Comprehensive health report |
+| `pa:monitor` | Show monitoring status |
+| `pa:monitor "service"` | Monitor specific service |
+| `pa:uptime` | Service uptime check |
+
+**How to execute Health & Monitoring commands:**
+
+For `pa:health`:
+1. Check various project health indicators:
+   ```
+   Project Health Check
+   ════════════════════
+
+   Overall: 85% Healthy ████████░░
+
+   Code Quality:
+   ✓ Linting: No errors
+   ✓ Type checking: No errors
+   ⚠ Test coverage: 72% (target: 80%)
+   ✓ No security vulnerabilities
+
+   Dependencies:
+   ✓ All dependencies installed
+   ⚠ 3 outdated packages
+   ✓ No security advisories
+
+   Configuration:
+   ✓ Environment variables set
+   ✓ Config files valid
+   ⚠ Missing .env.example
+
+   Git Status:
+   ✓ Clean working directory
+   ✓ Up to date with remote
+   ✓ No merge conflicts
+
+   Performance:
+   ✓ Bundle size: 245KB (limit: 500KB)
+   ✓ Build time: 12s
+   ⚠ Lighthouse score: 78 (target: 90)
+
+   Issues Found: 4
+   • Test coverage below 80%
+   • 3 outdated packages
+   • Missing .env.example
+   • Lighthouse score below target
+   ```
+
+For `pa:monitor`:
+1. Check running services and status:
+   ```
+   Service Monitor
+   ═══════════════
+
+   Services:
+   ┌────────────────┬──────────┬─────────┬────────────┐
+   │ Service        │ Status   │ Uptime  │ Health     │
+   ├────────────────┼──────────┼─────────┼────────────┤
+   │ App (Next.js)  │ Running  │ 2h 15m  │ Healthy    │
+   │ Database       │ Running  │ 5d 3h   │ Healthy    │
+   │ Redis Cache    │ Running  │ 5d 3h   │ Healthy    │
+   │ Worker         │ Stopped  │ -       │ ⚠ Down     │
+   └────────────────┴──────────┴─────────┴────────────┘
+
+   Recent Events:
+   • 10:30 - App restarted (deployment)
+   • 09:15 - Worker stopped (manual)
+   • Yesterday - Database backup completed
+
+   Alerts:
+   ⚠ Worker service is not running
+   ```
+
+For `pa:uptime`:
+1. Check endpoint availability:
+   ```
+   Uptime Check
+   ════════════
+
+   Checking endpoints...
+
+   Production (https://myapp.com):
+   ├─ / (homepage): 200 OK (125ms) ✓
+   ├─ /api/health: 200 OK (45ms) ✓
+   ├─ /api/users: 200 OK (89ms) ✓
+   └─ /dashboard: 200 OK (156ms) ✓
+
+   Staging (https://staging.myapp.com):
+   ├─ / (homepage): 200 OK (145ms) ✓
+   └─ /api/health: 200 OK (52ms) ✓
+
+   All endpoints responding ✓
+   Average response time: 102ms
+   ```
+
+### Quick Actions
+| Command | Action |
+|---------|--------|
+| `pa:quick` | Show quick actions menu |
+| `pa:quick "action"` | Execute quick action |
+| `pa:alias` | Manage command aliases |
+| `pa:alias-add "name" "command"` | Add new alias |
+| `pa:alias-remove "name"` | Remove alias |
+
+**How to execute Quick Actions commands:**
+
+For `pa:quick`:
+1. Show context-aware quick actions:
+   ```
+   Quick Actions
+   ═════════════
+
+   Based on current context (feature/user-auth):
+
+   Development:
+   [1] Run tests for current feature
+   [2] Check code coverage
+   [3] Lint and fix
+
+   Git:
+   [4] Commit all changes
+   [5] Push to remote
+   [6] Create PR
+
+   Quality:
+   [7] Run full QA check
+   [8] Security scan
+   [9] Performance audit
+
+   Documentation:
+   [10] Update docs for changes
+
+   Select action (1-10) or type command:
+   > 6
+
+   Creating PR...
+   ```
+
+For `pa:alias`:
+1. List and manage command aliases:
+   ```
+   Command Aliases
+   ═══════════════
+
+   Current Aliases:
+   ┌──────────┬───────────────────────────┐
+   │ Alias    │ Command                   │
+   ├──────────┼───────────────────────────┤
+   │ pa:c     │ pa:commit                 │
+   │ pa:pr    │ pa:github-pr              │
+   │ pa:cov   │ pa:coverage               │
+   │ pa:sec   │ pa:security-scan          │
+   │ pa:up    │ pa:deps-outdated          │
+   └──────────┴───────────────────────────┘
+
+   Add alias: pa:alias-add "name" "command"
+   Remove: pa:alias-remove "name"
+
+   Built-in aliases cannot be modified:
+   pa:f, pa:s, pa:h, pa:d, pa:t, pa:q, pa:a, pa:r, pa:p, pa:i
+   ```
+
+For `pa:alias-add`:
+1. Add custom alias:
+   ```
+   Adding Alias
+   ════════════
+
+   Alias: pa:ship
+   Command: pa:test && pa:build && pa:deploy
+
+   ✓ Alias created!
+
+   Usage: pa:ship
+   Runs: pa:test && pa:build && pa:deploy
+   ```
+
 ### AI Platform Management
 | Command | Action |
 |---------|--------|

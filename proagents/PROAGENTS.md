@@ -216,6 +216,47 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:tag` | Create git tag for release |
 | `pa:publish` | Publish package to registry |
 
+## Code Review & PR
+
+| Command | What to Do |
+|---------|------------|
+| `pa:review-request` | Request code review from team |
+| `pa:review-comments` | Show PR review comments |
+| `pa:review-approve` | Approve current PR |
+
+## Architecture
+
+| Command | What to Do |
+|---------|------------|
+| `pa:architecture` | Show architecture overview |
+| `pa:architecture-diagram` | Generate architecture diagram (Mermaid) |
+| `pa:architecture-export` | Export diagram (SVG/PNG) |
+
+## API Testing
+
+| Command | What to Do |
+|---------|------------|
+| `pa:api-test` | Test API endpoints |
+| `pa:curl` | Generate curl commands for endpoints |
+| `pa:postman` | Generate Postman collection |
+
+## Health & Monitoring
+
+| Command | What to Do |
+|---------|------------|
+| `pa:health` | Project health check |
+| `pa:monitor` | Show monitoring status |
+| `pa:uptime` | Service uptime check |
+
+## Quick Actions
+
+| Command | What to Do |
+|---------|------------|
+| `pa:quick` | Show quick actions menu |
+| `pa:alias` | Manage command aliases |
+| `pa:alias-add` | Add custom alias |
+| `pa:alias-remove` | Remove custom alias |
+
 ## Key Files to Read
 
 | File | Purpose |

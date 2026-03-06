@@ -357,6 +357,42 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:tag` | Create git tag |
 | `pa:publish` | Publish package to registry |
 
+### Code Review & PR
+| Command | Description |
+|---------|-------------|
+| `pa:review-request` | Request code review from team |
+| `pa:review-comments` | Show PR review comments |
+| `pa:review-approve` | Approve current PR |
+
+### Architecture
+| Command | Description |
+|---------|-------------|
+| `pa:architecture` | Show architecture overview |
+| `pa:architecture-diagram` | Generate diagram (Mermaid) |
+| `pa:architecture-export` | Export diagram (SVG/PNG) |
+
+### API Testing
+| Command | Description |
+|---------|-------------|
+| `pa:api-test` | Test API endpoints |
+| `pa:curl` | Generate curl commands |
+| `pa:postman` | Generate Postman collection |
+
+### Health & Monitoring
+| Command | Description |
+|---------|-------------|
+| `pa:health` | Project health check |
+| `pa:monitor` | Show monitoring status |
+| `pa:uptime` | Service uptime check |
+
+### Quick Actions
+| Command | Description |
+|---------|-------------|
+| `pa:quick` | Show quick actions menu |
+| `pa:alias` | Manage command aliases |
+| `pa:alias-add` | Add custom alias |
+| `pa:alias-remove` | Remove custom alias |
+
 ### Custom Commands
 | Command | Description |
 |---------|-------------|
