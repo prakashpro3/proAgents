@@ -257,6 +257,19 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:alias-add` | Add custom alias |
 | `pa:alias-remove` | Remove custom alias |
 
+## Mobile Test Suite (React Native)
+
+| Command | What to Do |
+|---------|------------|
+| `pa:test-mobile` | Run full mobile test suite (unit, component, E2E, visual) |
+| `pa:test-mobile "feature"` | Test specific feature only |
+| `pa:test-visual` | Visual/design comparison testing |
+| `pa:test-auto-fix` | Auto-fix failing tests |
+| `pa:test-loop` | Test → Fix → Retest loop until all pass |
+| `pa:compare-figma` | Compare UI against Figma design |
+| `pa:compare-image "path"` | Compare UI against image/sketch |
+| `pa:screenshot` | Take app screenshots for comparison |
+
 ## Key Files to Read
 
 | File | Purpose |

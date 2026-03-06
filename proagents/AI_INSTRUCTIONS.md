@@ -1975,6 +1975,435 @@ For `pa:alias-add`:
    Runs: pa:test && pa:build && pa:deploy
    ```
 
+### Mobile Test Suite (React Native / Mobile Apps)
+| Command | Action |
+|---------|--------|
+| `pa:test-mobile` | Run full mobile test suite |
+| `pa:test-mobile "feature"` | Test specific feature |
+| `pa:test-visual` | Visual/design comparison testing |
+| `pa:test-auto-fix` | Auto-fix failing tests |
+| `pa:test-loop` | Test → Fix → Retest loop until success |
+| `pa:compare-figma` | Compare UI against Figma design |
+| `pa:compare-image "path"` | Compare UI against image/sketch |
+| `pa:screenshot` | Take app screenshots for comparison |
+
+**How to execute Mobile Test Suite commands:**
+
+For `pa:test-mobile`:
+1. Run comprehensive mobile test suite:
+   ```
+   Mobile Test Suite
+   ═════════════════
+
+   Running full test suite for: feature/user-auth
+
+   Phase 1: Unit Tests
+   ───────────────────
+   ✓ AuthService.login() - 5 tests passed
+   ✓ AuthService.logout() - 3 tests passed
+   ✓ TokenManager - 8 tests passed
+   ✓ UserStore - 12 tests passed
+
+   Phase 2: Component Tests
+   ────────────────────────
+   ✓ LoginScreen - renders correctly
+   ✓ LoginScreen - validates email format
+   ✓ LoginScreen - shows error on invalid credentials
+   ✓ SignupScreen - all fields required
+   ✓ ProfileScreen - displays user data
+
+   Phase 3: Integration Tests
+   ──────────────────────────
+   ✓ Login flow end-to-end
+   ✓ Token refresh on expiry
+   ✓ Logout clears all data
+   ✗ FAILED: Password reset flow
+     → Error: Reset email not sent
+
+   Phase 4: E2E Tests (Maestro/Detox)
+   ──────────────────────────────────
+   ✓ User can login with valid credentials
+   ✓ User sees error with invalid password
+   ✗ FAILED: User can reset password
+     → Button not found: "Send Reset Email"
+
+   Phase 5: Visual Tests
+   ─────────────────────
+   ✓ LoginScreen matches design
+   ✗ FAILED: SignupScreen has visual differences
+     → Button color: expected #007AFF, got #0066CC
+     → Font size: expected 16px, got 14px
+
+   ══════════════════════════════════════════
+   RESULTS: 35/38 tests passed (3 failed)
+   ══════════════════════════════════════════
+
+   Failed Tests:
+   1. Integration: Password reset flow
+   2. E2E: User can reset password
+   3. Visual: SignupScreen design mismatch
+
+   Run `pa:test-auto-fix` to automatically fix these issues.
+   ```
+
+2. Generate detailed test report at `./proagents/test-reports/mobile-{timestamp}.md`
+
+For `pa:test-visual`:
+1. Take screenshots of all screens/components
+2. Compare against design references:
+   ```
+   Visual Design Testing
+   ═════════════════════
+
+   Comparing app UI against design references...
+
+   Design Source: ./designs/ (Figma exports)
+
+   Screen: LoginScreen
+   ───────────────────
+   ✓ Layout matches design
+   ✓ Colors match design tokens
+   ✓ Typography correct
+   ✓ Spacing/padding correct
+   ✓ Button styles match
+
+   Screen: SignupScreen
+   ────────────────────
+   ✗ MISMATCH DETECTED
+
+   Differences found:
+   ┌─────────────────┬──────────────┬──────────────┐
+   │ Element         │ Expected     │ Actual       │
+   ├─────────────────┼──────────────┼──────────────┤
+   │ Submit Button   │ #007AFF      │ #0066CC      │
+   │ Title Font      │ 24px Bold    │ 22px Regular │
+   │ Input Height    │ 48px         │ 44px         │
+   │ Bottom Margin   │ 16px         │ 12px         │
+   └─────────────────┴──────────────┴──────────────┘
+
+   Screenshot saved: ./proagents/test-reports/visual/signup-diff.png
+
+   Screen: ProfileScreen
+   ─────────────────────
+   ✓ All elements match design
+
+   ══════════════════════════════════════════
+   VISUAL TEST RESULTS: 2/3 screens passed
+   ══════════════════════════════════════════
+
+   Run `pa:test-auto-fix` to fix visual issues automatically.
+   ```
+
+For `pa:test-auto-fix`:
+1. Analyze failing tests
+2. Identify root cause
+3. Generate and apply fixes:
+   ```
+   Auto-Fix Mode
+   ═════════════
+
+   Analyzing 3 failing tests...
+
+   Fix 1: Password reset flow
+   ──────────────────────────
+   Root Cause: API endpoint missing in AuthService
+
+   Applying fix to: src/services/AuthService.ts
+   + async resetPassword(email: string): Promise<void> {
+   +   const response = await api.post('/auth/reset-password', { email });
+   +   if (!response.ok) throw new Error('Reset failed');
+   + }
+
+   ✓ Fix applied
+
+   Fix 2: Reset button not found
+   ─────────────────────────────
+   Root Cause: Button testID missing
+
+   Applying fix to: src/screens/ResetPasswordScreen.tsx
+   - <Button title="Send Reset Email" onPress={handleReset} />
+   + <Button
+   +   testID="send-reset-email-button"
+   +   title="Send Reset Email"
+   +   onPress={handleReset}
+   + />
+
+   ✓ Fix applied
+
+   Fix 3: SignupScreen visual mismatch
+   ────────────────────────────────────
+   Root Cause: Style values don't match design tokens
+
+   Applying fix to: src/screens/SignupScreen.styles.ts
+   - submitButton: { backgroundColor: '#0066CC' }
+   + submitButton: { backgroundColor: '#007AFF' }
+
+   - title: { fontSize: 22, fontWeight: 'normal' }
+   + title: { fontSize: 24, fontWeight: 'bold' }
+
+   - input: { height: 44, marginBottom: 12 }
+   + input: { height: 48, marginBottom: 16 }
+
+   ✓ Fix applied
+
+   ══════════════════════════════════════════
+   AUTO-FIX COMPLETE: 3/3 issues fixed
+   ══════════════════════════════════════════
+
+   Running verification tests...
+   ```
+
+For `pa:test-loop`:
+1. Run complete Test → Fix → Retest cycle:
+   ```
+   Test Loop Mode
+   ══════════════
+
+   Starting automated test-fix-retest cycle...
+   Max iterations: 5
+
+   ┌─────────────────────────────────────────────────────┐
+   │ ITERATION 1                                         │
+   ├─────────────────────────────────────────────────────┤
+   │ Running tests...                                    │
+   │ Results: 35/38 passed (3 failed)                   │
+   │                                                     │
+   │ Analyzing failures...                               │
+   │ Applying auto-fixes...                              │
+   │ Fixes applied: 3                                    │
+   └─────────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────────┐
+   │ ITERATION 2                                         │
+   ├─────────────────────────────────────────────────────┤
+   │ Running tests...                                    │
+   │ Results: 37/38 passed (1 failed)                   │
+   │                                                     │
+   │ Analyzing failures...                               │
+   │ New issue: TypeScript type error after fix         │
+   │ Applying auto-fixes...                              │
+   │ Fixes applied: 1                                    │
+   └─────────────────────────────────────────────────────┘
+
+   ┌─────────────────────────────────────────────────────┐
+   │ ITERATION 3                                         │
+   ├─────────────────────────────────────────────────────┤
+   │ Running tests...                                    │
+   │ Results: 38/38 passed (0 failed)                   │
+   │                                                     │
+   │ ✓ ALL TESTS PASSING!                               │
+   └─────────────────────────────────────────────────────┘
+
+   ══════════════════════════════════════════════════════
+   TEST LOOP COMPLETE
+   ══════════════════════════════════════════════════════
+
+   Summary:
+   ────────
+   Iterations: 3
+   Initial failures: 3
+   Fixes applied: 4
+   Final status: ALL PASSING ✓
+
+   Files modified:
+   • src/services/AuthService.ts
+   • src/screens/ResetPasswordScreen.tsx
+   • src/screens/SignupScreen.styles.ts
+   • src/types/auth.ts
+
+   Test report: ./proagents/test-reports/test-loop-{timestamp}.md
+
+   Ready for commit? (y/n)
+   ```
+
+For `pa:compare-figma`:
+1. Connect to Figma API or use exported frames
+2. Extract design specifications
+3. Compare with actual app:
+   ```
+   Figma Design Comparison
+   ═══════════════════════
+
+   Design Source: [Figma Link or ./designs/figma-export/]
+
+   Extracting design tokens from Figma...
+   ✓ Colors extracted
+   ✓ Typography extracted
+   ✓ Spacing system extracted
+   ✓ Component specs extracted
+
+   Comparing: LoginScreen
+   ──────────────────────
+
+   Layout Comparison:
+   ┌────────────────────┬────────────────────┐
+   │   Figma Design     │   App Screenshot   │
+   │   ┌──────────┐     │   ┌──────────┐     │
+   │   │  Logo    │     │   │  Logo    │ ✓   │
+   │   ├──────────┤     │   ├──────────┤     │
+   │   │  Email   │     │   │  Email   │ ✓   │
+   │   │  Input   │     │   │  Input   │     │
+   │   ├──────────┤     │   ├──────────┤     │
+   │   │ Password │     │   │ Password │ ✓   │
+   │   │  Input   │     │   │  Input   │     │
+   │   ├──────────┤     │   ├──────────┤     │
+   │   │  Login   │     │   │  Login   │ ✗   │
+   │   │  Button  │     │   │  Button  │     │
+   │   └──────────┘     │   └──────────┘     │
+   └────────────────────┴────────────────────┘
+
+   Detailed Comparison:
+   ┌───────────────┬─────────────┬─────────────┬────────┐
+   │ Element       │ Figma       │ App         │ Status │
+   ├───────────────┼─────────────┼─────────────┼────────┤
+   │ Logo Size     │ 120x40      │ 120x40      │ ✓      │
+   │ Input Height  │ 48px        │ 48px        │ ✓      │
+   │ Input Border  │ 1px #E0E0E0 │ 1px #E0E0E0 │ ✓      │
+   │ Button Color  │ #007AFF     │ #0056B3     │ ✗      │
+   │ Button Radius │ 8px         │ 4px         │ ✗      │
+   │ Button Height │ 52px        │ 48px        │ ✗      │
+   │ Vertical Gap  │ 16px        │ 12px        │ ✗      │
+   └───────────────┴─────────────┴─────────────┴────────┘
+
+   Issues Found: 4
+
+   Auto-fix available? Yes
+   Run `pa:test-auto-fix` to apply design corrections.
+   ```
+
+For `pa:compare-image "path"`:
+1. Load reference image (sketch, screenshot, mockup)
+2. Use visual comparison:
+   ```
+   Image Comparison
+   ════════════════
+
+   Reference: ./designs/sketch-login.png
+   App Screen: LoginScreen
+
+   Analyzing reference image...
+   ✓ Detected UI elements
+   ✓ Extracted layout structure
+   ✓ Identified colors and typography
+
+   Taking app screenshot...
+   ✓ Screenshot captured
+
+   Visual Diff Analysis:
+   ─────────────────────
+
+   Overall Match: 87%
+
+   Differences Detected:
+
+   1. Header Section (Region: 0,0 to 375,100)
+      • Logo position: slightly lower than reference
+      • Background: matches ✓
+
+   2. Form Section (Region: 0,100 to 375,350)
+      • Input fields: match ✓
+      • Labels: font slightly smaller
+      • Spacing: compressed by ~4px
+
+   3. Button Section (Region: 0,350 to 375,450)
+      • Color: differs by 15% (darker in app)
+      • Corner radius: sharper in app
+      • Shadow: missing in app
+
+   Diff image saved: ./proagents/test-reports/visual/login-diff-overlay.png
+
+   ┌─────────────────────────────────────────────┐
+   │ [Reference]        │ [App]        │ [Diff] │
+   │ Expected design    │ Actual app   │ Δ      │
+   └─────────────────────────────────────────────┘
+
+   Suggested fixes generated.
+   Run `pa:test-auto-fix` to apply.
+   ```
+
+For `pa:screenshot`:
+1. Capture screenshots of all app screens:
+   ```
+   Screenshot Capture
+   ══════════════════
+
+   Detecting available screens...
+
+   Found 12 screens in navigation:
+
+   Capturing screenshots...
+
+   ✓ LoginScreen → ./proagents/screenshots/LoginScreen.png
+   ✓ SignupScreen → ./proagents/screenshots/SignupScreen.png
+   ✓ HomeScreen → ./proagents/screenshots/HomeScreen.png
+   ✓ ProfileScreen → ./proagents/screenshots/ProfileScreen.png
+   ✓ SettingsScreen → ./proagents/screenshots/SettingsScreen.png
+   ✓ NotificationsScreen → ./proagents/screenshots/NotificationsScreen.png
+   ... (6 more)
+
+   Component screenshots:
+   ✓ Button variants → ./proagents/screenshots/components/Button.png
+   ✓ Input variants → ./proagents/screenshots/components/Input.png
+   ✓ Card variants → ./proagents/screenshots/components/Card.png
+
+   ══════════════════════════════════════════
+   Screenshots saved: 15 images
+   Location: ./proagents/screenshots/
+   ══════════════════════════════════════════
+
+   Use these for:
+   • Visual regression testing
+   • Design comparison with `pa:compare-image`
+   • Documentation
+   ```
+
+**Mobile Test Configuration:**
+Add to `proagents.config.yaml`:
+```yaml
+mobile_testing:
+  platform: react-native  # or flutter, native
+
+  test_frameworks:
+    unit: jest
+    component: "@testing-library/react-native"
+    e2e: maestro  # or detox, appium
+
+  visual_testing:
+    enabled: true
+    design_source: figma  # or ./designs/
+    figma_file_id: "your-figma-file-id"  # if using Figma
+    threshold: 0.95  # 95% match required
+
+  auto_fix:
+    enabled: true
+    max_iterations: 5
+    require_approval: false  # true = ask before applying fixes
+
+  screenshot:
+    output_dir: ./proagents/screenshots
+    devices:
+      - iPhone 14 Pro
+      - Pixel 7
+
+  test_on:
+    feature_complete: true  # auto-run tests when feature done
+    bug_fix: true  # auto-run tests after bug fix
+    pre_commit: false  # run before git commit
+```
+
+**Test Report Structure:**
+```
+./proagents/test-reports/
+├── mobile-2024-03-06-1500.md      # Full test report
+├── visual/
+│   ├── LoginScreen-diff.png       # Visual diff images
+│   ├── SignupScreen-diff.png
+│   └── comparison-report.md
+├── coverage/
+│   └── coverage-report.html       # Test coverage
+└── auto-fix-log.md                # Log of all auto-fixes
+```
+
 ### AI Platform Management
 | Command | Action |
 |---------|--------|

@@ -393,6 +393,17 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:alias-add` | Add custom alias |
 | `pa:alias-remove` | Remove custom alias |
 
+### Mobile Test Suite (React Native)
+| Command | Description |
+|---------|-------------|
+| `pa:test-mobile` | Run full mobile test suite |
+| `pa:test-visual` | Visual/design comparison testing |
+| `pa:test-auto-fix` | Auto-fix failing tests |
+| `pa:test-loop` | Test → Fix → Retest until all pass |
+| `pa:compare-figma` | Compare UI against Figma design |
+| `pa:compare-image` | Compare UI against image/sketch |
+| `pa:screenshot` | Capture app screenshots |
+
 ### Custom Commands
 | Command | Description |
 |---------|-------------|
