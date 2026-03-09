@@ -1,0 +1,109 @@
+{
+  "$schema": "../../schemas/feedback-schema.json",
+  "project_id": "example-project",
+  "version": "1.0.0",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "feedback_entries": [
+    {
+      "id": "fb-001",
+      "timestamp": "2024-01-12T17:30:00Z",
+      "feature_id": "feature-user-auth",
+      "phase": "implementation",
+
+      "type": "positive",
+      "rating": 5,
+      "comment": "AI correctly identified existing auth patterns and followed them",
+
+      "context": {
+        "suggestion_accepted": true,
+        "modifications_needed": false
+      }
+    },
+    {
+      "id": "fb-002",
+      "timestamp": "2024-01-13T10:00:00Z",
+      "feature_id": "feature-dashboard",
+      "phase": "design",
+
+      "type": "improvement",
+      "rating": 3,
+      "comment": "Design suggestions were good but didn't match our Figma exactly",
+
+      "context": {
+        "suggestion_accepted": true,
+        "modifications_needed": true,
+        "modification_type": "styling_adjustments"
+      },
+
+      "improvement_suggestions": [
+        "Better Figma token extraction",
+        "More precise spacing/sizing"
+      ]
+    },
+    {
+      "id": "fb-003",
+      "timestamp": "2024-01-14T14:15:00Z",
+      "feature_id": "feature-notifications",
+      "phase": "requirements",
+
+      "type": "negative",
+      "rating": 2,
+      "comment": "Missed important requirement about offline notification queuing",
+
+      "context": {
+        "suggestion_accepted": false,
+        "required_restart": true
+      },
+
+      "root_cause": "requirement_ambiguity",
+      "resolution": "Added explicit offline requirements to template"
+    }
+  ],
+
+  "aggregated_feedback": {
+    "total_entries": 3,
+    "average_rating": 3.3,
+    "positive_count": 1,
+    "improvement_count": 1,
+    "negative_count": 1,
+
+    "by_phase": {
+      "requirements": { "average_rating": 2.0, "count": 1 },
+      "design": { "average_rating": 3.0, "count": 1 },
+      "implementation": { "average_rating": 5.0, "count": 1 }
+    },
+
+    "common_issues": [
+      {
+        "issue": "Figma interpretation accuracy",
+        "frequency": 2,
+        "status": "being_addressed"
+      }
+    ],
+
+    "strengths": [
+      {
+        "area": "Pattern recognition in existing code",
+        "frequency": 5,
+        "confidence": 0.92
+      }
+    ]
+  },
+
+  "improvement_actions": [
+    {
+      "id": "action-001",
+      "created_from": "fb-003",
+      "description": "Add offline requirements section to requirements template",
+      "status": "completed",
+      "completed_at": "2024-01-14T16:00:00Z"
+    },
+    {
+      "id": "action-002",
+      "created_from": "fb-002",
+      "description": "Improve Figma token extraction precision",
+      "status": "in_progress"
+    }
+  ]
+}

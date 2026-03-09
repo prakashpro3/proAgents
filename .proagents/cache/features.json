@@ -1,0 +1,115 @@
+{
+  "$schema": "./schemas/features-schema.json",
+  "version": "1.0.0",
+  "generated_at": "2024-01-15T08:00:00Z",
+
+  "discovered_features": [
+    {
+      "name": "User Authentication",
+      "status": "implemented",
+      "location": "src/lib/auth.ts",
+      "components": [
+        "src/components/auth/LoginButton.tsx",
+        "src/components/auth/LogoutButton.tsx",
+        "src/components/auth/UserMenu.tsx"
+      ],
+      "api_routes": [
+        "src/app/api/auth/[...nextauth]/route.ts"
+      ],
+      "hooks": ["src/hooks/useAuth.ts"],
+      "related_files": 12,
+      "test_coverage": 85
+    },
+    {
+      "name": "Dashboard",
+      "status": "implemented",
+      "location": "src/app/dashboard",
+      "components": [
+        "src/components/dashboard/DashboardLayout.tsx",
+        "src/components/dashboard/StatsCard.tsx",
+        "src/components/dashboard/RecentActivity.tsx"
+      ],
+      "related_files": 8,
+      "test_coverage": 72
+    },
+    {
+      "name": "User Profile",
+      "status": "implemented",
+      "location": "src/app/profile",
+      "components": [
+        "src/components/profile/ProfileForm.tsx",
+        "src/components/profile/AvatarUpload.tsx"
+      ],
+      "api_routes": [
+        "src/app/api/users/[id]/route.ts"
+      ],
+      "related_files": 6,
+      "test_coverage": 68
+    },
+    {
+      "name": "Settings",
+      "status": "partial",
+      "location": "src/app/settings",
+      "components": [
+        "src/components/settings/SettingsForm.tsx"
+      ],
+      "related_files": 4,
+      "test_coverage": 45,
+      "notes": "Notification settings not yet implemented"
+    }
+  ],
+
+  "ui_components": {
+    "total": 24,
+    "by_category": {
+      "layout": ["Header", "Footer", "Sidebar", "PageContainer"],
+      "forms": ["Input", "Select", "Checkbox", "Button", "Form"],
+      "display": ["Card", "Badge", "Avatar", "Modal", "Toast"],
+      "navigation": ["NavLink", "Breadcrumb", "Tabs"],
+      "feedback": ["Spinner", "Skeleton", "Alert", "Progress"]
+    }
+  },
+
+  "api_endpoints": [
+    {
+      "route": "/api/auth/[...nextauth]",
+      "methods": ["GET", "POST"],
+      "purpose": "Authentication"
+    },
+    {
+      "route": "/api/users",
+      "methods": ["GET", "POST"],
+      "purpose": "User management"
+    },
+    {
+      "route": "/api/users/[id]",
+      "methods": ["GET", "PUT", "DELETE"],
+      "purpose": "Individual user"
+    },
+    {
+      "route": "/api/dashboard/stats",
+      "methods": ["GET"],
+      "purpose": "Dashboard statistics"
+    }
+  ],
+
+  "state_stores": [
+    {
+      "name": "useUserStore",
+      "location": "src/stores/userStore.ts",
+      "purpose": "User session state"
+    },
+    {
+      "name": "useUIStore",
+      "location": "src/stores/uiStore.ts",
+      "purpose": "UI state (sidebar, modals)"
+    }
+  ],
+
+  "database_models": [
+    { "name": "User", "table": "users", "fields": 8 },
+    { "name": "Account", "table": "accounts", "fields": 10 },
+    { "name": "Session", "table": "sessions", "fields": 4 },
+    { "name": "Profile", "table": "profiles", "fields": 6 }
+  ]
+}

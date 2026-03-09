@@ -1,0 +1,101 @@
+{
+  "$schema": "../../schemas/metrics-schema.json",
+  "project_id": "example-project",
+  "version": "1.0.0",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "summary": {
+    "features_completed": 8,
+    "bugs_fixed": 15,
+    "total_development_hours": 124,
+    "average_feature_duration_hours": 12.5,
+    "average_bug_fix_duration_hours": 1.8
+  },
+
+  "phase_durations": {
+    "analysis": {
+      "average_minutes": 35,
+      "min_minutes": 15,
+      "max_minutes": 90,
+      "samples": 8
+    },
+    "requirements": {
+      "average_minutes": 45,
+      "min_minutes": 20,
+      "max_minutes": 120,
+      "samples": 8
+    },
+    "design": {
+      "average_minutes": 75,
+      "min_minutes": 30,
+      "max_minutes": 180,
+      "samples": 7
+    },
+    "implementation": {
+      "average_minutes": 320,
+      "min_minutes": 60,
+      "max_minutes": 720,
+      "samples": 8
+    },
+    "testing": {
+      "average_minutes": 90,
+      "min_minutes": 30,
+      "max_minutes": 240,
+      "samples": 8
+    },
+    "review": {
+      "average_minutes": 45,
+      "min_minutes": 15,
+      "max_minutes": 120,
+      "samples": 8
+    },
+    "documentation": {
+      "average_minutes": 30,
+      "min_minutes": 10,
+      "max_minutes": 60,
+      "samples": 6
+    }
+  },
+
+  "checkpoint_metrics": {
+    "after_analysis": {
+      "average_wait_minutes": 5,
+      "skip_rate": 0.12,
+      "approval_rate": 1.0
+    },
+    "after_design": {
+      "average_wait_minutes": 30,
+      "skip_rate": 0.0,
+      "approval_rate": 0.88
+    },
+    "before_deployment": {
+      "average_wait_minutes": 120,
+      "skip_rate": 0.0,
+      "approval_rate": 1.0
+    }
+  },
+
+  "efficiency_trends": {
+    "weekly": [
+      { "week": "2024-W01", "features": 2, "avg_duration_hours": 15.0 },
+      { "week": "2024-W02", "features": 3, "avg_duration_hours": 12.0 },
+      { "week": "2024-W03", "features": 3, "avg_duration_hours": 10.5 }
+    ],
+    "improvement_rate": 0.15,
+    "trend": "improving"
+  },
+
+  "quality_metrics": {
+    "test_coverage_average": 82,
+    "bugs_per_feature": 0.5,
+    "rework_rate": 0.08,
+    "code_review_iterations_average": 1.3
+  },
+
+  "learning_impact": {
+    "corrections_auto_applied": 23,
+    "time_saved_by_corrections_minutes": 180,
+    "patterns_learned": 45,
+    "suggestions_accepted_rate": 0.78
+  }
+}

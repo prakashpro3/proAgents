@@ -11,6 +11,7 @@ import { uninstallCommand } from '../lib/commands/uninstall.js';
 import { configListCommand, configShowCommand, configEditCommand, configSetCommand, configGetCommand, configSetupCommand, configCustomizeCommand } from '../lib/commands/config.js';
 import { doctorCommand } from '../lib/commands/doctor.js';
 import { upgradeCommand } from '../lib/commands/upgrade.js';
+import { migrateCommand } from '../lib/commands/migrate.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -83,8 +84,8 @@ program
   .action(() => {
     console.log('\nProAgents Documentation');
     console.log('=======================\n');
-    console.log('Local: ./proagents/README.md');
-    console.log('Workflow: ./proagents/WORKFLOW.md');
+    console.log('Local: ./.proagents/README.md');
+    console.log('Workflow: ./.proagents/WORKFLOW.md');
     console.log('GitHub: https://github.com/prakashpro3/proAgents\n');
   });
 
@@ -170,8 +171,15 @@ program
 // Upgrade command
 program
   .command('upgrade')
-  .description('Upgrade proagents folder to latest version')
+  .description('Upgrade .proagents folder to latest version')
   .option('-f, --force', 'Skip confirmation prompt')
   .action(upgradeCommand);
+
+// Migrate command
+program
+  .command('migrate')
+  .description('Migrate from proagents/ to .proagents/ folder structure')
+  .option('-f, --force', 'Skip confirmation prompt')
+  .action(migrateCommand);
 
 program.parse();

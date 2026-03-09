@@ -1,0 +1,122 @@
+{
+  "$schema": "../schemas/feature-schema.json",
+  "id": "feature-user-auth",
+  "name": "User Authentication",
+  "description": "Add user authentication with OAuth support for Google and GitHub",
+  "created_at": "2024-01-10T09:00:00Z",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "workflow": {
+    "mode": "full",
+    "entry_point": "feature_start",
+    "current_phase": "implementation",
+    "phase_progress": 60
+  },
+
+  "phases": {
+    "init": {
+      "status": "completed",
+      "started_at": "2024-01-10T09:00:00Z",
+      "completed_at": "2024-01-10T09:15:00Z",
+      "duration_minutes": 15
+    },
+    "analysis": {
+      "status": "completed",
+      "started_at": "2024-01-10T09:15:00Z",
+      "completed_at": "2024-01-10T10:00:00Z",
+      "duration_minutes": 45,
+      "artifacts": ["analysis-report.md"]
+    },
+    "requirements": {
+      "status": "completed",
+      "started_at": "2024-01-10T10:00:00Z",
+      "completed_at": "2024-01-10T11:30:00Z",
+      "duration_minutes": 90,
+      "artifacts": ["requirements.md", "user-stories.md"]
+    },
+    "design": {
+      "status": "completed",
+      "started_at": "2024-01-10T13:00:00Z",
+      "completed_at": "2024-01-10T15:00:00Z",
+      "duration_minutes": 120,
+      "artifacts": ["ui-specification.md", "component-designs.md"]
+    },
+    "planning": {
+      "status": "completed",
+      "started_at": "2024-01-10T15:00:00Z",
+      "completed_at": "2024-01-10T16:00:00Z",
+      "duration_minutes": 60,
+      "artifacts": ["implementation-plan.md"]
+    },
+    "implementation": {
+      "status": "in_progress",
+      "started_at": "2024-01-11T09:00:00Z",
+      "progress": 60,
+      "tasks_completed": 6,
+      "tasks_total": 10
+    },
+    "testing": {
+      "status": "pending"
+    },
+    "review": {
+      "status": "pending"
+    },
+    "documentation": {
+      "status": "pending"
+    },
+    "deployment": {
+      "status": "pending"
+    }
+  },
+
+  "checkpoints": {
+    "after_analysis": {
+      "triggered": true,
+      "approved": true,
+      "approved_by": "@tech-lead",
+      "approved_at": "2024-01-10T10:05:00Z"
+    },
+    "after_requirements": {
+      "triggered": true,
+      "approved": true,
+      "approved_by": "@product-manager",
+      "approved_at": "2024-01-10T11:45:00Z"
+    },
+    "after_design": {
+      "triggered": true,
+      "approved": true,
+      "approved_by": "@tech-lead",
+      "approved_at": "2024-01-10T15:15:00Z"
+    },
+    "after_implementation": {
+      "triggered": false
+    },
+    "before_deployment": {
+      "triggered": false
+    }
+  },
+
+  "git": {
+    "branch": "feature/user-auth",
+    "base_branch": "develop",
+    "commits": 12,
+    "last_commit": "abc123def",
+    "pr_number": null,
+    "pr_status": null
+  },
+
+  "assignees": {
+    "primary": "developer-1",
+    "reviewers": ["tech-lead", "developer-2"]
+  },
+
+  "context": {
+    "key_decisions": [
+      "Using NextAuth.js for authentication",
+      "JWT tokens stored in httpOnly cookies",
+      "Refresh token rotation enabled"
+    ],
+    "open_questions": [],
+    "blockers": []
+  }
+}

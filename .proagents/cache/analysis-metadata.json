@@ -1,0 +1,76 @@
+{
+  "$schema": "./schemas/metadata-schema.json",
+  "version": "1.0.0",
+  "cache_version": "1",
+
+  "project": {
+    "path": "/path/to/project",
+    "name": "example-project",
+    "type": "fullstack"
+  },
+
+  "timestamps": {
+    "created_at": "2024-01-15T08:00:00Z",
+    "updated_at": "2024-01-15T10:30:00Z",
+    "last_full_analysis": "2024-01-15T08:00:00Z",
+    "last_incremental_update": "2024-01-15T10:30:00Z"
+  },
+
+  "cache_status": {
+    "structure": {
+      "valid": true,
+      "age_hours": 2.5,
+      "ttl_hours": 24,
+      "size_bytes": 45678,
+      "last_updated": "2024-01-15T10:30:00Z"
+    },
+    "conventions": {
+      "valid": true,
+      "age_hours": 2.5,
+      "ttl_hours": 168,
+      "size_bytes": 12345,
+      "last_updated": "2024-01-15T08:00:00Z"
+    },
+    "dependencies": {
+      "valid": true,
+      "age_hours": 0.5,
+      "ttl_hours": 1,
+      "size_bytes": 23456,
+      "last_updated": "2024-01-15T10:00:00Z"
+    },
+    "features": {
+      "valid": true,
+      "age_hours": 2.5,
+      "ttl_hours": 24,
+      "size_bytes": 34567,
+      "last_updated": "2024-01-15T08:00:00Z"
+    },
+    "patterns": {
+      "valid": true,
+      "age_hours": 2.5,
+      "ttl_hours": 168,
+      "size_bytes": 56789,
+      "last_updated": "2024-01-15T08:00:00Z"
+    }
+  },
+
+  "file_tracking": {
+    "total_files": 234,
+    "tracked_files": 189,
+    "excluded_files": 45,
+    "last_file_check": "2024-01-15T10:30:00Z",
+    "files_changed_since_analysis": 3
+  },
+
+  "integrity": {
+    "checksum": "sha256:abc123def456...",
+    "verified_at": "2024-01-15T10:30:00Z",
+    "status": "valid"
+  },
+
+  "storage": {
+    "total_size_bytes": 172835,
+    "max_size_bytes": 104857600,
+    "usage_percent": 0.16
+  }
+}

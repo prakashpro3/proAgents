@@ -1,0 +1,99 @@
+{
+  "$schema": "../../schemas/corrections-schema.json",
+  "project_id": "example-project",
+  "version": "1.0.0",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "corrections": [
+    {
+      "id": "corr-001",
+      "created_at": "2024-01-10T14:30:00Z",
+      "type": "code_pattern",
+      "category": "api_calls",
+
+      "original": {
+        "code": "const response = await fetch('/api/users');",
+        "context": "API call in component"
+      },
+      "corrected": {
+        "code": "const response = await apiClient.get('/users');",
+        "context": "Use project's API client"
+      },
+
+      "reason": "Project uses centralized API client with interceptors",
+      "occurrences": 5,
+      "auto_apply": true,
+      "confidence": 0.95
+    },
+    {
+      "id": "corr-002",
+      "created_at": "2024-01-11T09:15:00Z",
+      "type": "naming",
+      "category": "components",
+
+      "original": {
+        "pattern": "function Component(props)"
+      },
+      "corrected": {
+        "pattern": "const Component: FC<ComponentProps> = ({ prop1, prop2 })"
+      },
+
+      "reason": "Project prefers typed arrow function components with destructured props",
+      "occurrences": 3,
+      "auto_apply": true,
+      "confidence": 0.88
+    },
+    {
+      "id": "corr-003",
+      "created_at": "2024-01-12T16:00:00Z",
+      "type": "error_handling",
+      "category": "api",
+
+      "original": {
+        "code": "catch (error) { console.error(error); }"
+      },
+      "corrected": {
+        "code": "catch (error) { logger.error('Operation failed', { error, context }); throw error; }"
+      },
+
+      "reason": "Use structured logging and re-throw for proper error propagation",
+      "occurrences": 4,
+      "auto_apply": false,
+      "confidence": 0.82
+    },
+    {
+      "id": "corr-004",
+      "created_at": "2024-01-13T11:30:00Z",
+      "type": "imports",
+      "category": "organization",
+
+      "original": {
+        "pattern": "Mixed import order"
+      },
+      "corrected": {
+        "pattern": "React → third-party → local → styles"
+      },
+
+      "reason": "Consistent import ordering per project standards",
+      "occurrences": 8,
+      "auto_apply": true,
+      "confidence": 0.98
+    }
+  ],
+
+  "statistics": {
+    "total_corrections": 4,
+    "auto_applied": 3,
+    "manual_review": 1,
+    "average_confidence": 0.91,
+    "time_saved_minutes": 45
+  },
+
+  "pending_review": [
+    {
+      "correction_id": "corr-003",
+      "reason": "Confidence below threshold",
+      "suggested_action": "Verify error handling pattern with team"
+    }
+  ]
+}

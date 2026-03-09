@@ -1,0 +1,77 @@
+{
+  "$schema": "../schemas/patterns-schema.json",
+  "version": "1.0.0",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "patterns": {
+    "component_patterns": [
+      {
+        "id": "functional-component",
+        "name": "Functional Component with TypeScript",
+        "frequency": 95,
+        "confidence": 0.98,
+        "template": "export const {{name}}: FC<{{name}}Props> = ({ ...props }) => {\n  return (...);\n};"
+      },
+      {
+        "id": "hook-pattern",
+        "name": "Custom Hook Pattern",
+        "frequency": 85,
+        "confidence": 0.92,
+        "template": "export function use{{Name}}(options?: {{Name}}Options) {\n  // implementation\n  return { data, loading, error };\n}"
+      }
+    ],
+
+    "api_patterns": [
+      {
+        "id": "rest-handler",
+        "name": "REST API Handler",
+        "frequency": 90,
+        "confidence": 0.95,
+        "template": "export async function {{METHOD}}(req: NextRequest) {\n  try {\n    // implementation\n    return NextResponse.json({ success: true, data });\n  } catch (error) {\n    return NextResponse.json({ success: false, error: error.message }, { status: 500 });\n  }\n}"
+      }
+    ],
+
+    "error_handling": [
+      {
+        "id": "try-catch-async",
+        "name": "Async Try-Catch Pattern",
+        "frequency": 88,
+        "confidence": 0.90,
+        "applies_to": ["api_routes", "services"]
+      }
+    ],
+
+    "testing_patterns": [
+      {
+        "id": "describe-it",
+        "name": "Describe-It Test Structure",
+        "frequency": 100,
+        "confidence": 0.99,
+        "template": "describe('{{subject}}', () => {\n  it('should {{behavior}}', () => {\n    // arrange, act, assert\n  });\n});"
+      }
+    ]
+  },
+
+  "anti_patterns": [
+    {
+      "id": "prop-drilling",
+      "name": "Excessive Prop Drilling",
+      "detected_count": 3,
+      "suggestion": "Use context or state management for deeply nested props",
+      "auto_suggest": true
+    },
+    {
+      "id": "any-type",
+      "name": "Using 'any' Type",
+      "detected_count": 5,
+      "suggestion": "Define proper TypeScript interfaces",
+      "auto_suggest": true
+    }
+  ],
+
+  "learned_from": {
+    "codebase_analysis": 45,
+    "user_corrections": 12,
+    "explicit_teaching": 3
+  }
+}

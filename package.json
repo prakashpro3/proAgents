@@ -14,7 +14,7 @@
   "files": [
     "bin/",
     "lib/",
-    "proagents/"
+    ".proagents/"
   ],
   "keywords": [
     "ai",

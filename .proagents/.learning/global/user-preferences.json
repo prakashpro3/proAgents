@@ -1,0 +1,76 @@
+{
+  "$schema": "../schemas/user-preferences-schema.json",
+  "version": "1.0.0",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "checkpoint_preferences": {
+    "usually_skips": [
+      "after_requirements",
+      "after_documentation"
+    ],
+    "always_reviews": [
+      "after_design",
+      "before_deployment"
+    ],
+    "auto_approve_conditions": [
+      {
+        "checkpoint": "after_analysis",
+        "condition": "files_changed < 5",
+        "confidence": 0.85
+      }
+    ]
+  },
+
+  "workflow_preferences": {
+    "preferred_mode": "full",
+    "skip_phases_for_bug_fixes": [
+      "design",
+      "documentation"
+    ],
+    "detail_level": "high",
+    "verbosity": "moderate"
+  },
+
+  "code_preferences": {
+    "naming_style": {
+      "components": "PascalCase",
+      "functions": "camelCase",
+      "constants": "UPPER_SNAKE_CASE",
+      "files": "kebab-case"
+    },
+    "formatting": {
+      "indent": 2,
+      "quotes": "single",
+      "semicolons": true,
+      "trailing_commas": "es5"
+    },
+    "patterns": {
+      "state_management": "zustand",
+      "data_fetching": "react-query",
+      "styling": "tailwind"
+    }
+  },
+
+  "review_preferences": {
+    "focus_areas": [
+      "security",
+      "performance",
+      "accessibility"
+    ],
+    "thoroughness": "high",
+    "comment_style": "inline"
+  },
+
+  "notification_preferences": {
+    "on_checkpoint": true,
+    "on_completion": true,
+    "on_error": true,
+    "channels": ["terminal"]
+  },
+
+  "learning_consent": {
+    "track_corrections": true,
+    "track_patterns": true,
+    "share_anonymized": false
+  }
+}

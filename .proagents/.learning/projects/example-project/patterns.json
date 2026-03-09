@@ -1,0 +1,102 @@
+{
+  "$schema": "../../schemas/project-patterns-schema.json",
+  "project_id": "example-project",
+  "project_path": "/path/to/example-project",
+  "version": "1.0.0",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "naming_conventions": {
+    "components": {
+      "pattern": "PascalCase",
+      "suffix": "",
+      "examples": ["UserProfile", "DashboardCard", "NavigationMenu"],
+      "confidence": 0.95
+    },
+    "hooks": {
+      "pattern": "camelCase",
+      "prefix": "use",
+      "examples": ["useAuth", "useUserData", "useLocalStorage"],
+      "confidence": 0.98
+    },
+    "services": {
+      "pattern": "PascalCase",
+      "suffix": "Service",
+      "examples": ["UserService", "AuthService", "ApiService"],
+      "confidence": 0.90
+    },
+    "types": {
+      "pattern": "PascalCase",
+      "prefix": "",
+      "suffix": "",
+      "examples": ["User", "ApiResponse", "FormData"],
+      "confidence": 0.92
+    },
+    "files": {
+      "components": "PascalCase.tsx",
+      "hooks": "camelCase.ts",
+      "utils": "camelCase.ts",
+      "tests": "*.test.ts"
+    }
+  },
+
+  "code_patterns": {
+    "imports": {
+      "order": ["react", "third-party", "local", "styles"],
+      "group_by": "type",
+      "examples": [
+        "import React, { useState } from 'react';",
+        "import { useQuery } from '@tanstack/react-query';",
+        "import { UserService } from '@/services/UserService';",
+        "import styles from './Component.module.css';"
+      ]
+    },
+    "exports": {
+      "style": "named",
+      "examples": ["export const Component = ...", "export function useHook() {...}"]
+    },
+    "error_handling": {
+      "style": "try-catch-async",
+      "error_type": "typed",
+      "logging": true
+    },
+    "state_management": {
+      "global": "zustand",
+      "local": "useState",
+      "server": "react-query"
+    }
+  },
+
+  "architecture": {
+    "directory_structure": {
+      "src/components": "Shared UI components",
+      "src/features": "Feature-based modules",
+      "src/hooks": "Custom React hooks",
+      "src/services": "API and business logic",
+      "src/stores": "Zustand stores",
+      "src/types": "TypeScript type definitions",
+      "src/utils": "Utility functions"
+    },
+    "patterns_used": [
+      "feature-based-architecture",
+      "custom-hooks",
+      "service-layer",
+      "typed-api-responses"
+    ]
+  },
+
+  "testing": {
+    "framework": "vitest",
+    "structure": "colocated",
+    "naming": "*.test.ts",
+    "coverage_target": 80,
+    "patterns": {
+      "unit": "describe-it with mocks",
+      "integration": "testing-library with msw",
+      "e2e": "playwright"
+    }
+  },
+
+  "learned_at": "2024-01-15T10:30:00Z",
+  "last_analysis": "2024-01-15T10:30:00Z",
+  "confidence_overall": 0.92
+}

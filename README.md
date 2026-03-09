@@ -33,7 +33,7 @@ cd your-project
 npx proagents init
 ```
 
-This creates a `./proagents/` folder with workflow files, and prompts for:
+This creates a `./.proagents/` folder with workflow files, and prompts for:
 - Project name and type (auto-detected)
 - Tech stack (API style, database, styling, auth, etc.)
 - AI platforms to use (Claude, Cursor, Gemini, etc.)
@@ -411,7 +411,7 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:tech-debt` | Scan for technical debt |
 | `pa:security-scan` | Run security checklist |
 
-Define your own in `./proagents/custom-commands.yaml`
+Define your own in `./.proagents/custom-commands.yaml`
 
 ---
 
@@ -421,13 +421,13 @@ After initialization, these files help AI understand your project:
 
 | File | Purpose | AI Should |
 |------|---------|-----------|
-| `proagents/context.md` | Persistent project knowledge | **Read first every session!** |
-| `proagents/feedback.md` | Past corrections & preferences | Learn from mistakes |
-| `proagents/watchlist.yaml` | Protected files list | Ask before modifying |
-| `proagents/activity.log` | AI activity history | Check for conflicts |
-| `proagents/decisions.md` | Architectural decisions | Understand why choices were made |
-| `proagents/errors.md` | Past errors & solutions | Find solutions faster |
-| `proagents/handoff.md` | Handoff notes | Continue where another AI left off |
+| `.proagents/context.md` | Persistent project knowledge | **Read first every session!** |
+| `.proagents/feedback.md` | Past corrections & preferences | Learn from mistakes |
+| `.proagents/watchlist.yaml` | Protected files list | Ask before modifying |
+| `.proagents/activity.log` | AI activity history | Check for conflicts |
+| `.proagents/decisions.md` | Architectural decisions | Understand why choices were made |
+| `.proagents/errors.md` | Past errors & solutions | Find solutions faster |
+| `.proagents/handoff.md` | Handoff notes | Continue where another AI left off |
 
 ---
 
@@ -435,7 +435,7 @@ After initialization, these files help AI understand your project:
 
 ```
 your-project/
-├── proagents/
+├── .proagents/
 │   ├── proagents.config.yaml   # Project configuration
 │   ├── AI_INSTRUCTIONS.md      # Instructions for all AIs
 │   ├── PROAGENTS.md            # Quick command reference
@@ -525,10 +525,10 @@ platforms:
 
 | Document | Description |
 |----------|-------------|
-| [Getting Started Story](./proagents/GETTING-STARTED-STORY.md) | Narrative walkthrough |
-| [Complete Workflow](./proagents/WORKFLOW.md) | 10-phase workflow guide |
-| [AI Instructions](./proagents/AI_INSTRUCTIONS.md) | Full AI command reference |
-| [Examples](./proagents/examples/) | Project-specific walkthroughs |
+| [Getting Started Story](./.proagents/GETTING-STARTED-STORY.md) | Narrative walkthrough |
+| [Complete Workflow](./.proagents/WORKFLOW.md) | 10-phase workflow guide |
+| [AI Instructions](./.proagents/AI_INSTRUCTIONS.md) | Full AI command reference |
+| [Examples](./.proagents/examples/) | Project-specific walkthroughs |
 
 ---
 
