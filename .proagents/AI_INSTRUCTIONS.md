@@ -1990,7 +1990,56 @@ For `pa:alias-add`:
 **How to execute Mobile Test Suite commands:**
 
 For `pa:test-mobile`:
-1. Run comprehensive mobile test suite:
+1. **FIRST: Check required tools are installed (FAIL if missing, do NOT skip):**
+   ```
+   Checking required tools...
+   ✓ Node.js (v18.0.0)
+   ✓ Jest / Vitest
+   ✓ React Native Testing Library
+   ✗ MISSING: Maestro - Required for E2E tests
+   ✗ MISSING: Detox - Required for E2E tests
+
+   ══════════════════════════════════════════════════════════
+   ERROR: Missing required tools. Cannot run mobile test suite.
+   ══════════════════════════════════════════════════════════
+
+   Install missing tools manually:
+     brew install maestro
+     npm install -g detox-cli
+
+   Or let me install them for you:
+     → Type "yes" to auto-install missing tools
+     → Type "no" to cancel
+
+   Or run with limited tests:
+     pa:test-mobile --unit-only    (skip E2E tests)
+     pa:test-mobile --skip-visual  (skip visual tests)
+   ```
+
+   **IMPORTANT:** Never silently skip tests due to missing tools. Always:
+   - Show clear error about what's missing
+   - Provide installation instructions for each missing tool
+   - Offer to auto-install missing tools (ask user permission first)
+   - Fail the test suite if user declines (exit code 1)
+   - Offer alternative flags (--unit-only, --skip-e2e, --skip-visual)
+
+   **Auto-install behavior:**
+   If user agrees to auto-install:
+   ```
+   Installing missing tools...
+
+   Installing Maestro...
+   → curl -Ls "https://get.maestro.mobile.dev" | bash
+   ✓ Maestro installed successfully
+
+   Installing Detox CLI...
+   → npm install -g detox-cli
+   ✓ Detox CLI installed successfully
+
+   All tools installed. Running test suite...
+   ```
+
+2. If all tools present, run comprehensive mobile test suite:
    ```
    Mobile Test Suite
    ═════════════════
@@ -2046,7 +2095,7 @@ For `pa:test-mobile`:
    Run `pa:test-auto-fix` to automatically fix these issues.
    ```
 
-2. Generate detailed test report at `./.proagents/test-reports/mobile-{timestamp}.md`
+3. Generate detailed test report at `./.proagents/test-reports/mobile-{timestamp}.md`
 
 For `pa:test-visual`:
 1. Take screenshots of all screens/components
