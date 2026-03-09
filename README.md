@@ -11,40 +11,25 @@ A portable, universal development workflow framework that works with **any AI pl
 
 ## Installation
 
+No install required. Just run:
+
 ```bash
-# Initialize in your project
 npx proagents init
+```
 
-# Or with a template
+Or with a template:
+
+```bash
 npx proagents init --template nextjs-saas
-
-# Install globally (optional)
-npm install -g proagents
 ```
 
 ### Upgrading from v1.5.x
 
 Version 1.6.0 renamed `proagents/` to `.proagents/` (following `.github`, `.vscode` convention).
 
-**For existing projects, run these 2 steps:**
-
 ```bash
-# Step 1: Go to your project
 cd your-project
-
-# Step 2: Run migration (no install needed)
 npx proagents migrate
-```
-
-**Or if you have proagents installed globally:**
-
-```bash
-# Update global installation
-npm i -g proagents
-
-# Then migrate each project
-cd your-project
-proagents migrate
 ```
 
 **What migration does:**
