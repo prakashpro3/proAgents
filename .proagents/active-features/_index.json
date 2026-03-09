@@ -1,74 +1,22 @@
 {
   "$schema": "./schemas/index-schema.json",
   "version": "1.0.0",
-  "last_updated": "2024-01-15T10:30:00Z",
+  "last_updated": null,
 
-  "active_features": [
-    {
-      "id": "feature-user-auth",
-      "name": "User Authentication",
-      "description": "Add user authentication with OAuth support",
-      "current_phase": "implementation",
-      "phase_progress": 60,
-      "branch": "feature/user-auth",
-      "started": "2024-01-10T09:00:00Z",
-      "last_updated": "2024-01-15T10:30:00Z",
-      "estimated_completion": "2024-01-17T17:00:00Z",
-      "assignee": "developer-1",
-      "priority": "high",
-      "blockers": [],
-      "dependencies": [],
-      "files_modified_count": 12,
-      "checkpoints_completed": ["after_analysis", "after_requirements", "after_design"],
-      "checkpoints_pending": ["after_implementation", "before_deployment"]
-    }
-  ],
-
-  "paused_features": [
-    {
-      "id": "feature-notifications",
-      "name": "Push Notifications",
-      "description": "Add push notification support",
-      "current_phase": "requirements",
-      "phase_progress": 30,
-      "branch": "feature/notifications",
-      "started": "2024-01-08T14:00:00Z",
-      "paused_at": "2024-01-12T11:00:00Z",
-      "pause_reason": "Waiting for user-auth to complete",
-      "assignee": "developer-2",
-      "priority": "medium",
-      "blocked_by": ["feature-user-auth"]
-    }
-  ],
-
-  "completed_features": [
-    {
-      "id": "feature-dark-mode",
-      "name": "Dark Mode Support",
-      "completed_at": "2024-01-09T16:00:00Z",
-      "duration_hours": 18,
-      "merged_commit": "abc123def",
-      "pr_number": 42
-    }
-  ],
+  "active_features": [],
+  "paused_features": [],
+  "completed_features": [],
 
   "conflicts": {
     "active": [],
-    "resolved": [
-      {
-        "features": ["feature-user-auth", "feature-dark-mode"],
-        "file": "src/styles/theme.ts",
-        "resolved_at": "2024-01-09T15:30:00Z",
-        "resolution": "merged"
-      }
-    ]
+    "resolved": []
   },
 
   "statistics": {
-    "total_active": 1,
-    "total_paused": 1,
-    "total_completed": 1,
-    "average_completion_days": 3.5,
-    "conflict_rate": 0.15
+    "total_active": 0,
+    "total_paused": 0,
+    "total_completed": 0,
+    "average_completion_days": 0,
+    "conflict_rate": 0
   }
 }

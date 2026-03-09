@@ -273,6 +273,49 @@ When the user types commands starting with `pa:`, recognize and execute them.
 | `pa:help` | Show all available commands |
 | `pa:status` | Show current progress |
 
+**How to execute Initialization commands:**
+
+For `pa:status` (or `pa:s`):
+1. **Read the ACTUAL data** from `./.proagents/active-features/_index.json`
+2. **Check if empty** - if `active_features`, `paused_features`, and `completed_features` are all empty arrays:
+   ```
+   Project Status
+   ══════════════
+
+   No features currently tracked.
+
+   Start a new feature with:
+   → pa:feature-start "feature name"
+
+   Or quick bug fix:
+   → pa:fix "bug description"
+   ```
+
+3. **If has features**, show real status:
+   ```
+   Project Status
+   ══════════════
+
+   Active Features: [count]
+   ────────────────────────
+   • [feature-name] - [phase] ([progress]%)
+     Branch: [branch]
+     Last updated: [timestamp]
+
+   Paused Features: [count]
+   ────────────────────────
+   • [feature-name] - Paused: [reason]
+
+   Completed Features: [count]
+   ──────────────────────────
+   • [feature-name] - Completed [date]
+
+   Next Steps:
+   → [suggested action based on current state]
+   ```
+
+4. **NEVER show example/template data** - only show what's actually in the JSON file
+
 ### Feature Development
 | Command | Action |
 |---------|--------|
