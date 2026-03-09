@@ -2149,30 +2149,60 @@ For `pa:alias-add`:
 **How to execute Mobile Test Suite commands:**
 
 For `pa:test-mobile`:
-1. **FIRST: Check required tools are installed (FAIL if missing, do NOT skip):**
+
+**Supports ALL mobile platforms:**
+- React Native / Expo
+- Native Android (Kotlin/Java)
+- Native iOS (Swift/Objective-C)
+- Flutter (Dart)
+
+1. **Detect project type automatically:**
    ```
-   Checking required tools...
-   ✓ Node.js (v18.0.0)
+   Detecting mobile project type...
+
+   Checking for:
+   ├── package.json + react-native → React Native
+   ├── android/build.gradle (no RN) → Native Android
+   ├── ios/*.xcodeproj (no RN) → Native iOS
+   ├── pubspec.yaml → Flutter
+
+   Detected: [PROJECT_TYPE]
+   ```
+
+2. **Check & auto-install required tools based on platform:**
+
+   **React Native / Expo:**
+   ```
+   ✓ Node.js
    ✓ Jest / Vitest
    ✓ React Native Testing Library
-   ✗ MISSING: Maestro - Required for E2E tests
-   ✗ MISSING: Detox - Required for E2E tests
+   ✗ MISSING: Maestro → Auto-installing...
+   ✗ MISSING: Detox → Auto-installing...
+   ```
 
-   ══════════════════════════════════════════════════════════
-   ERROR: Missing required tools. Cannot run mobile test suite.
-   ══════════════════════════════════════════════════════════
+   **Native Android (Kotlin/Java):**
+   ```
+   ✓ Android Studio / Gradle
+   ✓ JUnit
+   ✗ MISSING: Espresso → Auto-adding to build.gradle
+   ✗ MISSING: UI Automator → Auto-adding to build.gradle
+   ✗ MISSING: Maestro → Auto-installing...
+   ```
 
-   Missing tools detected. Auto-installing...
+   **Native iOS (Swift/Objective-C):**
+   ```
+   ✓ Xcode
+   ✓ XCTest (built-in)
+   ✓ XCUITest (built-in)
+   ✗ MISSING: Maestro → Auto-installing...
+   ```
 
-   Installing Maestro...
-   → curl -Ls "https://get.maestro.mobile.dev" | bash
-   ✓ Maestro installed successfully
-
-   Installing Detox CLI...
-   → npm install -g detox-cli
-   ✓ Detox CLI installed successfully
-
-   All tools installed. Running test suite...
+   **Flutter:**
+   ```
+   ✓ Flutter SDK
+   ✓ flutter_test (built-in)
+   ✗ MISSING: integration_test → Auto-adding to pubspec.yaml
+   ✗ MISSING: Maestro → Auto-installing...
    ```
 
    **IMPORTANT - FULL AUTOMATION:**
@@ -2181,15 +2211,11 @@ For `pa:test-mobile`:
    - Fix doesn't work? **Try alternative fix** (no confirmation)
    - Only stop when: all tests pass OR no fix possible
 
-   **Do NOT:**
-   - Ask "Should I install missing tools?"
-   - Ask "Should I fix this?"
-   - Say "Run `pa:test-auto-fix` to fix"
-   - Give "Next steps" for user to follow
-
    **Just DO it.**
 
-2. If all tools present, run comprehensive mobile test suite:
+3. **Run platform-specific test suite:**
+
+   **For React Native:**
    ```
    Mobile Test Suite
    ═════════════════
@@ -2277,6 +2303,129 @@ For `pa:test-mobile`:
 
    ══════════════════════════════════════════
    ALL TESTS PASSING: 38/38 ✓
+   ══════════════════════════════════════════
+   ```
+
+   **For Native Android (Kotlin/Java):**
+   ```
+   Android Test Suite
+   ══════════════════
+
+   Phase 1: Unit Tests (JUnit)
+   ───────────────────────────
+   Running: ./gradlew test
+   ✓ UserRepositoryTest - 8 passed
+   ✓ AuthViewModelTest - 12 passed
+   ✓ PaymentServiceTest - 6 passed
+
+   Phase 2: Instrumented Tests (Espresso)
+   ──────────────────────────────────────
+   Running: ./gradlew connectedAndroidTest
+   ✓ LoginActivityTest - UI renders correctly
+   ✓ MainActivityTest - Navigation works
+   ✗ FAILED: CheckoutActivityTest - Button not found
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: Button ID changed
+   Fixing: app/src/main/res/layout/activity_checkout.xml
+   → Changed: android:id="@+id/btn_pay" → android:id="@+id/checkout_button"
+   Fixing: app/src/androidTest/.../CheckoutActivityTest.kt
+   → Changed: R.id.btn_pay → R.id.checkout_button
+   Re-running test... ✓ PASSED
+
+   Phase 3: UI Tests (UI Automator)
+   ─────────────────────────────────
+   ✓ Full checkout flow
+   ✓ User settings update
+   ✓ Push notification handling
+
+   Phase 4: E2E Tests (Maestro)
+   ────────────────────────────
+   Running: maestro test .maestro/
+   ✓ User login flow
+   ✓ Product purchase flow
+
+   ══════════════════════════════════════════
+   ALL TESTS PASSING: 32/32 ✓
+   ══════════════════════════════════════════
+   ```
+
+   **For Native iOS (Swift/Objective-C):**
+   ```
+   iOS Test Suite
+   ══════════════
+
+   Phase 1: Unit Tests (XCTest)
+   ────────────────────────────
+   Running: xcodebuild test -scheme MyApp -destination 'platform=iOS Simulator,name=iPhone 15'
+   ✓ UserServiceTests - 10 passed
+   ✓ AuthManagerTests - 8 passed
+   ✓ NetworkClientTests - 12 passed
+
+   Phase 2: UI Tests (XCUITest)
+   ────────────────────────────
+   ✓ LoginViewControllerTests - UI renders
+   ✓ HomeViewControllerTests - Navigation works
+   ✗ FAILED: ProfileViewControllerTests - Label not found
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: Accessibility identifier missing
+   Fixing: ProfileViewController.swift:45
+   → Added: nameLabel.accessibilityIdentifier = "profile_name_label"
+   Re-running test... ✓ PASSED
+
+   Phase 3: E2E Tests (Maestro)
+   ────────────────────────────
+   Running: maestro test .maestro/
+   ✓ Onboarding flow
+   ✓ Purchase flow
+   ✓ Settings update
+
+   ══════════════════════════════════════════
+   ALL TESTS PASSING: 28/28 ✓
+   ══════════════════════════════════════════
+   ```
+
+   **For Flutter (Dart):**
+   ```
+   Flutter Test Suite
+   ══════════════════
+
+   Phase 1: Unit Tests
+   ───────────────────
+   Running: flutter test test/unit/
+   ✓ user_repository_test.dart - 8 passed
+   ✓ auth_bloc_test.dart - 15 passed
+   ✓ api_client_test.dart - 10 passed
+
+   Phase 2: Widget Tests
+   ─────────────────────
+   Running: flutter test test/widget/
+   ✓ login_screen_test.dart - renders correctly
+   ✓ home_screen_test.dart - shows user data
+   ✗ FAILED: cart_screen_test.dart - widget not found
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: Key not set on widget
+   Fixing: lib/screens/cart_screen.dart:67
+   → Added: key: const Key('checkout_button')
+   Re-running test... ✓ PASSED
+
+   Phase 3: Integration Tests
+   ──────────────────────────
+   Running: flutter test integration_test/
+   ✓ app_test.dart - Full app flow
+   ✓ checkout_test.dart - Purchase complete
+
+   Phase 4: E2E Tests (Maestro)
+   ────────────────────────────
+   Running: maestro test .maestro/
+   ✓ User registration
+   ✓ Product browsing
+   ✓ Checkout flow
+
+   ══════════════════════════════════════════
+   ALL TESTS PASSING: 42/42 ✓
    ══════════════════════════════════════════
    ```
 
@@ -2866,6 +3015,213 @@ mobile_testing:
 │   └── coverage-report.html       # Test coverage
 └── auto-fix-log.md                # Log of all auto-fixes
 ```
+
+### Custom Testing Tools Configuration
+
+Users can configure their own testing tools in `proagents.config.yaml`. **AI MUST check and use these custom tools** instead of defaults.
+
+**Read custom tools from config:**
+```yaml
+# proagents.config.yaml → testing.tools section
+testing:
+  tools:
+    unit:
+      command: "npm test"           # Custom unit test command
+      framework: "jest"             # jest | vitest | mocha | pytest | junit | xctest
+    integration:
+      command: "npm run test:integration"
+      framework: "jest"
+    e2e:
+      command: "npx playwright test"
+      framework: "playwright"       # playwright | cypress | maestro | detox
+    visual:
+      command: "npx percy exec -- npm test"
+      framework: "percy"            # percy | chromatic | applitools
+    load:
+      command: "k6 run loadtest.js"
+      framework: "k6"               # k6 | artillery | locust | jmeter
+    security:
+      command: "npm audit && snyk test"
+      framework: "snyk"             # snyk | npm-audit | owasp-zap
+
+  auto_install: true   # Auto-install missing tools
+
+  custom_commands:     # User shortcuts
+    "test:quick": "npm test -- --onlyChanged"
+    "test:ci": "npm test -- --coverage --ci"
+```
+
+**How AI uses custom tools:**
+
+For `pa:test`, `pa:test-mobile`, `pa:test-web`, `pa:test-api`:
+
+1. **Read proagents.config.yaml first:**
+   ```
+   Loading test configuration...
+
+   Custom tools configured:
+   ├── Unit: npm test (jest)
+   ├── Integration: npm run test:integration (jest)
+   ├── E2E: npx playwright test (playwright)
+   ├── Visual: npx percy exec -- npm test (percy)
+   ├── Load: k6 run loadtest.js (k6)
+   └── Security: npm audit && snyk test (snyk)
+   ```
+
+2. **Use custom command instead of default:**
+   ```
+   Running Unit Tests
+   ══════════════════
+
+   Using custom command: npm test
+   Framework: jest
+
+   > npm test
+
+   PASS  src/__tests__/auth.test.ts
+   PASS  src/__tests__/user.test.ts
+   ...
+   ```
+
+3. **Auto-install if tool missing and auto_install: true:**
+   ```
+   Tool not found: k6
+   Config: auto_install: true
+
+   Installing k6...
+   ✓ k6 installed successfully
+
+   Running load tests...
+   ```
+
+4. **Support custom_commands shortcuts:**
+   ```
+   User runs: pa:test quick
+
+   Checking custom_commands...
+   Found: "test:quick" → "npm test -- --onlyChanged"
+
+   Running: npm test -- --onlyChanged
+   ```
+
+**Mobile Testing Tools (platform-specific):**
+
+For `pa:test-mobile`, read the `testing.mobile` section:
+
+```yaml
+# proagents.config.yaml → testing.mobile section
+testing:
+  mobile:
+    # React Native / Expo
+    react_native:
+      unit:
+        command: "npm test"
+        framework: "jest"
+      component:
+        command: "npm test -- --testPathPattern=components"
+        framework: "@testing-library/react-native"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"          # maestro | detox | appium
+
+    # Native Android (Kotlin/Java)
+    android:
+      unit:
+        command: "./gradlew test"
+        framework: "junit"
+      integration:
+        command: "./gradlew connectedAndroidTest"
+        framework: "espresso"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"
+
+    # Native iOS (Swift/Objective-C)
+    ios:
+      unit:
+        command: "xcodebuild test -scheme MyApp -destination 'platform=iOS Simulator,name=iPhone 15'"
+        framework: "xctest"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"
+
+    # Flutter
+    flutter:
+      unit:
+        command: "flutter test"
+        framework: "flutter_test"
+      integration:
+        command: "flutter test integration_test/"
+        framework: "integration_test"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"
+```
+
+**How AI uses mobile tools:**
+
+1. **Detect platform first:**
+   ```
+   Detecting mobile project type...
+
+   Checking for:
+   ├── package.json + react-native → React Native
+   ├── android/build.gradle (no RN) → Native Android
+   ├── ios/*.xcodeproj (no RN) → Native iOS
+   ├── pubspec.yaml → Flutter
+
+   Detected: React Native
+   ```
+
+2. **Read platform-specific config:**
+   ```
+   Loading config: testing.mobile.react_native
+
+   Tools:
+   ├── Unit: npm test (jest)
+   ├── Component: npm test -- --testPathPattern=components
+   └── E2E: maestro test .maestro/ (maestro)
+   ```
+
+3. **Run with configured commands:**
+   ```
+   Running React Native Test Suite
+   ═══════════════════════════════
+
+   Phase 1: Unit Tests
+   > npm test
+   ✓ 45 tests passed
+
+   Phase 2: Component Tests
+   > npm test -- --testPathPattern=components
+   ✓ 23 tests passed
+
+   Phase 3: E2E Tests
+   > maestro test .maestro/
+   ✓ 12 flows passed
+   ```
+
+**Default fallbacks (if no custom config):**
+
+| Test Type | Detect From | Default Command |
+|-----------|-------------|-----------------|
+| Unit | package.json scripts | `npm test` or `npx jest` |
+| Integration | test files | `npm run test:integration` |
+| E2E | playwright.config / cypress.json | `npx playwright test` or `npx cypress run` |
+| Visual | percy.yml / chromatic | `npx percy exec` |
+| Load | k6 / artillery config | `k6 run` or `artillery run` |
+| Security | package.json | `npm audit` |
+
+**Mobile fallbacks (if no custom config):**
+
+| Platform | Unit | E2E |
+|----------|------|-----|
+| React Native | `npm test` (jest) | `maestro test` or `detox test` |
+| Android | `./gradlew test` | `./gradlew connectedAndroidTest` |
+| iOS | `xcodebuild test` | `maestro test` |
+| Flutter | `flutter test` | `flutter test integration_test/` |
+
+**IMPORTANT:** Always check `proagents.config.yaml` FIRST before using defaults.
 
 ### AI Platform Management
 | Command | Action |

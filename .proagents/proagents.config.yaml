@@ -102,6 +102,97 @@ testing:
   parallel: true
   max_workers: 4
 
+  # Custom Testing Tools (override defaults)
+  # Define your own tools for each test type
+  tools:
+    # Unit testing
+    unit:
+      command: "npm test"           # or: pytest, go test, ./gradlew test
+      framework: "jest"             # jest | vitest | mocha | pytest | junit | xctest | flutter_test
+      # install: "npm install"      # optional: auto-install command
+
+    # Integration testing
+    integration:
+      command: "npm run test:integration"
+      framework: "jest"
+
+    # E2E testing
+    e2e:
+      command: "npx playwright test"  # or: maestro test, detox test, ./gradlew connectedTest
+      framework: "playwright"         # playwright | cypress | maestro | detox | espresso | xcuitest
+      # install: "npx playwright install"
+
+    # Visual testing
+    visual:
+      command: "npx percy exec -- npm test"
+      framework: "percy"              # percy | chromatic | applitools | custom
+
+    # Load testing
+    load:
+      command: "k6 run loadtest.js"
+      framework: "k6"                 # k6 | artillery | locust | jmeter
+
+    # Security testing
+    security:
+      command: "npm audit && snyk test"
+      framework: "snyk"               # snyk | npm-audit | owasp-zap
+
+  # Mobile Testing Tools (platform-specific)
+  mobile:
+    # React Native / Expo
+    react_native:
+      unit:
+        command: "npm test"
+        framework: "jest"
+      component:
+        command: "npm test -- --testPathPattern=components"
+        framework: "@testing-library/react-native"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"          # maestro | detox | appium
+        # alternative: "npx detox test -c ios.sim.release"
+
+    # Native Android (Kotlin/Java)
+    android:
+      unit:
+        command: "./gradlew test"
+        framework: "junit"            # junit | junit5 | kotest
+      integration:
+        command: "./gradlew connectedAndroidTest"
+        framework: "espresso"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"          # maestro | espresso | ui-automator
+
+    # Native iOS (Swift/Objective-C)
+    ios:
+      unit:
+        command: "xcodebuild test -scheme MyApp -destination 'platform=iOS Simulator,name=iPhone 15'"
+        framework: "xctest"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"          # maestro | xcuitest
+
+    # Flutter
+    flutter:
+      unit:
+        command: "flutter test"
+        framework: "flutter_test"
+      integration:
+        command: "flutter test integration_test/"
+        framework: "integration_test"
+      e2e:
+        command: "maestro test .maestro/"
+        framework: "maestro"
+
+  # Auto-install missing tools
+  auto_install: true
+
+  # Custom test commands (shortcuts)
+  custom_commands:
+    "test:quick": "npm test -- --onlyChanged"
+    "test:ci": "npm test -- --coverage --ci"
+
 # Security Configuration
 security:
   require_review: true

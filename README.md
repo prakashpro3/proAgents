@@ -109,6 +109,22 @@ npx proagents init --list-templates            # Show all templates
 - **Decision Log** - Track architectural decisions with reasoning
 - **Context File** - Persistent project knowledge AI reads every session
 
+### Full Automation
+
+ProAgents follows **"ALWAYS DO, NEVER JUST TELL"** principle:
+
+| Instead of | ProAgents does |
+|------------|----------------|
+| "Run `npm test`" | Actually runs the tests |
+| "Create a test file" | Creates the file |
+| "Fix the bug by..." | Fixes the bug directly |
+| "Next steps: 1. 2. 3." | Does all steps automatically |
+
+**Auto-fix intelligence:**
+- Learns from previous fixes
+- Applies known patterns automatically
+- Stores successful fixes in `.proagents/.learning/`
+
 ### File Protection
 
 - **Watch List** - Critical files require confirmation before AI modifies
@@ -408,16 +424,27 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:alias-add` | Add custom alias |
 | `pa:alias-remove` | Remove custom alias |
 
-### Mobile Test Suite (React Native)
+### Platform-Specific Test Suites
+
+**Fully automated**: Auto-install tools, run tests, auto-fix failures, loop until all pass.
+
 | Command | Description |
 |---------|-------------|
-| `pa:test-mobile` | Run full mobile test suite |
+| `pa:test-mobile` | Full mobile test suite (React Native, Android, iOS, Flutter) |
+| `pa:test-web` | Full web test suite (React/Next.js/Vue) |
+| `pa:test-api` | Full API test suite (Node.js/Python) |
 | `pa:test-visual` | Visual/design comparison testing |
 | `pa:test-auto-fix` | Auto-fix failing tests |
 | `pa:test-loop` | Test → Fix → Retest until all pass |
 | `pa:compare-figma` | Compare UI against Figma design |
 | `pa:compare-image` | Compare UI against image/sketch |
 | `pa:screenshot` | Capture app screenshots |
+
+**What these commands do:**
+- Check required tools → Auto-install if missing
+- Run all tests (unit, integration, e2e)
+- Auto-fix failures (no confirmation needed)
+- Loop until all pass or fix is impossible
 
 ### Custom Commands
 | Command | Description |
