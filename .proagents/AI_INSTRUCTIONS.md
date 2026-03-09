@@ -2,6 +2,30 @@
 
 This project uses ProAgents - an AI-agnostic development workflow framework.
 
+## CRITICAL PRINCIPLE: ALWAYS DO, NEVER JUST TELL
+
+**ProAgents automates development. The AI must EXECUTE actions, not give instructions for users to follow.**
+
+| WRONG (Passive) | RIGHT (Active) |
+|-----------------|----------------|
+| "To run tests: `npm test`" | Actually run `npm test` and show results |
+| "Create tests in `__tests__/`" | Actually create the test files |
+| "Install dependencies with `npm install`" | Actually run `npm install` |
+| "You can fix this by..." | Actually fix it |
+| "Next steps: 1. Create... 2. Run..." | Do all steps automatically |
+
+**Rules:**
+1. **Execute, don't instruct** - Run commands, don't tell user to run them
+2. **Create, don't suggest** - Write files, don't tell user to create them
+3. **Fix, don't advise** - Fix issues directly, don't explain how to fix
+4. **Complete the task** - Don't stop at giving "next steps"
+5. **Only ask when truly needed** - Ambiguous requirements, destructive actions, or user preferences
+
+**Exception:** Only give instructions when:
+- Action requires credentials/secrets you don't have access to
+- Action is destructive and needs explicit user confirmation
+- Action is outside the project scope (external services, deployments)
+
 ## CRITICAL: Multi-AI Environment
 
 **Multiple AI tools may work on this project simultaneously (Claude, Cursor, Gemini, Copilot, etc.). They do NOT share context.**
@@ -2003,30 +2027,7 @@ For `pa:test-mobile`:
    ERROR: Missing required tools. Cannot run mobile test suite.
    ══════════════════════════════════════════════════════════
 
-   Install missing tools manually:
-     brew install maestro
-     npm install -g detox-cli
-
-   Or let me install them for you:
-     → Type "yes" to auto-install missing tools
-     → Type "no" to cancel
-
-   Or run with limited tests:
-     pa:test-mobile --unit-only    (skip E2E tests)
-     pa:test-mobile --skip-visual  (skip visual tests)
-   ```
-
-   **IMPORTANT:** Never silently skip tests due to missing tools. Always:
-   - Show clear error about what's missing
-   - Provide installation instructions for each missing tool
-   - Offer to auto-install missing tools (ask user permission first)
-   - Fail the test suite if user declines (exit code 1)
-   - Offer alternative flags (--unit-only, --skip-e2e, --skip-visual)
-
-   **Auto-install behavior:**
-   If user agrees to auto-install:
-   ```
-   Installing missing tools...
+   Missing tools detected. Auto-installing...
 
    Installing Maestro...
    → curl -Ls "https://get.maestro.mobile.dev" | bash
@@ -2038,6 +2039,20 @@ For `pa:test-mobile`:
 
    All tools installed. Running test suite...
    ```
+
+   **IMPORTANT - FULL AUTOMATION:**
+   - Missing tools? **Install automatically** (no confirmation)
+   - Tests fail? **Fix automatically** (no confirmation)
+   - Fix doesn't work? **Try alternative fix** (no confirmation)
+   - Only stop when: all tests pass OR no fix possible
+
+   **Do NOT:**
+   - Ask "Should I install missing tools?"
+   - Ask "Should I fix this?"
+   - Say "Run `pa:test-auto-fix` to fix"
+   - Give "Next steps" for user to follow
+
+   **Just DO it.**
 
 2. If all tools present, run comprehensive mobile test suite:
    ```
@@ -2092,10 +2107,54 @@ For `pa:test-mobile`:
    2. E2E: User can reset password
    3. Visual: SignupScreen design mismatch
 
-   Run `pa:test-auto-fix` to automatically fix these issues.
+   ══════════════════════════════════════════
+   AUTO-FIX: Attempting to fix 3 failed tests...
+   ══════════════════════════════════════════
    ```
 
-3. Generate detailed test report at `./.proagents/test-reports/mobile-{timestamp}.md`
+3. **Automatically fix all failures** (no confirmation needed):
+   ```
+   ══════════════════════════════════════════
+   AUTO-FIX: Fixing 3 failed tests...
+   ══════════════════════════════════════════
+
+   Fix 1/3: Integration - Password reset flow
+   ──────────────────────────────────────────
+   Root cause: ResetEmailService.send() not called
+   Fixing: src/services/AuthService.ts:142
+   → Added: await this.resetEmailService.send(email)
+   Re-running test... ✓ PASSED
+
+   Fix 2/3: E2E - User can reset password
+   ──────────────────────────────────────────
+   Root cause: Button text mismatch
+   Fixing: src/screens/ResetPassword.tsx:28
+   → Changed: "Reset" → "Send Reset Email"
+   Re-running test... ✓ PASSED
+
+   Fix 3/3: Visual - SignupScreen design mismatch
+   ──────────────────────────────────────────
+   Root cause: Wrong color and font size
+   Fixing: src/screens/SignupScreen.styles.ts:15-16
+   → Changed: color #0066CC → #007AFF
+   → Changed: fontSize 14px → 16px
+   Re-running test... ✓ PASSED
+
+   ══════════════════════════════════════════
+   ALL TESTS PASSING: 38/38 ✓
+   ══════════════════════════════════════════
+   ```
+
+4. If a fix cannot be applied automatically:
+   ```
+   ✗ Cannot auto-fix: Database schema mismatch
+   Reason: Requires migration file and database access
+
+   Manual action needed:
+   → Run: npx prisma migrate dev --name fix_user_table
+   ```
+
+5. Generate detailed test report at `./.proagents/test-reports/mobile-{timestamp}.md`
 
 For `pa:test-visual`:
 1. Take screenshots of all screens/components
