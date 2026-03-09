@@ -2419,23 +2419,29 @@ For `pa:ai-list`:
 - Show which AI instruction files exist in project root
 
 For `pa:ai-add`:
-1. Show available platforms to user:
-   | Platform | File Created |
-   |----------|--------------|
-   | Claude Code | CLAUDE.md |
-   | Cursor | .cursorrules |
-   | Windsurf | .windsurfrules |
-   | GitHub Copilot | .github/copilot-instructions.md |
-   | ChatGPT | CHATGPT.md |
-   | Gemini | GEMINI.md |
-   | Bolt | BOLT.md |
-   | Lovable | LOVABLE.md |
-   | Replit | REPLIT.md |
-   | Kiro | KIRO.md |
-   | Groq | GROQ.md |
-   | AntiGravity | ANTIGRAVITY.md |
+1. Show ALL platforms to user (always show complete list):
 
-2. Ask user which platforms to add
+   **IDE-based AI Assistants:**
+   | Platform | File Created | Description |
+   |----------|--------------|-------------|
+   | Claude Code | CLAUDE.md | Anthropic Claude in terminal/IDE |
+   | Cursor | .cursorrules | Cursor AI IDE |
+   | Windsurf | .windsurfrules | Codeium Windsurf IDE |
+   | GitHub Copilot | .github/copilot-instructions.md | GitHub Copilot |
+   | AWS Kiro | KIRO.md | AWS Kiro IDE |
+   | Antigravity | ANTIGRAVITY.md | Antigravity IDE (Gemini/Claude) |
+
+   **Web-based AI Platforms:**
+   | Platform | File Created | Description |
+   |----------|--------------|-------------|
+   | ChatGPT | CHATGPT.md | OpenAI ChatGPT |
+   | Gemini | GEMINI.md | Google Gemini |
+   | Replit AI | REPLIT.md | Replit Ghostwriter |
+   | Bolt.new | BOLT.md | StackBlitz Bolt |
+   | Lovable | LOVABLE.md | Lovable (GPT Engineer) |
+   | Groq | GROQ.md | Groq fast inference |
+
+2. Ask user which platforms to add (show all 12 options)
 3. For each selected platform:
    - Copy content from `./.proagents/{PLATFORM}.md` (e.g., `./.proagents/CLAUDE.md`)
    - If target file exists, wrap new content with markers and append:
