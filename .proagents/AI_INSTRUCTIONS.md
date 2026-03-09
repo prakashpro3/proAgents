@@ -2112,17 +2112,39 @@ For `pa:alias-add`:
    Runs: pa:test && pa:build && pa:deploy
    ```
 
-### Mobile Test Suite (React Native / Mobile Apps)
+### Platform-Specific Test Suites
+
+**Mobile (React Native / Expo):**
 | Command | Action |
 |---------|--------|
 | `pa:test-mobile` | Run full mobile test suite |
 | `pa:test-mobile "feature"` | Test specific feature |
+
+**Web (React / Next.js / Vue / etc.):**
+| Command | Action |
+|---------|--------|
+| `pa:test-web` | Run full web test suite |
+| `pa:test-web "feature"` | Test specific web feature |
+
+**API / Backend (Node.js / Python / etc.):**
+| Command | Action |
+|---------|--------|
+| `pa:test-api` | Run full API/backend test suite |
+| `pa:test-api "endpoint"` | Test specific API endpoint |
+
+**Visual & Comparison:**
+| Command | Action |
+|---------|--------|
 | `pa:test-visual` | Visual/design comparison testing |
-| `pa:test-auto-fix` | Auto-fix failing tests |
-| `pa:test-loop` | Test → Fix → Retest loop until success |
 | `pa:compare-figma` | Compare UI against Figma design |
 | `pa:compare-image "path"` | Compare UI against image/sketch |
 | `pa:screenshot` | Take app screenshots for comparison |
+
+**Auto-Fix:**
+| Command | Action |
+|---------|--------|
+| `pa:test-auto-fix` | Auto-fix failing tests |
+| `pa:test-loop` | Test → Fix → Retest loop until success |
 
 **How to execute Mobile Test Suite commands:**
 
@@ -2269,6 +2291,167 @@ For `pa:test-mobile`:
 
 5. Generate detailed test report at `./.proagents/test-reports/mobile-{timestamp}.md`
 
+For `pa:test-web`:
+1. **Check required tools and auto-install:**
+   ```
+   Checking required tools...
+   ✓ Node.js
+   ✓ Vitest / Jest
+   ✗ MISSING: Playwright
+
+   Auto-installing Playwright...
+   → npx playwright install
+   ✓ Playwright installed
+   ```
+
+2. **Run full web test suite:**
+   ```
+   Web Test Suite
+   ══════════════
+
+   Phase 1: Unit Tests (Vitest/Jest)
+   ──────────────────────────────────
+   Running: npm test
+   ✓ utils/formatDate.test.ts - 5 passed
+   ✓ hooks/useAuth.test.ts - 8 passed
+   ✓ services/api.test.ts - 12 passed
+
+   Phase 2: Component Tests
+   ────────────────────────
+   ✓ Button.test.tsx - renders correctly
+   ✓ Form.test.tsx - validates inputs
+   ✗ FAILED: Modal.test.tsx - close handler
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: onClose prop not called
+   Fixing: src/components/Modal.tsx:24
+   → Added: onClick={() => onClose?.()}
+   Re-running test... ✓ PASSED
+
+   Phase 3: Integration Tests
+   ──────────────────────────
+   ✓ Login flow
+   ✓ Checkout process
+   ✓ User settings update
+
+   Phase 4: E2E Tests (Playwright)
+   ────────────────────────────────
+   Running: npx playwright test
+   ✓ Homepage loads correctly
+   ✓ User can login
+   ✓ User can add to cart
+   ✗ FAILED: Checkout completes
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: Submit button selector changed
+   Fixing: e2e/checkout.spec.ts:45
+   → Changed: 'button.submit' → 'button[type="submit"]'
+   Re-running test... ✓ PASSED
+
+   Phase 5: Visual Regression (Percy/Playwright)
+   ──────────────────────────────────────────────
+   ✓ Homepage - no visual changes
+   ✓ Product page - no visual changes
+   ✗ FAILED: Cart page - button color changed
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: CSS variable override
+   Fixing: src/styles/cart.css:12
+   → Changed: --btn-color: blue → --btn-color: var(--primary)
+   Re-running test... ✓ PASSED
+
+   ══════════════════════════════════════════
+   ALL TESTS PASSING: 45/45 ✓
+   ══════════════════════════════════════════
+   ```
+
+3. Generate detailed test report at `./.proagents/test-reports/web-{timestamp}.md`
+
+For `pa:test-api`:
+1. **Check required tools and auto-install:**
+   ```
+   Checking required tools...
+   ✓ Node.js / Python
+   ✓ Jest / Pytest
+   ✗ MISSING: Supertest
+   ✗ MISSING: k6 (load testing)
+
+   Auto-installing...
+   → npm install --save-dev supertest
+   → brew install k6
+   ✓ All tools installed
+   ```
+
+2. **Run full API test suite:**
+   ```
+   API Test Suite
+   ══════════════
+
+   Phase 1: Unit Tests
+   ───────────────────
+   ✓ UserService - 12 tests passed
+   ✓ AuthService - 8 tests passed
+   ✓ PaymentService - 15 tests passed
+
+   Phase 2: Integration Tests
+   ──────────────────────────
+   Testing: GET /api/users
+   ✓ Returns 200 with user list
+   ✓ Supports pagination
+   ✓ Filters by role
+
+   Testing: POST /api/auth/login
+   ✓ Returns token on valid credentials
+   ✓ Returns 401 on invalid password
+   ✗ FAILED: Returns 429 on rate limit
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: Rate limiter not configured in test env
+   Fixing: src/middleware/rateLimit.ts:8
+   → Added: if (process.env.NODE_ENV === 'test') return next()
+   Re-running test... ✓ PASSED
+
+   Phase 3: Contract Tests
+   ───────────────────────
+   Validating OpenAPI spec...
+   ✓ GET /api/users matches schema
+   ✓ POST /api/users matches schema
+   ✗ FAILED: PUT /api/users/:id - missing field
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: Response missing 'updatedAt' field
+   Fixing: src/controllers/userController.ts:89
+   → Added: updatedAt: user.updatedAt to response
+   Re-running test... ✓ PASSED
+
+   Phase 4: Load Tests (k6)
+   ────────────────────────
+   Running: k6 run loadtest.js
+   ✓ 100 VUs, 30s duration
+   ✓ p95 response time: 145ms (< 200ms threshold)
+   ✓ Error rate: 0.1% (< 1% threshold)
+   ✓ Throughput: 850 req/s
+
+   Phase 5: Security Tests
+   ───────────────────────
+   ✓ SQL injection: Protected
+   ✓ XSS: Protected
+   ✓ CSRF: Protected
+   ✗ FAILED: Rate limiting on /api/auth/login
+
+   AUTO-FIX: Analyzing failure...
+   Root cause: Rate limit too high (1000 req/min)
+   Fixing: src/config/security.ts:15
+   → Changed: loginRateLimit: 1000 → loginRateLimit: 10
+   Re-running test... ✓ PASSED
+
+   ══════════════════════════════════════════
+   ALL TESTS PASSING: 52/52 ✓
+   ══════════════════════════════════════════
+   ```
+
+3. Generate detailed test report at `./.proagents/test-reports/api-{timestamp}.md`
+
 For `pa:test-visual`:
 1. Take screenshots of all screens/components
 2. Compare against design references:
@@ -2373,6 +2556,65 @@ For `pa:test-auto-fix`:
 
    Running verification tests...
    ```
+
+4. **Learn from fixes** - Store successful fixes for future use:
+   ```
+   Saving fix patterns to .proagents/.learning/fixes.json...
+
+   New patterns learned:
+   ┌────────────────────┬────────────────────────────────────────┐
+   │ Error Pattern      │ Fix Pattern                            │
+   ├────────────────────┼────────────────────────────────────────┤
+   │ "undefined" error  │ Add null check before access           │
+   │ testID not found   │ Add testID prop to component           │
+   │ color mismatch     │ Use design token instead of hex        │
+   │ rate limit fail    │ Disable in test environment            │
+   │ schema mismatch    │ Add missing field to response          │
+   └────────────────────┴────────────────────────────────────────┘
+
+   ✓ 5 fix patterns saved
+   ```
+
+**Auto-Fix Intelligence:**
+
+The AI learns from previous fixes to apply them faster:
+
+1. **Pattern Database** - Stored in `.proagents/.learning/`:
+   ```
+   .proagents/.learning/
+   ├── fixes.json           # Successful fix patterns
+   ├── errors.json          # Common error patterns
+   └── project-patterns.json # Project-specific patterns
+   ```
+
+2. **Fix Matching** - When a test fails:
+   ```
+   Analyzing failure: "Cannot read property 'id' of undefined"
+
+   Checking learned patterns...
+   ✓ Match found: "undefined property access"
+
+   Applying known fix:
+   → Add optional chaining: user?.id
+
+   Confidence: 95% (applied 12 times before, 100% success rate)
+   ```
+
+3. **Learning from Corrections** - If AI fix is wrong:
+   ```
+   User corrected fix:
+   - AI suggested: user?.id ?? 'default'
+   - User changed to: user?.id || throw new Error('User required')
+
+   Learning...
+   → Updated pattern: In auth contexts, throw error instead of default
+   → Saved to .proagents/.learning/corrections.json
+   ```
+
+4. **Project-Specific Learning**:
+   - Learns project conventions (e.g., "this project uses Zod for validation")
+   - Remembers file structure patterns
+   - Knows which solutions worked in this codebase
 
 For `pa:test-loop`:
 1. Run complete Test → Fix → Retest cycle:
