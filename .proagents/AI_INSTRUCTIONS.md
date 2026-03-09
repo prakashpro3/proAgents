@@ -361,6 +361,119 @@ For `pa:implement`:
 | `pa:deploy` | Deployment preparation |
 | `pa:rollback` | Rollback procedures |
 
+**How to execute Quality, Testing & Deployment commands (FULL AUTOMATION):**
+
+For `pa:test`:
+1. **Detect project type** and test framework (Jest, Vitest, Mocha, Pytest, etc.)
+2. **Auto-install missing test dependencies** (no confirmation)
+3. **Run all tests:**
+   ```
+   Running tests...
+   ✓ 45 passed
+   ✗ 3 failed
+   ```
+4. **Auto-fix ALL failures** (no confirmation):
+   ```
+   AUTO-FIX: Fixing 3 failed tests...
+
+   Fix 1/3: UserService.test.ts
+   ─────────────────────────────
+   Root cause: Expected 'user' but got 'undefined'
+   Fixing: src/services/UserService.ts:23
+   → Added null check before return
+   Re-running test... ✓ PASSED
+   ```
+5. **Loop until all pass** or fix is impossible
+6. **Generate report** at `.proagents/test-reports/`
+
+For `pa:qa`:
+1. **Run ALL quality checks** automatically:
+   - Linting (ESLint, Prettier)
+   - Type checking (TypeScript)
+   - Security scan (npm audit)
+   - Dead code detection
+2. **Auto-fix ALL issues** (no confirmation):
+   ```
+   Running QA checks...
+
+   ESLint: 12 errors found
+   AUTO-FIX: Fixing...
+   → Fixed 12/12 errors
+
+   TypeScript: 3 type errors
+   AUTO-FIX: Fixing...
+   → src/api/user.ts:15 - Added type annotation
+   → src/utils/date.ts:8 - Fixed return type
+   → src/hooks/useAuth.ts:22 - Added null check
+
+   Prettier: 28 files need formatting
+   AUTO-FIX: Formatting... ✓ Done
+
+   npm audit: 2 vulnerabilities
+   AUTO-FIX: Running npm audit fix... ✓ Fixed
+   ```
+3. **Re-run checks** to verify all fixed
+4. **Only report issues that cannot be auto-fixed**
+
+For `pa:fix "description"`:
+1. **Understand the bug** from description
+2. **Find the root cause** automatically
+3. **Apply the fix** directly (no confirmation)
+4. **Run related tests** to verify fix works
+5. **Auto-fix any test failures** caused by the fix
+6. **Commit when done** (if git is configured)
+   ```
+   pa:fix "login button not working"
+
+   Finding root cause...
+   → Found: onClick handler missing in LoginButton.tsx:34
+
+   Applying fix...
+   → Added: onClick={() => handleLogin()}
+
+   Running related tests...
+   ✓ LoginButton.test.tsx - 5/5 passed
+
+   ✓ Fix complete
+   ```
+
+For `pa:deploy`:
+1. **Run pre-deployment checks** automatically:
+   - All tests passing? If not → auto-fix
+   - QA checks passing? If not → auto-fix
+   - Security scan clean? If not → auto-fix
+   - Build succeeds? If not → auto-fix
+2. **Only proceed when all checks pass**
+3. **Deploy to target environment**
+4. **Run post-deployment verification**
+5. **Auto-rollback if verification fails**
+   ```
+   pa:deploy
+
+   Pre-deployment checks...
+   ✓ Tests: 128/128 passed
+   ✓ QA: All checks passed
+   ✓ Security: No vulnerabilities
+   ✓ Build: Successful
+
+   Deploying to staging...
+   ✓ Deployed successfully
+
+   Post-deployment verification...
+   ✓ Health check passed
+   ✓ Smoke tests passed
+
+   ══════════════════════════════════════════
+   DEPLOYMENT SUCCESSFUL ✓
+   ══════════════════════════════════════════
+   ```
+
+**IMPORTANT - Full Automation Rules:**
+- **Never ask** "Should I fix this?" - Just fix it
+- **Never say** "Run `pa:test` to verify" - Run it yourself
+- **Never give** "Next steps" - Do the steps
+- **Only stop when:** All done OR truly impossible to proceed
+
 ### Navigation & Flow
 | Command | Action |
 |---------|--------|
