@@ -75,6 +75,11 @@ Check lock before starting. Delete when done.
 | `pa:d` | `pa:doc` |
 | `pa:t` | `pa:test` |
 | `pa:q` | `pa:qa` |
+| `pa:a` | `pa:analyze` |
+| `pa:r` | `pa:requirements` |
+| `pa:p` | `pa:plan` |
+| `pa:i` | `pa:implement` |
+| `pa:rev` | `pa:review` |
 
 ### Core Commands
 | Command | Action |
