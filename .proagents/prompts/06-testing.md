@@ -4,6 +4,57 @@ Universal prompts for comprehensive testing phase.
 
 ---
 
+## CRITICAL: Auto-Install Missing Tools
+
+**AI must NEVER say "not configured, test manually". Instead:**
+
+1. **Check if tool exists**
+2. **If missing → INSTALL IT**
+3. **Create test files if needed**
+4. **Run the tests**
+
+### Auto-Install Commands:
+
+```bash
+# Maestro (Mobile E2E)
+maestro --version 2>/dev/null || curl -Ls "https://get.maestro.mobile.dev" | bash
+
+# Detox (React Native E2E)
+npx detox --version 2>/dev/null || npm install -D detox
+
+# Jest
+npx jest --version 2>/dev/null || npm install -D jest
+
+# Playwright (Web E2E)
+npx playwright --version 2>/dev/null || npm install -D @playwright/test
+
+# React Testing Library
+npm list @testing-library/react 2>/dev/null || npm install -D @testing-library/react
+```
+
+### WRONG Behavior:
+```
+"E2E tests not configured. Please test manually:
+- Open app
+- Click login..."
+```
+
+### CORRECT Behavior:
+```
+E2E not configured. Installing Maestro...
+✓ Maestro installed
+
+Creating test flow for login feature...
+✓ Created .maestro/login-flow.yaml
+
+Running E2E tests...
+✓ login-flow.yaml - PASSED (2.3s)
+
+All E2E tests passed!
+```
+
+---
+
 ## Quick Start
 
 ```
@@ -15,6 +66,7 @@ Related commands:
 - `pa:test-integration` - Run integration tests
 - `pa:test-e2e` - Run end-to-end tests
 - `pa:test-all` - Run all tests
+- `pa:test-mobile` - Full mobile test suite (auto-installs tools)
 
 ---
 
@@ -316,6 +368,126 @@ PATH 2: [Name]
 ...
 
 Priority: Test these before any release
+```
+
+---
+
+## Mobile E2E Testing (pa:test-mobile)
+
+**AI MUST auto-install tools and create tests. NEVER say "test manually".**
+
+### Step 1: Check & Install Tools
+
+```bash
+# AI runs these commands:
+
+# Check Maestro
+if ! maestro --version 2>/dev/null; then
+  echo "Installing Maestro..."
+  curl -Ls "https://get.maestro.mobile.dev" | bash
+  export PATH="$PATH:$HOME/.maestro/bin"
+fi
+
+# Verify installation
+maestro --version
+```
+
+### Step 2: Create Test Flows
+
+If `.maestro/` folder doesn't exist or is empty:
+
+```bash
+mkdir -p .maestro
+
+# AI creates test flow based on feature being tested
+cat > .maestro/feature-flow.yaml << 'EOF'
+appId: com.yourapp
+---
+- launchApp
+- tapOn: "Login"
+- inputText:
+    id: "email"
+    text: "test@example.com"
+- tapOn: "Submit"
+- assertVisible: "Welcome"
+EOF
+```
+
+### Step 3: Run Tests
+
+```bash
+# Run all Maestro tests
+maestro test .maestro/
+
+# Run specific flow
+maestro test .maestro/login-flow.yaml
+```
+
+### Step 4: Report Results
+
+```
+Mobile E2E Results
+══════════════════
+✓ login-flow.yaml - PASSED (3.2s)
+✓ signup-flow.yaml - PASSED (4.5s)
+✗ checkout-flow.yaml - FAILED
+  Error: Element "Pay Now" not found at line 12
+
+2/3 tests passed
+```
+
+### Maestro Flow Examples
+
+**Login Flow:**
+```yaml
+appId: com.myapp
+---
+- launchApp
+- tapOn: "Log In"
+- inputText:
+    id: "email"
+    text: "user@test.com"
+- inputText:
+    id: "password"
+    text: "password123"
+- tapOn: "Submit"
+- assertVisible: "Dashboard"
+```
+
+**Form Submission:**
+```yaml
+appId: com.myapp
+---
+- launchApp
+- tapOn: "New Form"
+- inputText:
+    id: "title"
+    text: "Test Entry"
+- tapOn: "Save"
+- assertVisible: "Saved successfully"
+```
+
+### If Maestro Fails, Try Detox
+
+```bash
+# Install Detox
+npm install -D detox
+npx detox init
+
+# Create test
+cat > e2e/login.test.js << 'EOF'
+describe('Login', () => {
+  it('should login successfully', async () => {
+    await element(by.id('email')).typeText('test@example.com');
+    await element(by.id('password')).typeText('password');
+    await element(by.text('Login')).tap();
+    await expect(element(by.text('Welcome'))).toBeVisible();
+  });
+});
+EOF
+
+# Run
+npx detox test
 ```
 
 ---

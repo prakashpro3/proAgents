@@ -94,13 +94,104 @@ testing:
         framework: "maestro"
 ```
 
+## pa:test-mobile - Full Mobile Testing
+
+**CRITICAL: AI must SET UP testing if not configured, not tell user to test manually!**
+
+### When E2E Not Configured - AI Must Install:
+
+```bash
+# 1. Check if Maestro installed
+maestro --version 2>/dev/null || {
+  echo "Installing Maestro..."
+  curl -Ls "https://get.maestro.mobile.dev" | bash
+}
+
+# 2. Create .maestro folder if missing
+mkdir -p .maestro
+
+# 3. Create sample test flow
+cat > .maestro/login-flow.yaml << 'EOF'
+appId: com.yourapp
+---
+- launchApp
+- tapOn: "Login"
+- inputText:
+    id: "email"
+    text: "test@example.com"
+- inputText:
+    id: "password"
+    text: "password123"
+- tapOn: "Submit"
+- assertVisible: "Welcome"
+EOF
+
+# 4. Run tests
+maestro test .maestro/
+```
+
+### AI Workflow for pa:test-mobile:
+
+1. **Check what's configured:**
+   ```bash
+   ls .maestro/ 2>/dev/null || echo "No Maestro tests"
+   ls e2e/ 2>/dev/null || echo "No Detox tests"
+   ```
+
+2. **If nothing configured - SET IT UP:**
+   - Install Maestro (easier) or Detox
+   - Create test flows for the feature being tested
+   - Run the tests
+
+3. **If configured - RUN tests:**
+   ```bash
+   maestro test .maestro/
+   # OR
+   npx detox test
+   ```
+
+4. **Report results:**
+   ```
+   Mobile Test Results
+   ═══════════════════
+   ✓ login-flow.yaml - PASSED (3.2s)
+   ✓ signup-flow.yaml - PASSED (4.1s)
+   ✗ checkout-flow.yaml - FAILED
+     Error: Element "Submit" not found
+   ```
+
+### WRONG Behavior:
+```
+"E2E not configured. Please test manually:
+- Open app
+- Click login
+- ..."
+```
+
+### CORRECT Behavior:
+```
+E2E not configured. Setting up Maestro...
+
+Installing Maestro... ✓
+Creating test flows for login feature...
+Created: .maestro/login-flow.yaml
+
+Running tests...
+✓ login-flow.yaml - PASSED
+
+All tests passed!
+```
+
+---
+
 ## How pa:test Works
 
 1. **Read config** from `proagents.config.yaml`
 2. **Detect test type** from command (unit, e2e, etc.)
-3. **Run appropriate command** from config
-4. **Parse results** based on framework
-5. **Report summary**:
+3. **If not configured - SET IT UP** (install tools, create tests)
+4. **Run appropriate command** from config
+5. **Parse results** based on framework
+6. **Report summary**:
    ```
    Test Results
    ════════════

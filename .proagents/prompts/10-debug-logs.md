@@ -950,6 +950,39 @@ networkLogger.debug("Request started")
 
 ---
 
+## CRITICAL: AI Must Check Logs Itself
+
+**NEVER tell user to "check the logs" or "look for X in console".**
+
+The AI MUST:
+1. **RUN** the log viewing commands itself
+2. **CAPTURE** the output
+3. **ANALYZE** the results
+4. **REPORT** findings to user
+
+### WRONG (Passive):
+```
+"Run the app and check Metro console for the logs.
+Look for: === DEBUG === in the output.
+Let me know what you see."
+```
+
+### RIGHT (Active):
+```
+Let me capture the logs and analyze them.
+
+[AI runs: adb logcat -d | grep -i "DEBUG\|ERROR" ]
+
+Found in logs:
+- ERROR at line 45: area_allow_in_schedule is undefined
+- API response missing expected field
+- Root cause: Backend not returning area_allow_in_schedule
+
+Fix: Add fallback in CLA API handler...
+```
+
+---
+
 ## pa:debug Workflow
 
 ### When AI receives `pa:debug`:
@@ -964,39 +997,111 @@ networkLogger.debug("Request started")
    ```
 
 2. **Identify Debug Issue:**
-   ```
-   Ask or detect:
-   - "What error/issue are you debugging?"
-   - Check recent error logs
-   - Check crash reports
+   - Read error from user description
+   - Check recent git changes
+   - Look for crash reports in project
+
+3. **RUN Log Commands (AI executes these):**
+
+   **React Native:**
+   ```bash
+   # AI runs this and captures output
+   adb logcat -d *:S ReactNativeJS:V | tail -100
    ```
 
-3. **Set Up Debug Tools:**
-   - Web: Browser DevTools guidance
-   - React Native: Flipper/Reactotron setup
-   - Android: Logcat commands
-   - iOS: Console.app / Xcode guidance
+   **Android Native:**
+   ```bash
+   # AI runs this and captures output
+   adb logcat -d -s MyApp:D | tail -100
+   ```
 
-4. **Analyze Logs:**
-   - Filter relevant logs
-   - Identify error patterns
+   **iOS (if accessible):**
+   ```bash
+   # AI runs this and captures output
+   xcrun simctl spawn booted log show --last 5m | grep -i "error\|warn\|debug"
+   ```
+
+4. **ANALYZE Output:**
+   - Parse log output
+   - Find errors, warnings, exceptions
+   - Identify patterns
    - Trace execution flow
 
-5. **Suggest Fix:**
-   - Based on log analysis
-   - Common error patterns
-   - Stack trace analysis
+5. **REPORT & FIX:**
+   - Show relevant log entries to user
+   - Explain what the logs mean
+   - Implement the fix directly
+
+---
+
+## AI Log Capture Commands
+
+**AI MUST run these commands to capture logs - never ask user to check manually.**
+
+### React Native (Android device/emulator)
+```bash
+# Capture recent JS logs
+adb logcat -d *:S ReactNativeJS:V | tail -200
+
+# Capture with timestamps
+adb logcat -d -v time *:S ReactNativeJS:V | tail -200
+
+# Filter for errors only
+adb logcat -d *:S ReactNativeJS:V | grep -i "error\|exception\|fail"
+
+# Filter for specific tag
+adb logcat -d | grep -i "CLA\|area_allow"
+```
+
+### React Native (iOS Simulator)
+```bash
+# Recent logs
+xcrun simctl spawn booted log show --last 5m --predicate 'subsystem CONTAINS "react"' 2>/dev/null | tail -200
+
+# Or use system log
+log show --last 5m --predicate 'process == "YourAppName"' | tail -200
+```
+
+### Android Native
+```bash
+# App logs
+adb logcat -d -s MyApp:D | tail -200
+
+# All errors
+adb logcat -d *:E | tail -100
+
+# Specific search
+adb logcat -d | grep -i "your_search_term"
+```
+
+### iOS Native
+```bash
+# Simulator logs
+xcrun simctl spawn booted log show --last 5m | grep -i "error\|warn" | tail -100
+
+# Device logs (if connected)
+idevicesyslog 2>/dev/null | head -200
+```
+
+### Web (Node.js backend logs)
+```bash
+# If running in background, check pm2/docker logs
+pm2 logs --lines 100 2>/dev/null || docker logs app --tail 100 2>/dev/null
+
+# Check log files
+tail -100 logs/error.log 2>/dev/null
+```
 
 ---
 
 ## Command Quick Reference
 
-| Platform | View Logs | Filter | Clear | Export |
-|----------|-----------|--------|-------|--------|
-| **Web** | DevTools Console | Filter box | Right-click Clear | Copy All |
-| **React Native** | Metro terminal | `grep` | Restart Metro | Redirect to file |
-| **Android** | `adb logcat` | `-s TAG` | `adb logcat -c` | `-d > file.txt` |
-| **iOS** | Console.app | Predicate | Clear button | `log collect` |
+| Platform | AI Runs | Filter | Clear | Export |
+|----------|---------|--------|-------|--------|
+| **React Native** | `adb logcat -d *:S ReactNativeJS:V` | `\| grep "term"` | `adb logcat -c` | `> file.txt` |
+| **Android** | `adb logcat -d -s TAG:D` | `\| grep "term"` | `adb logcat -c` | `> file.txt` |
+| **iOS Sim** | `xcrun simctl spawn booted log show` | `--predicate` | N/A | `log collect` |
+| **Node.js** | `pm2 logs` or `docker logs` | `\| grep "term"` | N/A | `> file.txt` |
 
 ---
 

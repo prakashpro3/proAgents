@@ -40,15 +40,30 @@ This project uses ProAgents - an AI-agnostic development workflow framework.
 
 ### After ANY `pa:` command:
 
-Log to `./.proagents/activity.log`:
+**MANDATORY: Log every command to `./.proagents/activity.log`**
+
+AI must append to activity.log (create if not exists):
 ```
-[TIMESTAMP] [AI:MODEL] [COMMAND] Description
+[TIMESTAMP] [AI:MODEL] [COMMAND] Result/Description
 ```
 
-Example:
+Example entries:
 ```
 2024-03-06 15:10 [Claude:opus-4] [pa:feature] Started feature "user-auth"
+2024-03-06 15:15 [Claude:opus-4] [pa:analyze] Analyzed codebase - found 45 files
+2024-03-06 15:30 [Cursor:gpt-4] [pa:test] Ran 12 tests - all passed
+2024-03-06 16:00 [Gemini:pro] [pa:logs] Captured 50 log entries, found 2 errors
 ```
+
+**How to log (AI executes this after EVERY pa: command):**
+```bash
+echo "[$(date '+%Y-%m-%d %H:%M')] [Claude:opus-4] [pa:feature] Started user-auth" >> .proagents/activity.log
+```
+
+**CRITICAL:**
+- Log AFTER the "--- Activity Log Start ---" marker
+- Use YOUR AI platform name (Claude, Cursor, Gemini, etc.)
+- Log EVERY pa: command, not just major ones
 
 ### Lock File
 
@@ -170,6 +185,13 @@ Check lock before starting. Delete when done.
 | `pa:checkpoint` | Pause for approval |
 | `pa:skip-checkpoint` | Skip checkpoint |
 
+### History & Progress
+| Command | Action |
+|---------|--------|
+| `pa:history` | Show command history (read activity.log) |
+| `pa:progress` | Show feature progress |
+| `pa:activity` | Show recent AI activity |
+
 ---
 
 ## How to Execute Commands
@@ -196,6 +218,67 @@ When user types a `pa:` command:
 | `pa:fix` | `./workflow-modes/entry-modes.md` |
 | `pa:debug` | `./prompts/10-debug-logs.md` |
 | `pa:logs` | `./prompts/10-debug-logs.md` |
+
+---
+
+## pa:history Execution
+
+**AI MUST read and display the actual log file content.**
+
+1. Read `./.proagents/activity.log`
+2. Filter out header lines (lines starting with #)
+3. Display entries (most recent first)
+4. NEVER say "no commands yet" without reading the file
+
+```bash
+# AI runs this:
+grep -v "^#" .proagents/activity.log | grep -v "^$" | grep -v "Activity Log Start" | tail -30
+```
+
+If no entries found after filtering, show:
+```
+No pa: commands logged yet.
+Run some commands, then try pa:history again.
+```
+
+**Output format:**
+```
+Command History
+═══════════════
+[2024-03-06 16:00] [Gemini] pa:logs - Captured 50 entries
+[2024-03-06 15:30] [Cursor] pa:test - 12 tests passed
+[2024-03-06 15:15] [Claude] pa:analyze - Analyzed 45 files
+[2024-03-06 15:10] [Claude] pa:feature - Started "user-auth"
+```
+
+---
+
+## pa:progress Execution
+
+**AI MUST read feature status from actual files.**
+
+1. Read `./.proagents/active-features/_index.json`
+2. Read each feature's `status.json`
+3. Calculate and display progress
+
+```bash
+# AI runs this:
+cat .proagents/active-features/_index.json
+cat .proagents/active-features/feature-*/status.json
+```
+
+**Output format:**
+```
+Feature Progress
+════════════════
+user-auth [████████░░] 80%
+  Phase: testing
+  Last: Ran 12 unit tests
+
+dashboard [████░░░░░░] 40%
+  Phase: implementation
+  Last: Created 3 components
+```
 
 ---
 

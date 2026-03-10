@@ -2,6 +2,69 @@
 
 Detailed execution instructions for all `pa:` commands.
 
+---
+
+## CRITICAL: AI Must Execute All Commands
+
+**NEVER tell user to do something. AI must DO it.**
+
+### Commands That READ Data - AI Must Run:
+
+| Command | AI Runs This |
+|---------|--------------|
+| `pa:history` | `grep -v "^#" .proagents/activity.log \| tail -30` |
+| `pa:progress` | `cat .proagents/active-features/_index.json` |
+| `pa:activity` | `cat .proagents/activity.log \| tail -20` |
+| `pa:status` | `cat .proagents/active-features/_index.json` |
+| `pa:context` | `cat .proagents/context.md` |
+| `pa:decisions` | `cat .proagents/decisions.md` |
+| `pa:errors` | `cat .proagents/errors.md` |
+| `pa:feedback` | `cat .proagents/feedback.md` |
+| `pa:handoff-read` | `cat .proagents/handoff.md` |
+| `pa:config` | `cat proagents.config.yaml` |
+| `pa:lock` | `cat .proagents/.lock 2>/dev/null` |
+| `pa:feature-list` | `cat .proagents/active-features/_index.json` |
+| `pa:todo` | `grep -rn "TODO\|FIXME" src/` |
+| `pa:deps` | `cat package.json \| grep dependencies -A 50` |
+| `pa:deps-outdated` | `npm outdated 2>/dev/null` |
+
+### Commands That RUN Tools - AI Must Execute:
+
+| Command | AI Runs This |
+|---------|--------------|
+| `pa:test` | `npm test` (or from config) |
+| `pa:test-unit` | `npm run test:unit` |
+| `pa:test-e2e` | `npm run test:e2e` |
+| `pa:test-mobile` | Install Maestro if missing → Create tests → Run `maestro test` |
+| `pa:lint` | `npm run lint` |
+| `pa:qa` | `npm run lint && npm test` |
+| `pa:coverage` | `npm run test:coverage` |
+| `pa:logs` | `adb logcat -d '*:S' ReactNativeJS:V \| tail -100` |
+| `pa:env-check` | `node -v && npm -v && git --version` |
+| `pa:secrets-scan` | `grep -rn "password\|secret\|api_key" src/` |
+| `pa:db-migrate` | `npm run db:migrate` (or from config) |
+
+### Commands That GENERATE Files - AI Must Create:
+
+| Command | AI Creates |
+|---------|------------|
+| `pa:doc` | Documentation files |
+| `pa:changelog` | Updates `CHANGELOG.md` |
+| `pa:release` | Creates `RELEASE_NOTES.md` |
+| `pa:readme` | Updates `README.md` |
+| `pa:handoff` | Creates `.proagents/handoff.md` |
+| `pa:generate-component` | Creates component file |
+| `pa:generate-test` | Creates test file |
+
+### Commands That LOG Activity - AI Must Append:
+
+After EVERY pa: command, AI runs:
+```bash
+echo "[$(date '+%Y-%m-%d %H:%M')] [AI_NAME] [COMMAND] Result" >> .proagents/activity.log
+```
+
+---
+
 ## Feature Commands
 
 ### pa:feature "name"
@@ -25,10 +88,28 @@ Start a new feature workflow:
 
 ### pa:feature-list
 
-Read `./.proagents/active-features/_index.json` and display:
-- Active features with their phases
-- Paused features with reasons
-- Recently completed features
+**AI reads and displays features:**
+
+```bash
+# AI executes:
+cat .proagents/active-features/_index.json 2>/dev/null
+ls .proagents/active-features/feature-*/status.json 2>/dev/null | while read f; do cat "$f"; done
+```
+
+Then formats:
+```
+Features
+════════
+Active (2):
+  🔄 user-auth - implementation (60%)
+  🔍 dashboard - analysis (20%)
+
+Paused (1):
+  ⏸ notifications - blocked on API
+
+Completed (3):
+  ✅ login-page, signup-form, forgot-password
+```
 
 ### pa:feature-complete
 
@@ -100,19 +181,62 @@ Quick bug fix mode (bypasses full workflow):
 4. Create/update tests as you go
 5. Update progress in status.json
 
+### pa:test-mobile
+
+**AI sets up and runs mobile E2E tests:**
+
+1. Check if Maestro/Detox installed:
+   ```bash
+   maestro --version 2>/dev/null || echo "Not installed"
+   ```
+
+2. If NOT installed - INSTALL IT:
+   ```bash
+   curl -Ls "https://get.maestro.mobile.dev" | bash
+   ```
+
+3. If no test flows exist - CREATE THEM:
+   ```bash
+   mkdir -p .maestro
+   # AI creates test flows based on the feature being tested
+   ```
+
+4. RUN the tests:
+   ```bash
+   maestro test .maestro/
+   ```
+
+5. Report results
+
+**WRONG:** "E2E not configured, test manually..."
+**CORRECT:** "Installing Maestro... Creating tests... Running..."
+
+---
+
 ### pa:test
 
-1. Read `./.proagents/prompts/06-testing.md`
-2. Check `proagents.config.yaml` for test commands
-3. Run tests based on config:
-   ```yaml
-   testing:
-     tools:
-       unit:
-         command: "npm test"
-         framework: "jest"
-   ```
-4. Report results
+**AI runs tests and shows results:**
+
+```bash
+# AI executes (check config first):
+npm test 2>&1
+# OR from proagents.config.yaml testing.tools.unit.command
+```
+
+Then reports:
+```
+Test Results
+════════════
+✓ 45 passed
+✗ 2 failed
+○ 3 skipped
+
+Failed:
+• src/auth/login.test.ts:23 - Expected true, got false
+• src/api/user.test.ts:45 - Timeout after 5000ms
+```
+
+**NEVER say "run npm test" - actually run it!**
 
 ### pa:review
 
@@ -168,14 +292,29 @@ Update changelog:
 
 ### pa:qa
 
-Full quality assurance:
+**AI runs ALL checks and reports:**
 
-1. Run linters
-2. Run all tests
-3. Check code coverage
-4. Security scan
-5. Performance check
-6. Generate QA report
+```bash
+# AI executes each:
+npm run lint 2>&1
+npm test 2>&1
+npm run test:coverage 2>&1
+npm audit 2>&1
+```
+
+Then reports:
+```
+QA Report
+═════════
+Lint: ✓ No issues
+Tests: ✓ 45/45 passed
+Coverage: 82% (target: 80%) ✓
+Security: 0 vulnerabilities ✓
+
+Overall: PASSED
+```
+
+**NEVER say "run these commands" - run them!**
 
 ### pa:qa-security
 
@@ -188,18 +327,56 @@ Security-focused audit:
 
 ### pa:lint
 
-Run project linters:
+**AI runs linter and shows results:**
 
-1. Check `package.json` for lint commands
-2. Run ESLint/Prettier/etc.
-3. Fix auto-fixable issues
-4. Report remaining issues
+```bash
+# AI executes:
+npm run lint 2>&1
+# If errors, auto-fix:
+npm run lint -- --fix 2>&1
+```
+
+Then reports:
+```
+Lint Results
+════════════
+✓ 120 files checked
+✗ 3 errors found
+⚠ 5 warnings
+
+Auto-fixed: 2 errors
+Remaining: 1 error in src/utils/helper.ts:45
+
+Fixing remaining issue...
+[AI edits the file to fix]
+```
+
+**NEVER say "run npm run lint" - run it!**
 
 ---
 
 ## Collaboration Commands
 
 ### pa:handoff
+
+**AI creates handoff file:**
+
+```bash
+# AI creates .proagents/handoff.md with content
+```
+
+### pa:handoff-read
+
+**AI reads and displays handoff:**
+
+```bash
+# AI executes:
+cat .proagents/handoff.md 2>/dev/null || echo "No handoff notes"
+```
+
+Then displays the content to continue where previous AI left off.
+
+### pa:handoff (write)
 
 Create handoff notes for other AIs:
 
@@ -222,6 +399,46 @@ Log feedback for AI learning:
    ```
 2. Apply learning to current work
 
+### pa:decisions
+
+**AI reads and displays all decisions:**
+
+```bash
+# AI executes:
+cat .proagents/decisions.md 2>/dev/null || echo "No decisions logged"
+```
+
+### pa:errors
+
+**AI reads and displays error history:**
+
+```bash
+# AI executes:
+cat .proagents/errors.md 2>/dev/null || echo "No errors logged"
+```
+
+### pa:context
+
+**AI reads project context:**
+
+```bash
+# AI executes:
+cat .proagents/context.md 2>/dev/null
+```
+
+This should be read at START of every session!
+
+### pa:feedback
+
+**AI reads feedback/corrections:**
+
+```bash
+# AI executes:
+cat .proagents/feedback.md 2>/dev/null || echo "No feedback"
+```
+
+Learn from these to avoid repeating mistakes!
+
 ### pa:decision "title"
 
 Log architectural decision:
@@ -235,11 +452,20 @@ Log architectural decision:
 
 ### pa:activity
 
-Show recent AI activity:
+**AI runs and displays:**
 
-1. Read `./.proagents/activity.log`
-2. Show last 20 entries
-3. Highlight recent changes to current files
+```bash
+# AI executes:
+cat .proagents/activity.log | grep -v "^#" | tail -20
+```
+
+Then formats output:
+```
+Recent Activity
+═══════════════
+[2024-03-06 16:00] [Gemini] pa:test - 12 tests passed
+[2024-03-06 15:45] [Claude] pa:implement - Created UserService
+```
 
 ---
 
@@ -247,14 +473,29 @@ Show recent AI activity:
 
 ### pa:config
 
-Show current configuration:
+**AI reads and displays config:**
 
-1. Read `proagents.config.yaml`
-2. Display key settings:
-   - AI platforms
-   - Checkpoints
-   - Git settings
-   - Testing config
+```bash
+# AI executes:
+cat proagents.config.yaml
+```
+
+Then formats:
+```
+ProAgents Configuration
+═══════════════════════
+Project: my-app (nextjs)
+
+Platforms: claude, cursor, copilot
+
+Testing:
+  Framework: vitest
+  Coverage: 80%
+
+Git:
+  Enabled: true
+  Branch prefix: feature/
+```
 
 ### pa:checkpoint
 
@@ -268,6 +509,51 @@ Pause for user approval:
 ### pa:skip-checkpoint
 
 Skip the current checkpoint and continue.
+
+---
+
+## History & Progress Commands
+
+### pa:history
+
+**AI MUST read the actual activity.log file and display contents.**
+
+1. Run: `cat .proagents/activity.log | tail -30`
+2. Parse and format entries
+3. Display most recent first
+4. NEVER say "no commands yet" without reading the file first
+
+**Wrong behavior:**
+```
+"No commands recorded yet"  ← Without reading file!
+```
+
+**Correct behavior:**
+```
+Reading .proagents/activity.log...
+
+Command History
+═══════════════
+[2024-03-06 16:00] [Gemini] pa:logs - Captured 50 entries
+[2024-03-06 15:30] [Cursor] pa:test - 12 tests passed
+```
+
+### pa:progress
+
+**AI MUST read feature status files and calculate progress.**
+
+1. Run: `cat .proagents/active-features/_index.json`
+2. Read each feature's status.json
+3. Calculate progress percentage
+4. Show visual progress bar
+
+### pa:activity
+
+**AI MUST read and display activity.log:**
+
+1. Run: `cat .proagents/activity.log | tail -20`
+2. Show recent AI activity
+3. Highlight actions by different AI platforms
 
 ---
 
@@ -285,12 +571,25 @@ Generate session summary:
 
 ### pa:lock
 
-Show lock status:
+**AI reads and displays lock status:**
 
-1. Check `./.proagents/.lock`
-2. Show who holds lock
-3. Show what task is locked
-4. Show expiration time
+```bash
+# AI executes:
+cat .proagents/.lock 2>/dev/null || echo "No lock file"
+```
+
+Then reports:
+```
+Lock Status
+═══════════
+Locked by: Claude (opus-4)
+Task: pa:feature user-auth
+Started: 2024-03-06 15:00
+Expires: 2024-03-06 17:00
+
+Or if no lock:
+No active lock. Safe to proceed.
+```
 
 ### pa:lock-release
 
@@ -304,15 +603,20 @@ Release lock if you hold it:
 
 ## Debug & Log Commands
 
+**CRITICAL: AI must RUN log commands itself, never tell user to "check the logs".**
+
 ### pa:debug
 
 Start a debug session:
 
 1. Detect project platform (Web, React Native, Android, iOS)
-2. Identify the issue from user description or recent errors
-3. Set up appropriate debug tools
-4. Analyze logs and trace execution
-5. Suggest fixes based on log analysis
+2. Identify the issue from user description
+3. **RUN log capture commands:**
+   - React Native: `adb logcat -d *:S ReactNativeJS:V | tail -200`
+   - Android: `adb logcat -d -s AppTag:D | tail -200`
+   - iOS: `xcrun simctl spawn booted log show --last 5m`
+4. **ANALYZE** the captured output
+5. **REPORT** findings and implement fix
 
 ### pa:debug-add
 
@@ -421,20 +725,24 @@ iOS native debugging:
 
 ### pa:logs
 
-View recent logs:
+**AI runs log commands and shows output:**
 
 1. Detect platform
-2. Show last N log entries
-3. Highlight errors and warnings
-4. Group by timestamp or component
+2. Run appropriate command:
+   - RN: `adb logcat -d *:S ReactNativeJS:V | tail -100`
+   - Android: `adb logcat -d | tail -100`
+   - iOS: `xcrun simctl spawn booted log show --last 2m`
+3. Parse and display results
+4. Highlight errors and warnings
 
 ### pa:logs-filter "term"
 
-Filter logs by search term:
+**AI runs filtered log command:**
 
-1. Search logs for matching term
-2. Show context around matches
-3. Highlight matched text
+1. Run: `adb logcat -d | grep -i "term"` (or platform equivalent)
+2. Parse output
+3. Show matching entries with context
+4. Analyze patterns in matches
 
 ### pa:logs-clear
 
