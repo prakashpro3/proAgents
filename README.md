@@ -184,6 +184,9 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:r` | `pa:requirements` |
 | `pa:p` | `pa:plan` |
 | `pa:i` | `pa:implement` |
+| `pa:rev` | `pa:review` |
+| `pa:dbg` | `pa:debug` |
+| `pa:l` | `pa:logs` |
 
 ### Core Commands
 | Command | Description |
@@ -365,6 +368,25 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:complexity` | Cyclomatic complexity analysis |
 | `pa:duplication` | Find duplicate code blocks |
 | `pa:hotspots` | Find frequently changed files |
+
+### Debug & Logs
+| Command | Description |
+|---------|-------------|
+| `pa:debug` | Start debug session |
+| `pa:debug-add` | Add debug logs to code |
+| `pa:debug-add "file"` | Add logs to specific file |
+| `pa:debug-trace "func"` | Add entry/exit logs to function |
+| `pa:debug-var "var"` | Track variable changes |
+| `pa:debug-api` | Add API request/response logging |
+| `pa:debug-state` | Add state change logging |
+| `pa:debug-error` | Add error boundary logging |
+| `pa:debug-web` | Web console debugging |
+| `pa:debug-rn` | React Native debugging |
+| `pa:debug-android` | Android native (logcat) |
+| `pa:debug-ios` | iOS native debugging |
+| `pa:logs` | View recent logs |
+| `pa:logs-filter "term"` | Filter logs by term |
+| `pa:debug-clean` | Remove all debug statements |
 
 ### Testing Advanced
 | Command | Description |

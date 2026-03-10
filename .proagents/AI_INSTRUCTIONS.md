@@ -80,6 +80,8 @@ Check lock before starting. Delete when done.
 | `pa:p` | `pa:plan` |
 | `pa:i` | `pa:implement` |
 | `pa:rev` | `pa:review` |
+| `pa:dbg` | `pa:debug` |
+| `pa:l` | `pa:logs` |
 
 ### Core Commands
 | Command | Action |
@@ -132,6 +134,25 @@ Check lock before starting. Delete when done.
 | `pa:review` | Code review |
 | `pa:lint` | Run linters |
 
+### Debug & Logs
+| Command | Action |
+|---------|--------|
+| `pa:debug` | Start debug session |
+| `pa:debug-add` | Add debug logs to code |
+| `pa:debug-add "file"` | Add logs to specific file |
+| `pa:debug-trace "func"` | Add entry/exit logs to function |
+| `pa:debug-var "var"` | Track variable changes |
+| `pa:debug-api` | Add API request/response logging |
+| `pa:debug-state` | Add state change logging |
+| `pa:debug-error` | Add error boundary logging |
+| `pa:debug-web` | Web console debugging |
+| `pa:debug-rn` | React Native debugging |
+| `pa:debug-android` | Android native (logcat) |
+| `pa:debug-ios` | iOS native debugging |
+| `pa:logs` | View recent logs |
+| `pa:logs-filter "term"` | Filter logs by term |
+| `pa:debug-clean` | Remove all debug statements |
+
 ### Collaboration
 | Command | Action |
 |---------|--------|
@@ -173,6 +194,8 @@ When user types a `pa:` command:
 | `pa:doc` | `./prompts/07-documentation.md` |
 | `pa:deploy` | `./prompts/08-deployment.md` |
 | `pa:fix` | `./workflow-modes/entry-modes.md` |
+| `pa:debug` | `./prompts/10-debug-logs.md` |
+| `pa:logs` | `./prompts/10-debug-logs.md` |
 
 ---
 
