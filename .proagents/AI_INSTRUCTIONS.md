@@ -133,12 +133,13 @@ Check lock before starting. Delete when done.
 ### Documentation
 | Command | Action |
 |---------|--------|
-| `pa:doc` | Show doc options |
-| `pa:doc-api` | API documentation |
-| `pa:doc-component` | Component docs |
-| `pa:doc-readme` | Update README |
-| `pa:release` | Generate release notes |
-| `pa:changelog` | Update changelog |
+| `pa:doc` | **Create** docs in `./docs/` |
+| `pa:doc-api` | **Create** API docs in `./docs/api/` |
+| `pa:doc-module X` | **Create** `./docs/modules/X.md` |
+| `pa:doc-component` | **Create** component docs |
+| `pa:doc-readme` | **Update** `./README.md` |
+| `pa:release` | **Create** `./RELEASE_NOTES.md` |
+| `pa:changelog` | **Update** `./CHANGELOG.md` |
 
 ### Quality & Review
 | Command | Action |

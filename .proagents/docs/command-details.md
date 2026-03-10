@@ -46,15 +46,34 @@ Detailed execution instructions for all `pa:` commands.
 
 ### Commands That GENERATE Files - AI Must Create:
 
-| Command | AI Creates |
-|---------|------------|
-| `pa:doc` | Documentation files |
-| `pa:changelog` | Updates `CHANGELOG.md` |
-| `pa:release` | Creates `RELEASE_NOTES.md` |
-| `pa:readme` | Updates `README.md` |
-| `pa:handoff` | Creates `.proagents/handoff.md` |
-| `pa:generate-component` | Creates component file |
-| `pa:generate-test` | Creates test file |
+**AI MUST create actual files, never just show templates or options.**
+
+| Command | AI Creates | Location |
+|---------|------------|----------|
+| `pa:doc` | Full documentation | `./docs/*.md` |
+| `pa:doc-api` | API documentation | `./docs/api/*.md` |
+| `pa:doc-module X` | Module documentation | `./docs/modules/X.md` |
+| `pa:doc-file X` | File documentation | `./docs/files/X.md` |
+| `pa:changelog` | Updates changelog | `./CHANGELOG.md` |
+| `pa:release` | Release notes | `./RELEASE_NOTES.md` |
+| `pa:readme` | Updates README | `./README.md` |
+| `pa:handoff` | Handoff notes | `.proagents/handoff.md` |
+| `pa:generate-component` | Component file | Based on project structure |
+| `pa:generate-test` | Test file | Based on project structure |
+
+**Example - pa:doc execution:**
+```bash
+# AI creates directory structure
+mkdir -p docs docs/api docs/modules docs/components
+
+# AI analyzes code and creates doc files
+# (AI writes actual content to each file)
+
+# AI reports:
+echo "Created: ./docs/README.md"
+echo "Created: ./docs/api/endpoints.md"
+echo "Total: 8 documentation files"
+```
 
 ### Commands That LOG Activity - AI Must Append:
 
@@ -251,12 +270,40 @@ Failed:
 
 ### pa:doc
 
+**AI MUST create actual documentation files, not just show options.**
+
 1. Read `./.proagents/prompts/07-documentation.md`
-2. Options:
-   - `pa:doc-api` - Generate API docs
-   - `pa:doc-component` - Component documentation
-   - `pa:doc-readme` - Update README
-3. Follow project doc standards
+2. Analyze codebase structure
+3. **CREATE** documentation files:
+
+```bash
+# AI runs:
+mkdir -p docs docs/api docs/modules docs/components
+
+# Then AI CREATES these files:
+# - ./docs/README.md (project overview)
+# - ./docs/api/*.md (API documentation)
+# - ./docs/modules/*.md (module docs)
+# - ./docs/components/*.md (component docs)
+```
+
+4. Sub-commands:
+   - `pa:doc-api` → Creates `./docs/api/*.md`
+   - `pa:doc-module auth` → Creates `./docs/modules/auth.md`
+   - `pa:doc-file src/api.ts` → Creates doc for that file
+   - `pa:doc-readme` → Updates `./README.md`
+   - `pa:changelog` → Updates `./CHANGELOG.md`
+   - `pa:release` → Creates `./RELEASE_NOTES.md`
+
+5. **Output:**
+```
+Documentation generated:
+✓ ./docs/README.md
+✓ ./docs/api/endpoints.md
+✓ ./docs/modules/auth.md
+...
+Total: 12 files created
+```
 
 ### pa:deploy
 

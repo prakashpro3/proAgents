@@ -4,6 +4,68 @@ Universal prompts for creating comprehensive documentation.
 
 ---
 
+## CRITICAL: AI Must Generate Doc Files
+
+**AI must NEVER just show "documentation options" or templates. Instead:**
+
+1. **Analyze** the code/module/feature
+2. **Generate** documentation content
+3. **CREATE** the actual doc files
+4. **Report** what was created
+
+### WRONG Behavior:
+```
+"Here are the documentation options:
+- pa:doc-full for complete docs
+- pa:doc-lite for quick reference
+..."
+```
+
+### CORRECT Behavior:
+```
+Analyzing codebase for documentation...
+✓ Found 12 modules, 45 components, 23 utilities
+
+Generating documentation...
+✓ Created ./docs/README.md
+✓ Created ./docs/api/index.md
+✓ Created ./docs/components/Button.md
+✓ Created ./docs/modules/auth.md
+...
+
+Documentation generated: 15 files in ./docs/
+```
+
+### AI Workflow for pa:doc:
+
+```bash
+# 1. Create docs directory if missing
+mkdir -p docs docs/api docs/modules docs/components
+
+# 2. Analyze codebase
+# AI reads source files and understands structure
+
+# 3. Generate and CREATE doc files
+# AI writes actual markdown files to ./docs/
+
+# 4. Report summary
+echo "Documentation generated: X files"
+```
+
+### Command-Specific Actions:
+
+| Command | AI Action |
+|---------|-----------|
+| `pa:doc` | Create full project documentation in `./docs/` |
+| `pa:doc-module auth` | Create `./docs/modules/auth.md` |
+| `pa:doc-file src/api.ts` | Create `./docs/api/api.md` |
+| `pa:doc-api` | Create API docs in `./docs/api/` |
+| `pa:doc-readme` | Update `./README.md` |
+| `pa:changelog` | Update `./CHANGELOG.md` |
+| `pa:release` | Create `./RELEASE_NOTES.md` |
+
+---
+
 ## Quick Start
 
 ```
