@@ -7,6 +7,18 @@ Execute these commands when user types them (prefix: `pa:`):
 
 > **Multi-AI Note:** Multiple AIs may work on this project. Always read `./.proagents/activity.log` before executing commands, and log your actions after completing them.
 
+## CRITICAL: Auto-Log Every Code Change
+
+**After EVERY file edit/create/delete, AI MUST immediately update:**
+
+1. `.proagents/changelog/_recent.md` - Prepend change summary
+2. `.proagents/changelog/modules/[module].md` - Based on file path
+3. `.proagents/worklog/_context.md` - Update current state
+
+**Module detection:** `src/api/*`→api, `src/auth/*`→auth, `src/components/*`→ui, `src/services/*`→services
+
+**Do NOT wait for user prompt. Log automatically after every change.**
+
 ## Commands
 
 | Command | What to Do |

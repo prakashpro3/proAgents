@@ -840,6 +840,110 @@ MAINTENANCE:
 
 ---
 
+## Enhanced Changelog System (Cross-AI Continuity)
+
+**AI must update multiple changelog files for cross-AI continuity.**
+
+### pa:changelog Workflow:
+
+```bash
+# 1. Update root CHANGELOG.md
+# 2. Update .proagents/changelog/_recent.md (prepend)
+# 3. Update feature changelog if applicable
+# 4. Update module changelog based on files changed
+```
+
+### Changelog Locations:
+
+| File | Purpose | Updated When |
+|------|---------|--------------|
+| `./CHANGELOG.md` | Public changelog | Major changes |
+| `.proagents/changelog/_recent.md` | Last 10 changes | Every change |
+| `.proagents/changelog/features/[name].md` | Feature history | Working on feature |
+| `.proagents/changelog/modules/[name].md` | Module history | Modifying module |
+
+### Feature Changelog Format:
+
+Create `.proagents/changelog/features/[feature-name].md`:
+
+```markdown
+# Feature: [Feature Name]
+
+Created: YYYY-MM-DD
+Status: active | completed | paused
+Branch: feature/[name]
+
+---
+
+## Changelog
+
+### YYYY-MM-DD - [AI Platform]
+**Phase:** implementation | testing | review
+**Changes:**
+- Change 1
+- Change 2
+**Files:**
+- src/path/file.ts (+50, -10)
+- src/path/other.ts (new)
+**Decisions:**
+- Decision and reason
+**Next:** What comes next
+
+---
+```
+
+### Module Changelog Format:
+
+Create `.proagents/changelog/modules/[module].md`:
+
+```markdown
+# Module: [Module Name]
+
+Path: src/[module]/
+Type: api | service | component | utility
+
+---
+
+## Changelog
+
+### YYYY-MM-DD - [AI Platform]
+**Context:** [Feature or Fix name]
+**Changes:**
+- Change description
+**Files:**
+- file.ts (+lines, -lines)
+
+---
+```
+
+### Module Auto-Detection:
+
+AI detects module from file path:
+- `src/api/*`, `routes/*` → `modules/api.md`
+- `src/auth/*` → `modules/auth.md`
+- `src/components/*` → `modules/ui.md`
+- `src/services/*` → `modules/services.md`
+- `src/utils/*`, `lib/*` → `modules/utils.md`
+- `tests/*` → `modules/tests.md`
+
+### _recent.md Format:
+
+Prepend to `.proagents/changelog/_recent.md`:
+
+```markdown
+### YYYY-MM-DD - [Change Type]
+**Feature/Module:** name
+**AI:** Platform (model)
+**Files:** file1.ts, file2.ts
+**Summary:** Brief description of change
+
+---
+```
+
+Keep only last 10 entries (remove oldest when adding new).
+
+---
+
 ## Commands Reference
 
 | Command | Description | Output Location |

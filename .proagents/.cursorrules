@@ -2,6 +2,16 @@
 
 This project uses ProAgents workflow framework.
 
+## CRITICAL: Auto-Log Every Code Change
+
+**After EVERY file edit, IMMEDIATELY update these files (no user prompt needed):**
+
+1. `.proagents/changelog/_recent.md` - Prepend change summary
+2. `.proagents/changelog/modules/[module].md` - Based on file path
+3. `.proagents/worklog/_context.md` - Update current state
+
+Module detection: `src/api/*`→api, `src/auth/*`→auth, `src/components/*`→ui
+
 ## Essential Commands
 
 | Command | Action |

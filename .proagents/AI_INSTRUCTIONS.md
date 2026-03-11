@@ -79,6 +79,153 @@ Check lock before starting. Delete when done.
 
 ---
 
+## CRITICAL: Auto-Log Every Code Change
+
+**AI MUST automatically log EVERY code change. This is NOT optional.**
+
+### After EVERY file edit/create/delete:
+
+AI immediately updates these files (no user prompt needed):
+
+```
+1. .proagents/changelog/_recent.md     ← Prepend change summary
+2. .proagents/worklog/_context.md      ← Update current state
+3. .proagents/changelog/features/X.md  ← If working on feature
+4. .proagents/changelog/modules/X.md   ← Based on file path
+```
+
+### Auto-Log Format for _recent.md:
+
+After editing `src/auth/login.ts`, AI prepends to `_recent.md`:
+
+```markdown
+### [DATE] - Code Change
+**Module:** auth
+**AI:** [Platform] ([model])
+**Files:** src/auth/login.ts (+15, -3)
+**Summary:** Added email validation to login function
+
+---
+```
+
+### Module Detection (Auto):
+
+| File Path Changed | Update This Changelog |
+|-------------------|----------------------|
+| `src/api/*`, `routes/*` | `changelog/modules/api.md` |
+| `src/auth/*` | `changelog/modules/auth.md` |
+| `src/components/*` | `changelog/modules/ui.md` |
+| `src/services/*` | `changelog/modules/services.md` |
+| `src/utils/*`, `lib/*` | `changelog/modules/utils.md` |
+| `tests/*`, `*.test.*` | `changelog/modules/tests.md` |
+| `src/database/*`, `models/*` | `changelog/modules/database.md` |
+
+### Example - AI Edits a File:
+
+```
+User: Fix the login validation bug
+
+AI: [Reads file, makes edit to src/auth/login.ts]
+
+AI: [AUTOMATICALLY does these updates - no user prompt:]
+
+1. Prepends to .proagents/changelog/_recent.md:
+   ### 2024-03-11 - Bug Fix
+   **Module:** auth
+   **AI:** Claude (opus-4)
+   **Files:** src/auth/login.ts (+5, -2)
+   **Summary:** Fixed null check in email validation
+
+2. Updates .proagents/changelog/modules/auth.md (creates if not exists)
+
+3. Updates .proagents/worklog/_context.md with latest change
+
+AI: "Fixed the login validation bug in src/auth/login.ts"
+```
+
+### Log Rollbacks & Corrections Too:
+
+When removing or correcting previous changes, also log:
+
+```markdown
+### YYYY-MM-DD - Rollback/Correction
+**Module:** auth
+**AI:** Claude (opus-4)
+**Files:** src/auth/login.ts (-20 lines removed)
+**Summary:** Reverted email validation - caused login failures
+**Reason:** Previous change broke existing functionality
+
+---
+```
+
+### WRONG vs RIGHT:
+
+| WRONG | RIGHT |
+|-------|-------|
+| Edit file → Tell user "done" | Edit file → Update changelogs → Tell user "done" |
+| Wait for pa:changelog command | Auto-update after every change |
+| Only log at session end | Log immediately after each change |
+| Undo changes silently | Log rollback with reason |
+
+---
+
+## Cross-AI Session Tracking (MANDATORY)
+
+**Every AI must track work for other AIs to continue.**
+
+### On Session Start (pa:sync):
+
+AI reads these files to get context:
+```bash
+cat .proagents/worklog/_context.md        # Current state
+cat .proagents/changelog/_recent.md       # Recent changes
+ls -t .proagents/worklog/*.md | head -3   # Last 2 session logs
+cat .proagents/active-features/_index.json # Active features
+```
+
+### During Work:
+
+After ANY code modification, AI must update:
+
+1. **Session Log** (`worklog/YYYY-MM-DD-[ai]-[num].md`)
+   - Tasks completed
+   - Files changed
+   - Decisions made
+
+2. **Feature Changelog** (`changelog/features/[name].md`)
+   - If working on a feature
+
+3. **Module Changelog** (`changelog/modules/[name].md`)
+   - Based on file paths modified
+
+### On Session End (pa:session-end):
+
+AI updates:
+```bash
+# 1. Update context summary
+# Edit .proagents/worklog/_context.md with current state
+
+# 2. Update recent changes
+# Prepend to .proagents/changelog/_recent.md
+
+# 3. Finalize session log with "Next Steps"
+
+# 4. Log to activity.log
+echo "[$(date '+%Y-%m-%d %H:%M')] [AI:model] [pa:session-end] Session complete" >> .proagents/activity.log
+```
+
+### Module Auto-Detection:
+
+| File Path | Module Changelog |
+|-----------|------------------|
+| `src/api/*` | `modules/api.md` |
+| `src/auth/*` | `modules/auth.md` |
+| `src/components/*` | `modules/ui.md` |
+| `src/services/*` | `modules/services.md` |
+| `tests/*` | `modules/tests.md` |
+
+---
+
 ## Command Quick Reference
 
 ### Aliases
@@ -177,6 +324,18 @@ Check lock before starting. Delete when done.
 | `pa:handoff` | Create handoff notes |
 | `pa:feedback "text"` | Log feedback for AI learning |
 | `pa:decision "title"` | Log architectural decision |
+
+### Cross-AI Continuity (CRITICAL)
+| Command | Action |
+|---------|--------|
+| `pa:sync` | **Run FIRST** - Load project context |
+| `pa:session-start` | Begin new work session |
+| `pa:session-end` | Finalize session, update logs |
+| `pa:history` | View command history |
+| `pa:progress` | View feature progress |
+| `pa:changelog` | Update all changelogs |
+| `pa:changelog-feature X` | View feature changelog |
+| `pa:changelog-module X` | View module changelog |
 | `pa:error "desc"` | Log error and solution |
 
 ### Configuration
@@ -219,6 +378,10 @@ When user types a `pa:` command:
 | `pa:fix` | `./workflow-modes/entry-modes.md` |
 | `pa:debug` | `./prompts/10-debug-logs.md` |
 | `pa:logs` | `./prompts/10-debug-logs.md` |
+| `pa:sync` | `./prompts/11-session-tracking.md` |
+| `pa:session-start` | `./prompts/11-session-tracking.md` |
+| `pa:session-end` | `./prompts/11-session-tracking.md` |
+| `pa:changelog` | `./prompts/11-session-tracking.md` + `./prompts/07-documentation.md` |
 
 ---
 

@@ -74,17 +74,28 @@ Implementation → Testing → Review → Documentation → Deployment
 
 ## Features
 
-### Multi-AI Collaboration
+### Multi-AI Collaboration & Cross-AI Continuity
 
-Multiple AIs can work on the same project without conflicts:
+Multiple AIs can work on the same project with full context sharing:
 
 | Feature | Description |
 |---------|-------------|
+| **Session Tracking** | Each AI logs detailed work sessions |
+| **Context Sync** | `pa:sync` loads full project context instantly |
+| **Feature Changelogs** | Per-feature change history |
+| **Module Changelogs** | Per-module change history |
 | **Activity Log** | Track what each AI does with model name |
-| **Lock File** | Prevent conflicts during major work |
 | **Handoff Notes** | Pass context between AI sessions |
-| **Conflict Detection** | Warn before overwriting another AI's changes |
-| **Session Summaries** | Auto-generate summary at session end |
+
+```bash
+# Start work on any AI platform
+pa:sync              # Load context from other AIs
+pa:session-start     # Begin tracking your work
+
+# Do work...
+
+pa:session-end       # Save context for next AI
+```
 
 ### Project Templates
 
@@ -222,15 +233,19 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:qa` | Run quality assurance checks |
 | `pa:rollback` | Rollback procedures |
 
-### Multi-AI Collaboration
+### Cross-AI Continuity
 | Command | Description |
 |---------|-------------|
+| `pa:sync` | **Run first** - Load project context |
+| `pa:session-start` | Begin new work session |
+| `pa:session-end` | Finalize session, update logs |
+| `pa:history` | View command history |
+| `pa:progress` | View feature progress |
+| `pa:changelog` | Update all changelogs |
+| `pa:changelog-feature X` | View feature changelog |
+| `pa:changelog-module X` | View module changelog |
 | `pa:activity` | Show recent AI activity |
-| `pa:lock` | Show/check lock status |
-| `pa:lock-release` | Release your lock |
-| `pa:handoff` | Create handoff notes for next AI |
-| `pa:handoff-read` | Read handoff notes |
-| `pa:session-end` | Generate session summary |
+| `pa:handoff` | Create handoff notes |
 
 ### Learning & Tracking
 | Command | Description |
@@ -511,7 +526,13 @@ your-project/
 │   ├── errors.md               # Error tracker
 │   ├── handoff.md              # Handoff notes
 │   ├── custom-commands.yaml    # Custom pa: commands
-│   ├── sessions/               # Session summaries
+│   ├── worklog/                # Cross-AI session tracking
+│   │   ├── _context.md         # Quick context for any AI
+│   │   └── YYYY-MM-DD-ai-*.md  # Session logs
+│   ├── changelog/              # Detailed changelogs
+│   │   ├── _recent.md          # Last 10 changes
+│   │   ├── features/           # Per-feature changelogs
+│   │   └── modules/            # Per-module changelogs
 │   ├── active-features/        # Feature tracking
 │   ├── prompts/                # Workflow prompts
 │   ├── templates/              # Document templates

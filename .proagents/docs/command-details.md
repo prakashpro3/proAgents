@@ -327,11 +327,122 @@ Generate release notes:
 
 ### pa:changelog
 
-Update changelog:
+**AI updates ALL changelog files for cross-AI continuity.**
 
-1. Read changes since last entry
-2. Format according to Keep a Changelog
-3. Update `./CHANGELOG.md`
+1. Update `./CHANGELOG.md` (public changelog)
+2. Prepend to `.proagents/changelog/_recent.md` (last 10 changes)
+3. Update feature changelog if working on a feature
+4. Update module changelog based on files modified
+
+```bash
+# AI workflow:
+# 1. Identify what changed
+# 2. Determine feature/module from context
+
+# 3. Update root changelog
+# Edit ./CHANGELOG.md
+
+# 4. Prepend to recent changes
+# Edit .proagents/changelog/_recent.md
+
+# 5. Update feature changelog (if applicable)
+# Edit .proagents/changelog/features/[feature-name].md
+
+# 6. Update module changelog (auto-detect from paths)
+# Edit .proagents/changelog/modules/[module].md
+```
+
+### pa:changelog-feature [name]
+
+View/update specific feature changelog:
+```bash
+cat .proagents/changelog/features/[name].md
+```
+
+### pa:changelog-module [name]
+
+View/update specific module changelog:
+```bash
+cat .proagents/changelog/modules/[name].md
+```
+
+---
+
+## Cross-AI Continuity Commands
+
+### pa:sync
+
+**Run FIRST when starting work on any AI platform.**
+
+AI reads context files to understand current state:
+
+```bash
+# AI executes:
+cat .proagents/worklog/_context.md
+cat .proagents/changelog/_recent.md
+ls -t .proagents/worklog/*.md | head -3 | xargs cat
+cat .proagents/active-features/_index.json
+tail -20 .proagents/activity.log
+```
+
+Then reports:
+```
+Project Context Loaded!
+
+Active Work:
+- Feature: user-auth (70% complete)
+- Last: JWT validation added by Claude
+
+Recent Changes:
+1. Added login validation (Claude, Mar 11)
+2. Fixed API endpoint (Gemini, Mar 10)
+
+Pending:
+- [ ] Complete email verification
+- [ ] Add unit tests
+
+Ready to continue. What would you like to work on?
+```
+
+### pa:session-start
+
+Begin a new work session:
+
+```bash
+# AI creates session log
+DATE=$(date '+%Y-%m-%d')
+# Creates: .proagents/worklog/YYYY-MM-DD-[ai]-001.md
+```
+
+### pa:session-end
+
+Finalize session and update all tracking:
+
+```bash
+# AI updates:
+# 1. Session log with summary and next steps
+# 2. .proagents/worklog/_context.md
+# 3. .proagents/changelog/_recent.md
+# 4. Feature/module changelogs
+# 5. activity.log
+```
+
+Output:
+```
+Session Complete!
+- Duration: 45 min
+- Tasks: 3 completed
+- Files: 5 modified
+
+Updated:
+✓ worklog/_context.md
+✓ worklog/2024-03-11-claude-001.md
+✓ changelog/features/user-auth.md
+✓ changelog/_recent.md
+✓ activity.log
+
+Next AI can continue from: [next steps listed]
+```
 
 ---
 
