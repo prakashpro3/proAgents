@@ -72,16 +72,22 @@ AI: "Fixed the login bug in src/auth/login.ts"
 
 | Command | Action |
 |---------|--------|
-| `pa:sync` | Load context (run FIRST) |
-| `pa:session-start` | Begin work session |
-| `pa:session-end` | End session, finalize logs |
+| `pa:sync` | Load context (AUTO on first command) |
+| `pa:session-start` | Begin work session (AUTO) |
+| `pa:session-end` | End session (AUTO - logs on each change) |
 | `pa:handoff` | Create detailed handoff |
 
 ---
 
-## pa:sync - Load Project Context
+## AUTOMATIC Context Loading
 
-**Run this FIRST when starting work on any AI platform.**
+**User does NOT need to run pa:sync manually.**
+
+On FIRST pa: command of any session, AI automatically loads context.
+
+## pa:sync - Load Project Context (AUTOMATIC)
+
+**This runs AUTOMATICALLY on first pa: command. User can also run manually.**
 
 ### AI Workflow:
 

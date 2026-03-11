@@ -80,21 +80,20 @@ Multiple AIs can work on the same project with full context sharing:
 
 | Feature | Description |
 |---------|-------------|
-| **Session Tracking** | Each AI logs detailed work sessions |
-| **Context Sync** | `pa:sync` loads full project context instantly |
+| **Auto Context Loading** | AI automatically loads context on first command |
+| **Auto Change Logging** | Every code change logged automatically |
 | **Feature Changelogs** | Per-feature change history |
 | **Module Changelogs** | Per-module change history |
+| **Conflict Detection** | Warns if files modified by other AI |
 | **Activity Log** | Track what each AI does with model name |
-| **Handoff Notes** | Pass context between AI sessions |
 
 ```bash
-# Start work on any AI platform
-pa:sync              # Load context from other AIs
-pa:session-start     # Begin tracking your work
+# Just start working - context loads automatically!
+pa:feature "add login"    # AI auto-loads context, then works
+pa:fix "bug in auth"      # AI auto-loads context, then fixes
 
-# Do work...
-
-pa:session-end       # Save context for next AI
+# No manual pa:sync needed - it's automatic
+# No manual pa:session-end needed - changes logged automatically
 ```
 
 ### Project Templates

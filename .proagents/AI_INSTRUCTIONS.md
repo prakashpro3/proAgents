@@ -31,12 +31,32 @@ This project uses ProAgents - an AI-agnostic development workflow framework.
 
 **Multiple AI tools may work on this project simultaneously. They do NOT share context.**
 
+### AUTOMATIC Context Loading (No Manual pa:sync Needed)
+
+**On FIRST pa: command of session, AI AUTOMATICALLY does:**
+
+```bash
+# 1. Load context (replaces manual pa:sync)
+cat .proagents/worklog/_context.md 2>/dev/null
+cat .proagents/changelog/_recent.md 2>/dev/null | head -30
+tail -10 .proagents/activity.log 2>/dev/null
+
+# 2. Check for conflicts
+cat .proagents/.active-files 2>/dev/null
+
+# 3. Validate previous logging
+git diff --name-only HEAD~3 2>/dev/null | wc -l
+```
+
+**User does NOT need to type pa:sync - it happens automatically.**
+
 ### Before ANY `pa:` command:
 
-1. **Read project context** - `./.proagents/context.md`
+1. **Auto-load context** - Read `worklog/_context.md` and `changelog/_recent.md`
 2. **Check activity log** - `./.proagents/activity.log`
 3. **Check feedback** - `./.proagents/feedback.md` (learn from past corrections!)
 4. **Check watchlist** - `./.proagents/watchlist.yaml` (files requiring confirmation)
+5. **Check file locks** - `./.proagents/.active-files`
 
 ### After ANY `pa:` command:
 
@@ -169,21 +189,30 @@ When removing or correcting previous changes, also log:
 
 ---
 
-## Cross-AI Session Tracking (MANDATORY)
+## Cross-AI Session Tracking (AUTOMATIC)
 
-**Every AI must track work for other AIs to continue.**
+**All session tracking is AUTOMATIC. User does NOT need to run these commands manually.**
 
-### On Session Start (pa:sync):
+### Automatic Behavior:
 
-AI reads these files to get context:
+| What | When | User Action Needed |
+|------|------|-------------------|
+| Load context | First pa: command | **None** - Auto |
+| Log changes | After each edit | **None** - Auto |
+| Update _context.md | After each edit | **None** - Auto |
+| Check conflicts | Before editing files | **None** - Auto |
+
+### On First pa: Command (Auto-Sync):
+
+AI automatically reads context (no manual pa:sync needed):
 ```bash
 cat .proagents/worklog/_context.md        # Current state
 cat .proagents/changelog/_recent.md       # Recent changes
-ls -t .proagents/worklog/*.md | head -3   # Last 2 session logs
-cat .proagents/active-features/_index.json # Active features
+tail -10 .proagents/activity.log          # Recent commands
+cat .proagents/.active-files 2>/dev/null  # Check file locks
 ```
 
-### During Work:
+### During Work (Auto-Log):
 
 After ANY code modification, AI must update:
 

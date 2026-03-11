@@ -5,7 +5,16 @@ Execute these commands when user types them (prefix: `pa:`):
 ## Quick Aliases
 `pa:f` → feature | `pa:s` → status | `pa:h` → help | `pa:d` → doc | `pa:t` → test | `pa:q` → qa | `pa:a` → analyze | `pa:r` → requirements | `pa:p` → plan | `pa:i` → implement
 
-> **Multi-AI Note:** Multiple AIs may work on this project. Always read `./.proagents/activity.log` before executing commands, and log your actions after completing them.
+> **Multi-AI Note:** Multiple AIs may work on this project. Context loading and logging is AUTOMATIC.
+
+## AUTOMATIC Session Handling
+
+**On FIRST pa: command, AI automatically:**
+1. Reads `.proagents/worklog/_context.md` (context)
+2. Reads `.proagents/changelog/_recent.md` (recent changes)
+3. Checks `.proagents/.active-files` (file locks)
+
+**User does NOT need to run pa:sync manually.**
 
 ## CRITICAL: Auto-Log Every Code Change
 
