@@ -224,6 +224,60 @@ echo "[$(date '+%Y-%m-%d %H:%M')] [AI:model] [pa:session-end] Session complete" 
 | `src/services/*` | `modules/services.md` |
 | `tests/*` | `modules/tests.md` |
 
+### Conflict Check (Before Editing):
+
+Before modifying any file, AI checks if another AI recently changed it:
+
+```bash
+grep "src/auth/login.ts" .proagents/changelog/_recent.md
+```
+
+If found, warn user:
+```
+⚠️ File src/auth/login.ts was modified by Gemini 2 hours ago.
+Review changes before editing? [Y/n]
+```
+
+### File-Level Lock:
+
+When editing files, track them:
+
+```bash
+# On edit start:
+echo "src/auth/login.ts|Claude|$(date -Iseconds)" >> .proagents/.active-files
+
+# On session end - clear your locks:
+grep -v "|Claude|" .proagents/.active-files > /tmp/af && mv /tmp/af .proagents/.active-files
+```
+
+### Validation on pa:sync:
+
+AI checks if previous session logged properly:
+
+```bash
+# Compare git changes vs logged changes
+git diff --name-only HEAD~3 2>/dev/null | wc -l  # Files changed
+grep -c "Files:" .proagents/changelog/_recent.md  # Files logged
+```
+
+If mismatch, warn:
+```
+⚠️ Previous session may have unlogged changes. Check git log.
+```
+
+### Issue Linking:
+
+Auto-detect issue numbers from user input and include in changelog:
+
+```markdown
+### 2024-03-11 - Bug Fix
+**Issue:** #123
+**Module:** auth
+**Files:** src/auth/login.ts
+**Summary:** Fixed validation bug
+**Closes:** #123
+```
+
 ---
 
 ## Command Quick Reference
@@ -329,11 +383,14 @@ echo "[$(date '+%Y-%m-%d %H:%M')] [AI:model] [pa:session-end] Session complete" 
 | Command | Action |
 |---------|--------|
 | `pa:sync` | **Run FIRST** - Load project context |
+| `pa:resume` | Quick resume - shows last session + next action |
 | `pa:session-start` | Begin new work session |
 | `pa:session-end` | Finalize session, update logs |
+| `pa:conflict-check` | Check if files modified by other AI |
 | `pa:history` | View command history |
 | `pa:progress` | View feature progress |
 | `pa:changelog` | Update all changelogs |
+| `pa:changelog --from-git` | Auto-populate from git commits |
 | `pa:changelog-feature X` | View feature changelog |
 | `pa:changelog-module X` | View module changelog |
 | `pa:error "desc"` | Log error and solution |

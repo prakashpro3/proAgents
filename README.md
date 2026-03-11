@@ -237,13 +237,15 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | Command | Description |
 |---------|-------------|
 | `pa:sync` | **Run first** - Load project context |
+| `pa:resume` | Quick resume - shows last session + next action |
 | `pa:session-start` | Begin new work session |
 | `pa:session-end` | Finalize session, update logs |
-| `pa:history` | View command history |
-| `pa:progress` | View feature progress |
+| `pa:conflict-check` | Check if files modified by other AI |
 | `pa:changelog` | Update all changelogs |
+| `pa:changelog --from-git` | Auto-populate from git commits |
 | `pa:changelog-feature X` | View feature changelog |
 | `pa:changelog-module X` | View module changelog |
+| `pa:history` | View command history |
 | `pa:activity` | Show recent AI activity |
 | `pa:handoff` | Create handoff notes |
 

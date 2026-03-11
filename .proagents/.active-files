@@ -1,0 +1,4 @@
+# Active File Locks
+# Format: filepath|AI_platform|timestamp
+# AI adds entry when editing, removes on session end
+

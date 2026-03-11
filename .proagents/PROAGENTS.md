@@ -58,7 +58,7 @@ Execute these commands when user types them (prefix: `pa:`):
 | Command | What to Do |
 |---------|------------|
 | `pa:next` | Show next step in current workflow |
-| `pa:resume` | Resume paused feature from last checkpoint |
+| `pa:resume` | Quick resume - load last session + show next action |
 | `pa:skip` | Skip current phase, move to next |
 | `pa:back` | Go back to previous phase |
 | `pa:progress` | Show visual progress bar |
@@ -71,7 +71,9 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:diff` | Show changes since last session |
 | `pa:history` | Show command history with results |
 | `pa:checkpoint` | Create snapshot/restore point |
-| `pa:undo` | Undo last AI action (git revert) |
+| `pa:undo` | Undo last AI action (git revert)
+| `pa:conflict-check` | Check if files modified by other AI |
+| `pa:changelog --from-git` | Auto-populate changelog from git commits | |
 
 ## Sprint & Estimation
 

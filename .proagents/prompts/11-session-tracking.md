@@ -310,6 +310,110 @@ Last 10 commands:
 
 ---
 
+## pa:resume - Quick Resume
+
+Fast context loading for returning AI:
+
+```bash
+# AI executes:
+cat .proagents/worklog/_context.md
+cat .proagents/changelog/_recent.md
+ls -t .proagents/worklog/*.md 2>/dev/null | head -2 | tail -1 | xargs cat
+tail -10 .proagents/activity.log
+```
+
+Output:
+```
+Resume Context
+══════════════
+Last Session: 2024-03-11 by Claude
+Duration: 45 min
+
+What Was Done:
+- Added JWT validation
+- Fixed login bug
+
+Pending Tasks:
+1. [ ] Complete email verification
+
+Suggested Next Action:
+→ Continue with email verification
+```
+
+---
+
+## pa:conflict-check - Check File Conflicts
+
+Before editing files, check if another AI modified them:
+
+```bash
+grep "Files:.*login.ts" .proagents/changelog/_recent.md
+```
+
+If conflict:
+```
+⚠️ CONFLICT WARNING
+File: src/auth/login.ts
+Last modified: 2 hours ago by Gemini
+
+Review changes first? [Y/n]
+```
+
+---
+
+## pa:changelog --from-git
+
+Auto-populate changelog from git commits:
+
+```bash
+git log --oneline --since="24 hours ago"
+```
+
+AI parses each commit, detects module from files, extracts issue numbers, and prepends to `_recent.md`.
+
+---
+
+## Issue Linking
+
+Auto-detect issue numbers from:
+- User message: "fix #123"
+- Branch: `fix/123-bug`
+- Commit: `Fixes #123`
+
+Include in changelog:
+```markdown
+### 2024-03-11 - Bug Fix
+**Issue:** #123
+**Closes:** #123
+```
+
+---
+
+## File-Level Lock
+
+Track files being edited:
+
+```bash
+# On edit:
+echo "file.ts|Claude|$(date)" >> .proagents/.active-files
+
+# On session end:
+grep -v "|Claude|" .proagents/.active-files > /tmp/af && mv /tmp/af .proagents/.active-files
+```
+
+---
+
+## Validation Reminder
+
+On pa:sync, check if previous session logged properly:
+
+```bash
+# If git shows more changes than changelog:
+echo "⚠️ Previous session may have unlogged changes"
+```
+
+---
+
 ## Automatic Tracking Rules
 
 ### After pa:feature "name":

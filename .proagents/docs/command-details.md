@@ -444,6 +444,197 @@ Updated:
 Next AI can continue from: [next steps listed]
 ```
 
+### pa:resume
+
+**Quick resume for returning AI - loads context and shows next action.**
+
+```bash
+# AI executes:
+cat .proagents/worklog/_context.md
+cat .proagents/changelog/_recent.md
+ls -t .proagents/worklog/*.md 2>/dev/null | head -2 | tail -1 | xargs cat
+tail -10 .proagents/activity.log
+```
+
+Output:
+```
+Resume Context
+══════════════
+Last Session: 2024-03-11 by Claude (opus-4)
+Duration: 45 min
+
+What Was Done:
+- Added JWT validation
+- Fixed login bug
+- Updated API docs
+
+Pending Tasks:
+1. [ ] Complete email verification
+2. [ ] Add unit tests for auth
+
+Files Recently Modified:
+- src/auth/login.ts (2 hours ago)
+- src/auth/validate.ts (2 hours ago)
+
+Suggested Next Action:
+→ Continue with "Complete email verification"
+
+Ready to proceed?
+```
+
+### pa:conflict-check
+
+**Check if files you're about to modify were changed by another AI.**
+
+AI runs before editing any file:
+
+```bash
+# Check recent changes to files
+cat .proagents/changelog/_recent.md | grep -A2 "Files:"
+cat .proagents/worklog/_context.md | grep -A5 "Recent Changes"
+```
+
+Output if conflict detected:
+```
+⚠️ CONFLICT WARNING
+═══════════════════
+File: src/auth/login.ts
+Last modified: 2 hours ago by Gemini (1.5-pro)
+Changes: Added email validation
+
+Options:
+1. Review changes first (recommended)
+2. Proceed with caution
+3. Coordinate with previous AI's work
+
+Your action?
+```
+
+### Validation Reminder
+
+**AI checks if previous session logged changes properly.**
+
+On `pa:sync`, AI also checks:
+
+```bash
+# Compare git changes vs changelog entries
+git diff --name-only HEAD~3 > /tmp/git_changes.txt
+grep -o "src/[^ ]*" .proagents/changelog/_recent.md > /tmp/logged_changes.txt
+
+# If git has changes not in changelog:
+echo "⚠️ Warning: Some changes may not be logged"
+```
+
+Output if missing logs:
+```
+⚠️ LOGGING VALIDATION
+═════════════════════
+Git shows 5 files changed since last session.
+Changelog shows 2 files logged.
+
+Missing from changelog:
+- src/utils/helpers.ts
+- src/api/endpoints.ts
+- tests/auth.test.ts
+
+Previous AI may have forgotten to log. Consider adding entries.
+```
+
+---
+
+## Issue/Fix Linking
+
+**Link changes to issue numbers in changelogs.**
+
+Format for _recent.md:
+```markdown
+### YYYY-MM-DD - Bug Fix
+**Issue:** #123
+**Module:** auth
+**AI:** Claude (opus-4)
+**Files:** src/auth/login.ts (+5, -2)
+**Summary:** Fixed null check in email validation
+**Closes:** #123
+
+---
+```
+
+AI auto-detects issue numbers from:
+- User message: "fix issue #123" or "closes #456"
+- Branch name: `fix/123-login-bug`
+- Commit message: `Fixes #123`
+
+---
+
+## File-Level Lock Tracking
+
+**Track which files each AI is actively editing.**
+
+When AI starts editing a file:
+
+```bash
+# Add to .proagents/.active-files
+echo "src/auth/login.ts|Claude|opus-4|$(date -Iseconds)" >> .proagents/.active-files
+```
+
+Before editing any file, AI checks:
+```bash
+grep "src/auth/login.ts" .proagents/.active-files
+```
+
+If file is locked by another AI:
+```
+⚠️ FILE IN USE
+══════════════
+File: src/auth/login.ts
+Locked by: Gemini (1.5-pro)
+Since: 10 minutes ago
+
+Options:
+1. Wait and retry
+2. Edit different file
+3. Force proceed (may cause conflicts)
+```
+
+On session end, AI clears its file locks:
+```bash
+grep -v "|Claude|" .proagents/.active-files > /tmp/active && mv /tmp/active .proagents/.active-files
+```
+
+---
+
+## Git Commit Integration
+
+**Auto-populate changelog from git commits.**
+
+### pa:changelog --from-git
+
+AI parses recent commits and updates changelog:
+
+```bash
+# Get recent commits
+git log --oneline --since="24 hours ago" --format="%h|%s|%an"
+```
+
+For each commit, AI:
+1. Extracts files changed: `git show --name-only HASH`
+2. Detects module from file paths
+3. Extracts issue numbers from message
+4. Prepends to `_recent.md`
+
+Example auto-generated entry:
+```markdown
+### 2024-03-11 - Commit abc123
+**Module:** auth (auto-detected)
+**Author:** Developer
+**Files:** src/auth/login.ts, src/auth/validate.ts
+**Summary:** Add JWT token validation
+**Commit:** abc123
+**Issues:** #123, #124
+
+---
+```
+
 ---
 
 ## Quality Commands
