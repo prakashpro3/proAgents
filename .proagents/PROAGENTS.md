@@ -199,9 +199,10 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 
 | Command | What to Do |
 |---------|------------|
-| `pa:learn "pattern"` | Teach AI a pattern |
-| `pa:forget "pattern"` | Remove learned pattern |
-| `pa:suggestions` | Show AI suggestions |
+| `pa:learn "pattern"` | Teach AI a pattern → saves to `.proagents/.learning/` |
+| `pa:forget "pattern"` | Remove learned pattern from learning data |
+| `pa:learning` | Show learning report: patterns, corrections, preferences |
+| `pa:suggestions` | Show AI suggestions based on learned patterns |
 
 ## API & Documentation
 

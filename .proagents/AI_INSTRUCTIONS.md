@@ -527,6 +527,9 @@ Auto-detect issue numbers from user input and include in changelog:
 | `pa:handoff` | Create handoff notes |
 | `pa:feedback "text"` | Log feedback for AI learning |
 | `pa:decision "title"` | Log architectural decision |
+| `pa:learn "pattern"` | Teach AI a pattern → `.learning/patterns.json` |
+| `pa:forget "pattern"` | Remove learned pattern |
+| `pa:learning` | Show learning report (patterns, corrections, stats) |
 
 ### Cross-AI Continuity (CRITICAL)
 | Command | Action |
@@ -662,6 +665,9 @@ ProAgents Help
     pa:feedback "text"    Log feedback for AI learning
     pa:decision "title"   Log architectural decision
     pa:error "desc"       Log error and solution
+    pa:learn "pattern"    Teach AI a pattern
+    pa:forget "pattern"   Remove learned pattern
+    pa:learning           Show learning report
 
 💡 Tips
 ───────
@@ -1494,6 +1500,230 @@ Total: 40 tasks | 156 files changed | Coverage: 75% → 82%
 
 ---
 
+## Self-Learning System
+
+**ProAgents learns from user interactions. AI MUST read and write learning data.**
+
+### Learning Data Location
+
+```
+.proagents/.learning/
+├── global/                      # Cross-project preferences
+│   ├── user-preferences.json    # Checkpoint & workflow preferences
+│   └── common-patterns.json     # Common code patterns
+│
+└── projects/                    # Per-project learnings
+    └── {project-id}/
+        ├── patterns.json        # Project-specific code patterns
+        ├── corrections.json     # User corrections to AI output
+        ├── metrics.json         # Performance metrics
+        └── feedback.json        # User feedback
+```
+
+### On Session Start - Load Learning Data
+
+**AI MUST read learning data at start of session:**
+
+```bash
+# Load user preferences
+cat .proagents/.learning/global/user-preferences.json 2>/dev/null
+
+# Load project patterns
+cat .proagents/.learning/projects/*/patterns.json 2>/dev/null
+
+# Load past corrections (DON'T REPEAT THESE MISTAKES!)
+cat .proagents/.learning/projects/*/corrections.json 2>/dev/null
+```
+
+### Apply Learned Patterns
+
+**Before generating code, check learned patterns:**
+
+```json
+// From user-preferences.json
+{
+  "code_preferences": {
+    "naming_style": { "components": "PascalCase" },
+    "patterns": { "state_management": "zustand" }
+  }
+}
+```
+
+**AI should say:**
+```
+"I see this project uses PascalCase for components and Zustand for state.
+ I'll follow those patterns."
+```
+
+### When to Write Learning Data
+
+**1. User Corrects AI Output**
+
+When user modifies AI-generated code, log to `corrections.json`:
+
+```json
+{
+  "corrections": [
+    {
+      "timestamp": "2024-03-13T10:30:00Z",
+      "ai": "Claude",
+      "type": "naming",
+      "original": "getData",
+      "corrected": "fetchUserData",
+      "context": "User prefers descriptive function names",
+      "occurrences": 1
+    }
+  ]
+}
+```
+
+**2. User Skips/Reviews Checkpoints**
+
+Track checkpoint preferences in `user-preferences.json`:
+
+```json
+{
+  "checkpoint_preferences": {
+    "usually_skips": ["after_requirements"],
+    "always_reviews": ["before_deployment"]
+  }
+}
+```
+
+**3. User Provides Explicit Feedback**
+
+When user says "that's wrong" or corrects approach, log to `feedback.json`:
+
+```json
+{
+  "feedback": [
+    {
+      "timestamp": "2024-03-13T10:30:00Z",
+      "type": "correction",
+      "context": "API call pattern",
+      "feedback": "Always use try-catch for API calls",
+      "applied": true
+    }
+  ]
+}
+```
+
+### pa:learn Command
+
+**User can explicitly teach AI a pattern:**
+
+```
+pa:learn "Always use async/await instead of .then()"
+pa:learn "Components go in src/components/, not src/ui/"
+pa:learn "Use date-fns, not moment.js"
+```
+
+**AI logs to patterns.json:**
+```json
+{
+  "learned_patterns": [
+    {
+      "timestamp": "2024-03-13T10:30:00Z",
+      "pattern": "Always use async/await instead of .then()",
+      "source": "explicit",
+      "confidence": 1.0
+    }
+  ]
+}
+```
+
+### pa:forget Command
+
+**User can remove a learned pattern:**
+
+```
+pa:forget "Use moment.js for dates"
+```
+
+**AI removes from patterns.json and confirms.**
+
+### Auto-Apply Rules
+
+| Correction Count | Action |
+|------------------|--------|
+| 1-2 times | Remember but don't auto-apply |
+| 3-4 times | Warn: "Should I always do this?" |
+| 5+ times | Auto-apply without asking |
+
+### Example: Learning in Action
+
+**Session 1:**
+```
+User: Fix the login function
+AI: [generates code with getData()]
+User: [changes getData() to fetchUserData()]
+AI: [logs correction to corrections.json]
+```
+
+**Session 2 (same or different AI):**
+```
+AI: [reads corrections.json]
+AI: "I see you prefer descriptive names like fetchUserData.
+     I'll use that pattern."
+AI: [generates code with fetchUserData()]
+```
+
+### Learning Report (pa:learning)
+
+```
+pa:learning
+```
+
+**Output:**
+```
+Learning Report
+═══════════════════════════════════════════════════════════
+
+📊 Summary
+──────────
+  Patterns learned:     12
+  Corrections logged:   8
+  Auto-apply rules:     3
+
+🎯 Top Patterns
+───────────────
+  • Naming: Use descriptive function names (5 corrections)
+  • State: Use Zustand for state management
+  • API: Always use try-catch for API calls
+  • Testing: Use describe/it pattern for tests
+
+⚠️ Recent Corrections
+─────────────────────
+  • getData → fetchUserData (3 times)
+  • Component → src/components/ not src/ui/
+
+✅ Auto-Apply Rules (5+ corrections)
+────────────────────────────────────
+  • Use PascalCase for components
+  • Use camelCase for functions
+  • Add error handling to API calls
+
+═══════════════════════════════════════════════════════════
+```
+
+### CRITICAL: Don't Repeat Mistakes
+
+**Before generating code, AI MUST check:**
+
+1. `corrections.json` - Don't make same mistakes
+2. `feedback.json` - Follow user feedback
+3. `patterns.json` - Use learned patterns
+
+**Example check:**
+```bash
+# Check if similar code was corrected before
+grep -i "getData" .proagents/.learning/projects/*/corrections.json
+```
+
+If found, apply the correction pattern automatically.
+
+---
+
 ## Detailed Documentation
 
 For detailed instructions, read these files:
@@ -1519,6 +1749,9 @@ Or ask user: "Should I read the detailed docs for [topic]?"
 | `watchlist.yaml` | Files requiring confirmation |
 | `proagents.config.yaml` | Project config |
 | `active-features/_index.json` | Feature status |
+| `.learning/global/user-preferences.json` | User workflow preferences |
+| `.learning/projects/*/patterns.json` | Learned code patterns |
+| `.learning/projects/*/corrections.json` | Past corrections (DON'T REPEAT!) |
 
 ---
 

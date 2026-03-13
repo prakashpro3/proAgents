@@ -1875,3 +1875,144 @@ git diff HEAD~1 -- [path]
 git revert [hash] --no-commit
 git commit -m "Revert: [original message]"
 ```
+
+---
+
+## Learning Commands
+
+### pa:learn "pattern"
+
+**Teach AI a pattern or preference.**
+
+When user says `pa:learn "description"`, add to `.proagents/.learning/`:
+
+```json
+// .proagents/.learning/global/patterns.json
+{
+  "patterns": [
+    {
+      "id": "pattern-001",
+      "description": "[user's description]",
+      "learned_at": "2024-01-15T10:30:00Z",
+      "source": "explicit",
+      "examples": [],
+      "apply_to": "all"
+    }
+  ]
+}
+```
+
+**Example usage:**
+```
+User: pa:learn "Always use TypeScript strict mode"
+AI: ✓ Learned: Always use TypeScript strict mode
+    Saved to: .proagents/.learning/global/patterns.json
+    Will apply to: All future code generation
+```
+
+### pa:forget "pattern"
+
+**Remove a learned pattern or preference.**
+
+When user says `pa:forget "pattern"`, search and remove from learning files:
+
+```
+User: pa:forget "TypeScript strict mode"
+AI: Found matching patterns:
+    1. [pattern-001] Always use TypeScript strict mode
+
+    Remove this pattern? [Y/n]
+
+User: Y
+AI: ✓ Removed pattern: Always use TypeScript strict mode
+```
+
+**Search locations:**
+- `.proagents/.learning/global/patterns.json`
+- `.proagents/.learning/global/user-preferences.json`
+- `.proagents/.learning/projects/*/patterns.json`
+
+### pa:learning
+
+**Show learning report with all learned data.**
+
+Display comprehensive learning status:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 🧠 ProAgents Learning Report                            │
+├─────────────────────────────────────────────────────────┤
+│ Patterns Learned: 12                                    │
+│ Corrections Applied: 8                                  │
+│ User Preferences: 5                                     │
+│ Auto-Apply Rules: 3                                     │
+├─────────────────────────────────────────────────────────┤
+│ Recent Patterns:                                        │
+│ • Use Zustand for state management                      │
+│ • Prefer functional components                          │
+│ • Always add JSDoc to public functions                  │
+├─────────────────────────────────────────────────────────┤
+│ Active Corrections (auto-applying):                     │
+│ • "use axios" → "use fetch" (7 corrections)            │
+│ • "class component" → "functional" (5 corrections)     │
+├─────────────────────────────────────────────────────────┤
+│ Preferences:                                            │
+│ • checkpoints.after_design: always review              │
+│ • output_verbosity: detailed                           │
+│ • test_framework: vitest                               │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Data sources:**
+- `.proagents/.learning/global/patterns.json`
+- `.proagents/.learning/global/user-preferences.json`
+- `.proagents/.learning/global/corrections.json`
+- `.proagents/.learning/projects/[hash]/patterns.json`
+
+### pa:suggestions
+
+**Show AI suggestions based on learned patterns.**
+
+Analyze current context and suggest improvements:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ 💡 AI Suggestions                                       │
+├─────────────────────────────────────────────────────────┤
+│ Based on your patterns:                                 │
+│                                                         │
+│ 1. [Code Style]                                        │
+│    You prefer Zustand. Consider migrating Redux        │
+│    in src/stores/legacy-store.ts                       │
+│                                                         │
+│ 2. [Testing]                                           │
+│    You use Vitest. Found Jest config in package.json   │
+│    Consider unifying test frameworks                   │
+│                                                         │
+│ 3. [Documentation]                                     │
+│    12 public functions missing JSDoc comments          │
+│    Run pa:doc to generate                              │
+├─────────────────────────────────────────────────────────┤
+│ Based on corrections:                                   │
+│                                                         │
+│ • Found 3 instances of axios in new code               │
+│   (You've corrected this to use fetch 7 times)         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Learning System Auto-Apply Rules
+
+The learning system automatically applies corrections after a threshold:
+
+| Correction Count | Behavior |
+|-----------------|----------|
+| 1-2 occurrences | Tracked, AI remembers |
+| 3-4 occurrences | AI mentions learned preference |
+| 5+ occurrences | Auto-applied without asking |
+
+**Example auto-apply:**
+```
+AI working on code...
+ℹ️ Auto-applying learned preference: "Use fetch instead of axios"
+   (Corrected 7 times previously)
+```
