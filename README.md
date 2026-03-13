@@ -86,6 +86,13 @@ Multiple AIs can work on the same project with full context sharing:
 | **Module Changelogs** | Per-module change history |
 | **Conflict Detection** | Warns if files modified by other AI |
 | **Activity Log** | Track what each AI does with model name |
+| **Smart Context Summary** | Auto-generated 5-line summary at top of context |
+| **Context Changed Alert** | Warns if another AI worked since your last session |
+| **Test Status Tracking** | Auto-updates test status after every test run |
+| **Feature Progress** | Auto-calculates progress from tasks |
+| **AI Performance Stats** | Tracks sessions, tasks, reverts per AI platform |
+| **Quick Undo (pa:undo-last)** | Revert last AI's entire session changes |
+| **Auto-Archive Old Logs** | Automatically archives logs older than 7 days |
 
 ```bash
 # Just start working - context loads automatically!
@@ -94,6 +101,9 @@ pa:fix "bug in auth"      # AI auto-loads context, then fixes
 
 # No manual pa:sync needed - it's automatic
 # No manual pa:session-end needed - changes logged automatically
+
+# Undo another AI's work if needed
+pa:undo-last              # Revert last AI's entire session
 ```
 
 ### Project Templates
@@ -240,6 +250,8 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:session-start` | Begin new work session |
 | `pa:session-end` | Finalize session, update logs |
 | `pa:conflict-check` | Check if files modified by other AI |
+| `pa:undo-last` | Undo last AI's entire session (revert all changes) |
+| `pa:undo-file "path"` | Undo changes to specific file |
 | `pa:changelog` | Update all changelogs |
 | `pa:changelog --from-git` | Auto-populate from git commits |
 | `pa:changelog-feature X` | View feature changelog |
@@ -529,6 +541,7 @@ your-project/
 │   ├── custom-commands.yaml    # Custom pa: commands
 │   ├── worklog/                # Cross-AI session tracking
 │   │   ├── _context.md         # Quick context for any AI
+│   │   ├── ai-stats.json       # AI performance stats
 │   │   └── YYYY-MM-DD-ai-*.md  # Session logs
 │   ├── changelog/              # Detailed changelogs
 │   │   ├── _recent.md          # Last 10 changes

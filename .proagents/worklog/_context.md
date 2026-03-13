@@ -8,6 +8,36 @@ Last AI: [None]
 
 ---
 
+## Quick Summary
+<!-- AI auto-generates this section - always keep under 5 lines -->
+```
+Last: [None yet]
+Active: No active features
+Pending: 0 tasks
+Tests: Unknown
+Status: Ready for work
+```
+
+---
+
+## Test Status
+<!-- AI updates after running tests -->
+```
+Status: Unknown
+Last Run: Never
+Failing: None
+```
+
+---
+
+## Feature Progress
+<!-- AI auto-calculates from completed vs pending tasks -->
+```
+No active features
+```
+
+---
+
 ## Active Work
 
 No active features yet. Start with `pa:feature "name"` or `pa:fix "issue"`.
@@ -38,6 +68,6 @@ None.
 
 ## How to Use
 
-1. **Starting work:** Run `pa:sync` to load this context
+1. **Starting work:** Context loads automatically on first pa: command
 2. **After code changes:** AI auto-updates this file
 3. **Check history:** See `./worklog/` for detailed session logs

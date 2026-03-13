@@ -1,0 +1,19 @@
+{
+  "ai_platforms": {},
+  "totals": {
+    "total_sessions": 0,
+    "total_tasks": 0,
+    "total_files_modified": 0,
+    "total_reverts": 0
+  },
+  "_format": {
+    "platform_entry": {
+      "sessions": 0,
+      "tasks_completed": 0,
+      "files_modified": 0,
+      "reverts": 0,
+      "avg_session_minutes": 0,
+      "last_session": null
+    }
+  }
+}

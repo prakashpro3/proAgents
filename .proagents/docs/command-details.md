@@ -1113,3 +1113,98 @@ Remove debug statements before production:
 2. List found statements with file:line
 3. Offer to remove or comment out
 4. Verify no production-breaking changes
+
+---
+
+## Undo Commands
+
+### pa:undo-last
+
+**Quick undo of last AI's changes - revert to before last AI session.**
+
+AI workflow:
+
+```bash
+# 1. Read AI stats to find last AI
+cat .proagents/worklog/ai-stats.json
+
+# 2. Find last session log
+ls -t .proagents/worklog/*.md | head -2 | tail -1
+
+# 3. Read session to find files changed
+# Extract "Files Changed" section
+
+# 4. Check git for those files
+git log --oneline -5 -- [files]
+
+# 5. Show user what will be reverted
+```
+
+Output:
+```
+Undo Last AI's Changes
+══════════════════════
+Last AI: Gemini (1.5-pro)
+Session: 2024-03-11 14:30
+Duration: 45 min
+
+Files Modified:
+- src/auth/login.ts (+23, -5)
+- src/auth/validate.ts (+15, -2)
+- tests/auth.test.ts (new file)
+
+Commits to revert:
+- abc123: Add login validation
+- def456: Add auth tests
+
+Options:
+1. Revert all changes (git revert)
+2. Revert specific files only
+3. View changes first (git diff)
+4. Cancel
+
+Your choice?
+```
+
+After user confirms:
+```bash
+# Revert commits
+git revert --no-commit abc123 def456
+git commit -m "Revert: Undo Gemini session 2024-03-11
+
+Reverted changes from session 2024-03-11-gemini-001.md
+
+Co-Authored-By: [Current AI]"
+
+# Update stats
+# Increment "reverts" counter in ai-stats.json
+```
+
+**Safety checks:**
+- Never revert if uncommitted changes exist
+- Warn if files modified by multiple AIs
+- Always show diff before revert
+- Update ai-stats.json with revert count
+
+### pa:undo-file "path"
+
+**Undo changes to a specific file.**
+
+```bash
+# Find last commit that modified this file
+git log --oneline -1 -- [path]
+
+# Show the change
+git diff HEAD~1 -- [path]
+
+# Offer revert options
+```
+
+### pa:undo-commit "hash"
+
+**Undo a specific commit.**
+
+```bash
+git revert [hash] --no-commit
+git commit -m "Revert: [original message]"
+```

@@ -189,6 +189,81 @@ When removing or correcting previous changes, also log:
 
 ---
 
+## Smart Context Features (AUTO)
+
+### 1. Quick Summary (Top of _context.md)
+
+After EVERY change, AI regenerates Quick Summary (max 5 lines):
+
+```
+## Quick Summary
+Last: Claude fixed login bug #123 (2 hrs ago)
+Active: user-auth feature (70%)
+Pending: 2 tasks
+Tests: ✓ Passing
+```
+
+### 2. Context Changed Alert
+
+On first pa: command, check if another AI worked:
+
+```bash
+# AI compares last session vs _recent.md
+LAST_AI=$(grep "Last AI:" .proagents/worklog/_context.md | cut -d: -f2)
+RECENT_AI=$(head -20 .proagents/changelog/_recent.md | grep "AI:" | head -1)
+```
+
+If different AI made changes, show:
+```
+⚠️ CONTEXT CHANGED
+Gemini made 3 changes 1 hour ago:
+- Fixed API endpoint
+- Updated auth flow
+Review before continuing? [Y/n]
+```
+
+### 3. Test Status Auto-Update
+
+After ANY test command, update _context.md:
+
+```
+## Test Status
+Status: ✓ 45 passing | ✗ 2 failing
+Last Run: 2024-03-11 15:30
+Failing: auth.test.ts (line 45)
+```
+
+### 4. Feature Progress Auto-Calculate
+
+```
+## Feature Progress
+Feature: user-auth
+Progress: ████████░░ 80%
+Completed: 8/10 tasks
+```
+
+Calculate: (completed tasks / total tasks) × 100
+
+### 5. Auto-Archive Old Logs (7+ days)
+
+```bash
+mkdir -p .proagents/worklog/archive
+# Move files older than 7 days
+find .proagents/worklog -maxdepth 1 -name "2*.md" -mtime +7 -exec mv {} .proagents/worklog/archive/ \;
+```
+
+### 6. AI Performance Stats
+
+Update `worklog/ai-stats.json` after each session:
+
+```json
+{
+  "Claude": { "sessions": 15, "tasks": 45, "reverts": 2 }
+}
+```
+
+---
+
 ## Cross-AI Session Tracking (AUTOMATIC)
 
 **All session tracking is AUTOMATIC. User does NOT need to run these commands manually.**
@@ -201,6 +276,10 @@ When removing or correcting previous changes, also log:
 | Log changes | After each edit | **None** - Auto |
 | Update _context.md | After each edit | **None** - Auto |
 | Check conflicts | Before editing files | **None** - Auto |
+| Update Quick Summary | After each edit | **None** - Auto |
+| Context changed alert | First pa: command | **None** - Auto |
+| Update test status | After tests | **None** - Auto |
+| Update AI stats | After session | **None** - Auto |
 
 ### On First pa: Command (Auto-Sync):
 

@@ -80,7 +80,9 @@ Execute these commands when user types them (prefix: `pa:`):
 | `pa:diff` | Show changes since last session |
 | `pa:history` | Show command history with results |
 | `pa:checkpoint` | Create snapshot/restore point |
-| `pa:undo` | Undo last AI action (git revert)
+| `pa:undo` | Undo last AI action (git revert) |
+| `pa:undo-last` | Undo last AI's entire session (all changes) |
+| `pa:undo-file "path"` | Undo changes to specific file |
 | `pa:conflict-check` | Check if files modified by other AI |
 | `pa:changelog --from-git` | Auto-populate changelog from git commits | |
 
