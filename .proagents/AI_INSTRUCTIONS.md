@@ -41,6 +41,8 @@ tail -10 .proagents/activity.log 2>/dev/null
 5. AI logs to activity.log                          ← LOG ACTIVITY
 ```
 
+**Note:** When updating `_recent.md` or `_context.md`, first read the corresponding `*.template.md` file to use the latest format. See "Using Template Reference Files" section below.
+
 ---
 
 ## CRITICAL PRINCIPLE: ALWAYS DO, NEVER JUST TELL
@@ -157,21 +159,32 @@ AI immediately updates these files (no user prompt needed):
 
 ### Using Template Reference Files
 
-**IMPORTANT:** Template files provide the latest format for user data files.
+**IMPORTANT:** Template files (`*.template.md`, `*.template.json`) provide the latest format for user data files.
 
-| User Data File | Template Reference |
-|----------------|-------------------|
+| User Data File (EDIT THIS) | Template Reference (READ ONLY) |
+|----------------------------|-------------------------------|
 | `changelog/_recent.md` | `changelog/_recent.template.md` |
 | `worklog/_context.md` | `worklog/_context.template.md` |
 | `worklog/ai-stats.json` | `worklog/ai-stats.template.json` |
 | `active-features/_index.json` | `active-features/_index.template.json` |
+| `.learning/global/user-preferences.json` | `.learning/global/user-preferences.template.json` |
+| `.learning/global/common-patterns.json` | `.learning/global/common-patterns.template.json` |
 
 **How to use:**
-1. **Read the template** to understand expected format
-2. **Apply format** when creating/updating user data files
-3. **Never modify** template files (they're updated by framework)
+1. **Read the template FIRST** before creating/updating user data files
+2. **Apply the template format** to user data (structure, fields, sections)
+3. **NEVER modify template files** - they are READ ONLY (updated by framework)
 
-Template files are updated when ProAgents upgrades, so AI always has access to the latest format.
+**Why templates exist:**
+- Templates get updated when ProAgents upgrades (new fields, better structure)
+- User data files are preserved during upgrades (your content stays safe)
+- AI always has access to the latest format by reading templates
+
+**Common mistake to avoid:**
+```
+WRONG: Edit _recent.template.md directly
+RIGHT: Read _recent.template.md, then edit _recent.md using that format
+```
 
 ---
 
