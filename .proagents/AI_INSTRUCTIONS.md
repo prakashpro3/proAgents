@@ -591,6 +591,119 @@ When user types a `pa:` command:
 
 ---
 
+## pa:help Execution
+
+**Show comprehensive help with examples and categories.**
+
+**Command variations:**
+```
+pa:help                        # Full help with examples
+pa:help <command>              # Detailed help for specific command
+pa:help --quick                # Quick reference only
+pa:help --examples             # Show more examples
+```
+
+**Output format:**
+```
+ProAgents Help
+══════════════════════════════════════════════════════════
+
+🚀 Quick Start Examples
+───────────────────────
+  pa:feature "user authentication"    Start a new feature
+  pa:fix "login button not working"   Quick bug fix
+  pa:status                           Check current progress
+  pa:resume                           Continue where you left off
+
+📋 Common Workflows
+───────────────────
+  Feature Development:
+    pa:feature → pa:analyze → pa:design → pa:implement → pa:test → pa:deploy
+
+  Bug Fix (fast track):
+    pa:fix "description" → auto-analyze → fix → test → done
+
+  Returning to Work:
+    pa:sync → pa:resume → continue working
+
+📂 Commands by Category
+───────────────────────
+
+  Core Commands:
+    pa:feature "name"     Start new feature with full workflow
+    pa:fix "bug"          Quick bug fix mode
+    pa:status             Show current progress (enhanced)
+    pa:help               Show this help
+
+  Workflow Phases:
+    pa:analyze            Deep codebase analysis
+    pa:requirements       Gather requirements
+    pa:design             UI/Architecture design
+    pa:plan               Create implementation plan
+    pa:implement          Execute implementation
+    pa:test               Create and run tests
+    pa:review             Code review workflow
+    pa:doc                Generate documentation
+    pa:deploy             Deployment preparation
+
+  Progress & History:
+    pa:progress           Visual progress (all features)
+    pa:status             Detailed status (current feature)
+    pa:activity           All AI activity with filters
+    pa:history            Command history with stats
+
+  Cross-AI Collaboration:
+    pa:sync               Load context + visual diff
+    pa:resume             Quick resume with next action
+    pa:handoff            Create handoff notes
+    pa:conflict-check     Check for conflicts
+
+  Learning & Tracking:
+    pa:feedback "text"    Log feedback for AI learning
+    pa:decision "title"   Log architectural decision
+    pa:error "desc"       Log error and solution
+
+💡 Tips
+───────
+  • Use aliases: pa:f (feature), pa:s (status), pa:h (help)
+  • AI auto-syncs on every command - no manual sync needed
+  • Changes are auto-logged to changelog
+
+Type "pa:help <command>" for detailed help on a specific command.
+Example: pa:help feature
+```
+
+**For specific command help (pa:help feature):**
+```
+pa:feature - Start New Feature
+══════════════════════════════════════════════════════════
+
+Usage:
+  pa:feature "feature name"
+  pa:feature "user authentication"
+
+What it does:
+  1. Creates feature folder in .proagents/active-features/
+  2. Analyzes codebase for relevant files
+  3. Guides through full workflow phases
+  4. Tracks progress and tasks
+
+Workflow phases:
+  Analysis → Requirements → Design → Planning →
+  Implementation → Testing → Review → Documentation → Deployment
+
+Options:
+  pa:feature "name" --fast      Skip optional phases
+  pa:feature "name" --no-tests  Skip test generation
+
+Related commands:
+  pa:feature-list       List all features
+  pa:feature-complete   Mark feature as complete
+  pa:status             Check feature status
+```
+
+---
+
 ## pa:history Execution
 
 **AI MUST read and display the actual log file content.**

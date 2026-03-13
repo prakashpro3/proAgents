@@ -52,7 +52,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 
 | Command | What to Do |
 |---------|------------|
-| `pa:help` | Show this command table |
+| `pa:help` | Comprehensive help with examples, categories, workflows |
 | `pa:feature "name"` | Create `./.proagents/active-features/feature-[name]/`, analyze codebase, implement feature |
 | `pa:fix "description"` | Find bug, fix it, update `./CHANGELOG.md` |
 | `pa:analyze` | Deep codebase analysis → `./.proagents/cache/` |

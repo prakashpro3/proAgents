@@ -34,6 +34,7 @@ tail -10 .proagents/activity.log        # Recent activity
 
 | Command | AI Runs This |
 |---------|--------------|
+| `pa:help` | Display comprehensive help with examples and categories |
 | `pa:history` | `grep -v "^#" .proagents/activity.log \| tail -30` |
 | `pa:progress` | `cat .proagents/active-features/_index.json` |
 | `pa:activity` | `cat .proagents/activity.log \| tail -20` |
@@ -102,6 +103,72 @@ echo "Total: 8 documentation files"
 After EVERY pa: command, AI runs:
 ```bash
 echo "[$(date '+%Y-%m-%d %H:%M')] [AI_NAME] [COMMAND] Result" >> .proagents/activity.log
+```
+
+---
+
+## Help Command
+
+### pa:help
+
+**Show comprehensive help with examples and categories.**
+
+**Command variations:**
+```
+pa:help                        # Full help with examples
+pa:help <command>              # Detailed help for specific command
+pa:help --quick                # Quick reference only
+```
+
+**Output format:**
+```
+ProAgents Help
+══════════════════════════════════════════════════════════
+
+🚀 Quick Start Examples
+───────────────────────
+  pa:feature "user authentication"    Start a new feature
+  pa:fix "login button not working"   Quick bug fix
+  pa:status                           Check current progress
+  pa:resume                           Continue where you left off
+
+📋 Common Workflows
+───────────────────
+  Feature:  pa:feature → pa:analyze → pa:design → pa:implement → pa:test
+  Bug Fix:  pa:fix "description" → auto-fix → auto-test → done
+  Resume:   pa:sync → pa:resume → continue working
+
+📂 Commands by Category
+───────────────────────
+  Core:      pa:feature, pa:fix, pa:status, pa:help
+  Workflow:  pa:analyze, pa:design, pa:implement, pa:test, pa:deploy
+  Progress:  pa:progress, pa:activity, pa:history
+  Collab:    pa:sync, pa:resume, pa:handoff
+
+💡 Tips
+───────
+  • Aliases: pa:f (feature), pa:s (status), pa:h (help)
+  • AI auto-syncs - no manual sync needed
+  • Changes auto-logged to changelog
+
+Type "pa:help <command>" for specific command help.
+```
+
+**For specific command (pa:help feature):**
+```
+pa:feature - Start New Feature
+══════════════════════════════════════════════════════════
+
+Usage:
+  pa:feature "feature name"
+
+What it does:
+  1. Creates feature folder
+  2. Analyzes codebase
+  3. Guides through workflow phases
+  4. Tracks progress
+
+Related: pa:feature-list, pa:feature-complete, pa:status
 ```
 
 ---
