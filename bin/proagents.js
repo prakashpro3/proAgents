@@ -8,12 +8,16 @@ import { statusCommand } from '../lib/commands/status.js';
 import { helpCommand } from '../lib/commands/help.js';
 import { aiAddCommand, aiListCommand, aiRemoveCommand } from '../lib/commands/ai.js';
 import { uninstallCommand } from '../lib/commands/uninstall.js';
-import { configListCommand, configShowCommand, configEditCommand, configSetCommand, configGetCommand, configSetupCommand, configCustomizeCommand } from '../lib/commands/config.js';
+import { configListCommand, configShowCommand, configEditCommand, configSetCommand, configGetCommand, configSetupCommand, configCustomizeCommand, configExportCommand, configImportCommand } from '../lib/commands/config.js';
 import { doctorCommand } from '../lib/commands/doctor.js';
 import { upgradeCommand } from '../lib/commands/upgrade.js';
 import { migrateCommand } from '../lib/commands/migrate.js';
 import { versionCommand } from '../lib/commands/version.js';
 import { releaseCommand } from '../lib/commands/release.js';
+import { statsCommand } from '../lib/commands/stats.js';
+import { restoreCommand } from '../lib/commands/restore.js';
+import { changelogCommand, changelogAddCommand, changelogListCommand, changelogExportCommand, changelogViewCommand } from '../lib/commands/changelog.js';
+import { completionCommand } from '../lib/commands/completion.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -151,6 +155,20 @@ config
   .description('Copy templates to create custom configurations')
   .action(configCustomizeCommand);
 
+config
+  .command('export')
+  .description('Export configuration for sharing or backup')
+  .option('-o, --output [path]', 'Output to file instead of stdout')
+  .action(configExportCommand);
+
+config
+  .command('import <file>')
+  .description('Import configuration from export file')
+  .option('-f, --force', 'Skip confirmation prompt')
+  .option('-q, --quiet', 'Minimal output')
+  .option('--json', 'Output in JSON format')
+  .action(configImportCommand);
+
 // Uninstall command
 program
   .command('uninstall')
@@ -191,6 +209,71 @@ program
   .option('--offline', 'Skip checking npm for latest version')
   .action(versionCommand);
 
+// Stats command
+program
+  .command('stats')
+  .description('Show project and AI usage statistics')
+  .option('--json', 'Output in JSON format')
+  .action(statsCommand);
+
+// Restore command
+program
+  .command('restore <backup-file>')
+  .description('Restore ProAgents data from backup')
+  .option('-f, --force', 'Skip confirmation prompt')
+  .option('-q, --quiet', 'Minimal output')
+  .option('--json', 'Output in JSON format')
+  .action(restoreCommand);
+
+// Changelog commands
+const changelog = program
+  .command('changelog')
+  .description('Manage project changelogs');
+
+changelog
+  .command('view')
+  .description('View recent changelog entries (default)')
+  .option('-l, --limit <number>', 'Number of entries to show', '10')
+  .option('--json', 'Output in JSON format')
+  .action(changelogViewCommand);
+
+changelog
+  .command('add <entry>')
+  .description('Add a new changelog entry')
+  .option('--json', 'Output in JSON format')
+  .action(changelogAddCommand);
+
+changelog
+  .command('list')
+  .description('List available changelogs (features, modules, years)')
+  .option('--json', 'Output in JSON format')
+  .action(changelogListCommand);
+
+changelog
+  .command('export')
+  .description('Export changelog to CHANGELOG.md')
+  .option('--git', 'Include git commit history')
+  .option('--json', 'Output in JSON format')
+  .action(changelogExportCommand);
+
+changelog
+  .command('feature <name>')
+  .description('View changelog for a specific feature')
+  .action((name) => changelogCommand('feature', name));
+
+changelog
+  .command('module <name>')
+  .description('View changelog for a specific module')
+  .action((name) => changelogCommand('module', name));
+
+changelog
+  .command('git')
+  .description('View git commit history as changelog')
+  .option('--since <ref>', 'Start from tag/commit/date')
+  .option('--until <ref>', 'End at tag/commit/date')
+  .option('-l, --limit <number>', 'Number of commits', '20')
+  .action((options) => changelogCommand('git', null, options));
+
 // Release command
 program
   .command('release')
@@ -209,6 +292,17 @@ program
   .option('--prerelease <stage>', 'Mark as pre-release (beta, rc, alpha)')
   .option('--urgency <level>', 'Hotfix urgency level (low, medium, high, critical)')
   .option('--interactive', 'Interactive mode with filter selection')
+  .option('--changelog', 'Update CHANGELOG.md with release notes')
+  .option('--tag', 'Create git tag for this release')
+  .option('--tag-message <message>', 'Custom message for git tag')
+  .option('--json', 'Output in JSON format (for scripting)')
   .action(releaseCommand);
+
+// Completion command
+program
+  .command('completion [shell]')
+  .description('Generate shell completion scripts (bash, zsh, fish)')
+  .option('-q, --quiet', 'Skip install instructions')
+  .action(completionCommand);
 
 program.parse();
