@@ -168,6 +168,21 @@ proagents fix "bug description"       # Quick bug fix mode
 # Maintenance
 proagents doctor                      # Health check installation
 proagents status                      # Show ProAgents status
+proagents version                     # Show detailed version info
+
+# Release Notes
+proagents release                     # Interactive release note generator
+proagents release -t detailed         # Full comprehensive notes
+proagents release -t short            # Quick summary
+proagents release -t client           # Business-focused, non-technical
+proagents release -t developer        # Technical details for devs
+proagents release -t hotfix           # Urgent patch notes
+proagents release -t prerelease       # Beta/RC notes
+proagents release --include fixes     # Only include bug fixes
+proagents release --include features  # Only include features
+proagents release --append -o FILE    # Append to existing notes
+proagents release --bump              # Suggest version bump
+proagents release --module auth       # Filter by module name
 
 # Updating ProAgents
 npx proagents init                    # Smart update (recommended)

@@ -13,6 +13,7 @@ import { doctorCommand } from '../lib/commands/doctor.js';
 import { upgradeCommand } from '../lib/commands/upgrade.js';
 import { migrateCommand } from '../lib/commands/migrate.js';
 import { versionCommand } from '../lib/commands/version.js';
+import { releaseCommand } from '../lib/commands/release.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -189,5 +190,25 @@ program
   .description('Show detailed version information')
   .option('--offline', 'Skip checking npm for latest version')
   .action(versionCommand);
+
+// Release command
+program
+  .command('release')
+  .description('Generate release notes with type selection')
+  .option('-t, --type <type>', 'Release type: detailed, short, client, developer, hotfix, prerelease')
+  .option('-v, --version <version>', 'Version number (defaults to package.json)')
+  .option('-o, --output [path]', 'Output to file (optional path)')
+  .option('-a, --append', 'Append to existing release notes file')
+  .option('-i, --include <categories>', 'Include only: features,fixes,improvements,security,breaking,docs,deps,perf')
+  .option('-e, --exclude <categories>', 'Exclude categories (comma-separated)')
+  .option('-m, --module <name>', 'Filter by module/component name in commits')
+  .option('-p, --path <path>', 'Filter commits by file path')
+  .option('--since <ref>', 'Start from tag/commit/date')
+  .option('--until <ref>', 'End at tag/commit/date')
+  .option('--bump', 'Suggest version bump based on changes')
+  .option('--prerelease <stage>', 'Mark as pre-release (beta, rc, alpha)')
+  .option('--urgency <level>', 'Hotfix urgency level (low, medium, high, critical)')
+  .option('--interactive', 'Interactive mode with filter selection')
+  .action(releaseCommand);
 
 program.parse();
