@@ -1,0 +1,60 @@
+{
+  "_template_info": {
+    "description": "Template reference for common-patterns.json schema",
+    "note": "DO NOT modify this file - it gets updated with ProAgents upgrades",
+    "usage": "AI reads this to understand expected schema for common-patterns.json"
+  },
+
+  "$schema": "../schemas/patterns-schema.json",
+  "version": "1.0.0",
+  "updated_at": "2024-01-15T10:30:00Z",
+
+  "patterns": {
+    "component_patterns": [
+      {
+        "id": "pattern-id",
+        "name": "Pattern Name",
+        "frequency": 95,
+        "confidence": 0.98,
+        "template": "code template with {{placeholders}}"
+      }
+    ],
+    "api_patterns": [],
+    "error_handling": [],
+    "testing_patterns": []
+  },
+
+  "anti_patterns": [
+    {
+      "id": "anti-pattern-id",
+      "name": "Anti-pattern Name",
+      "detected_count": 0,
+      "suggestion": "How to fix",
+      "auto_suggest": true
+    }
+  ],
+
+  "learned_from": {
+    "codebase_analysis": 0,
+    "user_corrections": 0,
+    "explicit_teaching": 0
+  },
+
+  "_schema_notes": {
+    "patterns": {
+      "component_patterns": "React/Vue/etc component patterns",
+      "api_patterns": "API handler patterns",
+      "error_handling": "Error handling patterns",
+      "testing_patterns": "Test structure patterns"
+    },
+    "pattern_fields": {
+      "id": "Unique identifier",
+      "name": "Human-readable name",
+      "frequency": "How often used (0-100)",
+      "confidence": "AI confidence (0-1)",
+      "template": "Code template with {{placeholders}}"
+    },
+    "anti_patterns": "Patterns to avoid",
+    "learned_from": "Source of learning data"
+  }
+}

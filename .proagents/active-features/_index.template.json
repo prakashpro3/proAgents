@@ -1,0 +1,75 @@
+{
+  "_template_info": {
+    "description": "Template reference for _index.json schema",
+    "note": "DO NOT modify this file - it gets updated with ProAgents upgrades",
+    "usage": "AI reads this to understand expected schema for _index.json"
+  },
+
+  "$schema": "./schemas/index-schema.json",
+  "version": "1.0.0",
+  "last_updated": "2024-03-13T10:30:00Z",
+
+  "active_features": [
+    {
+      "id": "feature-user-auth",
+      "name": "User Authentication",
+      "started_at": "2024-03-10T09:00:00Z",
+      "started_by": "claude",
+      "priority": "high",
+      "progress": 45,
+      "phase": "implementation"
+    }
+  ],
+
+  "paused_features": [
+    {
+      "id": "feature-dark-mode",
+      "name": "Dark Mode",
+      "paused_at": "2024-03-12T14:00:00Z",
+      "reason": "Waiting for design review"
+    }
+  ],
+
+  "completed_features": [
+    {
+      "id": "feature-login",
+      "name": "Login Page",
+      "completed_at": "2024-03-08T16:30:00Z",
+      "duration_days": 3
+    }
+  ],
+
+  "conflicts": {
+    "active": [],
+    "resolved": [
+      {
+        "files": ["src/auth.ts"],
+        "features": ["feature-user-auth", "feature-login"],
+        "resolved_at": "2024-03-08T12:00:00Z"
+      }
+    ]
+  },
+
+  "statistics": {
+    "total_active": 1,
+    "total_paused": 1,
+    "total_completed": 1,
+    "average_completion_days": 3,
+    "conflict_rate": 0.1
+  },
+
+  "_schema": {
+    "active_features": {
+      "type": "array",
+      "items": {
+        "id": "string - Unique feature ID",
+        "name": "string - Human-readable name",
+        "started_at": "string - ISO timestamp",
+        "started_by": "string - AI platform that started",
+        "priority": "string - low/medium/high",
+        "progress": "number - 0-100 percentage",
+        "phase": "string - planning/design/implementation/testing/review"
+      }
+    }
+  }
+}

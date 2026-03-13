@@ -1,0 +1,54 @@
+{
+  "_template_info": {
+    "description": "Template reference for ai-stats.json schema",
+    "note": "DO NOT modify this file - it gets updated with ProAgents upgrades",
+    "usage": "AI reads this to understand expected schema for ai-stats.json"
+  },
+
+  "ai_platforms": {
+    "claude": {
+      "sessions": 0,
+      "tasks_completed": 0,
+      "files_modified": 0,
+      "reverts": 0,
+      "avg_session_minutes": 0,
+      "last_session": "2024-03-13T10:30:00Z"
+    },
+    "chatgpt": {
+      "sessions": 0,
+      "tasks_completed": 0,
+      "files_modified": 0,
+      "reverts": 0,
+      "avg_session_minutes": 0,
+      "last_session": null
+    }
+  },
+
+  "totals": {
+    "total_sessions": 0,
+    "total_tasks": 0,
+    "total_files_modified": 0,
+    "total_reverts": 0
+  },
+
+  "_schema": {
+    "ai_platforms": {
+      "type": "object",
+      "description": "Stats per AI platform",
+      "properties": {
+        "[platform_id]": {
+          "sessions": "number - Total sessions by this AI",
+          "tasks_completed": "number - Tasks completed",
+          "files_modified": "number - Files modified",
+          "reverts": "number - Changes reverted by user",
+          "avg_session_minutes": "number - Average session duration",
+          "last_session": "string|null - ISO timestamp of last session"
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "description": "Aggregated totals across all AIs"
+    }
+  }
+}

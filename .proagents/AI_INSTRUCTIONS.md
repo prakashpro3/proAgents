@@ -155,6 +155,26 @@ AI immediately updates these files (no user prompt needed):
 4. .proagents/changelog/modules/X.md   ← Based on file path
 ```
 
+### Using Template Reference Files
+
+**IMPORTANT:** Template files provide the latest format for user data files.
+
+| User Data File | Template Reference |
+|----------------|-------------------|
+| `changelog/_recent.md` | `changelog/_recent.template.md` |
+| `worklog/_context.md` | `worklog/_context.template.md` |
+| `worklog/ai-stats.json` | `worklog/ai-stats.template.json` |
+| `active-features/_index.json` | `active-features/_index.template.json` |
+
+**How to use:**
+1. **Read the template** to understand expected format
+2. **Apply format** when creating/updating user data files
+3. **Never modify** template files (they're updated by framework)
+
+Template files are updated when ProAgents upgrades, so AI always has access to the latest format.
+
+---
+
 ### Auto-Log Format for _recent.md:
 
 After editing `src/auth/login.ts`, AI prepends to `_recent.md`:
