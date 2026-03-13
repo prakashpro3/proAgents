@@ -2,9 +2,23 @@
 
 This project uses ProAgents workflow framework.
 
-## CRITICAL: Auto-Log Every Code Change
+## ⚠️ MANDATORY: Every pa: Command Flow
 
-**After EVERY file edit, IMMEDIATELY update these files (no user prompt needed):**
+### BEFORE Any pa: Command (Auto-Sync)
+
+**Read these files FIRST before doing anything:**
+
+```bash
+cat .proagents/worklog/_context.md      # Current state
+cat .proagents/changelog/_recent.md     # Recent changes
+tail -10 .proagents/activity.log        # Recent activity
+```
+
+**This applies to EVERY command:** `pa:fix`, `pa:feature`, `pa:test`, `pa:doc`, etc.
+
+### AFTER Any pa: Command (Auto-Log)
+
+**After EVERY file edit, IMMEDIATELY update these files:**
 
 1. `.proagents/changelog/_recent.md` - Prepend change summary
 2. `.proagents/changelog/modules/[module].md` - Based on file path

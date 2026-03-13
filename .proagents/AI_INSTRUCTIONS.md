@@ -2,6 +2,47 @@
 
 This project uses ProAgents - an AI-agnostic development workflow framework.
 
+---
+
+## ⚠️ MANDATORY: Auto-Sync on EVERY pa: Command
+
+**BEFORE executing ANY `pa:` command, AI MUST run these steps FIRST:**
+
+```bash
+# STEP 1: Load context (REQUIRED - do this FIRST)
+cat .proagents/worklog/_context.md 2>/dev/null
+cat .proagents/changelog/_recent.md 2>/dev/null | head -30
+tail -10 .proagents/activity.log 2>/dev/null
+```
+
+**This applies to ALL commands including:**
+- `pa:fix "bug"` - Load context FIRST, then fix
+- `pa:feature "name"` - Load context FIRST, then start feature
+- `pa:test` - Load context FIRST, then run tests
+- `pa:doc` - Load context FIRST, then generate docs
+- **EVERY pa: command** - Load context FIRST
+
+**AFTER executing ANY `pa:` command that changes files, AI MUST:**
+
+```bash
+# Update worklogs and changelogs
+# 1. Prepend to .proagents/changelog/_recent.md
+# 2. Update .proagents/worklog/_context.md
+# 3. Update .proagents/changelog/modules/[module].md
+# 4. Log to .proagents/activity.log
+```
+
+**Example flow for `pa:fix "login bug"`:**
+```
+1. AI reads _context.md, _recent.md, activity.log  ← AUTO-SYNC FIRST
+2. AI analyzes and fixes the bug                    ← DO THE WORK
+3. AI updates _recent.md with fix details           ← LOG THE CHANGE
+4. AI updates _context.md with current state        ← UPDATE CONTEXT
+5. AI logs to activity.log                          ← LOG ACTIVITY
+```
+
+---
+
 ## CRITICAL PRINCIPLE: ALWAYS DO, NEVER JUST TELL
 
 **ProAgents automates development. The AI must EXECUTE actions, not give instructions for users to follow.**
@@ -31,24 +72,24 @@ This project uses ProAgents - an AI-agnostic development workflow framework.
 
 **Multiple AI tools may work on this project simultaneously. They do NOT share context.**
 
-### AUTOMATIC Context Loading (No Manual pa:sync Needed)
+### AUTOMATIC Context Loading (EVERY pa: Command)
 
-**On FIRST pa: command of session, AI AUTOMATICALLY does:**
+**On EVERY `pa:` command, AI MUST FIRST load context:**
 
 ```bash
-# 1. Load context (replaces manual pa:sync)
+# MANDATORY FIRST STEP - Run before ANY pa: command
 cat .proagents/worklog/_context.md 2>/dev/null
 cat .proagents/changelog/_recent.md 2>/dev/null | head -30
 tail -10 .proagents/activity.log 2>/dev/null
 
-# 2. Check for conflicts
+# Also check for conflicts
 cat .proagents/.active-files 2>/dev/null
-
-# 3. Validate previous logging
-git diff --name-only HEAD~3 2>/dev/null | wc -l
 ```
 
-**User does NOT need to type pa:sync - it happens automatically.**
+**This is NOT optional. This is NOT just for "first command".**
+**EVERY pa: command = Load context FIRST, then execute.**
+
+**User does NOT need to type pa:sync - AI does it automatically on EVERY pa: command.**
 
 ### Before ANY `pa:` command:
 

@@ -7,26 +7,46 @@ Execute these commands when user types them (prefix: `pa:`):
 
 > **Multi-AI Note:** Multiple AIs may work on this project. Context loading and logging is AUTOMATIC.
 
-## AUTOMATIC Session Handling
+---
 
-**On FIRST pa: command, AI automatically:**
-1. Reads `.proagents/worklog/_context.md` (context)
-2. Reads `.proagents/changelog/_recent.md` (recent changes)
-3. Checks `.proagents/.active-files` (file locks)
+## ⚠️ MANDATORY: Every pa: Command Flow
 
-**User does NOT need to run pa:sync manually.**
+### BEFORE Any pa: Command (Auto-Sync)
 
-## CRITICAL: Auto-Log Every Code Change
+**AI MUST read these files FIRST before doing anything:**
 
-**After EVERY file edit/create/delete, AI MUST immediately update:**
+```bash
+cat .proagents/worklog/_context.md      # Current state
+cat .proagents/changelog/_recent.md     # Recent changes
+tail -10 .proagents/activity.log        # Recent activity
+```
 
-1. `.proagents/changelog/_recent.md` - Prepend change summary
-2. `.proagents/changelog/modules/[module].md` - Based on file path
-3. `.proagents/worklog/_context.md` - Update current state
+**This applies to EVERY command:** `pa:fix`, `pa:feature`, `pa:test`, `pa:doc`, etc.
+
+### AFTER Any pa: Command That Changes Files
+
+**AI MUST update these files IMMEDIATELY after any code change:**
+
+```
+1. .proagents/changelog/_recent.md     ← Prepend change summary
+2. .proagents/worklog/_context.md      ← Update Quick Summary
+3. .proagents/changelog/modules/X.md   ← Based on file path
+4. .proagents/activity.log             ← Log the command
+```
+
+### Example: pa:fix "login bug"
+
+```
+STEP 1: Read _context.md, _recent.md, activity.log  ← SYNC FIRST
+STEP 2: Find and fix the bug                        ← DO THE WORK
+STEP 3: Prepend fix to _recent.md                   ← LOG CHANGE
+STEP 4: Update _context.md Quick Summary            ← UPDATE CONTEXT
+STEP 5: Append to activity.log                      ← LOG ACTIVITY
+```
 
 **Module detection:** `src/api/*`→api, `src/auth/*`→auth, `src/components/*`→ui, `src/services/*`→services
 
-**Do NOT wait for user prompt. Log automatically after every change.**
+---
 
 ## Commands
 

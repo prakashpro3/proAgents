@@ -4,6 +4,28 @@ Detailed execution instructions for all `pa:` commands.
 
 ---
 
+## ⚠️ MANDATORY: Auto-Sync on EVERY pa: Command
+
+**BEFORE executing ANY `pa:` command, AI MUST run these steps FIRST:**
+
+```bash
+cat .proagents/worklog/_context.md      # Current state
+cat .proagents/changelog/_recent.md     # Recent changes
+tail -10 .proagents/activity.log        # Recent activity
+```
+
+**AFTER executing ANY `pa:` command that changes files, AI MUST:**
+
+```bash
+# 1. Prepend to .proagents/changelog/_recent.md
+# 2. Update .proagents/worklog/_context.md
+# 3. Log to .proagents/activity.log
+```
+
+**This applies to ALL commands: pa:fix, pa:feature, pa:test, pa:doc, etc.**
+
+---
+
 ## CRITICAL: AI Must Execute All Commands
 
 **NEVER tell user to do something. AI must DO it.**
@@ -141,11 +163,36 @@ Completed (3):
 
 Quick bug fix mode (bypasses full workflow):
 
+**STEP 1: Auto-Sync (MANDATORY FIRST)**
+```bash
+cat .proagents/worklog/_context.md      # Current state
+cat .proagents/changelog/_recent.md     # Recent changes
+tail -10 .proagents/activity.log        # Recent activity
+```
+
+**STEP 2: Fix the bug**
 1. Analyze the bug description
 2. Search codebase for relevant code
 3. Implement fix directly
 4. Run relevant tests
-5. Log fix in activity.log
+
+**STEP 3: Auto-Log (MANDATORY AFTER)**
+```bash
+# Prepend to _recent.md
+# Update _context.md
+# Log to activity.log
+```
+
+**Example: pa:fix "login button not working"**
+```
+1. READ _context.md, _recent.md, activity.log     ← SYNC FIRST
+2. Search for login-related code                  ← ANALYZE
+3. Find and fix the bug                           ← FIX
+4. Run tests                                      ← VERIFY
+5. Prepend fix to _recent.md                      ← LOG CHANGE
+6. Update _context.md Quick Summary               ← UPDATE CONTEXT
+7. Append to activity.log                         ← LOG ACTIVITY
+```
 
 ---
 
