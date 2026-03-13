@@ -12,6 +12,7 @@ import { configListCommand, configShowCommand, configEditCommand, configSetComma
 import { doctorCommand } from '../lib/commands/doctor.js';
 import { upgradeCommand } from '../lib/commands/upgrade.js';
 import { migrateCommand } from '../lib/commands/migrate.js';
+import { versionCommand } from '../lib/commands/version.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -181,5 +182,12 @@ program
   .description('Migrate from proagents/ to .proagents/ folder structure')
   .option('-f, --force', 'Skip confirmation prompt')
   .action(migrateCommand);
+
+// Version command (detailed)
+program
+  .command('version')
+  .description('Show detailed version information')
+  .option('--offline', 'Skip checking npm for latest version')
+  .action(versionCommand);
 
 program.parse();
