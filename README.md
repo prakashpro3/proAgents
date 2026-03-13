@@ -183,6 +183,9 @@ proagents release --include features  # Only include features
 proagents release --append -o FILE    # Append to existing notes
 proagents release --bump              # Suggest version bump
 proagents release --module auth       # Filter by module name
+proagents release --changelog         # Update CHANGELOG.md
+proagents release --tag               # Create git tag
+proagents release --json              # JSON output for CI/CD
 
 # Updating ProAgents
 npx proagents init                    # Smart update (recommended)
@@ -196,6 +199,27 @@ proagents ai remove                   # Remove platforms
 # Configuration
 proagents config show                 # Show current config
 proagents config setup                # Interactive config wizard
+proagents config export               # Export config for sharing
+proagents config import <file>        # Import config from file
+
+# Statistics & Monitoring
+proagents stats                       # Show project & AI usage stats
+proagents stats --json                # JSON output for scripting
+
+# Changelog Management
+proagents changelog view              # View recent changelog entries
+proagents changelog add "entry"       # Add new changelog entry
+proagents changelog list              # List available changelogs
+proagents changelog export            # Export to CHANGELOG.md
+proagents changelog git               # View git history as changelog
+
+# Backup & Restore
+proagents restore <backup.json>       # Restore from uninstall backup
+
+# Shell Completions
+proagents completion bash             # Generate bash completions
+proagents completion zsh              # Generate zsh completions
+proagents completion fish             # Generate fish completions
 
 # Other
 proagents docs                        # Open documentation
