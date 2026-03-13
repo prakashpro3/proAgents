@@ -595,30 +595,69 @@ When user types a `pa:` command:
 
 **AI MUST read and display the actual log file content.**
 
+**Command variations:**
+```
+pa:history                     # All recent history (default)
+pa:history --today             # Today's commands only
+pa:history --ai Claude         # Filter by AI platform
+pa:history --command pa:fix    # Filter by command type
+pa:history --search "auth"     # Search in descriptions
+pa:history --stats             # Show command statistics
+```
+
+**Steps:**
 1. Read `./.proagents/activity.log`
-2. Filter out header lines (lines starting with #)
-3. Display entries (most recent first)
+2. Filter based on options (if provided)
+3. Display entries with grouping and icons
 4. NEVER say "no commands yet" without reading the file
 
 ```bash
 # AI runs this:
-grep -v "^#" .proagents/activity.log | grep -v "^$" | grep -v "Activity Log Start" | tail -30
+grep -v "^#" .proagents/activity.log | grep -v "^$" | grep -v "Activity Log Start" | tail -50
 ```
 
-If no entries found after filtering, show:
-```
-No pa: commands logged yet.
-Run some commands, then try pa:history again.
-```
-
-**Output format:**
+**Enhanced output format:**
 ```
 Command History
-═══════════════
-[2024-03-06 16:00] [Gemini] pa:logs - Captured 50 entries
-[2024-03-06 15:30] [Cursor] pa:test - 12 tests passed
-[2024-03-06 15:15] [Claude] pa:analyze - Analyzed 45 files
-[2024-03-06 15:10] [Claude] pa:feature - Started "user-auth"
+══════════════════════════════════════════════════════════
+
+Today (12 commands)
+───────────────────
+[16:00] [Gemini]  ✅ pa:test - 12 tests passed
+[15:30] [Cursor]  🐛 pa:fix - Fixed login validation
+[15:15] [Claude]  🔍 pa:analyze - Analyzed 45 files
+[15:10] [Claude]  ✨ pa:feature - Started "user-auth"
+
+Yesterday (8 commands)
+──────────────────────
+[18:00] [ChatGPT] 📝 pa:doc - Updated README
+[16:30] [Claude]  🔨 pa:implement - Created UserService
+
+──────────────────────────────────────────────────────────
+Stats: 20 commands | 4 AIs | Most used: pa:implement (6)
+```
+
+**With --stats option:**
+```
+Command Statistics
+══════════════════════════════════════════════════════════
+
+By Command:
+  pa:implement   ████████████████  12
+  pa:fix         ████████          6
+  pa:test        ██████            4
+  pa:analyze     ████              3
+
+By AI Platform:
+  Claude         ████████████████  14
+  Cursor         ████████          7
+  Gemini         ████              3
+  ChatGPT        ██                1
+
+By Day:
+  Today          ████████████████  12
+  Yesterday      ████████          8
+  Earlier        ████              5
 ```
 
 ---

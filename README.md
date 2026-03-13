@@ -221,6 +221,13 @@ proagents completion bash             # Generate bash completions
 proagents completion zsh              # Generate zsh completions
 proagents completion fish             # Generate fish completions
 
+# Quick File Access
+proagents open                        # Show available shortcuts
+proagents open config                 # Open proagents.config.yaml
+proagents open changelog              # Open recent changelog
+proagents open activity               # Open activity log
+proagents open context                # Open worklog context
+
 # Other
 proagents docs                        # Open documentation
 proagents commands                    # Show all commands

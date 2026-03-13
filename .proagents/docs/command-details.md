@@ -421,35 +421,65 @@ cat .proagents/changelog/modules/[name].md
 
 **Run FIRST when starting work on any AI platform.**
 
-AI reads context files to understand current state:
+AI reads context files and shows visual diff of what changed:
 
 ```bash
 # AI executes:
 cat .proagents/worklog/_context.md
 cat .proagents/changelog/_recent.md
-ls -t .proagents/worklog/*.md | head -3 | xargs cat
+tail -30 .proagents/activity.log
 cat .proagents/active-features/_index.json
-tail -20 .proagents/activity.log
+git log --oneline -5 2>/dev/null
+git diff --stat HEAD~3 2>/dev/null
 ```
 
-Then reports:
+**Enhanced output with visual diff:**
 ```
-Project Context Loaded!
+Project Context Loaded
+══════════════════════════════════════════════════════════
 
-Active Work:
-- Feature: user-auth (70% complete)
-- Last: JWT validation added by Claude
+📊 Changes Since Your Last Session
+───────────────────────────────────
+  ├─ 5 files modified by Cursor (2h ago)
+  │   └─ src/auth/auth.service.ts (+45, -12)
+  │   └─ src/auth/auth.controller.ts (+23, -5)
+  │   └─ src/auth/auth.module.ts (+8, -2)
+  │   └─ src/users/user.service.ts (+15, -3)
+  │   └─ tests/auth.spec.ts (+30, -0)
+  │
+  ├─ 2 new commits
+  │   └─ "Add JWT validation" (Cursor)
+  │   └─ "Fix login endpoint" (Cursor)
+  │
+  └─ 1 feature updated: user-auth (60% → 75%)
 
-Recent Changes:
-1. Added login validation (Claude, Mar 11)
-2. Fixed API endpoint (Gemini, Mar 10)
+🎯 Current State
+────────────────
+  Feature: user-auth (75% complete)
+  Phase: Implementation (4/6)
+  Branch: feature/user-auth
 
-Pending:
-- [ ] Complete email verification
-- [ ] Add unit tests
+📝 Last Actions (by other AIs)
+──────────────────────────────
+  [14:30] [Cursor] 🔨 pa:implement - Added JWT validation
+  [14:00] [Cursor] 🐛 pa:fix - Fixed login endpoint
+  [12:00] [Claude] 🎨 pa:design - Created auth flow diagram
+
+⏭️ Next Steps
+─────────────
+  → Complete email verification
+  → Add password reset endpoint
+  → Write unit tests
 
 Ready to continue. What would you like to work on?
 ```
+
+**Key features:**
+- Shows files changed since last session with line counts
+- Shows commits made by other AIs
+- Shows feature progress delta (was → now)
+- Lists recent actions by ALL AI platforms
+- Shows clear next steps
 
 ### pa:session-start
 
@@ -493,41 +523,59 @@ Next AI can continue from: [next steps listed]
 
 ### pa:resume
 
-**Quick resume for returning AI - loads context and shows next action.**
+**Quick resume for returning AI - compact context + clear next action.**
 
 ```bash
 # AI executes:
 cat .proagents/worklog/_context.md
-cat .proagents/changelog/_recent.md
-ls -t .proagents/worklog/*.md 2>/dev/null | head -2 | tail -1 | xargs cat
+tail -5 .proagents/changelog/_recent.md
 tail -10 .proagents/activity.log
+cat .proagents/active-features/*/status.json 2>/dev/null | head -20
 ```
 
-Output:
+**Enhanced compact output:**
 ```
-Resume Context
-══════════════
-Last Session: 2024-03-11 by Claude (opus-4)
-Duration: 45 min
+Quick Resume
+══════════════════════════════════════════════════════════
 
-What Was Done:
-- Added JWT validation
-- Fixed login bug
-- Updated API docs
+🕐 Last Session
+───────────────
+  AI: Claude (opus-4)          When: 2 hours ago
+  Duration: 45 min             Actions: 8
 
-Pending Tasks:
-1. [ ] Complete email verification
-2. [ ] Add unit tests for auth
+📋 What Was Done
+────────────────
+  ✓ Added JWT token validation
+  ✓ Fixed login endpoint bug
+  ✓ Updated API documentation
+  └─ 5 files changed (+120, -23)
 
-Files Recently Modified:
-- src/auth/login.ts (2 hours ago)
-- src/auth/validate.ts (2 hours ago)
+🎯 Current Feature
+──────────────────
+  user-auth ████████████████░░░░ 75%
+  Phase: Implementation → Testing next
 
-Suggested Next Action:
-→ Continue with "Complete email verification"
+⚡ Next Action
+──────────────
+  → Complete email verification
+    File: src/auth/email.service.ts
+    Est: ~30 min
 
-Ready to proceed?
+📁 Hot Files (recently modified)
+────────────────────────────────
+  src/auth/auth.service.ts      2h ago (Claude)
+  src/auth/auth.controller.ts   2h ago (Claude)
+  tests/auth.spec.ts            2h ago (Claude)
+
+Ready to continue?
 ```
+
+**Key features:**
+- Shows last session info (AI, time, duration)
+- Compact summary of what was done
+- Current feature with visual progress
+- Single clear next action with file and estimate
+- Hot files that were recently modified
 
 ### pa:conflict-check
 

@@ -87,7 +87,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | Command | What to Do |
 |---------|------------|
 | `pa:next` | Show next step in current workflow |
-| `pa:resume` | Quick resume - load last session + show next action |
+| `pa:resume` | Compact resume: last session, what was done, next action, hot files |
 | `pa:skip` | Skip current phase, move to next |
 | `pa:back` | Go back to previous phase |
 | `pa:progress` | Show enhanced progress: tasks, duration, AI, phase timeline |
@@ -98,7 +98,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 |---------|------------|
 | `pa:context` | View project context |
 | `pa:diff` | Show changes since last session |
-| `pa:history` | Show command history with results |
+| `pa:history` | Command history with filters: --today, --ai, --command, --stats |
 | `pa:checkpoint` | Create snapshot/restore point |
 | `pa:undo` | Undo last AI action (git revert) |
 | `pa:undo-last` | Undo last AI's entire session (all changes) |

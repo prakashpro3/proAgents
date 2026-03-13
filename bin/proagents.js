@@ -18,6 +18,7 @@ import { statsCommand } from '../lib/commands/stats.js';
 import { restoreCommand } from '../lib/commands/restore.js';
 import { changelogCommand, changelogAddCommand, changelogListCommand, changelogExportCommand, changelogViewCommand } from '../lib/commands/changelog.js';
 import { completionCommand } from '../lib/commands/completion.js';
+import { openCommand } from '../lib/commands/open.js';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -304,5 +305,11 @@ program
   .description('Generate shell completion scripts (bash, zsh, fish)')
   .option('-q, --quiet', 'Skip install instructions')
   .action(completionCommand);
+
+// Open command
+program
+  .command('open [target]')
+  .description('Open ProAgents files quickly (config, changelog, activity, etc.)')
+  .action(openCommand);
 
 program.parse();
