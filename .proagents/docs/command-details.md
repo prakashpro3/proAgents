@@ -228,6 +228,8 @@ Completed (3):
 
 ### pa:fix "description"
 
+**Fix bugs with before/after diff and affected tests.**
+
 Quick bug fix mode (bypasses full workflow):
 
 **STEP 1: Auto-Sync (MANDATORY FIRST)**
@@ -259,6 +261,46 @@ tail -10 .proagents/activity.log        # Recent activity
 5. Prepend fix to _recent.md                      ← LOG CHANGE
 6. Update _context.md Quick Summary               ← UPDATE CONTEXT
 7. Append to activity.log                         ← LOG ACTIVITY
+```
+
+**Output format (bug fix summary):**
+```
+Bug Fix Summary
+═══════════════════════════════════════════════════════════
+
+🐛 Issue: Login validation not checking email format
+
+📁 File: src/auth/login.ts
+
+📝 Changes
+──────────
+Line 45:
+  Before: if (email) {
+  After:  if (email && email.includes('@')) {
+
+Line 52:
+  Before: return { success: true }
+  After:  return { success: true, validated: true }
+
+Diff: +3 lines, -1 line
+
+🧪 Affected Tests
+─────────────────
+  → auth.test.ts (3 tests affected)
+  → validation.test.ts (2 tests affected)
+
+Running affected tests...
+  ✓ auth.test.ts                 5/5 passed
+  ✓ validation.test.ts           4/4 passed
+
+📋 Related
+──────────
+  Issue: #123 (if detected from description)
+
+═══════════════════════════════════════════════════════════
+✅ Fix applied and verified!
+
+Next: pa:test (full suite) or pa:commit
 ```
 
 ---
@@ -348,7 +390,18 @@ tail -10 .proagents/activity.log        # Recent activity
 
 ### pa:test
 
-**AI runs tests and shows results:**
+**Run tests with enhanced coverage visualization.**
+
+**Command variations:**
+```
+pa:test                        # Run all tests with coverage
+pa:test-unit                   # Unit tests only
+pa:test-e2e                    # E2E tests only
+pa:test-watch                  # Watch mode
+pa:test "file"                 # Test specific file
+```
+
+**AI runs tests and shows enhanced results:**
 
 ```bash
 # AI executes (check config first):
@@ -356,31 +409,115 @@ npm test 2>&1
 # OR from proagents.config.yaml testing.tools.unit.command
 ```
 
-Then reports:
+**Output format (enhanced):**
 ```
 Test Results
-════════════
-✓ 45 passed
-✗ 2 failed
-○ 3 skipped
+═══════════════════════════════════════════════════════════
 
-Failed:
-• src/auth/login.test.ts:23 - Expected true, got false
-• src/api/user.test.ts:45 - Timeout after 5000ms
+Summary: 45 passed | 2 failed | 3 skipped            2.3s
+
+Coverage
+────────
+Overall:      ████████████████░░░░  78%  (target: 80%)
+
+By Module:
+  src/auth/       ████████████████████  95%  ✓
+  src/api/        ████████████████░░░░  80%  ✓
+  src/services/   ██████████████░░░░░░  72%  ⚠️
+  src/utils/      ██████████░░░░░░░░░░  52%  ✗ below target
+
+Failing Tests
+─────────────
+  ✗ auth.test.ts:45
+    └─ login validation: expected true, got false
+
+  ✗ api.test.ts:102
+    └─ user endpoint: timeout after 5000ms
+
+Slow Tests (>1s)
+────────────────
+  ⚠️ e2e/checkout.test.ts          3.2s
+  ⚠️ integration/api.test.ts       1.8s
+
+═══════════════════════════════════════════════════════════
+Next: Fix failing tests or run "pa:test --update-snapshots"
+```
+
+**If all tests pass:**
+```
+Test Results
+═══════════════════════════════════════════════════════════
+
+✅ All 47 tests passed!                              1.8s
+
+Coverage: ████████████████░░░░ 82% (target: 80%) ✓
+
+═══════════════════════════════════════════════════════════
+Ready for: pa:review or pa:deploy
 ```
 
 **NEVER say "run npm test" - actually run it!**
 
 ### pa:review
 
+**Show code review checklist for current changes.**
+
+**Command variations:**
+```
+pa:review                      # Review current changes
+pa:review --staged             # Review staged files only
+pa:review --pr                 # PR review mode
+```
+
+**Steps:**
 1. Read `./.proagents/prompts/06.5-code-review.md`
-2. Review all changes in current feature
-3. Check:
-   - Code quality
-   - Test coverage
-   - Security issues
-   - Performance concerns
-4. Generate review report
+2. Get list of changed files (git diff)
+3. Analyze code for common issues
+4. Display interactive checklist
+
+**Output format (review checklist):**
+```
+Code Review Checklist
+═══════════════════════════════════════════════════════════
+
+Files Changed: 8 (+342, -89)
+──────────────────────────────
+
+📋 Code Quality
+───────────────
+  ✓ No console.log statements           cleaned
+  ✓ No debugger statements              cleaned
+  ✓ No commented-out code               cleaned
+  ✓ No TODO without issue number        checked
+  ⚠️ Complex function detected           see below
+
+🔒 Security
+───────────
+  ✓ No hardcoded credentials            scanned
+  ✓ Input validation present            checked
+  ✓ No SQL injection risks              analyzed
+  ○ Auth checks on new endpoints        needs review
+
+🧪 Testing
+──────────
+  ✓ Tests added for new functions       4 new tests
+  ⚠️ Test coverage decreased            -3% (78% → 75%)
+  ○ Edge cases covered                  needs review
+
+📝 Documentation
+────────────────
+  ✓ JSDoc on public functions           present
+  ○ README update needed                new feature
+  ○ API docs update needed              new endpoint
+
+⚠️ Attention Required
+─────────────────────
+  src/services/payment.ts:45
+    └─ Cyclomatic complexity: 18 (max: 15)
+
+═══════════════════════════════════════════════════════════
+Status: 12/16 checks passed | 2 warnings | 2 need review
+```
 
 ### pa:doc
 
@@ -902,7 +1039,17 @@ Example auto-generated entry:
 
 ### pa:qa
 
-**AI runs ALL checks and reports:**
+**Show quality dashboard with all metrics.**
+
+**Command variations:**
+```
+pa:qa                          # Full quality dashboard
+pa:qa-security                 # Security audit only
+pa:qa-performance              # Performance check only
+pa:qa-lint                     # Lint check only
+```
+
+**AI runs ALL checks:**
 
 ```bash
 # AI executes each:
@@ -912,10 +1059,54 @@ npm run test:coverage 2>&1
 npm audit 2>&1
 ```
 
-Then reports:
+**Output format (quality dashboard):**
 ```
-QA Report
-═════════
+Code Quality Dashboard
+═══════════════════════════════════════════════════════════
+
+Overall Score: ████████████████░░░░ 85% (Good)
+
+🔒 Security
+───────────
+  Status:         ✓ No vulnerabilities
+  Dependencies:   142 packages scanned
+  Secrets:        ✓ No hardcoded secrets found
+  Last audit:     2 hours ago
+
+📏 Linting
+──────────
+  Errors:         0 ✓
+  Warnings:       3 ⚠️
+    └─ unused variable (2), missing return type (1)
+  Auto-fixable:   2
+
+🧪 Test Coverage
+────────────────
+  Coverage:       ████████████████░░░░ 78%
+  Target:         80%
+  Status:         ⚠️ 2% below target
+  Untested:       src/utils/helpers.ts, src/api/legacy.ts
+
+📦 Bundle Size
+──────────────
+  Current:        245kb
+  Limit:          300kb
+  Status:         ✓ Within limit
+  Largest:        react-dom (42kb), lodash (24kb)
+
+📝 Documentation
+────────────────
+  Documented:     ████████████░░░░░░░░ 60%
+  Missing:        15 functions, 3 components
+  README:         ✓ Up to date
+
+🔄 Code Complexity
+──────────────────
+  Average:        8.2 (Good)
+  High (>15):     2 functions
+
+═══════════════════════════════════════════════════════════
+Issues: 3 warnings | Run "pa:qa --fix" for auto-fixes
 Lint: ✓ No issues
 Tests: ✓ 45/45 passed
 Coverage: 82% (target: 80%) ✓
@@ -1129,6 +1320,98 @@ Summary: 13 actions | 4 AIs active | Last 48h
 - Add action icons based on command type
 - Show files changed when available (read from changelog)
 - Show summary of actions per platform
+
+---
+
+### pa:standup
+
+**Generate daily standup summary automatically.**
+
+**Command variations:**
+```
+pa:standup                     # Today's standup
+pa:standup --yesterday         # What was done yesterday
+pa:standup --week              # Weekly summary
+pa:standup --team              # All AI activity (team view)
+```
+
+**Steps:**
+1. Read `.proagents/activity.log` for recent activity
+2. Read `.proagents/changelog/_recent.md` for changes
+3. Read current feature status from `active-features/`
+4. Identify blockers from context
+5. Generate formatted standup
+
+**Output format:**
+```
+Daily Standup - March 13, 2026
+═══════════════════════════════════════════════════════════
+
+👤 Your Session (Claude)
+────────────────────────
+
+✅ Yesterday / Last Session:
+  • Completed JWT token implementation
+  • Fixed 2 login validation bugs (#123, #124)
+  • Added 8 unit tests for auth module
+  • Updated API documentation
+
+📋 Today / Current:
+  • Password reset feature (in progress - 40%)
+    └─ Next: Email template integration
+  • API rate limiting implementation
+  • Review PR #45 (user dashboard)
+
+🚧 Blockers:
+  • None currently
+
+📊 Stats:
+  Files changed: 12 | Tests: +8 | Coverage: 78% → 82%
+
+──────────────────────────────────────────────────────────
+
+👥 Team Activity (All AIs) - Last 24h
+─────────────────────────────────────
+  Claude:   5 tasks  │ auth module, API docs
+  Cursor:   3 tasks  │ UI components, styling
+  Gemini:   2 tasks  │ database optimization
+
+═══════════════════════════════════════════════════════════
+Active Features: user-auth (80%), dashboard (40%)
+```
+
+**Weekly summary (pa:standup --week):**
+```
+Weekly Summary - Week of March 10, 2026
+═══════════════════════════════════════════════════════════
+
+📈 Progress
+───────────
+  Features completed:    2
+  Features in progress:  3
+  Bugs fixed:           8
+  Tests added:          24
+
+📊 By AI Platform
+─────────────────
+  Claude    ████████████████░░░░  45%  (18 tasks)
+  Cursor    ████████████░░░░░░░░  32%  (13 tasks)
+  Gemini    ████████░░░░░░░░░░░░  23%  (9 tasks)
+
+✅ Completed
+────────────
+  • User authentication feature
+  • Dashboard redesign
+  • 8 bug fixes
+
+📋 Next Week
+────────────
+  • Password reset feature
+  • Payment integration
+
+═══════════════════════════════════════════════════════════
+Total: 40 tasks | 156 files changed | Coverage: 75% → 82%
+```
 
 ---
 

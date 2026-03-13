@@ -1095,6 +1095,405 @@ Rollback command: pa:rollback --to v1.2.3
 
 ---
 
+## pa:test Execution
+
+**Run tests with enhanced coverage visualization.**
+
+**Command variations:**
+```
+pa:test                        # Run all tests with coverage
+pa:test-unit                   # Unit tests only
+pa:test-e2e                    # E2E tests only
+pa:test-watch                  # Watch mode
+pa:test "file"                 # Test specific file
+```
+
+**Steps:**
+1. Read `./.proagents/prompts/06-testing.md`
+2. Detect test framework (Jest, Vitest, Mocha, etc.)
+3. Run tests with coverage
+4. Display enhanced results with visualization
+5. Update `.proagents/worklog/_context.md` with test status
+
+**Output format (enhanced):**
+```
+Test Results
+═══════════════════════════════════════════════════════════
+
+Summary: 45 passed | 2 failed | 3 skipped            2.3s
+
+Coverage
+────────
+Overall:      ████████████████░░░░  78%  (target: 80%)
+
+By Module:
+  src/auth/       ████████████████████  95%  ✓
+  src/api/        ████████████████░░░░  80%  ✓
+  src/services/   ██████████████░░░░░░  72%  ⚠️
+  src/utils/      ██████████░░░░░░░░░░  52%  ✗ below target
+
+Failing Tests
+─────────────
+  ✗ auth.test.ts:45
+    └─ login validation: expected true, got false
+
+  ✗ api.test.ts:102
+    └─ user endpoint: timeout after 5000ms
+
+Slow Tests (>1s)
+────────────────
+  ⚠️ e2e/checkout.test.ts          3.2s
+  ⚠️ integration/api.test.ts       1.8s
+
+═══════════════════════════════════════════════════════════
+Next: Fix failing tests or run "pa:test --update-snapshots"
+```
+
+**If all tests pass:**
+```
+Test Results
+═══════════════════════════════════════════════════════════
+
+✅ All 47 tests passed!                              1.8s
+
+Coverage: ████████████████░░░░ 82% (target: 80%) ✓
+
+═══════════════════════════════════════════════════════════
+Ready for: pa:review or pa:deploy
+```
+
+---
+
+## pa:qa Execution
+
+**Show quality dashboard with all metrics.**
+
+**Command variations:**
+```
+pa:qa                          # Full quality dashboard
+pa:qa-security                 # Security audit only
+pa:qa-performance              # Performance check only
+pa:qa-lint                     # Lint check only
+```
+
+**Steps:**
+1. Run linter (ESLint, etc.)
+2. Run security scan (npm audit, etc.)
+3. Check test coverage
+4. Analyze bundle size
+5. Check documentation coverage
+6. Display unified dashboard
+
+**Output format (quality dashboard):**
+```
+Code Quality Dashboard
+═══════════════════════════════════════════════════════════
+
+Overall Score: ████████████████░░░░ 85% (Good)
+
+🔒 Security
+───────────
+  Status:         ✓ No vulnerabilities
+  Dependencies:   142 packages scanned
+  Secrets:        ✓ No hardcoded secrets found
+  Last audit:     2 hours ago
+
+📏 Linting
+──────────
+  Errors:         0 ✓
+  Warnings:       3 ⚠️
+    └─ unused variable (2), missing return type (1)
+  Auto-fixable:   2
+
+🧪 Test Coverage
+────────────────
+  Coverage:       ████████████████░░░░ 78%
+  Target:         80%
+  Status:         ⚠️ 2% below target
+  Untested:       src/utils/helpers.ts, src/api/legacy.ts
+
+📦 Bundle Size
+──────────────
+  Current:        245kb
+  Limit:          300kb
+  Status:         ✓ Within limit
+  Largest:        react-dom (42kb), lodash (24kb)
+
+📝 Documentation
+────────────────
+  Documented:     ████████████░░░░░░░░ 60%
+  Missing:        15 functions, 3 components
+  README:         ✓ Up to date
+
+🔄 Code Complexity
+──────────────────
+  Average:        8.2 (Good)
+  High (>15):     2 functions
+    └─ processPayment() = 18, validateForm() = 16
+
+═══════════════════════════════════════════════════════════
+Issues: 3 warnings | Suggestions: Run "pa:qa --fix" for auto-fixes
+```
+
+---
+
+## pa:review Execution
+
+**Show code review checklist for current changes.**
+
+**Command variations:**
+```
+pa:review                      # Review current changes
+pa:review --staged             # Review staged files only
+pa:review --pr                 # PR review mode
+```
+
+**Steps:**
+1. Read `./.proagents/prompts/06.5-code-review.md`
+2. Get list of changed files (git diff)
+3. Analyze code for common issues
+4. Display interactive checklist
+5. Highlight issues that need attention
+
+**Output format (review checklist):**
+```
+Code Review Checklist
+═══════════════════════════════════════════════════════════
+
+Files Changed: 8 (+342, -89)
+──────────────────────────────
+
+📋 Code Quality
+───────────────
+  ✓ No console.log statements           cleaned
+  ✓ No debugger statements              cleaned
+  ✓ No commented-out code               cleaned
+  ✓ No TODO without issue number        checked
+  ⚠️ Complex function detected           see below
+
+🔒 Security
+───────────
+  ✓ No hardcoded credentials            scanned
+  ✓ Input validation present            checked
+  ✓ No SQL injection risks              analyzed
+  ○ Auth checks on new endpoints        needs review
+
+🧪 Testing
+──────────
+  ✓ Tests added for new functions       4 new tests
+  ⚠️ Test coverage decreased            -3% (78% → 75%)
+  ○ Edge cases covered                  needs review
+
+📝 Documentation
+────────────────
+  ✓ JSDoc on public functions           present
+  ○ README update needed                new feature
+  ○ API docs update needed              new endpoint
+
+🎨 Style & Conventions
+──────────────────────
+  ✓ Follows naming conventions          checked
+  ✓ Consistent formatting               prettier OK
+  ✓ Import order correct                sorted
+
+⚠️ Attention Required
+─────────────────────
+  src/services/payment.ts:45
+    └─ Cyclomatic complexity: 18 (max: 15)
+    └─ Consider breaking into smaller functions
+
+  src/api/users.ts:102
+    └─ Missing error handling for async call
+
+═══════════════════════════════════════════════════════════
+Status: 12/16 checks passed | 2 warnings | 2 need review
+
+Ready to commit? Address warnings first or run "pa:review --approve"
+```
+
+---
+
+## pa:fix Execution
+
+**Fix bugs with before/after diff and affected tests.**
+
+**Steps:**
+1. Read `./.proagents/workflow-modes/entry-modes.md`
+2. Load context and recent changes
+3. Analyze the bug description
+4. Find and fix the issue
+5. Show before/after diff
+6. Identify affected tests
+7. Run affected tests
+8. Update changelogs
+
+**Output format (bug fix summary):**
+```
+Bug Fix Summary
+═══════════════════════════════════════════════════════════
+
+🐛 Issue: Login validation not checking email format
+
+📁 File: src/auth/login.ts
+
+📝 Changes
+──────────
+Line 45:
+  Before: if (email) {
+  After:  if (email && email.includes('@')) {
+
+Line 52:
+  Before: return { success: true }
+  After:  return { success: true, validated: true }
+
+Diff: +3 lines, -1 line
+
+🧪 Affected Tests
+─────────────────
+  → auth.test.ts (3 tests affected)
+  → validation.test.ts (2 tests affected)
+
+Running affected tests...
+  ✓ auth.test.ts                 5/5 passed
+  ✓ validation.test.ts           4/4 passed
+
+📋 Related
+──────────
+  Issue: #123 (if detected from description)
+  Similar fixes: login.ts (2 weeks ago)
+
+═══════════════════════════════════════════════════════════
+✅ Fix applied and verified!
+
+Changelog updated: .proagents/changelog/_recent.md
+Next: pa:test (full suite) or pa:commit
+```
+
+**If fix causes test failures:**
+```
+Bug Fix Summary
+═══════════════════════════════════════════════════════════
+
+🐛 Issue: Login validation not checking email format
+
+📁 File: src/auth/login.ts
+...
+
+🧪 Affected Tests
+─────────────────
+  ✗ auth.test.ts                 3/5 passed, 2 failed
+    └─ test "allows empty email" now fails (expected behavior?)
+    └─ test "validates email" now fails (needs update)
+
+⚠️ Fix applied but tests failing!
+
+Options:
+  [1] Update tests to match new behavior
+  [2] Revert fix and investigate
+  [3] Keep fix, mark tests as TODO
+
+Run "pa:fix --update-tests" to auto-update test expectations
+```
+
+---
+
+## pa:standup Execution
+
+**Generate daily standup summary automatically.**
+
+**Command variations:**
+```
+pa:standup                     # Today's standup
+pa:standup --yesterday         # What was done yesterday
+pa:standup --week              # Weekly summary
+pa:standup --team              # All AI activity (team view)
+```
+
+**Steps:**
+1. Read `.proagents/activity.log` for recent activity
+2. Read `.proagents/changelog/_recent.md` for changes
+3. Read current feature status from `active-features/`
+4. Identify blockers from context
+5. Generate formatted standup
+
+**Output format:**
+```
+Daily Standup - March 13, 2026
+═══════════════════════════════════════════════════════════
+
+👤 Your Session (Claude)
+────────────────────────
+
+✅ Yesterday / Last Session:
+  • Completed JWT token implementation
+  • Fixed 2 login validation bugs (#123, #124)
+  • Added 8 unit tests for auth module
+  • Updated API documentation
+
+📋 Today / Current:
+  • Password reset feature (in progress - 40%)
+    └─ Next: Email template integration
+  • API rate limiting implementation
+  • Review PR #45 (user dashboard)
+
+🚧 Blockers:
+  • None currently
+
+📊 Stats:
+  Files changed: 12 | Tests: +8 | Coverage: 78% → 82%
+
+──────────────────────────────────────────────────────────
+
+👥 Team Activity (All AIs) - Last 24h
+─────────────────────────────────────
+  Claude:   5 tasks  │ auth module, API docs
+  Cursor:   3 tasks  │ UI components, styling
+  Gemini:   2 tasks  │ database optimization
+
+═══════════════════════════════════════════════════════════
+Active Features: user-auth (80%), dashboard (40%)
+```
+
+**Weekly summary (pa:standup --week):**
+```
+Weekly Summary - Week of March 10, 2026
+═══════════════════════════════════════════════════════════
+
+📈 Progress
+───────────
+  Features completed:    2
+  Features in progress:  3
+  Bugs fixed:           8
+  Tests added:          24
+
+📊 By AI Platform
+─────────────────
+  Claude    ████████████████░░░░  45%  (18 tasks)
+  Cursor    ████████████░░░░░░░░  32%  (13 tasks)
+  Gemini    ████████░░░░░░░░░░░░  23%  (9 tasks)
+
+✅ Completed
+────────────
+  • User authentication feature
+  • Dashboard redesign
+  • 8 bug fixes
+
+🚀 Shipped
+──────────
+  • v1.2.0 deployed to production (March 12)
+
+📋 Next Week
+────────────
+  • Password reset feature
+  • Payment integration
+  • Performance optimization
+
+═══════════════════════════════════════════════════════════
+Total: 40 tasks | 156 files changed | Coverage: 75% → 82%
+```
+
+---
+
 ## Detailed Documentation
 
 For detailed instructions, read these files:

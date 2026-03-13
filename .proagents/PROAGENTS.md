@@ -61,8 +61,10 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | `pa:plan` | Create implementation plan |
 | `pa:implement` | Execute implementation phase |
 | `pa:status` | Enhanced status: tasks, time, files, tests, git branch, contributors |
-| `pa:qa` | Check code quality, run tests, report issues |
-| `pa:test` | Create/run tests for current work |
+| `pa:qa` | Quality dashboard: security, lint, coverage, bundle, docs, complexity |
+| `pa:test` | Run tests with coverage visualization, module breakdown, slow tests |
+| `pa:review` | Code review checklist: quality, security, testing, documentation |
+| `pa:fix "desc"` | Bug fix with before/after diff, affected tests, auto-verify |
 | `pa:doc` | Generate documentation |
 | `pa:deploy` | Interactive deployment checklist with real-time status, health checks |
 | `pa:release` | Generate release notes → `./RELEASE_NOTES.md` |
@@ -80,7 +82,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | `pa:decision "title"` | Log architectural decision → `./.proagents/decisions.md` |
 | `pa:error "desc"` | Log error & solution → `./.proagents/errors.md` |
 | `pa:feedback "desc"` | Log feedback for AI learning → `./.proagents/feedback.md` |
-| `pa:standup` | Generate daily standup summary |
+| `pa:standup` | Daily standup: yesterday, today, blockers, team activity, stats |
 | `pa:tech-debt` | Scan for technical debt |
 
 ## Navigation & Flow

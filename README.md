@@ -167,6 +167,7 @@ proagents fix "bug description"       # Quick bug fix mode
 
 # Maintenance
 proagents doctor                      # Health check installation
+proagents doctor --full               # Extended checks (branches, logs, features)
 proagents status                      # Show ProAgents status
 proagents version                     # Show detailed version info
 

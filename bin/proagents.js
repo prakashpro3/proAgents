@@ -187,6 +187,7 @@ program
 program
   .command('doctor')
   .description('Check health of ProAgents installation')
+  .option('--full', 'Run extended health checks')
   .action(doctorCommand);
 
 // Upgrade command
