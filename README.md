@@ -167,8 +167,11 @@ proagents fix "bug description"       # Quick bug fix mode
 
 # Maintenance
 proagents doctor                      # Health check installation
-proagents upgrade                     # Upgrade to latest version
 proagents status                      # Show ProAgents status
+
+# Updating ProAgents
+npx proagents init                    # Smart update (recommended)
+proagents upgrade                     # Full replace (use with caution)
 
 # AI Platforms
 proagents ai list                     # List installed AI platforms
@@ -184,6 +187,27 @@ proagents docs                        # Open documentation
 proagents commands                    # Show all commands
 proagents uninstall                   # Remove ProAgents
 ```
+
+### Updating ProAgents
+
+| Command | What It Does | When to Use |
+|---------|--------------|-------------|
+| `npx proagents init` | **Smart update** - Updates 60 framework folders, merges config, preserves your work | **Recommended** for regular updates |
+| `proagents upgrade` | **Full replace** - Removes everything, installs fresh, restores backups | Only when you need a complete reset |
+
+**What's preserved with `init` (smart update):**
+- `active-features/` - Your work in progress
+- `changelog/` - Your change history (_recent.md, modules/, features/)
+- `worklog/` - Your work context (_context.md, ai-stats.json)
+- `.learning/` - Learned patterns
+- `cache/` - Analysis cache
+- `proagents.config.yaml` - Your values kept, new options merged
+
+**What's preserved with `upgrade` (full replace):**
+- `proagents.config.yaml`, `activity.log`, `handoff.md`, `.lock`
+- `active-features/` - All files
+- `changelog/` - _recent.md, modules/, features/, yearly folders
+- `worklog/` - _context.md, ai-stats.json
 
 ---
 
