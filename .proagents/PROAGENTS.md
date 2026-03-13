@@ -90,7 +90,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | `pa:resume` | Quick resume - load last session + show next action |
 | `pa:skip` | Skip current phase, move to next |
 | `pa:back` | Go back to previous phase |
-| `pa:progress` | Show visual progress bar |
+| `pa:progress` | Show enhanced progress: tasks, duration, AI, phase timeline |
 
 ## Context & History
 

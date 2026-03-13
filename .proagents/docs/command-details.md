@@ -936,12 +936,41 @@ Command History
 
 ### pa:progress
 
-**AI MUST read feature status files and calculate progress.**
+**AI MUST read feature status files and calculate enhanced progress.**
 
+**Steps:**
 1. Run: `cat .proagents/active-features/_index.json`
-2. Read each feature's status.json
-3. Calculate progress percentage
-4. Show visual progress bar
+2. Read each feature's `status.json`
+3. Run: `cat .proagents/activity.log | tail -50`
+4. Calculate progress percentage
+5. Show enhanced visual progress bar with:
+   - Task count (completed/total)
+   - Duration (days since started)
+   - Last AI that worked on it
+   - Phase timeline with status indicators
+
+**Output format:**
+```
+Feature Progress
+════════════════════════════════════════════════════════════
+
+user-auth       ████████████████░░░░  80%  (8/10 tasks)  3d  Claude
+                └─ Analysis ✓ → Requirements ✓ → Design ✓ → Implementation ✓ → Testing ● → Review ○
+
+dashboard       ████████░░░░░░░░░░░░  40%  (4/10 tasks)  5d  Cursor
+                └─ Analysis ✓ → Requirements ✓ → Design ● → Implementation ○ → Testing ○ → Review ○
+
+────────────────────────────────────────────────────────────
+Summary: 2 active | 5 completed | Avg: 4.2 days/feature
+```
+
+**Legend:**
+- `✓` = Phase completed
+- `●` = Current phase (in progress)
+- `○` = Phase not started
+- `(8/10 tasks)` = Completed/Total tasks
+- `3d` = Days since feature started
+- `Claude` = Last AI that worked on feature
 
 ### pa:activity
 

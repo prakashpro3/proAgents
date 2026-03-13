@@ -629,25 +629,50 @@ Command History
 
 1. Read `./.proagents/active-features/_index.json`
 2. Read each feature's `status.json`
-3. Calculate and display progress
+3. Read `./.proagents/activity.log` for last AI info
+4. Calculate progress and display enhanced output
 
 ```bash
 # AI runs this:
 cat .proagents/active-features/_index.json
 cat .proagents/active-features/feature-*/status.json
+cat .proagents/activity.log | tail -50
 ```
 
-**Output format:**
+**Output format (enhanced):**
 ```
 Feature Progress
-════════════════
-user-auth [████████░░] 80%
-  Phase: testing
-  Last: Ran 12 unit tests
+════════════════════════════════════════════════════════════
 
-dashboard [████░░░░░░] 40%
-  Phase: implementation
-  Last: Created 3 components
+user-auth       ████████████████░░░░  80%  (8/10 tasks)  3d  Claude
+                └─ Analysis ✓ → Requirements ✓ → Design ✓ → Implementation ✓ → Testing ● → Review ○
+
+dashboard       ████████░░░░░░░░░░░░  40%  (4/10 tasks)  5d  Cursor
+                └─ Analysis ✓ → Requirements ✓ → Design ● → Implementation ○ → Testing ○ → Review ○
+
+notifications   ██░░░░░░░░░░░░░░░░░░  10%  (1/10 tasks)  1d  ChatGPT
+                └─ Analysis ● → Requirements ○ → Design ○ → Implementation ○ → Testing ○ → Review ○
+
+────────────────────────────────────────────────────────────
+Summary: 3 active | 5 completed | Avg: 4.2 days/feature
+```
+
+**Legend:**
+- `✓` = Phase completed
+- `●` = Current phase (in progress)
+- `○` = Phase not started
+- `(8/10 tasks)` = Completed tasks / Total tasks
+- `3d` = Days since feature started
+- `Claude` = Last AI that worked on this feature
+
+**If no features exist:**
+```
+Feature Progress
+════════════════════════════════════════════════════════════
+
+No active features.
+
+Start one with: pa:feature "feature name"
 ```
 
 ---
