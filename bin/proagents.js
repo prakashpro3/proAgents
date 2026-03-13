@@ -12,7 +12,7 @@ import { configListCommand, configShowCommand, configEditCommand, configSetComma
 import { doctorCommand } from '../lib/commands/doctor.js';
 import { upgradeCommand } from '../lib/commands/upgrade.js';
 import { migrateCommand } from '../lib/commands/migrate.js';
-import { versionCommand } from '../lib/commands/version.js';
+import { versionCommand, checkForUpdates } from '../lib/commands/version.js';
 import { releaseCommand } from '../lib/commands/release.js';
 import { statsCommand } from '../lib/commands/stats.js';
 import { restoreCommand } from '../lib/commands/restore.js';
@@ -314,3 +314,11 @@ program
   .action(openCommand);
 
 program.parse();
+
+// Check for updates after command completes (non-blocking)
+// Skip for version command (it already shows version info)
+const commandName = program.args[0];
+if (commandName !== 'version' && commandName !== '--version' && commandName !== '-V') {
+  // Run update check in background without blocking
+  checkForUpdates().catch(() => {});
+}
