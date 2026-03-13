@@ -60,7 +60,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | `pa:design` | UI/Architecture design phase |
 | `pa:plan` | Create implementation plan |
 | `pa:implement` | Execute implementation phase |
-| `pa:status` | Read `./.proagents/active-features/*/status.json`, show progress |
+| `pa:status` | Enhanced status: tasks, time, files, tests, git branch, contributors |
 | `pa:qa` | Check code quality, run tests, report issues |
 | `pa:test` | Create/run tests for current work |
 | `pa:doc` | Generate documentation |

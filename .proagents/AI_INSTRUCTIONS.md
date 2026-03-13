@@ -681,28 +681,59 @@ Start one with: pa:feature "feature name"
 
 **IMPORTANT:** Show REAL data only, never example data.
 
+**Steps:**
 1. Read `./.proagents/active-features/_index.json`
-2. If empty:
-   ```
-   Project Status
-   ══════════════
-   No features tracked.
+2. Read current feature's `status.json`
+3. Run: `git status` and `git log --oneline -5`
+4. Read `./.proagents/activity.log | tail -20`
+5. Display enhanced status
 
-   Start with:
-   → pa:feature "name"
-   → pa:fix "bug"
-   ```
-3. If has features:
-   ```
-   Project Status
-   ══════════════
+**If no features:**
+```
+Project Status
+══════════════════════════════════════════════════════════
 
-   Active: [count]
-   • [name] - [phase] ([progress]%)
+No active features.
 
-   Paused: [count]
-   Completed: [count]
-   ```
+Start with:
+  → pa:feature "feature name"
+  → pa:fix "bug description"
+```
+
+**If has features (enhanced output):**
+```
+Project Status
+══════════════════════════════════════════════════════════
+
+Feature: user-auth                          Branch: feature/user-auth
+Phase: Implementation (4/6)                 Started: 3d ago
+Progress: ████████████░░░░░░░░ 60%          Time: ~4.5h
+
+Tasks: 3/5 completed
+  ✓ Create auth service
+  ✓ Add login endpoint
+  ✓ Add register endpoint
+  → Implement JWT tokens (in progress)
+  ○ Add password reset
+
+Files: 8 modified (+245, -32)    Tests: 12 ✓ | 2 ✗ | 80% cov
+Contributors: Claude (60%), Cursor (40%)
+
+──────────────────────────────────────────────────────────
+Next: Complete JWT token implementation
+```
+
+**Status indicators:**
+- `✓` = Task completed
+- `→` = In progress
+- `○` = Not started
+- `⚠️ BLOCKED:` = Show if blockers exist
+
+**Summary line (for multiple features):**
+```
+──────────────────────────────────────────────────────────
+Summary: 2 active | 1 paused | 5 completed
+```
 
 ---
 

@@ -980,6 +980,46 @@ Summary: 2 active | 5 completed | Avg: 4.2 days/feature
 2. Show recent AI activity
 3. Highlight actions by different AI platforms
 
+### pa:status
+
+**AI MUST show enhanced project status with real data.**
+
+**Steps:**
+1. Run: `cat .proagents/active-features/_index.json`
+2. Read current feature's `status.json`
+3. Run: `git status` and `git log --oneline -5`
+4. Run: `cat .proagents/activity.log | tail -20`
+5. Display enhanced status
+
+**Output format:**
+```
+Project Status
+══════════════════════════════════════════════════════════
+
+Feature: user-auth                          Branch: feature/user-auth
+Phase: Implementation (4/6)                 Started: 3d ago
+Progress: ████████████░░░░░░░░ 60%          Time: ~4.5h
+
+Tasks: 3/5 completed
+  ✓ Create auth service
+  ✓ Add login endpoint
+  ✓ Add register endpoint
+  → Implement JWT tokens (in progress)
+  ○ Add password reset
+
+Files: 8 modified (+245, -32)    Tests: 12 ✓ | 2 ✗ | 80% cov
+Contributors: Claude (60%), Cursor (40%)
+
+──────────────────────────────────────────────────────────
+Next: Complete JWT token implementation
+```
+
+**Status indicators:**
+- `✓` = Task completed
+- `→` = In progress
+- `○` = Not started
+- `⚠️ BLOCKED:` = Show if blockers exist
+
 ---
 
 ## Session Commands
