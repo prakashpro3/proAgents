@@ -421,10 +421,109 @@ Total: 12 files created
 
 ### pa:deploy
 
+**Show interactive deployment checklist with real-time status.**
+
+**Command variations:**
+```
+pa:deploy                      # Full deployment workflow
+pa:deploy-check                # Pre-deployment checklist only
+pa:deploy-staging              # Deploy to staging
+pa:deploy-prod                 # Deploy to production
+```
+
+**Steps:**
 1. Read `./.proagents/prompts/08-deployment.md`
-2. Run pre-deployment checks
-3. Create deployment checklist
-4. Generate release notes if needed
+2. Run pre-deployment checks (tests, lint, build)
+3. Display interactive checklist with real-time status
+4. Guide through deployment steps
+5. Show post-deployment verification
+
+**Output format (enhanced checklist):**
+```
+Deployment Checklist
+═══════════════════════════════════════════════════════════
+
+📋 Pre-Deployment
+─────────────────
+  ✓ All tests passing                    12/12 tests
+  ✓ No linting errors                    0 errors
+  ✓ Build successful                     2.3s
+  ✓ No console.log statements            cleaned
+  ○ Version bumped                       pending
+  ○ Changelog updated                    pending
+
+🔒 Security
+───────────
+  ✓ No hardcoded secrets                 scanned
+  ✓ Dependencies audited                 0 vulnerabilities
+  ○ Security review approved             awaiting
+
+📦 Build & Assets
+─────────────────
+  ✓ Bundle size acceptable               245kb (limit: 300kb)
+  ✓ Assets optimized                     images compressed
+  ○ Source maps generated                pending
+
+📝 Documentation
+────────────────
+  ✓ README updated                       current
+  ○ API docs updated                     pending
+  ○ Release notes prepared               pending
+
+🚀 Ready to Deploy?
+───────────────────
+Status: 8/14 checks passed
+
+Blockers:
+  ⚠️ Version not bumped - run: npm version patch
+  ⚠️ Changelog needs update - run: pa:changelog
+  ⚠️ Security review pending
+
+Run "pa:deploy --fix" to auto-fix resolvable issues.
+```
+
+**During deployment:**
+```
+Deploying to Staging
+═══════════════════════════════════════════════════════════
+
+[1/5] Building application...        ✓ Complete (2.3s)
+[2/5] Running migrations...          ✓ Complete (0.5s)
+[3/5] Deploying to staging...        ● In progress...
+[4/5] Running smoke tests...         ○ Pending
+[5/5] Verifying health checks...     ○ Pending
+
+Progress: ██████████░░░░░░░░░░ 50%
+```
+
+**Post-deployment verification:**
+```
+Post-Deployment Verification
+═══════════════════════════════════════════════════════════
+
+🏥 Health Checks
+────────────────
+  ✓ API responding                       200 OK (45ms)
+  ✓ Database connected                   healthy
+  ✓ Cache working                        redis OK
+  ✓ External services                    all reachable
+
+📊 Metrics (last 5 min)
+───────────────────────
+  Error rate:     0.1%  (baseline: 0.2%)   ✓ OK
+  Response time:  120ms (baseline: 150ms)  ✓ OK
+  Requests/sec:   450   (baseline: 400)    ✓ OK
+
+══════════════════════════════════════════════════════════
+✅ Deployment Successful!
+```
+
+**Legend:**
+- `✓` = Check passed
+- `●` = In progress
+- `○` = Pending
+- `✗` = Failed
+- `⚠️` = Warning/Blocker
 
 ---
 

@@ -64,6 +64,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | `pa:qa` | Check code quality, run tests, report issues |
 | `pa:test` | Create/run tests for current work |
 | `pa:doc` | Generate documentation |
+| `pa:deploy` | Interactive deployment checklist with real-time status, health checks |
 | `pa:release` | Generate release notes → `./RELEASE_NOTES.md` |
 | `pa:changelog` | Update `./CHANGELOG.md` |
 | `pa:ai-list` | Read config, show installed AI platforms |
@@ -340,7 +341,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | 7. Testing | `pa:test` | Create/run tests |
 | 8. Review | `pa:review` | Quality check |
 | 9. Documentation | `pa:doc` | Update docs |
-| 10. Deployment | `pa:deploy` | Prepare release |
+| 10. Deployment | `pa:deploy` | Interactive deployment checklist |
 
 ## Save Locations
 
