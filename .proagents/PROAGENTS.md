@@ -70,7 +70,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | `pa:ai-add` | Show platform options, create AI instruction files |
 | `pa:ai-remove` | Show installed platforms, remove selected files |
 | `pa:ai-sync` | Sync config with existing files (fix mismatches) |
-| `pa:activity` | Show recent AI activity from `./.proagents/activity.log` |
+| `pa:activity` | Show ALL AI activity with icons, time groups, files changed |
 | `pa:lock` | Show lock status, check if another AI is working |
 | `pa:lock-release` | Release your lock after completing work |
 | `pa:handoff` | Create handoff notes → `./.proagents/handoff.md` |

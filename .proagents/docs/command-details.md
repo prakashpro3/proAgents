@@ -848,20 +848,73 @@ Log architectural decision:
 
 ### pa:activity
 
+**CRITICAL: Show ALL AI platforms, not just your own!**
+
+The purpose of this command is cross-AI visibility. Users need to see what Claude, Cursor, ChatGPT, Gemini, and ALL other AIs have done.
+
+**Command variations:**
+```
+pa:activity                    # All recent activity (default)
+pa:activity --today            # Today's activity only
+pa:activity --ai Claude        # Filter by AI platform
+pa:activity --command pa:fix   # Filter by command type
+pa:activity --files            # Show files changed per action
+```
+
 **AI runs and displays:**
 
 ```bash
-# AI executes:
-cat .proagents/activity.log | grep -v "^#" | tail -20
+# AI executes - DO NOT filter by platform:
+cat .proagents/activity.log | grep -v "^#" | tail -50
 ```
 
-Then formats output:
+**Action icons:**
+| Command | Icon |
+|---------|------|
+| `pa:feature` | ✨ |
+| `pa:fix` | 🐛 |
+| `pa:test` | ✅ |
+| `pa:doc` | 📝 |
+| `pa:implement` | 🔨 |
+| `pa:analyze` | 🔍 |
+| `pa:design` | 🎨 |
+| `pa:review` | 👀 |
+| `pa:deploy` | 🚀 |
+
+**Output format (enhanced with time grouping and icons):**
 ```
-Recent Activity
-═══════════════
-[2024-03-06 16:00] [Gemini] pa:test - 12 tests passed
-[2024-03-06 15:45] [Claude] pa:implement - Created UserService
+Recent Activity (All AI Platforms)
+══════════════════════════════════════════════════════════
+
+Today (5 actions)
+─────────────────
+[16:00] [Claude]  ✨ pa:feature - Started user-auth
+        └─ 2 files: feature.json, status.json
+[15:30] [Cursor]  🐛 pa:fix - Fixed login validation bug
+        └─ 1 file: auth.service.ts (+12, -3)
+[15:00] [Gemini]  ✅ pa:test - 12 tests passed, 2 failing
+[14:30] [Claude]  🔨 pa:implement - Created UserService
+        └─ 3 files: user.service.ts, user.controller.ts, user.module.ts
+[14:00] [ChatGPT] 🔍 pa:analyze - Analyzed auth module
+
+Yesterday (8 actions)
+─────────────────────
+[18:00] [Claude]  🎨 pa:design - Created component diagram
+[16:30] [Cursor]  📝 pa:doc - Updated API documentation
+...
+
+──────────────────────────────────────────────────────────
+Summary: 13 actions | 4 AIs active | Last 48h
+  Claude: 5 | Cursor: 4 | Gemini: 2 | ChatGPT: 2
 ```
+
+**IMPORTANT:**
+- Show activity from ALL AI platforms in the log
+- Do NOT filter to only show your own platform's activity
+- Group entries by time period (Today, Yesterday, Earlier)
+- Add action icons based on command type
+- Show files changed when available (read from changelog)
+- Show summary of actions per platform
 
 ---
 
@@ -974,11 +1027,12 @@ Summary: 2 active | 5 completed | Avg: 4.2 days/feature
 
 ### pa:activity
 
-**AI MUST read and display activity.log:**
+**CRITICAL: Show ALL AI platforms activity, not just your own!**
 
-1. Run: `cat .proagents/activity.log | tail -20`
-2. Show recent AI activity
-3. Highlight actions by different AI platforms
+1. Run: `cat .proagents/activity.log | tail -30`
+2. Show ALL AI activity (Claude, Cursor, ChatGPT, Gemini, etc.)
+3. Do NOT filter to only your platform
+4. Show summary with action count per platform
 
 ### pa:status
 

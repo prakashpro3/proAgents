@@ -522,7 +522,7 @@ Auto-detect issue numbers from user input and include in changelog:
 ### Collaboration
 | Command | Action |
 |---------|--------|
-| `pa:activity` | Show AI activity log |
+| `pa:activity` | **Show ALL AI platforms activity** (not just yours!) |
 | `pa:lock` | Show lock status |
 | `pa:handoff` | Create handoff notes |
 | `pa:feedback "text"` | Log feedback for AI learning |
@@ -556,7 +556,7 @@ Auto-detect issue numbers from user input and include in changelog:
 |---------|--------|
 | `pa:history` | Show command history (read activity.log) |
 | `pa:progress` | Show feature progress |
-| `pa:activity` | Show recent AI activity |
+| `pa:activity` | **Show ALL AI platforms activity** (cross-AI visibility) |
 
 ---
 
@@ -734,6 +734,77 @@ Next: Complete JWT token implementation
 ──────────────────────────────────────────────────────────
 Summary: 2 active | 1 paused | 5 completed
 ```
+
+---
+
+## pa:activity Execution
+
+**CRITICAL: Show ALL AI platforms, not just your own!**
+
+The purpose of `pa:activity` is cross-AI visibility. Users need to see what ALL AIs have done.
+
+**Command variations:**
+```
+pa:activity                    # All recent activity (default)
+pa:activity --today            # Today's activity only
+pa:activity --ai Claude        # Filter by AI platform
+pa:activity --command pa:fix   # Filter by command type
+pa:activity --files            # Show files changed per action
+```
+
+**Steps:**
+1. Run: `cat .proagents/activity.log | tail -50`
+2. Display ALL entries (Claude, Cursor, ChatGPT, Gemini, Copilot, etc.)
+3. Group by time period (Today, Yesterday, Earlier)
+4. Add action icons based on command type
+5. Show summary with action count per platform
+
+**Action icons:**
+| Command | Icon | Description |
+|---------|------|-------------|
+| `pa:feature` | ✨ | New feature |
+| `pa:fix` | 🐛 | Bug fix |
+| `pa:test` | ✅ | Testing |
+| `pa:doc` | 📝 | Documentation |
+| `pa:implement` | 🔨 | Implementation |
+| `pa:analyze` | 🔍 | Analysis |
+| `pa:design` | 🎨 | Design |
+| `pa:review` | 👀 | Code review |
+| `pa:deploy` | 🚀 | Deployment |
+
+**Output format (enhanced):**
+```
+Recent Activity (All AI Platforms)
+══════════════════════════════════════════════════════════
+
+Today (5 actions)
+─────────────────
+[16:00] [Claude]  ✨ pa:feature - Started user-auth
+        └─ 2 files: feature.json, status.json
+[15:30] [Cursor]  🐛 pa:fix - Fixed login validation bug
+        └─ 1 file: auth.service.ts (+12, -3)
+[15:00] [Gemini]  ✅ pa:test - 12 tests passed, 2 failing
+[14:30] [Claude]  🔨 pa:implement - Created UserService
+        └─ 3 files: user.service.ts, user.controller.ts, user.module.ts
+[14:00] [ChatGPT] 🔍 pa:analyze - Analyzed auth module
+
+Yesterday (8 actions)
+─────────────────────
+[18:00] [Claude]  🎨 pa:design - Created component diagram
+[16:30] [Cursor]  📝 pa:doc - Updated API documentation
+...
+
+──────────────────────────────────────────────────────────
+Summary: 13 actions | 4 AIs active | Last 48h
+  Claude: 5 | Cursor: 4 | Gemini: 2 | ChatGPT: 2
+```
+
+**IMPORTANT:**
+- Show ALL platforms in the log, not just yours
+- This enables cross-AI collaboration
+- Users switch between AIs and need full visibility
+- Group by time for better readability
+- Show files changed when available (from changelog)
 
 ---
 
