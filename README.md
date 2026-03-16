@@ -9,6 +9,12 @@ A portable, universal development workflow framework that works with **any AI pl
 
 ---
 
+### 📚 [COMMANDS.md](COMMANDS.md) - Complete Command Reference (100+ Commands)
+
+CLI commands, AI commands (pa:), workflow phases, debugging, testing, deployment, and more.
+
+---
+
 ## Why ProAgents?
 
 - **AI-Agnostic**: Works with Claude, ChatGPT, Gemini, Cursor, Copilot - switch AI tools anytime without losing context
@@ -179,7 +185,7 @@ proagents release                     # Generate release notes
 proagents release --changelog         # Update CHANGELOG.md
 ```
 
-Run `proagents commands` for the full list of CLI commands.
+📖 **Want more?** See [COMMANDS.md](COMMANDS.md) for 30+ CLI commands (release notes, stats, config, backups, shell completions...)
 
 ---
 
@@ -202,23 +208,7 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 
 **Quick aliases:** `pa:f` (feature), `pa:s` (status), `pa:t` (test), `pa:h` (help)
 
-For the complete command reference (100+ commands), see **[COMMANDS.md](COMMANDS.md)**.
-
----
-
-## Key Files
-
-After initialization, these files help AI understand your project:
-
-| File | Purpose | AI Should |
-|------|---------|-----------|
-| `.proagents/context.md` | Persistent project knowledge | **Read first every session!** |
-| `.proagents/feedback.md` | Past corrections & preferences | Learn from mistakes |
-| `.proagents/watchlist.yaml` | Protected files list | Ask before modifying |
-| `.proagents/activity.log` | AI activity history | Check for conflicts |
-| `.proagents/decisions.md` | Architectural decisions | Understand why choices were made |
-| `.proagents/errors.md` | Past errors & solutions | Find solutions faster |
-| `.proagents/handoff.md` | Handoff notes | Continue where another AI left off |
+📖 **Want more?** See [COMMANDS.md](COMMANDS.md) for 100+ AI commands (debugging, testing, refactoring, code generation, sprints...)
 
 ---
 
@@ -248,6 +238,7 @@ ProAgents works with **any AI that has agentic capability** (can read files and 
 
 | Document | Description |
 |----------|-------------|
+| 📚 **[COMMANDS.md](COMMANDS.md)** | **100+ CLI & AI commands** |
 | [Getting Started Story](./.proagents/GETTING-STARTED-STORY.md) | Narrative walkthrough |
 | [Complete Workflow](./.proagents/WORKFLOW.md) | 10-phase workflow guide |
 | [AI Instructions](./.proagents/AI_INSTRUCTIONS.md) | Full AI command reference |
