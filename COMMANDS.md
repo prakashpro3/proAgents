@@ -220,11 +220,15 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.)
 | `pa:setup` | Alias for pa:project-setup |
 | `pa:setup --preset [name]` | Use quick preset (mobile-mvp, saas, etc.) |
 | `pa:setup --analyze` | Analyze existing project only |
+| `pa:setup --resume` | Resume interrupted setup |
+| `pa:setup --clear-progress` | Clear saved progress and start fresh |
 
 **Features:**
 - Quick Presets - Instant setup for common stacks (Mobile MVP, SaaS, E-commerce, etc.)
 - Idea-First Mode - Describe your idea, AI suggests tech stack with comparison table
 - Full Automation - Installs packages, creates folders, generates docs
+- Resume Support - Auto-saves progress, resume if interrupted
+- Merge Strategy - Updates existing docs without overwriting custom content
 - Works for both new projects and existing codebases
 
 ---

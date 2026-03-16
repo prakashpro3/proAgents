@@ -587,14 +587,16 @@ Want more suggestions? Type "more [topic]"
 ## AI Behavior Rules
 
 1. **Always use current folder** - Never create subfolders for new projects. Use `.` or `--cwd` flags (e.g., `npx create-next-app .` not `npx create-next-app my-app`)
-2. **Ask ONE question at a time** (unless user prefers batch)
-3. **Always show recommendations** with ⭐ marker
-4. **Always explain WHY** you recommend something
-5. **Show comparison tables** when presenting 2-3 options
-6. **Provide "more" option** for deeper explanations
-7. **Allow customization** at every step
-8. **Confirm before automation** - show what will be installed/created
-9. **Log all actions** to activity.log
+2. **Merge existing files** - If docs/PROJECT_SETUP.md or docs/ONBOARDING.md exists, merge new content (update sections, preserve custom content, never delete)
+3. **Ask ONE question at a time** (unless user prefers batch)
+4. **Always show recommendations** with ⭐ marker
+5. **Always explain WHY** you recommend something
+6. **Show comparison tables** when presenting 2-3 options
+7. **Provide "more" option** for deeper explanations
+8. **Allow customization** at every step
+9. **Confirm before automation** - show what will be installed/created
+10. **Save progress** - Auto-save to `.proagents/setup-progress.json` after each step, offer resume on next run
+11. **Log all actions** to activity.log
 
 ---
 
@@ -607,10 +609,135 @@ Want more suggestions? Type "more [topic]"
 | `pa:setup --preset [name]` | Use specific preset (mobile-mvp, saas, etc.) |
 | `pa:setup --quick` | Minimal questions only |
 | `pa:setup --analyze` | Analyze existing project only |
+| `pa:setup --resume` | Resume interrupted setup |
+| `pa:setup --clear-progress` | Clear saved progress and start fresh |
+
+---
+
+## Resume Interrupted Setup
+
+If user exits midway, progress is automatically saved. Next time they run `pa:setup`, offer to resume.
+
+### Progress File
+
+Saved to: `.proagents/setup-progress.json`
+
+```json
+{
+  "started_at": "2024-01-15T10:30:00Z",
+  "last_updated": "2024-01-15T10:35:00Z",
+  "completed_steps": 4,
+  "total_steps": 8,
+  "answers": {
+    "project_type": "mobile",
+    "framework": "expo",
+    "language": "typescript",
+    "backend": "firebase"
+  },
+  "pending_questions": ["services", "env_vars", "folder_structure"],
+  "packages_installed": ["@react-navigation/native", "zustand"],
+  "folders_created": ["src/screens", "src/components"],
+  "phase": "collecting_answers"
+}
+```
+
+### Resume Prompt
+
+```
+📋 Previous setup found!
+
+Started: 2 hours ago
+Progress: ████████░░░░ 50% (4/8 steps)
+
+Choices so far:
+- Type: Mobile (React Native)
+- Framework: Expo
+- Language: TypeScript
+- Backend: Firebase
+
+Options:
+1. Resume from where you left off
+2. Start fresh (discard progress)
+3. View saved answers
+
+Select (1-3):
+```
+
+### Auto-Save Triggers
+
+Progress is saved automatically:
+- After each question is answered
+- After each package is installed
+- After each folder is created
+- Before any potentially failing operation
+
+### Cleanup
+
+Delete progress file after:
+- Setup completes successfully
+- User chooses "Start fresh"
+- User runs `pa:setup --clear-progress`
 
 ---
 
 ## Output Files
+
+### Handling Existing Files
+
+If `docs/PROJECT_SETUP.md` or `docs/ONBOARDING.md` already exists, use **merge strategy**:
+
+**Applies to both files:**
+- `docs/PROJECT_SETUP.md` - Project configuration and setup guide
+- `docs/ONBOARDING.md` - Developer onboarding guide
+
+**Merge steps:**
+
+1. **Read existing file** - Parse current content and sections
+2. **Identify sections** - Match by headers (## Overview, ## Prerequisites, etc.)
+3. **Merge rules:**
+   - **Update** existing sections with new values (e.g., new packages, new env vars)
+   - **Preserve** custom content user added (custom sections, notes, warnings)
+   - **Add** new sections that don't exist
+   - **Never delete** user's custom sections
+4. **Mark updates** - Add `> Updated: [DATE]` after the header
+
+**Example merge (PROJECT_SETUP.md):**
+
+```markdown
+## Environment Variables
+
+> Updated: 2024-01-15
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| API_KEY | Existing var (preserved) | Yes |
+| NEW_VAR | Added by setup | Yes |
+
+<!-- User's custom notes below are preserved -->
+Note: Get API_KEY from admin dashboard.
+```
+
+**Example merge (ONBOARDING.md):**
+
+```markdown
+## Code Standards
+
+> Updated: 2024-01-15
+
+- ESLint + Prettier (existing - preserved)
+- TypeScript strict mode (added by setup)
+
+<!-- User's team-specific notes preserved -->
+Ask @john for code review access.
+```
+
+**Merge indicators in logs:**
+```
+✓ docs/PROJECT_SETUP.md (merged - 2 sections updated, 1 added)
+✓ docs/ONBOARDING.md (merged - 1 section updated)
+```
+
+---
 
 ### docs/PROJECT_SETUP.md
 
@@ -702,7 +829,8 @@ After completion, log to `.proagents/activity.log`:
 [DATE TIME] [AI:model] [pa:project-setup] Initialized project in current folder
 [DATE TIME] [AI:model] [pa:project-setup] Installed 15 packages
 [DATE TIME] [AI:model] [pa:project-setup] Created 8 folders
-[DATE TIME] [AI:model] [pa:project-setup] Generated docs/PROJECT_SETUP.md
+[DATE TIME] [AI:model] [pa:project-setup] Merged docs/PROJECT_SETUP.md (2 sections updated)
+[DATE TIME] [AI:model] [pa:project-setup] Merged docs/ONBOARDING.md (1 section added)
 [DATE TIME] [AI:model] [pa:project-setup] Setup complete
 ```
 
