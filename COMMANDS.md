@@ -49,8 +49,6 @@ Run these in your terminal:
 
 ```bash
 npx proagents init                    # Initialize in project
-npx proagents init --template <name>  # Use a project template
-npx proagents init --list-templates   # List available templates
 ```
 
 ### Features & Fixes

@@ -42,8 +42,8 @@ These show the actual back-and-forth interaction between user and AI.
 # View example for your project type
 proagents example show react
 
-# Initialize with example config
-proagents init --template react
+# Initialize ProAgents
+npx proagents init
 ```
 
 ## Contributing Examples

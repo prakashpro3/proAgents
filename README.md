@@ -32,12 +32,6 @@ No install required. Just run:
 npx proagents init
 ```
 
-Or with a template:
-
-```bash
-npx proagents init --template nextjs-saas
-```
-
 ---
 
 ## Quick Start
@@ -118,22 +112,6 @@ pa:fix "bug in auth"      # AI auto-loads context, then fixes
 pa:undo-last              # Revert last AI's entire session
 ```
 
-### Project Templates
-
-Pre-configured settings for common stacks:
-
-```bash
-npx proagents init --template nextjs-saas      # Next.js SaaS
-npx proagents init --template react-spa        # React SPA
-npx proagents init --template react-native-app # React Native
-npx proagents init --template express-api      # Express API
-npx proagents init --template nestjs-api       # NestJS API
-npx proagents init --template vue-spa          # Vue.js SPA
-npx proagents init --template python-fastapi   # Python FastAPI
-
-npx proagents init --list-templates            # Show all templates
-```
-
 ### AI Learning & Feedback
 
 - **Feedback Log** - AI learns from corrections, doesn't repeat mistakes
@@ -169,7 +147,6 @@ ProAgents follows **"ALWAYS DO, NEVER JUST TELL"** principle:
 ```bash
 # Initialize
 npx proagents init                    # Initialize or update ProAgents
-npx proagents init --template <name>  # Use a project template
 
 # Daily Use
 proagents status                      # Show ProAgents status

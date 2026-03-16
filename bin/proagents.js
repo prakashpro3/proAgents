@@ -42,8 +42,6 @@ program
   .description('Initialize ProAgents in the current project')
   .option('-f, --force', 'Overwrite existing proagents folder')
   .option('--skip-config', 'Skip creating config file')
-  .option('-t, --template <name>', 'Use a project template (e.g., nextjs-saas, react-spa)')
-  .option('--list-templates', 'List available project templates')
   .action(initCommand);
 
 // Feature commands
