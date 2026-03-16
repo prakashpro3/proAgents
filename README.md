@@ -4,8 +4,9 @@
 
 A portable, universal development workflow framework that works with **any AI platform** (Claude, ChatGPT, Gemini, Cursor, Copilot, etc.) and enables **multi-AI collaboration** on the same project.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm version](https://img.shields.io/npm/v/proagents.svg)](https://www.npmjs.com/package/proagents)
+[![npm downloads](https://img.shields.io/npm/dm/proagents.svg)](https://www.npmjs.com/package/proagents)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
@@ -80,36 +81,25 @@ Next: pa:test
 
 ## Features
 
-### Multi-AI Collaboration & Cross-AI Continuity
+### Multi-AI Collaboration
 
 Multiple AIs can work on the same project with full context sharing:
 
 | Feature | Description |
 |---------|-------------|
-| **Auto Context Loading** | AI automatically loads context on first command |
-| **Auto Change Logging** | Every code change logged automatically |
-| **Feature Changelogs** | Per-feature change history |
-| **Module Changelogs** | Per-module change history |
-| **Conflict Detection** | Warns if files modified by other AI |
-| **Activity Log** | Track what each AI does with model name |
-| **Smart Context Summary** | Auto-generated 5-line summary at top of context |
-| **Context Changed Alert** | Warns if another AI worked since your last session |
-| **Test Status Tracking** | Auto-updates test status after every test run |
-| **Feature Progress** | Auto-calculates progress from tasks |
-| **AI Performance Stats** | Tracks sessions, tasks, reverts per AI platform |
-| **Quick Undo (pa:undo-last)** | Revert last AI's entire session changes |
-| **Auto-Archive Old Logs** | Automatically archives logs older than 7 days |
+| **Auto Context Loading** | AI loads project context automatically on first command |
+| **Auto Change Logging** | Every code change logged with AI model name |
+| **Conflict Detection** | Warns if files were modified by another AI |
+| **Feature Changelogs** | Per-feature and per-module change history |
+| **Quick Undo** | `pa:undo-last` reverts last AI's entire session |
+| **Activity Tracking** | Track what each AI does with timestamps |
+| **Handoff Notes** | `pa:handoff` creates notes for next AI session |
+| **Test Status Sync** | Auto-updates test status after every test run |
+| **Progress Tracking** | Auto-calculates feature progress from tasks |
 
 ```bash
-# Just start working - context loads automatically!
 pa:feature "add login"    # AI auto-loads context, then works
-pa:fix "bug in auth"      # AI auto-loads context, then fixes
-
-# No manual pa:sync needed - it's automatic
-# No manual pa:session-end needed - changes logged automatically
-
-# Undo another AI's work if needed
-pa:undo-last              # Revert last AI's entire session
+pa:undo-last              # Revert last AI's changes if needed
 ```
 
 ### AI Learning & Feedback

@@ -1,0 +1,57 @@
+# Development files
+.git/
+node_modules/
+*.test.js
+*.spec.js
+jest.config.*
+.eslintrc*
+.prettierrc*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs (keep template, exclude actual logs)
+*.log
+!.proagents/activity.log
+
+# Build artifacts
+coverage/
+dist/
+build/
+
+# Documentation that's available on GitHub
+# (Users can access via GitHub links in docs)
+.proagents/examples/
+.proagents/existing-projects/
+.proagents/disaster-recovery/
+.proagents/reverse-engineering/
+.proagents/compliance/
+.proagents/approval-workflows/
+.proagents/offline-mode/
+.proagents/multi-project/
+.proagents/contract-testing/
+.proagents/feature-flags/
+.proagents/i18n/
+.proagents/webhooks/
+.proagents/plugins/
+.proagents/ai-models/
+.proagents/ai-training/
+.proagents/config-versioning/
+.proagents/dependency-management/
+.proagents/environments/
+.proagents/logging/
+.proagents/metrics/
+.proagents/migrations/
+.proagents/monitoring/
+.proagents/notifications/
+.proagents/performance/
+.proagents/secrets/
+.proagents/parallel-features/
+.proagents/reporting/

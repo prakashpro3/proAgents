@@ -5,17 +5,12 @@
   "type": "module",
   "main": "lib/index.js",
   "bin": {
-    "proagents": "./bin/proagents.js"
+    "proagents": "bin/proagents.js"
   },
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0",
     "lint": "echo \"No linting configured\" && exit 0"
   },
-  "files": [
-    "bin/",
-    "lib/",
-    ".proagents/"
-  ],
   "keywords": [
     "ai",
     "workflow",

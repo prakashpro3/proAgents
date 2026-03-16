@@ -38,13 +38,9 @@ These show the actual back-and-forth interaction between user and AI.
 
 ## Using Examples
 
-```bash
-# View example for your project type
-proagents example show react
-
-# Initialize ProAgents
-npx proagents init
-```
+1. Browse the example folders above
+2. Read the `workflow-example.md` for your project type
+3. Initialize ProAgents: `npx proagents init`
 
 ## Contributing Examples
 
