@@ -488,6 +488,8 @@ Auto-detect issue numbers from user input and include in changelog:
 | `pa:status` | Show current progress |
 | `pa:feature "name"` | Start new feature |
 | `pa:fix "bug"` | Quick bug fix |
+| `pa:project-setup` | Interactive project setup wizard |
+| `pa:setup` | Alias for pa:project-setup |
 | `pa:feature-list` | List all features |
 | `pa:feature-complete` | Mark feature complete |
 
@@ -624,6 +626,8 @@ When user types a `pa:` command:
 | `pa:session-start` | `./prompts/11-session-tracking.md` |
 | `pa:session-end` | `./prompts/11-session-tracking.md` |
 | `pa:changelog` | `./prompts/11-session-tracking.md` + `./prompts/07-documentation.md` |
+| `pa:project-setup` | `./prompts/00-project-setup.md` |
+| `pa:setup` | `./prompts/00-project-setup.md` |
 
 ---
 
@@ -668,6 +672,7 @@ ProAgents Help
   Core Commands:
     pa:feature "name"     Start new feature with full workflow
     pa:fix "bug"          Quick bug fix mode
+    pa:project-setup      Interactive project setup wizard
     pa:status             Show current progress (enhanced)
     pa:help               Show this help
 

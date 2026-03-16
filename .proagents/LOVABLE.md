@@ -32,6 +32,7 @@ Module detection: `src/api/*`→api, `src/auth/*`→auth, `src/components/*`→u
 |---------|--------|
 | `pa:feature "name"` | Start new feature workflow |
 | `pa:fix "bug"` | Quick bug fix mode |
+| `pa:project-setup` | Interactive project setup wizard |
 | `pa:doc` | Documentation options |
 | `pa:qa` | Quality assurance checks |
 | `pa:test` | Run test workflow |

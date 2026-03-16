@@ -212,6 +212,23 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.)
 
 ---
 
+## Project Setup
+
+| Command | Description |
+|---------|-------------|
+| `pa:project-setup` | Interactive setup wizard (new or existing projects) |
+| `pa:setup` | Alias for pa:project-setup |
+| `pa:setup --preset [name]` | Use quick preset (mobile-mvp, saas, etc.) |
+| `pa:setup --analyze` | Analyze existing project only |
+
+**Features:**
+- Quick Presets - Instant setup for common stacks (Mobile MVP, SaaS, E-commerce, etc.)
+- Idea-First Mode - Describe your idea, AI suggests tech stack with comparison table
+- Full Automation - Installs packages, creates folders, generates docs
+- Works for both new projects and existing codebases
+
+---
+
 ## Workflow Phase Commands
 
 | Command | Phase | Description |

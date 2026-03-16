@@ -54,6 +54,7 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 |---------|------------|
 | `pa:help` | Comprehensive help with examples, categories, workflows |
 | `pa:feature "name"` | Create `./.proagents/active-features/feature-[name]/`, analyze codebase, implement feature |
+| `pa:project-setup` | Interactive project setup wizard with presets, idea-first mode, full automation |
 | `pa:fix "description"` | Find bug, fix it, update `./CHANGELOG.md` |
 | `pa:analyze` | Deep codebase analysis → `./.proagents/cache/` |
 | `pa:requirements` | Gather requirements → `./.proagents/active-features/` |
