@@ -12,6 +12,44 @@ pa:plan
 
 ---
 
+## Flow Context Integration
+
+Before planning, check `.proagents/worklog/_context.md` for Flow Context:
+
+```
+📋 Checking for prior context...
+
+If Flow Context exists from pa:feature:
+┌─────────────────────────────────────────────────────────┐
+│ 📋 Feature Context Available                            │
+│                                                         │
+│ Feature: Cart State Management                          │
+│ Tech Decision: Zustand (from pa:rnd)                    │
+│ Research: docs/research/comparisons/state-mgmt.md       │
+│ Requirements: .proagents/active-features/cart-state/    │
+│                                                         │
+│ Include in planning? (yes/no)                           │
+└─────────────────────────────────────────────────────────┘
+```
+
+### After Planning Complete
+
+Update Flow Context for next phase:
+
+```markdown
+## Flow Context
+```
+Current Flow: rnd → feature → plan
+Last Command: pa:plan
+Decision: Implementation plan created
+Context: [feature name] with [X] tasks
+Next Suggested: pa:implement
+Data: {"feature": "[name]", "tasks": [...], "plan_doc": "[path]"}
+```
+```
+
+---
+
 ## Planning Flow
 
 ### Create Implementation Plan

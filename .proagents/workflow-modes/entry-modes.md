@@ -55,6 +55,30 @@ The complete 10-phase development workflow for new features.
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### Flow Context Check
+
+Before starting, check `.proagents/worklog/_context.md` for Flow Context:
+
+```
+📋 Checking for prior context...
+
+If Flow Context exists:
+┌─────────────────────────────────────────────────────────┐
+│ 📋 Continuing from previous workflow                    │
+│                                                         │
+│ Last Command: pa:rnd-compare                            │
+│ Decision: Zustand for state management                  │
+│ Context: E-commerce cart state                          │
+│ Research: docs/research/comparisons/state-mgmt.md       │
+│                                                         │
+│ Use this context? (yes/no/modify)                       │
+└─────────────────────────────────────────────────────────┘
+
+If "yes": Pre-populate feature with context data
+If "no": Start fresh, clear Flow Context
+If "modify": Allow user to adjust context
+```
+
 ### Starting Full Workflow
 
 ```bash
@@ -63,6 +87,9 @@ pa:feature start "User Profile Management"
 
 # With options
 pa:feature start "User Profile" --skip-ui --checkpoint=critical
+
+# Continue from RND (auto-reads Flow Context)
+pa:feature start "Cart State" --from-rnd
 ```
 
 ### Checkpoints

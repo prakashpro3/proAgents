@@ -842,4 +842,37 @@ Last: [AI] ran project setup
 Type: [project type]
 Framework: [framework]
 Output: docs/PROJECT_SETUP.md, docs/ONBOARDING.md
+
+## Flow Context
+```
+Current Flow: project-setup
+Last Command: pa:project-setup
+Decision: [framework] + [backend] stack
+Context: [project type] project initialized
+Next Suggested: pa:feature "[first feature]"
+Data: {"type": "[project type]", "framework": "[framework]", "backend": "[backend]", "packages": [...]}
+```
+```
+
+### Flow Context Integration
+
+After project setup completes, the next steps section offers:
+
+```
+🎯 Next steps:
+1. Copy .env.example to .env
+2. Add your config values
+3. Run: [start command]
+4. Start building: pa:feature "[First feature]"
+```
+
+When user runs pa:feature, it reads Flow Context and understands the tech stack:
+
+```
+📋 Project Context Loaded
+
+Stack: [framework] + [backend]
+Setup: [date]
+
+Creating feature with this stack context.
 ```

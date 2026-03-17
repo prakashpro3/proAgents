@@ -925,4 +925,33 @@ Last: [AI] ran R&D workflow
 Topic: [research topic]
 Decision: [recommendation]
 Output: docs/research/comparisons/[file].md
+
+## Flow Context
+```
+Current Flow: rnd
+Last Command: pa:rnd-compare
+Decision: [recommendation]
+Context: [use case description]
+Next Suggested: pa:feature "[feature name based on decision]"
+Data: {"tech": "[chosen tech]", "use_case": "[use case]", "research_doc": "[doc path]"}
+```
+```
+
+### Flow Context Integration
+
+When user selects "Start feature" from Next Phase Options:
+
+1. **Write Flow Context** with decision data
+2. **Trigger pa:feature** with context
+3. **pa:feature reads** Flow Context and offers to use it
+
+Example continuation prompt in pa:feature:
+
+```
+📋 Continuing from R&D...
+
+You recently decided on [tech] for [use case].
+Research: [doc path]
+
+Use this context for the feature? (yes/no/modify)
 ```
