@@ -233,6 +233,44 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.)
 
 ---
 
+## Research & Development
+
+| Command | Description |
+|---------|-------------|
+| `pa:rnd` | Interactive R&D workflow (compare, prototype, explore) |
+| `pa:research` | Alias for pa:rnd |
+| `pa:rnd-compare` | Direct to comparison mode |
+| `pa:rnd-poc` | Direct to prototype mode |
+| `pa:rnd-explore` | Direct to exploration mode |
+| `pa:rnd --quick` | Quick 5-minute research |
+| `pa:rnd --resume` | Resume interrupted session |
+| `pa:rnd --clear` | Clear saved progress |
+
+**Features:**
+- Compare Options - Side-by-side library/framework comparisons with weighted scoring
+- Build POC - Quick proof-of-concept in isolated `./poc/` folder
+- Explore Solutions - Research and document findings
+- Web Search - Verify latest package stats (stars, downloads, releases)
+- Cost Estimator - Monthly costs at different user scales
+- Deprecation Alerts - Warn about deprecated/insecure packages
+- Comparison Tables - Visual side-by-side with recommendations
+- Past Decision Recall - Surface previous decisions on similar topics
+- Scope Guard - Alert when research drifts off-topic
+- Resume Support - Auto-saves progress
+- Tags & Categories - Organize research by topic
+- Archive System - Auto-archive old research after 6 months
+- Review Reminders - Set reminder to revisit decisions
+- Next Phase Integration - After RND, trigger pa:feature or pa:plan
+
+**Outputs:**
+- Comparison docs: `docs/research/comparisons/`
+- Research findings: `docs/research/findings/`
+- Research index: `docs/research/INDEX.md`
+- Bookmarks: `docs/research/BOOKMARKS.md`
+- POC code: `./poc/[name]/`
+
+---
+
 ## Workflow Phase Commands
 
 | Command | Phase | Description |

@@ -165,6 +165,7 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:feature "name"` | Start new feature workflow (all phases) |
 | `pa:fix "description"` | Quick bug fix mode |
 | `pa:project-setup` | Interactive project setup wizard |
+| `pa:rnd` | Research & Development workflow |
 | `pa:status` | Show current progress |
 | `pa:sync` | Load project context (usually auto) |
 | `pa:test` | Run tests |
@@ -174,7 +175,7 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.):
 | `pa:undo-last` | Revert last AI's changes |
 | `pa:handoff` | Create notes for another AI |
 
-**Quick aliases:** `pa:f` (feature), `pa:s` (status), `pa:t` (test), `pa:h` (help), `pa:setup` (project-setup)
+**Quick aliases:** `pa:f` (feature), `pa:s` (status), `pa:t` (test), `pa:h` (help), `pa:setup` (project-setup), `pa:research` (rnd)
 
 📖 **Want more?** See [COMMANDS.md](COMMANDS.md) for 100+ AI commands (debugging, testing, refactoring, code generation, sprints...)
 
