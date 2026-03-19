@@ -1,4 +1,8 @@
-# ProAgents Commands for Codex
+# ProAgents Commands
+
+> **Universal AI Instructions** - Works with ChatGPT, Groq, Antigravity, Codex CLI, and any generic AI platform.
+>
+> ⚠️ **Do not remove this file** - Required for ProAgents to work properly.
 
 This project uses ProAgents - an AI-agnostic development workflow framework.
 
