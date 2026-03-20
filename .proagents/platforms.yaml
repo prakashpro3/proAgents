@@ -1,0 +1,66 @@
+# ProAgents Supported AI Platforms
+# Single source of truth - used by code and AI assistants
+#
+# To add a new platform:
+# 1. Add entry below with id, name, file, desc
+# 2. Create the instruction file in .proagents/
+# 3. Run: proagents ai add
+
+ide:
+  label: "IDE-based AI Assistants"
+  platforms:
+    - id: claude
+      name: Claude Code
+      file: CLAUDE.md
+      desc: Anthropic Claude in terminal/IDE
+
+    - id: cursor
+      name: Cursor
+      file: .cursorrules
+      desc: Cursor AI IDE
+
+    - id: windsurf
+      name: Windsurf
+      file: .windsurfrules
+      desc: Codeium Windsurf IDE
+
+    - id: copilot
+      name: GitHub Copilot
+      file: .github/copilot-instructions.md
+      desc: GitHub Copilot
+
+    - id: kiro
+      name: AWS Kiro
+      file: KIRO.md
+      desc: AWS Kiro IDE
+
+    - id: gemini
+      name: Gemini
+      file: GEMINI.md
+      desc: Google Gemini / AI Studio
+
+web:
+  label: "Web-based AI Platforms"
+  platforms:
+    - id: replit
+      name: Replit AI
+      file: REPLIT.md
+      desc: Replit Ghostwriter
+
+    - id: bolt
+      name: Bolt.new
+      file: BOLT.md
+      desc: StackBlitz Bolt
+
+    - id: lovable
+      name: Lovable
+      file: LOVABLE.md
+      desc: Lovable (GPT Engineer)
+
+# Auto-handled platforms (use AGENTS.md, no separate file needed)
+auto_handled:
+  - ChatGPT
+  - Groq
+  - Antigravity
+  - Codex CLI
+  - OpenAI API

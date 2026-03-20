@@ -596,28 +596,12 @@ Auto-detect issue numbers from user input and include in changelog:
 | `pa:skip-checkpoint` | Skip checkpoint |
 
 ### AI Platform Management
-| Command | Action |
-|---------|--------|
-| `pa:ai-list` | Show installed AI platforms |
-| `pa:ai-add` | Add AI platform (use list below) |
-| `pa:ai-remove` | Remove AI platform |
-| `pa:ai-sync` | Sync config with files |
-
-**Supported Platforms (AUTHORITATIVE - do not hallucinate others):**
-
-| ID | Name | File |
-|----|------|------|
-| `claude` | Claude Code | `CLAUDE.md` |
-| `cursor` | Cursor | `.cursorrules` |
-| `windsurf` | Windsurf | `.windsurfrules` |
-| `copilot` | GitHub Copilot | `.github/copilot-instructions.md` |
-| `kiro` | AWS Kiro | `KIRO.md` |
-| `gemini` | Gemini | `GEMINI.md` |
-| `replit` | Replit AI | `REPLIT.md` |
-| `bolt` | Bolt.new | `BOLT.md` |
-| `lovable` | Lovable | `LOVABLE.md` |
-
-**Auto-handled (via AGENTS.md):** ChatGPT, Groq, Antigravity, Codex CLI, OpenAI API
+| Command | Action | Prompt File |
+|---------|--------|-------------|
+| `pa:ai-list` | Show installed AI platforms | `./prompts/ai-list.md` |
+| `pa:ai-add` | Add AI platform | `./prompts/ai-add.md` |
+| `pa:ai-remove` | Remove AI platform | `./prompts/ai-remove.md` |
+| `pa:ai-sync` | Sync config with files | `./prompts/ai-sync.md` |
 
 ### History & Progress
 | Command | Action |
@@ -663,6 +647,10 @@ When user types a `pa:` command:
 | `pa:rnd-compare` | `./prompts/12-rnd.md` |
 | `pa:rnd-poc` | `./prompts/12-rnd.md` |
 | `pa:rnd-explore` | `./prompts/12-rnd.md` |
+| `pa:ai-list` | `./prompts/ai-list.md` |
+| `pa:ai-add` | `./prompts/ai-add.md` |
+| `pa:ai-remove` | `./prompts/ai-remove.md` |
+| `pa:ai-sync` | `./prompts/ai-sync.md` |
 
 ---
 

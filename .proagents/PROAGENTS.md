@@ -71,34 +71,10 @@ STEP 5: Append to activity.log                      ← LOG ACTIVITY
 | `pa:deploy` | Interactive deployment checklist with real-time status, health checks |
 | `pa:release` | Generate release notes → `./RELEASE_NOTES.md` |
 | `pa:changelog` | Update `./CHANGELOG.md` |
-| `pa:ai-list` | Read config, show installed AI platforms |
-| `pa:ai-add` | Show platform options, create AI instruction files |
-| `pa:ai-remove` | Show installed platforms, remove selected files |
-| `pa:ai-sync` | Sync config with existing files (fix mismatches) |
-
-### Supported AI Platforms (Authoritative List)
-
-**IDE-based AI Assistants:**
-| ID | Name | File |
-|----|------|------|
-| `claude` | Claude Code | `CLAUDE.md` |
-| `cursor` | Cursor | `.cursorrules` |
-| `windsurf` | Windsurf | `.windsurfrules` |
-| `copilot` | GitHub Copilot | `.github/copilot-instructions.md` |
-| `kiro` | AWS Kiro | `KIRO.md` |
-| `gemini` | Gemini | `GEMINI.md` |
-
-**Web-based AI Platforms:**
-| ID | Name | File |
-|----|------|------|
-| `replit` | Replit AI | `REPLIT.md` |
-| `bolt` | Bolt.new | `BOLT.md` |
-| `lovable` | Lovable | `LOVABLE.md` |
-
-**Auto-handled (via AGENTS.md - no separate file):**
-- ChatGPT, Groq, Antigravity, Codex CLI, OpenAI API
-
-> **Important:** Use ONLY platforms from this list. Do not hallucinate other platforms.
+| `pa:ai-list` | Show AI platforms → `./prompts/ai-list.md` |
+| `pa:ai-add` | Add AI platform → `./prompts/ai-add.md` |
+| `pa:ai-remove` | Remove AI platform → `./prompts/ai-remove.md` |
+| `pa:ai-sync` | Sync config with files → `./prompts/ai-sync.md` |
 | `pa:activity` | Show ALL AI activity with icons, time groups, files changed |
 | `pa:lock` | Show lock status, check if another AI is working |
 | `pa:lock-release` | Release your lock after completing work |
