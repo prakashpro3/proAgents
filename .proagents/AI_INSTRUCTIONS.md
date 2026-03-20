@@ -4,32 +4,42 @@ This project uses ProAgents - an AI-agnostic development workflow framework.
 
 ---
 
-## ⚠️ MANDATORY: Auto-Sync on EVERY pa: Command
+## Auto-Sync Protocol
 
-**BEFORE executing ANY `pa:` command, AI MUST run these steps FIRST:**
+### Rule: Sync for commands that WRITE, skip for commands that READ
 
+### Workflow Commands (Auto-Sync Required)
+
+Commands that CREATE or MODIFY code/content need context.
+
+**BEFORE these commands, read:**
 ```bash
-# STEP 1: Load context (REQUIRED - do this FIRST)
-cat .proagents/worklog/_context.md 2>/dev/null
-cat .proagents/changelog/_recent.md 2>/dev/null | head -30
-tail -10 .proagents/activity.log 2>/dev/null
+cat .proagents/worklog/_context.md 2>/dev/null      # Current state
+cat .proagents/changelog/_recent.md 2>/dev/null | head -30  # Recent changes
+tail -10 .proagents/activity.log 2>/dev/null        # Recent activity
 ```
 
-**This applies to ALL commands including:**
-- `pa:fix "bug"` - Load context FIRST, then fix
-- `pa:feature "name"` - Load context FIRST, then start feature
-- `pa:test` - Load context FIRST, then run tests
-- `pa:doc` - Load context FIRST, then generate docs
-- **EVERY pa: command** - Load context FIRST
+**Workflow commands:** `pa:feature`, `pa:fix`, `pa:implement`, `pa:analyze`,
+`pa:design`, `pa:plan`, `pa:test`, `pa:review`, `pa:doc`, `pa:deploy`,
+`pa:rnd`, `pa:refactor`, `pa:debug`, `pa:qa`, `pa:changelog`, `pa:release`, `pa:resume`,
+`pa:session-start`, `pa:session-end`
 
-**AFTER executing ANY `pa:` command that changes files, AI MUST:**
+### Utility Commands (No Sync Required)
 
+Commands that only READ, DISPLAY, or CONFIGURE:
+- **Skip BEFORE step** - No context reading needed
+- **Skip AFTER step** - No logging needed
+
+**Examples:** `pa:help`, `pa:status`, `pa:progress`, `pa:history`,
+`pa:ai-*`, `pa:config-*`, `pa:sync`
+
+### AFTER Workflow Commands (Auto-Log)
+
+**After commands that CHANGE files, update:**
 ```bash
-# Update worklogs and changelogs
 # 1. Prepend to .proagents/changelog/_recent.md
 # 2. Update .proagents/worklog/_context.md
-# 3. Update .proagents/changelog/modules/[module].md
-# 4. Log to .proagents/activity.log
+# 3. Log to .proagents/activity.log
 ```
 
 **Example flow for `pa:fix "login bug"`:**
@@ -41,7 +51,7 @@ tail -10 .proagents/activity.log 2>/dev/null
 5. AI logs to activity.log                          ← LOG ACTIVITY
 ```
 
-**Note:** When updating `_recent.md` or `_context.md`, first read the corresponding `*.template.md` file to use the latest format. See "Using Template Reference Files" section below.
+**Note:** When updating `_recent.md` or `_context.md`, first read the corresponding `*.template.md` file to use the latest format.
 
 ---
 
@@ -74,26 +84,20 @@ tail -10 .proagents/activity.log 2>/dev/null
 
 **Multiple AI tools may work on this project simultaneously. They do NOT share context.**
 
-### AUTOMATIC Context Loading (EVERY pa: Command)
+### Context Loading for Workflow Commands
 
-**On EVERY `pa:` command, AI MUST FIRST load context:**
+**For workflow commands (pa:feature, pa:fix, pa:implement, etc.), load context FIRST:**
 
 ```bash
-# MANDATORY FIRST STEP - Run before ANY pa: command
 cat .proagents/worklog/_context.md 2>/dev/null
 cat .proagents/changelog/_recent.md 2>/dev/null | head -30
 tail -10 .proagents/activity.log 2>/dev/null
-
-# Also check for conflicts
-cat .proagents/.active-files 2>/dev/null
+cat .proagents/.active-files 2>/dev/null  # Check for conflicts
 ```
 
-**This is NOT optional. This is NOT just for "first command".**
-**EVERY pa: command = Load context FIRST, then execute.**
+**Skip context loading for utility commands** (pa:help, pa:status, pa:ai-*, etc.)
 
-**User does NOT need to type pa:sync - AI does it automatically on EVERY pa: command.**
-
-### Before ANY `pa:` command:
+### Before Workflow Commands:
 
 1. **Auto-load context** - Read `worklog/_context.md` and `changelog/_recent.md`
 2. **Check activity log** - `./.proagents/activity.log`
@@ -101,7 +105,7 @@ cat .proagents/.active-files 2>/dev/null
 4. **Check watchlist** - `./.proagents/watchlist.yaml` (files requiring confirmation)
 5. **Check file locks** - `./.proagents/.active-files`
 
-### After ANY `pa:` command:
+### After Workflow Commands:
 
 **MANDATORY: Log every command to `./.proagents/activity.log`**
 
@@ -126,7 +130,7 @@ echo "[$(date '+%Y-%m-%d %H:%M')] [Claude:opus-4] [pa:feature] Started user-auth
 **CRITICAL:**
 - Log AFTER the "--- Activity Log Start ---" marker
 - Use YOUR AI platform name (Claude, Cursor, Gemini, etc.)
-- Log EVERY pa: command, not just major ones
+- Log workflow commands (skip utility commands like pa:help, pa:status)
 
 ### Lock File
 
@@ -590,6 +594,30 @@ Auto-detect issue numbers from user input and include in changelog:
 | `pa:config` | Show config |
 | `pa:checkpoint` | Pause for approval |
 | `pa:skip-checkpoint` | Skip checkpoint |
+
+### AI Platform Management
+| Command | Action |
+|---------|--------|
+| `pa:ai-list` | Show installed AI platforms |
+| `pa:ai-add` | Add AI platform (use list below) |
+| `pa:ai-remove` | Remove AI platform |
+| `pa:ai-sync` | Sync config with files |
+
+**Supported Platforms (AUTHORITATIVE - do not hallucinate others):**
+
+| ID | Name | File |
+|----|------|------|
+| `claude` | Claude Code | `CLAUDE.md` |
+| `cursor` | Cursor | `.cursorrules` |
+| `windsurf` | Windsurf | `.windsurfrules` |
+| `copilot` | GitHub Copilot | `.github/copilot-instructions.md` |
+| `kiro` | AWS Kiro | `KIRO.md` |
+| `gemini` | Gemini | `GEMINI.md` |
+| `replit` | Replit AI | `REPLIT.md` |
+| `bolt` | Bolt.new | `BOLT.md` |
+| `lovable` | Lovable | `LOVABLE.md` |
+
+**Auto-handled (via AGENTS.md):** ChatGPT, Groq, Antigravity, Codex CLI, OpenAI API
 
 ### History & Progress
 | Command | Action |

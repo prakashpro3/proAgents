@@ -2,29 +2,40 @@
 
 This project uses ProAgents workflow framework.
 
-## ⚠️ MANDATORY: Every pa: Command Flow
+## Auto-Sync Protocol
 
-### BEFORE Any pa: Command (Auto-Sync)
+### Rule: Sync for commands that WRITE, skip for commands that READ
 
-**Read these files FIRST before doing anything:**
+### Workflow Commands (Auto-Sync Required)
 
+Commands that CREATE or MODIFY code/content need context:
+
+**BEFORE these commands, read:**
 ```bash
 cat .proagents/worklog/_context.md      # Current state
 cat .proagents/changelog/_recent.md     # Recent changes
 tail -10 .proagents/activity.log        # Recent activity
 ```
 
-**This applies to EVERY command:** `pa:fix`, `pa:feature`, `pa:test`, `pa:doc`, etc.
+**Examples:** `pa:feature`, `pa:fix`, `pa:implement`, `pa:analyze`,
+`pa:design`, `pa:plan`, `pa:test`, `pa:review`, `pa:doc`, `pa:deploy`,
+`pa:rnd`, `pa:refactor`, `pa:debug`, `pa:qa`, `pa:changelog`, `pa:release`, `pa:resume`,
+`pa:session-start`, `pa:session-end`
 
-### AFTER Any pa: Command (Auto-Log)
+### Utility Commands (No Sync Required)
 
-**After EVERY file edit, IMMEDIATELY update these files:**
+Commands that only READ, DISPLAY, or CONFIGURE:
+- **Skip BEFORE step** - No context reading needed
+- **Skip AFTER step** - No logging needed
 
+**Examples:** `pa:help`, `pa:status`, `pa:progress`, `pa:history`,
+`pa:ai-*`, `pa:config-*`, `pa:sync`
+
+### AFTER Workflow Commands (Auto-Log)
+
+**After commands that CHANGE files, update:**
 1. `.proagents/changelog/_recent.md` - Prepend change summary
-2. `.proagents/changelog/modules/[module].md` - Based on file path
-3. `.proagents/worklog/_context.md` - Update current state
-
-Module detection: `src/api/*`→api, `src/auth/*`→auth, `src/components/*`→ui
+2. `.proagents/worklog/_context.md` - Update current state
 
 ## Essential Commands
 
