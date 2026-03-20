@@ -6,6 +6,10 @@
 
 This project uses ProAgents - an AI-agnostic development workflow framework.
 
+> **IMPORTANT:** `pa:` commands are **AI directives**, NOT shell/terminal commands.
+> When user types ANY `pa:` command (e.g., `pa:feature`, `pa:fix`, `pa:status`),
+> DO NOT try to run it in terminal. Instead, follow the instructions below.
+
 ## Auto-Sync Protocol
 
 ### Rule: Sync for commands that WRITE, skip for commands that READ

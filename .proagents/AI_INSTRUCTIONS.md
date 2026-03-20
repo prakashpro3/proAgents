@@ -2,6 +2,10 @@
 
 This project uses ProAgents - an AI-agnostic development workflow framework.
 
+> **IMPORTANT:** `pa:` commands are **AI directives**, NOT shell/terminal commands.
+> When user types ANY `pa:` command (e.g., `pa:feature`, `pa:fix`, `pa:status`),
+> DO NOT try to run it in terminal. Instead, follow the instructions below.
+
 ---
 
 ## Auto-Sync Protocol
@@ -609,6 +613,42 @@ Auto-detect issue numbers from user input and include in changelog:
 | `pa:history` | Show command history (read activity.log) |
 | `pa:progress` | Show feature progress |
 | `pa:activity` | **Show ALL AI platforms activity** (cross-AI visibility) |
+
+### Navigation & Flow
+| Command | Action |
+|---------|--------|
+| `pa:next` | Show next step in workflow |
+| `pa:back` | Go to previous phase |
+| `pa:resume` | Resume last session |
+| `pa:skip` | Skip current phase |
+| `pa:lock-release` | Release lock after work |
+
+### Quality & Metrics
+| Command | Action |
+|---------|--------|
+| `pa:metrics` | Show code quality metrics |
+| `pa:coverage` | Show test coverage report |
+| `pa:perf` | Performance analysis |
+| `pa:a11y` | Accessibility audit |
+
+### Code Generation
+| Command | Action |
+|---------|--------|
+| `pa:generate-component "name"` | Generate component from template |
+| `pa:generate-api "name"` | Generate API endpoint |
+| `pa:generate-test "file"` | Generate test file |
+
+### Refactoring
+| Command | Action |
+|---------|--------|
+| `pa:rename "old" "new"` | Rename across codebase |
+| `pa:cleanup` | Remove dead code, unused imports |
+
+### Git & Release
+| Command | Action |
+|---------|--------|
+| `pa:version` | Show/bump version |
+| `pa:github-pr` | Create pull request |
 
 ---
 
