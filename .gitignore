@@ -11,10 +11,6 @@ proagents/active-features/feature-*/
 !proagents/active-features/.gitkeep
 !proagents/active-features/schemas/
 
-# Cache data files (keep schemas, exclude generated cache)
-proagents/cache/*.json
-!proagents/cache/schemas/
-
 # Changelog entries (generated per-project)
 proagents/changelog/20*/
 

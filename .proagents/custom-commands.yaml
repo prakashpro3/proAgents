@@ -43,7 +43,6 @@ tech_debt:
 security_scan:
   description: "Run security checklist"
   steps:
-    - "Read ./.proagents/checklists/security.md"
     - "Check for hardcoded secrets in code"
     - "Review authentication/authorization code"
     - "Generate security report"

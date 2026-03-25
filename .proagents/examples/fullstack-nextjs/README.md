@@ -150,6 +150,4 @@ checkpoints:
 ## Related Resources
 
 - [Next.js Scaffolding Template](../../scaffolding/nextjs/)
-- [Database Migrations Guide](../../database/)
-- [API Versioning](../../api-versioning/)
 - [Testing Standards](../../testing-standards/)

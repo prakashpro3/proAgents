@@ -182,7 +182,4 @@ checkpoints:
 ## Related Resources
 
 - [Node.js Scaffolding Template](../../scaffolding/nodejs/)
-- [API Versioning Guide](../../api-versioning/)
-- [Database Migrations](../../database/)
 - [Security Scanning](../../security/)
-- [Contract Testing](../../contract-testing/)

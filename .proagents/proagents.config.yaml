@@ -67,7 +67,6 @@ documentation:
     internal:
       feature_docs: "./.proagents/active-features/"  # Feature-specific docs
       dev_changelog: "./.proagents/changelog/"       # Detailed dev notes
-      analysis: "./.proagents/cache/"                # Codebase analysis
       learning: "./.proagents/.learning/"            # AI learning data
 
   required_for_all_modes: true

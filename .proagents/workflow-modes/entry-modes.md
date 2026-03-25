@@ -127,8 +127,7 @@ Streamlined workflow for fixing bugs quickly without skipping quality.
 │  Phase 1: Context Scan (2-5 min)                            │
 │  ├── Identify affected files from bug description           │
 │  ├── Scan recent changes (git history)                      │
-│  ├── Check related components                               │
-│  └── Load cached analysis if available                      │
+│  └── Check related components                               │
 │                                                             │
 │  Phase 2: Root Cause Analysis                               │
 │  ├── Identify the bug source                                │
@@ -186,10 +185,6 @@ auto_context:
     components: true
     services: true
     tests: true
-
-  load_cached:
-    analysis: true
-    patterns: true
 ```
 
 ### Guardrails

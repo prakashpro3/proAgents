@@ -316,8 +316,7 @@ Next: pa:test (full suite) or pa:commit
    - Code patterns
    - Dependencies
    - Architecture style
-4. Cache results in `./.proagents/cache/`
-5. Output analysis summary
+4. Output analysis summary
 
 ### pa:requirements
 

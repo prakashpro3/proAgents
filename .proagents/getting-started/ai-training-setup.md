@@ -377,4 +377,3 @@ learning:
 
 - [Configure IDE](./ide-setup.md)
 - [Set up standards](../standards/)
-- [Review AI training details](../ai-training/)
