@@ -27,6 +27,7 @@ Complete reference for CLI and AI (`pa:`) commands. For quick start, see [README
 - [Documentation](#documentation)
 - [Quality & Testing](#quality--testing)
 - [Cross-AI Continuity](#cross-ai-continuity)
+- [Worktree Management](#worktree-management)
 - [Learning & Tracking](#learning--tracking)
 - [Navigation & Flow](#navigation--flow)
 - [Context & History](#context--history)
@@ -324,6 +325,21 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.)
 | `pa:history` | View command history |
 | `pa:activity` | Show recent AI activity |
 | `pa:handoff` | Create handoff notes |
+
+---
+
+## Worktree Management
+
+| Command | Description |
+|---------|-------------|
+| `pa:worktree-create "name"` | Create worktree for large task |
+| `pa:worktree-list` | List all active worktrees |
+| `pa:worktree-remove "name"` | Remove worktree after merge |
+
+**When to use worktrees:**
+- Large features (days/weeks of work)
+- Parallel work (multiple AIs or developers)
+- Need to run/test multiple versions simultaneously
 
 ---
 

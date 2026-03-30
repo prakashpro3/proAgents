@@ -40,6 +40,40 @@ git:
   commit_convention: "conventional"  # conventional | simple | custom
   require_pr: true
 
+# Workflow Configuration
+# Controls how AI handles task size and worktrees
+workflow:
+  # Worktree mode: auto | always-ask | always-branch | always-worktree
+  # - auto: Small tasks use branch (no ask), large tasks ask user
+  # - always-ask: Always ask user for workflow choice
+  # - always-branch: Never use worktree, always simple branch
+  # - always-worktree: Always create worktree for each task
+  worktree_mode: "auto"
+
+  # Task size indicators for auto mode
+  task_indicators:
+    small:
+      - "fix typo"
+      - "small bug"
+      - "quick fix"
+      - "update text"
+      - "minor change"
+      - "hotfix"
+    large:
+      - "implement"
+      - "create feature"
+      - "refactor"
+      - "new module"
+      - "authentication"
+      - "payment"
+      - "integration"
+      - "migration"
+
+  # Worktree naming
+  worktree_naming:
+    prefix: "../"  # Relative to current directory
+    format: "{project}-{taskname}"  # e.g., myapp-user-auth
+
 # Parallel Feature Development
 parallel_features:
   enabled: true

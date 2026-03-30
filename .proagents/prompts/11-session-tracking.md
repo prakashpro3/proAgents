@@ -76,6 +76,106 @@ AI: "Fixed the login bug in src/auth/login.ts"
 | `pa:session-start` | Begin work session (AUTO) |
 | `pa:session-end` | End session (AUTO - logs on each change) |
 | `pa:handoff` | Create detailed handoff |
+| `pa:worktree-create "name"` | Create worktree for large task |
+| `pa:worktree-list` | List all active worktrees |
+| `pa:worktree-remove "name"` | Remove worktree after merge |
+
+---
+
+## Smart Workflow Mode
+
+AI automatically detects task size and chooses workflow.
+
+### Task Size Indicators
+
+| Small Task | Large Task |
+|------------|------------|
+| "fix typo", "small bug", "quick fix" | "implement", "feature", "refactor" |
+| 1-2 files | Multiple files |
+| Single function | New module |
+
+### Workflow Decision
+
+Read `workflow.worktree_mode` from `proagents.config.yaml`:
+
+- **auto** (default): Small → branch, Large → ask user
+- **always-ask**: Always ask user
+- **always-branch**: Never use worktree
+- **always-worktree**: Always create worktree
+
+### Small Task (Auto Branch)
+
+```
+User: "Fix the typo in README"
+AI: [Creates branch, proceeds immediately, no question]
+```
+
+### Large Task (Ask User)
+
+```
+User: "Implement user authentication"
+AI:
+═══════════════════════════════════════
+📋 LARGE TASK DETECTED
+
+Task: "Implement user authentication"
+
+1. Continue here (current branch)
+2. Create worktree (isolated directory)
+
+Which approach? [1/2]
+═══════════════════════════════════════
+```
+
+---
+
+## Worktree Commands
+
+### pa:worktree-create "name"
+
+Creates isolated worktree for task:
+
+```bash
+git worktree add ../[project]-[name] feature/[name]
+```
+
+Output:
+```
+═══════════════════════════════════════
+✅ Worktree Created
+
+Directory: ../myapp-user-auth/
+Branch: feature/user-auth
+
+Next Steps:
+1. Open the new directory in your IDE
+2. Work there - all changes go to feature/user-auth
+3. When done: pa:worktree-remove "user-auth"
+═══════════════════════════════════════
+```
+
+### pa:worktree-list
+
+```bash
+git worktree list
+```
+
+Output:
+```
+═══════════════════════════════════════
+📁 Active Worktrees
+
+/path/to/myapp                    main
+/path/to/myapp-user-auth          feature/user-auth [Claude]
+/path/to/myapp-rate-limiting      feature/rate-limiting [Cursor]
+═══════════════════════════════════════
+```
+
+### pa:worktree-remove "name"
+
+```bash
+git worktree remove ../myapp-[name]
+```
 
 ---
 

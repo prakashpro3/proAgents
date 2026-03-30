@@ -25,7 +25,7 @@ standup:
 sprint_review:
   description: "Generate sprint review summary"
   steps:
-    - "Read all session summaries from ./.proagents/sessions/"
+    - "Read all session summaries from ./.proagents/worklog/"
     - "Read ./CHANGELOG.md for completed features"
     - "Generate sprint review with completed items, metrics, and highlights"
   output: "./.proagents/sprint-reviews/YYYY-MM-DD.md"

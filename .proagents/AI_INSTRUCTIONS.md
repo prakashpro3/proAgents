@@ -470,6 +470,21 @@ Auto-detect issue numbers from user input and include in changelog:
 
 ---
 
+## Smart Workflow & Worktrees
+
+For smart workflow mode and worktree management:
+
+**See:** `./.proagents/prompts/11-session-tracking.md`
+
+### Quick Reference
+
+| Feature | Description |
+|---------|-------------|
+| Smart Workflow | Small task → auto branch, Large task → ask user |
+| Worktrees | Isolated directories for large/parallel tasks |
+
+---
+
 ## Command Quick Reference
 
 ### Aliases
@@ -591,6 +606,13 @@ Auto-detect issue numbers from user input and include in changelog:
 | `pa:changelog-feature X` | View feature changelog |
 | `pa:changelog-module X` | View module changelog |
 | `pa:error "desc"` | Log error and solution |
+
+### Worktree Commands
+| Command | Action |
+|---------|--------|
+| `pa:worktree-create "name"` | Create worktree for large task |
+| `pa:worktree-list` | List all active worktrees |
+| `pa:worktree-remove "name"` | Remove worktree after merge |
 
 ### Configuration
 | Command | Action |
@@ -762,6 +784,9 @@ ProAgents Help
     pa:resume             Quick resume with next action
     pa:handoff            Create handoff notes
     pa:conflict-check     Check for conflicts
+    pa:worktree-create    Create worktree for large task
+    pa:worktree-list      List all active worktrees
+    pa:worktree-remove    Remove worktree after merge
 
   Learning & Tracking:
     pa:feedback "text"    Log feedback for AI learning
