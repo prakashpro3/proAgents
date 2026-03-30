@@ -503,6 +503,7 @@ For smart workflow mode and worktree management:
 | `pa:rev` | `pa:review` |
 | `pa:dbg` | `pa:debug` |
 | `pa:l` | `pa:logs` |
+| `pa:c` | `pa:commit` |
 
 ### Core Commands
 | Command | Action |
@@ -713,6 +714,8 @@ When user types a `pa:` command:
 | `pa:ai-add` | `./prompts/ai-add.md` |
 | `pa:ai-remove` | `./prompts/ai-remove.md` |
 | `pa:ai-sync` | `./prompts/ai-sync.md` |
+| `pa:commit` | `./prompts/13-commit.md` |
+| `pa:commit-config` | `./prompts/13-commit.md` |
 
 ---
 

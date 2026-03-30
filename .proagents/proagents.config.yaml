@@ -40,6 +40,27 @@ git:
   commit_convention: "conventional"  # conventional | simple | custom
   require_pr: true
 
+  # Pre-commit checks for pa:commit
+  pre_commit:
+    enabled: true           # Master toggle for pre-commit checks
+    lint: true              # Run linter before commit
+    type_check: true        # Run type checker before commit
+    test_affected: false    # Run tests for changed files
+
+  # Safety warnings for pa:commit
+  safety:
+    warn_main_branch: true      # Warn if committing to main/master
+    warn_sensitive_files: true  # Warn for .env, credentials, etc.
+    warn_large_files: true      # Warn if file > threshold
+    large_file_threshold: 1048576  # 1MB in bytes
+    sensitive_patterns:
+      - ".env*"
+      - "credentials*"
+      - "secrets*"
+      - "*.pem"
+      - "*.key"
+      - "id_rsa*"
+
 # Workflow Configuration
 # Controls how AI handles task size and worktrees
 workflow:

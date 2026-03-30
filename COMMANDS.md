@@ -503,6 +503,9 @@ Type these in any AI assistant (Claude, ChatGPT, Gemini, Cursor, etc.)
 
 | Command | Description |
 |---------|-------------|
+| `pa:commit` | Smart commit with file selection and message generation |
+| `pa:c` | Alias for pa:commit |
+| `pa:commit-config` | Configure pre-commit checks (lint, type-check, tests) |
 | `pa:branch` | Branch management |
 | `pa:merge` | Smart merge with conflict preview |
 | `pa:conflict` | Resolve merge conflicts with AI |
