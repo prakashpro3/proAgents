@@ -4,6 +4,26 @@ Interactive commit with file selection, safety checks, and smart message generat
 
 ---
 
+## CRITICAL RULES - READ FIRST
+
+```
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!                                                        !!
+!!  THIS IS AN INTERACTIVE COMMAND                        !!
+!!                                                        !!
+!!  YOU MUST ASK USER AND WAIT FOR RESPONSE AT EACH STEP  !!
+!!                                                        !!
+!!  DO NOT:                                               !!
+!!  - Skip steps                                          !!
+!!  - Assume user choices                                 !!
+!!  - Commit without explicit user confirmation           !!
+!!  - Modify config without user selection                !!
+!!                                                        !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+```
+
+---
+
 ## Commands
 
 | Command | Alias | Description |
@@ -13,10 +33,11 @@ Interactive commit with file selection, safety checks, and smart message generat
 
 ---
 
-## pa:commit Workflow
+# pa:commit Workflow
 
-### Step 1: Show Current State
+## Step 1: Show Current State and ASK
 
+First, run these commands silently:
 ```bash
 git status --porcelain
 git diff --stat
@@ -24,356 +45,382 @@ git diff --cached --stat
 git branch --show-current
 ```
 
-### Step 2: Present File Selection
+Then DISPLAY this to user and WAIT for their choice:
 
 ```
 ═══════════════════════════════════════
 SMART COMMIT
 
-Current Changes:
-  Staged (2):
-    + src/auth/login.ts (+15, -3)
-    + src/utils/hash.ts (+8, -0)
+Current Branch: [branch name]
 
-  Unstaged (3):
-    - src/api/users.ts (+22, -5)
-    - tests/auth.test.ts (+45, -0)
-    - README.md (+3, -1)
+Staged Files:
+  [list staged files with +/- lines]
 
-Which files to commit?
-  [1] Staged only (2 files)
-  [2] Unstaged only (3 files)
-  [3] All changes (5 files)
-  [4] Select specific files
+Unstaged Files:
+  [list unstaged files with +/- lines]
 
-Choice: _
+Untracked Files:
+  [list new files]
+
+Which files do you want to commit?
+
+  1. Staged only
+  2. Unstaged only
+  3. All changes
+  4. Let me select specific files
+
+Enter choice (1-4):
 ═══════════════════════════════════════
 ```
 
-### Step 3: Ask for Exclusions
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
+
+---
+
+## Step 1b: Handle "Select Specific Files" (Option 4)
+
+**ONLY if user chose option 4**, show numbered list of ALL files:
 
 ```
-Exclude any files? (comma-separated paths or "none")
-> _
+═══════════════════════════════════════
+SELECT FILES TO COMMIT
+
+  1. AGENTS.md (+1, -1)
+  2. CLAUDE.md (+1, -1)
+  3. docs/releases/v0.0.1.md (+4, -1)
+  4. ios/IQAuditor.xcodeproj/project.pbxproj (+16, -10)
+  5. android/app/release/app-release.aab (new, 97MB)
+
+Enter file numbers to INCLUDE (comma-separated):
+Example: 1,2,3 or 1-3 or all
+
+═══════════════════════════════════════
 ```
 
-### Step 4: Safety Checks
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
-Run these checks in order. Stop at first warning.
+After user provides numbers, those are the ONLY files to commit.
+**SKIP Step 2** (exclusions) since user already selected specific files.
+Proceed directly to Step 3 (Safety Checks).
 
-#### 4a. Branch Check
+---
 
-If on `main` or `master`:
+## Step 2: Ask About Exclusions
+
+**SKIP this step if user chose option 4 in Step 1.**
+
+Only for options 1, 2, or 3, ASK:
 
 ```
-WARNING: You are on 'main' branch!
+Any files to EXCLUDE from this commit?
 
-[1] Create new branch and commit there
-[2] Continue on main (not recommended)
-[3] Cancel
+Enter file paths (comma-separated) or "none":
 ```
 
-If user chooses [1], ask for branch name:
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
+
+---
+
+## Step 3: Safety Checks
+
+### 3a. Branch Check
+
+If current branch is `main` or `master`, STOP and ASK:
+
 ```
-Branch name: fix/
-> _
+WARNING: You are committing to 'main' branch!
+
+What do you want to do?
+
+  1. Create a new branch first
+  2. Continue on main anyway
+  3. Cancel
+
+Enter choice (1-3):
 ```
 
-Then create branch: `git checkout -b [name]`
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
-#### 4b. Sensitive File Check
+If user chose 1, ASK for branch name:
+```
+Enter new branch name (e.g., fix/bug-name):
+```
 
-Check selected files against patterns:
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
+
+### 3b. Sensitive File Check
+
+Check if any selected file matches:
 - `.env*`
-- `credentials*`
-- `secrets*`
-- `*.pem`, `*.key`
-- `id_rsa*`
+- `credentials*`, `secrets*`
+- `*.pem`, `*.key`, `id_rsa*`
 
-If match found:
+If found, STOP and ASK:
+
 ```
-WARNING: Sensitive file detected!
-  - .env.local (may contain secrets)
-  - config/credentials.json
+WARNING: Sensitive file(s) detected!
 
-[1] Exclude these files and continue
-[2] Commit anyway (not recommended)
-[3] Cancel
+  - .env.local
+  - config/secrets.json
+
+These files may contain secrets. What do you want to do?
+
+  1. Exclude these files and continue
+  2. Commit anyway (not recommended)
+  3. Cancel
+
+Enter choice (1-3):
 ```
 
-#### 4c. Large File Check
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
-Check if any file > 1MB (1048576 bytes):
+### 3c. Large File Check
+
+Check if any file > 1MB. If found, STOP and ASK:
 
 ```
 WARNING: Large file detected!
-  - assets/demo.mp4 (25.3 MB)
 
-Consider using Git LFS for large files.
+  - assets/video.mp4 (15.2 MB)
 
-[1] Exclude and continue
-[2] Commit anyway
-[3] Cancel
+Large files can slow down your repository.
+
+  1. Exclude this file
+  2. Commit anyway
+  3. Cancel
+
+Enter choice (1-3):
 ```
 
-### Step 5: Pre-commit Checks (if enabled)
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
-Check `proagents.config.yaml` → `git.pre_commit.enabled`:
+---
 
-```bash
-# If lint: true
-npm run lint -- --fix
+## Step 4: Generate Message and ASK
 
-# If type_check: true
-npm run type-check
-
-# If test_affected: true
-npm test -- --findRelatedTests [changed files]
-```
-
-If checks fail:
-```
-Pre-commit check failed:
-
-  ESLint: 2 errors in src/api/users.ts
-    Line 15: 'foo' is defined but never used
-    Line 23: Missing semicolon
-
-Options:
-  [1] Fix and retry
-  [2] Skip checks and commit anyway
-  [3] Cancel
-
-Choice: _
-```
-
-### Step 6: Generate Commit Message
-
-Analyze diff and generate conventional commit:
+Analyze the diff and generate a commit message. Then SHOW and ASK:
 
 ```
 ═══════════════════════════════════════
 SUGGESTED COMMIT MESSAGE
 
-feat(auth): Add password hashing to login flow
+[type]([scope]): [description]
 
-- Add bcrypt validation in login.ts
-- Create hash utility function
+- [bullet point 1]
+- [bullet point 2]
 
 ═══════════════════════════════════════
 
-Options:
-  [1] Use this message
-  [2] Edit message
-  [3] Write custom message
-  [4] Cancel
+What do you want to do?
 
-Choice: _
+  1. Use this message
+  2. Edit this message (tell me what to change)
+  3. I'll write my own message
+  4. Cancel
+
+Enter choice (1-4):
 ```
 
-If [2] Edit message:
-- Show current message
-- AI makes suggested edits based on user feedback
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
-If [3] Custom message:
+If user chose 2:
 ```
-Enter commit message:
-> _
+What would you like to change in the message?
+```
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
+
+If user chose 3:
+```
+Enter your commit message:
+```
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
+
+---
+
+## Step 5: Confirm Before Commit
+
+Before executing, show summary and ASK:
+
+```
+═══════════════════════════════════════
+COMMIT SUMMARY
+
+Files to commit:
+  - file1.ts
+  - file2.ts
+
+Message:
+  feat(auth): Add password validation
+
+Proceed with commit?
+
+  1. Yes, commit now
+  2. No, cancel
+
+Enter choice (1-2):
+═══════════════════════════════════════
 ```
 
-### Step 7: Execute Commit
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
+---
+
+## Step 6: Execute and Ask About Push
+
+Only after user confirms, execute:
 ```bash
 git add [selected files]
-git commit -m "$(cat <<'EOF'
-[commit message]
-EOF
-)"
+git commit -m "[message]"
 ```
 
-Show result:
-```
-Committed: abc1234
-
-  feat(auth): Add password hashing to login flow
-
-  2 files changed, 23 insertions(+), 3 deletions(-)
-```
-
-### Step 8: Push Option
+Then show result and ASK:
 
 ```
-[1] Push now
-[2] Done (push later)
+Commit successful! [commit hash]
 
-Choice: _
+  [commit message]
+
+  [X] files changed, [+] insertions, [-] deletions
+
+Do you want to push now?
+
+  1. Yes, push to remote
+  2. No, I'll push later
+
+Enter choice (1-2):
 ```
 
-If [1] Push:
-```bash
-git push
-```
-
-Show result:
-```
-Pushed to origin/feature/auth-improvements
-```
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
 ---
 
-## Commit Message Generation
+# pa:commit-config Workflow
 
-### Type Detection
-
-| Files Changed | Suggested Type |
-|--------------|----------------|
-| New files only | feat |
-| Bug fix patterns | fix |
-| Test files only | test |
-| Docs/README only | docs |
-| Config files | chore |
-| Refactoring (no new features) | refactor |
-| Formatting only | style |
-
-### Scope Detection
-
-| File Path | Scope |
-|-----------|-------|
-| src/auth/*, **/auth/** | auth |
-| src/api/*, routes/* | api |
-| src/components/*, **/ui/** | ui |
-| src/services/* | services |
-| src/utils/*, lib/* | utils |
-| tests/*, **/*.test.* | test |
-| src/database/*, **/models/** | database |
-| docs/*, *.md (except README) | docs |
-
-### Message Format
+## CRITICAL: This is INTERACTIVE
 
 ```
-type(scope): Short description (max 72 chars)
-
-- Bullet point for each significant change
-- Keep bullets concise
-- Focus on "what" not "how"
-
-[Footer: Closes #123 or Refs #456]
+DO NOT modify config without asking user!
+DO NOT assume which settings to change!
+SHOW current settings and ASK what to toggle!
 ```
 
-### Examples
+## Step 1: Read and Display Current Config
 
-```
-feat(auth): Add password hashing to login flow
-
-- Add bcrypt validation in login handler
-- Create hash utility function
-- Add password strength validation
-
-Closes #123
-```
-
-```
-fix(api): Resolve timeout on large file uploads
-
-- Increase timeout from 30s to 120s
-- Add progress streaming for uploads > 10MB
-
-Refs #456
-```
-
----
-
-## pa:commit-config Workflow
-
-### Step 1: Read Current Config
-
-```bash
-cat proagents.config.yaml
-```
-
-Parse `git.pre_commit` and `git.safety` sections.
-
-### Step 2: Show Current Settings
+Read `proagents.config.yaml` and DISPLAY:
 
 ```
 ═══════════════════════════════════════
 COMMIT CONFIGURATION
 
+Current Settings:
+
 Pre-commit Checks:
-  [1] All checks: ON
-  [2] Lint: ON
-  [3] Type check: ON
-  [4] Test affected: OFF
+  1. [ON/OFF] Lint check
+  2. [ON/OFF] Type check
+  3. [ON/OFF] Test affected files
 
 Safety Warnings:
-  [5] Main branch warning: ON
-  [6] Sensitive file warning: ON
-  [7] Large file warning: ON
+  4. [ON/OFF] Warn on main/master branch
+  5. [ON/OFF] Warn on sensitive files
+  6. [ON/OFF] Warn on large files (>1MB)
 
-  [8] Done
+  7. Save and exit
 
-Toggle setting: _
+Which setting do you want to toggle? (1-7):
 ═══════════════════════════════════════
 ```
 
-### Step 3: Toggle Settings
+**>>> STOP HERE. WAIT FOR USER TO RESPOND. <<<**
 
-After each selection, update display and continue until [8] Done.
+## Step 2: Toggle and Show Updated
 
-### Step 4: Save and Confirm
+After user selects a number (1-6), toggle that setting and show updated list again.
 
-Update `proagents.config.yaml` with new values:
+Repeat until user selects 7 (Save and exit).
+
+## Step 3: Save and Confirm
+
+When user selects 7:
 
 ```
-Configuration updated:
-  pre_commit.lint: true
-  pre_commit.type_check: false
-  safety.warn_main_branch: true
+Saving configuration...
 
-Changes saved to proagents.config.yaml
+Updated settings:
+  - lint: true -> false
+  - type_check: true (unchanged)
+
+Configuration saved to proagents.config.yaml
 ```
 
 ---
 
-## Config Reference
+# Commit Message Rules
+
+## Types
+
+| Type | When to use |
+|------|-------------|
+| feat | New feature or functionality |
+| fix | Bug fix |
+| refactor | Code restructuring (no new feature) |
+| docs | Documentation only |
+| test | Adding or updating tests |
+| chore | Maintenance, dependencies |
+| style | Formatting, whitespace |
+
+## Scope Detection
+
+| File Path | Scope |
+|-----------|-------|
+| src/auth/* | auth |
+| src/api/*, routes/* | api |
+| src/components/* | ui |
+| src/services/* | services |
+| src/utils/*, lib/* | utils |
+| tests/* | test |
+
+## Format
+
+```
+type(scope): Short description (max 72 chars)
+
+- Bullet point for each change
+- Keep it concise
+```
+
+---
+
+# Config Reference
 
 ```yaml
-# In proagents.config.yaml
-
 git:
-  # Pre-commit checks
   pre_commit:
-    enabled: true           # Master toggle
-    lint: true              # Run linter
-    type_check: true        # Run type checker
-    test_affected: false    # Run tests for changed files
-
-  # Safety warnings
+    enabled: true
+    lint: true
+    type_check: true
+    test_affected: false
   safety:
-    warn_main_branch: true      # Warn if on main/master
-    warn_sensitive_files: true  # Warn for .env, credentials
-    warn_large_files: true      # Warn if file > threshold
-    large_file_threshold: 1048576  # 1MB in bytes
+    warn_main_branch: true
+    warn_sensitive_files: true
+    warn_large_files: true
+    large_file_threshold: 1048576
     sensitive_patterns:
       - ".env*"
       - "credentials*"
       - "secrets*"
       - "*.pem"
       - "*.key"
-      - "id_rsa*"
 ```
 
 ---
 
-## Quick Reference
+# Summary
 
-| Step | What Happens |
-|------|--------------|
-| 1 | Show staged/unstaged files |
-| 2 | User selects which files |
-| 3 | User excludes files (optional) |
-| 4 | Safety checks (branch, sensitive, large) |
-| 5 | Pre-commit checks (lint, types, tests) |
-| 6 | Generate/edit commit message |
-| 7 | Execute commit |
-| 8 | Offer to push |
+| Step | Action | Requires User Input? |
+|------|--------|---------------------|
+| 1 | Show files | YES - which files |
+| 2 | Exclusions | YES - any to exclude |
+| 3 | Safety checks | YES - if warnings |
+| 4 | Commit message | YES - use/edit/custom |
+| 5 | Confirm | YES - proceed? |
+| 6 | Push option | YES - push now? |

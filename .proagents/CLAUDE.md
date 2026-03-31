@@ -33,7 +33,7 @@ Commands that only READ, DISPLAY, or CONFIGURE:
 - **Skip AFTER step** - No logging needed
 
 **Examples:** `pa:help`, `pa:status`, `pa:progress`, `pa:history`,
-`pa:ai-*`, `pa:config-*`, `pa:sync`
+`pa:ai-*`, `pa:config-*`, `pa:sync`, `pa:commit`, `pa:commit-config`
 
 ### AFTER Workflow Commands (Auto-Log)
 
